@@ -1,14 +1,21 @@
 # 12팀 (진행중)
 
-### frontend
+## FE
 
-실행 `yarn dev`
-<br />
-`Local: 5173`
+#### 기술스택
+
+- TypeScript
+- React
+- StyleComponent
+- CSS
+
 <br />
 
-### backend
+## BE
 
-실행 `yarn start:dev`
-<br />
-`Local: 3000`
+#### 기술스택
+
+- JavaScirpt
+- node.js
+- mongoDB
+- express
