@@ -1,8 +1,9 @@
 const express = require("express");
-const cors = require('cors')
+const cors = require("cors");
 
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
+const postRouter = require("./routers/PostRouter");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // 라우팅
 app.use("/users", userAuthRouter);
+app.use(postRouter);
 
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");
