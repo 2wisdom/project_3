@@ -15,17 +15,17 @@ app.use(express.urlencoded({ extended: true }));
 
 // 라우팅
 app.use("/users", userAuthRouter);
-app.use(postRouter);
+app.use("/posts", postRouter);
 
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");
 });
 
+// 오류 처리 미들웨어 정의
+app.use(errorMiddleware);
+
 // app.get("*", (req, res) => {
 //   res.send("죄송합니다. 유효하지 않은 요청입니다.");
 // });
-
-// 오류 처리 미들웨어 정의
-app.use(errorMiddleware);
 
 exports.app = app;

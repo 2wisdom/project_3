@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { default: mongoose } = require("mongoose");
 
 function loginRequired(req, res, next) {
   // request 헤더로부터 authorization bearer 토큰을 받음.
@@ -19,7 +20,7 @@ function loginRequired(req, res, next) {
 
     // 토큰을 서명으로 확인
     const jwtDecoded = jwt.verify(userToken, secretKey);
-    const user_id = jwtDecoded.user_id;
+    const user_id = jwtDecoded.userId;
     req.currentUserId = user_id;
     next();
   } catch (error) {
