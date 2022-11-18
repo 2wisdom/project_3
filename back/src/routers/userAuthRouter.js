@@ -64,18 +64,33 @@ userAuthRouter.get("/:userId", async (req, res, next) => {
 // 유저 정보 업데이트
 userAuthRouter.patch("/:userId", async (req, res, next) => {
   try {
-    const userId = req.body.userId;
+    const { userId } = req.params;
     const password = req.body.password ?? null;
 
+    // 변경할 정보를 toUpdate에 초기화
     const toUpdate = { password };
 
+    // 서비스 파일에서 updateUser 함수 실행
     const updatedUser = await userAuthService.updateUser({ userId, toUpdate });
-
 
     // 서비스에서 에러가 있다면 에러 통보
     if (updatedUser.errorMessage) throw new Error("회원 정보 불러오기 실패");
 
     res.status(200).json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// 회원 탈퇴
+userAuthRouter.delete("/:userId", async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const deletedUser = await userAuthService.deleteUser(userId);
+
+    if (deletedUser.errorMessage) throw new Error("회원 삭제 실패");
+
+    res.status(200).json(deletedUser);
   } catch (err) {
     next(err);
   }

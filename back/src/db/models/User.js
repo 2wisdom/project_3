@@ -47,10 +47,12 @@ const User = {
     return user;
   },
 
+  // 회원 정보 수정 {유저고유 아이디, 변경할 항목, 변경될 데이터}
   update: async ({ userId, fieldToUpdate, newValue }) => {
 
     const filter = { _id: userId };
     const update = { [fieldToUpdate]: newValue }
+    // 업데이트 전 데이터를 리턴하지 말고 업데이트 후 데이터를 리턴
     const option = { returnOriginal: false };
 
 
@@ -60,6 +62,14 @@ const User = {
 
     return updatedUser;
   },
+  
+  // 회원 정보 삭제
+  delete: async (userId) => {
+    //_id 가 넘어온 유저 고유 아이디와 일치하는 데이터를 삭제
+    const deletedUserInfo = await UserModel.findByIdAndDelete({ _id: userId });
+    
+    return deletedUserInfo;
+  }
 };
 
 exports.User = User;
