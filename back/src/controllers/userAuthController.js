@@ -61,11 +61,14 @@ const userAuthController = {
 
   putUser: async (req, res, next) => {
     try {
+      console.log('이미지 확인: ', req.file);
       const { userId } = req.params;
       const password = req.body.password ?? null;
-  
+      const image = req.file ?? null;
+   
+
       // 변경할 정보를 toUpdate에 초기화
-      const toUpdate = { password };
+      const toUpdate = { password, imageUrl };
   
       // 서비스 파일에서 updateUser 함수 실행
       const updatedUser = await userAuthService.updateUserInfo({ userId, toUpdate });

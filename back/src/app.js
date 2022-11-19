@@ -1,14 +1,46 @@
 const express = require("express");
 const cors = require("cors");
-const multer  = require('multer')
+const multer = require("multer");
 
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const postRouter = require("./routers/PostRouter");
 
-const upload = multer({ dest: 'uploads/' })
 const app = express();
 
+// multer storage 설정
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // 저장 경로
+    cb(null, "./images");
+  },
+  // 파일 저장 이름
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + "-" + file.originalname);
+  },
+});
+
+// multer fileFilter 설정
+const fileFilter = (req, file, cb) => {
+  // png, jpg, jpeg 형식의 이미지만 허용
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+// multipart/form-data 형태의 데이터 해석
+app.use(
+  // name이 image인 인풋에서 받아온 이미지 하나를 storage에 저장
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+);
+
+// cors에러 해결
 app.use(cors());
 // application/json 형태의 데이터를 해석.
 app.use(express.json());
