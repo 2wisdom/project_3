@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+const multer  = require('multer')
 
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const postRouter = require("./routers/PostRouter");
 
+const upload = multer({ dest: 'uploads/' })
 const app = express();
 
 app.use(cors());

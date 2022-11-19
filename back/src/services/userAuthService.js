@@ -7,7 +7,7 @@ const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 
 const userAuthService = {
   // 회원가입
-  addUser: async (newUser) => {
+  addUserInfo: async (newUser) => {
     // .env 에서 암호화 난이도 가져오기
 
     // models 에서 데이터 찾기
@@ -70,7 +70,7 @@ const userAuthService = {
   },
 
   // 유저 정보 업데이트
-  updateUser: async ({ userId, toUpdate }) => {
+  updateUserInfo: async ({ userId, toUpdate }) => {
     let user = await User.findById({ userId });
 
     // 비밀번호 업데이트
@@ -86,7 +86,7 @@ const userAuthService = {
     return user;
   },
 
-  deleteUser: async (userId) => {
+  deleteUserInfo: async (userId) => {
     // models의 delete 함수 실행
     let user = await User.delete(userId);
 
