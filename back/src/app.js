@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 const express = require("express");
 const cors = require("cors");
@@ -18,7 +18,10 @@ const fileStorage = multer.diskStorage({
   },
   // 파일 저장 이름
   filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + "-" + file.originalname);
+    cb(
+      null,
+      new Date().toISOString() + "-" + file.originalname.replace(/ /g, "")
+    );
   },
 });
 
@@ -49,11 +52,8 @@ app.use(express.json());
 // application/x-www-form-urlencoded 형태의 데이터를 해석
 app.use(express.urlencoded({ extended: true }));
 
-
-// app.use("./images/userImages", express.static(path.join(__dirname, "images/userImages")));
-
-
-// app.use("/users", (req, res, next) => {console.log(`req 확인: `,req.body)});
+// 정적 파일 제공
+app.use("/images/userImages", express.static(path.join(__dirname, "images/userImages")));
 
 // 라우팅
 app.use("/users", userAuthRouter);

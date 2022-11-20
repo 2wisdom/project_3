@@ -91,7 +91,13 @@ const userAuthController = {
     try {
       const { userId } = req.params;
       const deletedUser = await userAuthService.deleteUserInfo(userId);
-  
+
+      console.log(`컨트롤 확인`, !deletedUser.errorMessage)
+
+      if (!deletedUser.errorMessage) {
+        console.log(`컨트롤 deletedUser.imageUrl:`,deletedUser.imageUrl);
+        await userAuthService.deleteUserImage(deletedUser.imageUrl);
+      }
       if (deletedUser.errorMessage) throw new Error("회원 삭제 실패");
   
       res.status(200).json(deletedUser);

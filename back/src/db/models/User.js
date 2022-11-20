@@ -75,6 +75,8 @@ const User = {
     //_id 가 넘어온 유저 고유 아이디와 일치하는 데이터를 삭제
     const deletedUserInfo = await UserModel.findByIdAndDelete({ _id: userId });
 
+    console.log(`모델 삭제 확인: `,deletedUserInfo);
+    
     return deletedUserInfo;
   },
 };

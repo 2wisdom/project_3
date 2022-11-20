@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -141,6 +143,16 @@ const userAuthService = {
     user.errorMessage = null;
 
     return user;
+  },
+
+  deleteUserImage: async (imageUrl) => {
+    console.log(`서비스 이미지 확인`, imageUrl);
+
+    fs.unlink(`../${imageUrl}`, (err) => {
+      if (err) {
+        throw new Error("이미지 삭제 실패");
+      }
+    });
   },
 };
 
