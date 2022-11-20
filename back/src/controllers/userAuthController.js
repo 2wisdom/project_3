@@ -4,7 +4,7 @@ const { loginRequired } = require("../middlewares/login_required");
 const { userAuthService } = require("../services/userAuthService");
 
 const userAuthController = {
-
+  //회원가입
   postAddUser: async (req, res, next) => {
     try {
       const { email, password, name } = req.body;
@@ -25,7 +25,7 @@ const userAuthController = {
       next(err);
     }
   },
-
+  // 로그인
   postLogin: async (req, res, next) => {
     try {
       const { email, password } = req.body;
@@ -41,7 +41,7 @@ const userAuthController = {
       next(err);
     }
   },
-
+  // 유저 정보 조회
   getUser: async (req, res, next) => {
     try {
       const { userId } = req.params;
@@ -58,14 +58,19 @@ const userAuthController = {
       next(err);
     }
   },
-
+  // 유저 정보 수정
   putUser: async (req, res, next) => {
     try {
-      console.log('이미지 확인: ', req.file);
+      // console.log('컨트롤에서 이미지 확인: ', req.file?.path);
+      // console.log('컨트롤에서 바디 확인: ', req.body);
+      // console.log('컨트롤에서 params 확인: ', req.params);
+
       const { userId } = req.params;
       const password = req.body.password ?? null;
-      const image = req.file ?? null;
-   
+      const imageUrl = req.file?.path ?? null;
+
+      // console.log('컨트롤에서 password 확인: ', password);
+      // console.log('컨트롤에서 imageUrl 확인: ', imageUrl);
 
       // 변경할 정보를 toUpdate에 초기화
       const toUpdate = { password, imageUrl };
@@ -81,7 +86,7 @@ const userAuthController = {
       next(err);
     }
   },
-
+  // 유저 정보 삭제
   deleteUser: async (req, res, next) => {
     try {
       const { userId } = req.params;

@@ -10,7 +10,7 @@ const userAuthService = {
   addUserInfo: async (newUser) => {
     // .env 에서 암호화 난이도 가져오기
 
-    // models 에서 데이터 찾기
+    // models 에서 데이터 찾기, 없다면 null을 return
     const userEmail = await User.findByEmail(newUser.email);
     if (userEmail) throw new Error("중복된 아이디입니다.");
 
@@ -73,11 +73,59 @@ const userAuthService = {
   updateUserInfo: async ({ userId, toUpdate }) => {
     let user = await User.findById({ userId });
 
-    // 비밀번호 업데이트
-    if (toUpdate.password) {
-      const fieldToUpdate = "password";
+    // console.log("서비스에서 fieldToUpdate 확인: ", toUpdate);
+    // console.log("서비스에서 user 확인: ", user);
+
+    // 비밀번호와 이미지 업데이트
+    if (toUpdate.password && toUpdate.imageUrl) {
+      // console.log('서비스의 if에서 fieldToUpdate 확인: ', toUpdate);
+      const fieldToUpdate = {};
+      const newValue = {};
+
+      fieldToUpdate.password = "password";
+      fieldToUpdate.imageUrl = "imageUrl";
       // 입력 받은 비밀번호 암호화
-      const newValue = await bcrypt.hash(toUpdate.password, SALT_ROUND);
+      newValue.password = await bcrypt.hash(toUpdate.password, SALT_ROUND);
+      newValue.imageUrl = toUpdate.imageUrl;
+
+      // console.log('서비스에서 fieldToUpdate 확인: ', fieldToUpdate);
+      // console.log('서비스에서 newValue 확인: ', newValue);
+
+      // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
+      user = await User.update({ userId, fieldToUpdate, newValue });
+    }
+
+    // 비밀번호만 업데이트
+    if (toUpdate.password) {
+      const fieldToUpdate = {};
+      const newValue = {};
+
+      fieldToUpdate.password = "password";
+      fieldToUpdate.imageUrl = "imageUrl";
+      // 입력 받은 비밀번호 암호화
+      newValue.password = await bcrypt.hash(toUpdate.password, SALT_ROUND);
+      newValue.imageUrl = user.imageUrl;
+
+      // console.log('서비스에서 fieldToUpdate 확인: ', fieldToUpdate);
+      // console.log('서비스에서 newValue 확인: ', newValue);
+
+      // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
+      user = await User.update({ userId, fieldToUpdate, newValue });
+    }
+
+    // 이미지만 업데이트
+    if (toUpdate.imageUrl) {
+      const fieldToUpdate = {};
+      const newValue = {};
+
+      fieldToUpdate.password = "password";
+      fieldToUpdate.imageUrl = "imageUrl";
+      // 입력 받은 비밀번호 암호화
+      newValue.password = await bcrypt.hash(user.password, SALT_ROUND);
+      newValue.imageUrl = toUpdate.imageUrl;
+
+      // console.log('서비스에서 fieldToUpdate 확인: ', fieldToUpdate);
+      // console.log('서비스에서 newValue 확인: ', newValue);
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });

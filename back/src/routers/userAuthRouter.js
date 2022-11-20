@@ -12,7 +12,7 @@ userAuthRouter.post("/login", userAuthController.postLogin);
 // 유저 정보 조회
 userAuthRouter.get("/:userId", userAuthController.getUser);
 
-// 유저 정보 업데이트
+// 유저 정보 수정, 업데이트
 userAuthRouter.put("/:userId", userAuthController.putUser);
 
 // 회원 탈퇴

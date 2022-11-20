@@ -26,9 +26,9 @@ const User = {
     // 생성과 수정 날짜 데이터를 제외한 _id, email, password, name만 user에 초기화
     let user = await UserModel.findOne(
       { email },
-      "_id email password name"
+      "_id email password name imageUrl"
+      // mongoose document를 필요한 javascript object로 반환
     ).lean();
-    // mongoose document를 필요한 javascript object로 반환
 
     // 고유 아이디 키 이름인 _id를 userId로 교체
     if (user) user = responseInfo(user);
@@ -38,9 +38,11 @@ const User = {
 
   // 고유 Id 로 데이터 검색
   findById: async (userId) => {
-
     // 생성과 수정 날짜 데이터를 제외한 _id, email, name만 user에 초기화
-    let user = await UserModel.findOne({ userId }, "_id email name").lean();
+    let user = await UserModel.findOne(
+      { userId },
+      "_id email password name imageUrl"
+    ).lean();
 
     if (user) user = responseInfo(user);
 
@@ -49,27 +51,32 @@ const User = {
 
   // 회원 정보 수정 {유저고유 아이디, 변경할 항목, 변경될 데이터}
   update: async ({ userId, fieldToUpdate, newValue }) => {
-
     const filter = { _id: userId };
-    const update = { [fieldToUpdate]: newValue }
+    const update = {
+      [fieldToUpdate.password]: newValue.password,
+      [fieldToUpdate.imageUrl]: newValue.imageUrl,
+    };
+
     // 업데이트 전 데이터를 리턴하지 말고 업데이트 후 데이터를 리턴
     const option = { returnOriginal: false };
 
+    let updatedUser = await UserModel.findOneAndUpdate(
+      filter,
+      update,
+      option
+    ).lean();
 
-    let updatedUser = await UserModel.findOneAndUpdate(filter, update, option).lean();
-    
-
-
+    // console.log(`모델에서 update 확인`, updatedUser);
     return updatedUser;
   },
-  
+
   // 회원 정보 삭제
   delete: async (userId) => {
     //_id 가 넘어온 유저 고유 아이디와 일치하는 데이터를 삭제
     const deletedUserInfo = await UserModel.findByIdAndDelete({ _id: userId });
-    
+
     return deletedUserInfo;
-  }
+  },
 };
 
 exports.User = User;

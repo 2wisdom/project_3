@@ -23,6 +23,9 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    imageUrl: {
+      type: String,
+    },
   },
   {
     // 생성, 수정 시간 자동으로 기록
