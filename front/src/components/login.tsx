@@ -17,7 +17,7 @@ interface LoginData = {
 
 
 const Login = () => {
-
+  const [userData, setUserData] = useState({ id: "" })
   const [id, setId] = useState("");
   const [password, setpassword] = useState("");
 
