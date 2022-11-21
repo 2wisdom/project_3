@@ -64,15 +64,10 @@ const userAuthService = {
       issuer: "team12",
     });
 
-    // console.log(`유저 서비스 확인0: `, refreshToken)
-
     const newToken = { refreshToken: refreshToken, userId: userInfo.userId };
-
-    // console.log(`유저 서비스 확인1: `, newToken)
 
     const createdNewTokenInfo = await Token.create(newToken);
     let = refreshToken = createdNewTokenInfo.refreshToken;
-    // console.log(`유저 서비스 확인`, createdNewTokenInfo.refreshToken)
 
     const { userId, name } = userInfo;
 
@@ -97,12 +92,8 @@ const userAuthService = {
   updateUserInfo: async ({ userId, toUpdate }) => {
     let user = await User.findById({ userId });
 
-    // console.log("서비스에서 fieldToUpdate 확인: ", toUpdate);
-    // console.log("서비스에서 user 확인: ", user);
-
     // 비밀번호와 이미지 업데이트
     if (toUpdate.password && toUpdate.imageUrl) {
-      // console.log('서비스의 if에서 fieldToUpdate 확인: ', toUpdate);
       const fieldToUpdate = {};
       const newValue = {};
 
@@ -111,9 +102,6 @@ const userAuthService = {
       // 입력 받은 비밀번호 암호화
       newValue.password = await bcrypt.hash(toUpdate.password, SALT_ROUND);
       newValue.imageUrl = toUpdate.imageUrl;
-
-      // console.log('서비스에서 fieldToUpdate 확인: ', fieldToUpdate);
-      // console.log('서비스에서 newValue 확인: ', newValue);
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
@@ -130,9 +118,6 @@ const userAuthService = {
       newValue.password = await bcrypt.hash(toUpdate.password, SALT_ROUND);
       newValue.imageUrl = user.imageUrl;
 
-      // console.log('서비스에서 fieldToUpdate 확인: ', fieldToUpdate);
-      // console.log('서비스에서 newValue 확인: ', newValue);
-
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
     }
@@ -147,9 +132,6 @@ const userAuthService = {
       // 입력 받은 비밀번호 암호화
       newValue.password = await bcrypt.hash(user.password, SALT_ROUND);
       newValue.imageUrl = toUpdate.imageUrl;
-
-      // console.log('서비스에서 fieldToUpdate 확인: ', fieldToUpdate);
-      // console.log('서비스에서 newValue 확인: ', newValue);
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
@@ -168,11 +150,6 @@ const userAuthService = {
   },
 
   deleteUserImage: async (imageUrl) => {
-    console.log(
-      `서비스 이미지 확인`,
-      `/Volumes/projets/elice/projects/third-project-team12/team12/back/${imageUrl}`
-    );
-
     fs.unlink(
       `/Volumes/projets/elice/projects/third-project-team12/team12/back/${imageUrl}`,
       (err) => {

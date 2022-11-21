@@ -60,16 +60,9 @@ const userAuthController = {
   // 유저 정보 수정
   putUser: async (req, res, next) => {
     try {
-      // console.log('컨트롤에서 이미지 확인: ', req.file?.path);
-      // console.log('컨트롤에서 바디 확인: ', req.body);
-      // console.log('컨트롤에서 params 확인: ', req.params);
-
       const { userId } = req.params;
       const password = req.body.password ?? null;
       const imageUrl = req.file?.path ?? null;
-
-      // console.log('컨트롤에서 password 확인: ', password);
-      // console.log('컨트롤에서 imageUrl 확인: ', imageUrl);
 
       // 변경할 정보를 toUpdate에 초기화
       const toUpdate = { password, imageUrl };
@@ -94,11 +87,7 @@ const userAuthController = {
       const { userId } = req.params;
       const deletedUser = await userAuthService.deleteUserInfo(userId);
 
-      console.log(`컨트롤 확인`, !deletedUser.errorMessage);
-
       if (!deletedUser.errorMessage && deletedUser.imageUrl) {
-        console.log(`컨트롤 deletedUser.imageUrl:`, deletedUser.imageUrl);
-
         await userAuthService.deleteUserImage(deletedUser.imageUrl);
       }
       if (deletedUser.errorMessage) throw new Error("회원 삭제 실패");

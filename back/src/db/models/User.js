@@ -12,8 +12,6 @@ const responseInfo = (userInfo) => {
 const User = {
   // 회원가입
   create: async (newUser) => {
-    // console.log(`유저 모델 create 확인: `, newUser)
-
     // newUser을 몽고디비에 생성
     let createdNewUser = await UserModel.create(newUser);
 
@@ -68,7 +66,6 @@ const User = {
       option
     ).lean();
 
-    // console.log(`모델에서 update 확인`, updatedUser);
     return updatedUser;
   },
 
@@ -77,8 +74,6 @@ const User = {
     //_id 가 넘어온 유저 고유 아이디와 일치하는 데이터를 삭제
     const deletedUserInfo = await UserModel.findByIdAndDelete({ _id: userId });
 
-    console.log(`모델 삭제 확인: `,deletedUserInfo);
-    
     return deletedUserInfo;
   },
 };
