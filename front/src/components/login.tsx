@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import create from 'zustand'
-import * as Api from "../../api/Api";
+import * as Api from "/../api/Api";
 
 interface LoginData = {
   id: string;
