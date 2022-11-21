@@ -39,6 +39,9 @@ const Post = {
     return PostModel.findOne({ _id: id });
   },
 
+  /**
+   * 포스트를 수정한다
+   */
   update: (post) => {
     if (!post._id) {
       throw Error(JSON.stringify({ message: "post._id is required" }, null, 2));
@@ -53,6 +56,9 @@ const Post = {
     );
   },
 
+  /**
+   * 포스트를 삭제한다
+   */
   delete: (id) => {
     if (!id) {
       throw new Error({ message: "id is required" });

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
+
 const Types = mongoose.Types;
 
 const PostSchema = new mongoose.Schema(
@@ -17,9 +18,13 @@ const PostSchema = new mongoose.Schema(
       required: true,
     },
     author: {
+      type: String,
       required: true,
       ref: "User",
+    },
+    imageURL: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }
