@@ -1,6 +1,7 @@
 const express = require("express");
 const userAuthRouter = express.Router();
 
+const { loginRequired } = require("../middlewares/login_required");
 const { userAuthController } = require("../controllers/userAuthController");
 
 // 회원가입

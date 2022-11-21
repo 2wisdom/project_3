@@ -12,6 +12,8 @@ const responseInfo = (userInfo) => {
 const User = {
   // 회원가입
   create: async (newUser) => {
+    // console.log(`유저 모델 create 확인: `, newUser)
+
     // newUser을 몽고디비에 생성
     let createdNewUser = await UserModel.create(newUser);
 

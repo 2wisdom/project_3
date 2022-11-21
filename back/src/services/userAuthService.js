@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const { User } = require("../db/models/User");
+const { Token } = require("../db/models/Token");
 
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 
@@ -50,12 +51,33 @@ const userAuthService = {
     // .env 에서 jwt 서명 받아옴
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
 
-    // 유저 정보 고유 아이디와 jwt 서명을 사용하여 jwt 토큰 생성
-    const token = jwt.sign({ userId: userInfo.userId }, secretKey);
+    // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
+    let refreshToken = jwt.sign({}, secretKey, {
+      expiresIn: "7d",
+      issuer: "team12",
+    });
+
+    // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
+    const accessToken = jwt.sign({ userId: userInfo.userId }, secretKey, {
+      // 토큰 유효 기간, 발행자
+      expiresIn: "1h",
+      issuer: "team12",
+    });
+
+    // console.log(`유저 서비스 확인0: `, refreshToken)
+
+    const newToken = { refreshToken: refreshToken, userId: userInfo.userId };
+
+    // console.log(`유저 서비스 확인1: `, newToken)
+
+    const createdNewTokenInfo = await Token.create(newToken);
+    let = refreshToken = createdNewTokenInfo.refreshToken;
+    // console.log(`유저 서비스 확인`, createdNewTokenInfo.refreshToken)
+
     const { userId, name } = userInfo;
 
     // 토큰, 고유아이디, 이메일, 이름
-    const loginUser = { token, userId, email, name };
+    const loginUser = { refreshToken, accessToken, userId, email, name };
 
     loginUser.errorMessage = null;
 
@@ -146,13 +168,19 @@ const userAuthService = {
   },
 
   deleteUserImage: async (imageUrl) => {
-    console.log(`서비스 이미지 확인`, imageUrl);
+    console.log(
+      `서비스 이미지 확인`,
+      `/Volumes/projets/elice/projects/third-project-team12/team12/back/${imageUrl}`
+    );
 
-    fs.unlink(`../${imageUrl}`, (err) => {
-      if (err) {
-        throw new Error("이미지 삭제 실패");
+    fs.unlink(
+      `/Volumes/projets/elice/projects/third-project-team12/team12/back/${imageUrl}`,
+      (err) => {
+        if (err) {
+          throw new Error("이미지 삭제 실패");
+        }
       }
-    });
+    );
   },
 };
 

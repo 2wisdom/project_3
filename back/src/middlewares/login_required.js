@@ -2,11 +2,15 @@ const jwt = require("jsonwebtoken");
 const { default: mongoose } = require("mongoose");
 
 function loginRequired(req, res, next) {
-  // request 헤더로부터 authorization bearer 토큰을 받음.
-  const userToken = req.headers["authorization"]?.split(" ")[1] ?? "null";
 
-  // 이 토큰은 jwt 토큰 문자열이거나, 혹은 "null" 문자열임.
-  // 토큰이 "null" 일 경우, login_required 가 필요한 서비스 사용을 제한함.
+  // console.log(`로그인 리콰어드 확인0:`, req.headers);
+
+  // request 헤더로부터 authorization bearer 토큰을 받음. authorization: 'Bearer 토큰' 
+  const userToken = req.headers["authorization"]?.split(" ")[1] ?? "null";
+  
+  // console.log(`로그인 리콰어드 확인1:`, userToken)
+
+  // 이 토큰은 jwt 토큰 문자열이거나, 혹은 "null" 문자열임. 토큰이 "null" 일 경우, login_required 가 필요한 서비스 사용을 제한함.
   if (userToken === "null") {
     console.log("서비스 사용 요청이 있습니다.하지만, Authorization 토큰: 없음");
     res.status(400).send("로그인한 유저만 사용할 수 있는 서비스입니다.");
@@ -18,10 +22,14 @@ function loginRequired(req, res, next) {
     // .env 에서 jwt 서명 가져오기
     const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
 
-    // 토큰을 서명으로 확인
+    // 토큰을 서명으로 확인, 디코딩
     const jwtDecoded = jwt.verify(userToken, secretKey);
+
+    // console.log(`로그인 리콰어드 확인2:`, jwtDecoded)
+
     const user_id = jwtDecoded.userId;
     req.currentUserId = user_id;
+    
     next();
   } catch (error) {
     res.status(400).send("정상적인 토큰이 아닙니다. 다시 한 번 확인해 주세요.");
