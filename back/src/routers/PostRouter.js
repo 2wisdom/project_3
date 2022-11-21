@@ -2,7 +2,6 @@ const express = require("express");
 const Post = require("../db/models/Post");
 const { loginRequired } = require("../middlewares/login_required");
 const { postController } = require("../controllers/postController");
-
 const postRouter = express.Router();
 
 /**

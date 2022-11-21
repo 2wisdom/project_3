@@ -1,6 +1,5 @@
 const express = require("express");
 const Post = require("../db/models/Post");
-const { loginRequired } = require("../middlewares/login_required");
 
 const postController = {
   // 전체 게시글 조회
