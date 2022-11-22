@@ -14,7 +14,7 @@ const app = express();
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     // 저장 경로
-    cb(null, "./src/images/userImages");
+    cb(null, "./public/images");
   },
   // 파일 저장 이름
   filename: (req, file, cb) => {
