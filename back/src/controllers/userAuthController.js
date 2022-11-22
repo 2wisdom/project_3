@@ -8,12 +8,13 @@ const userAuthController = {
   postAddUser: async (req, res, next) => {
     try {
       const { email, password, name } = req.body;
-
+      const imageUrl = 'leafGaeMoYa.png'
       // 서비스 파일에서 addUser 함수 실행
       const userInfo = await userAuthService.addUserInfo({
         email,
         password,
         name,
+        imageUrl,
       });
 
       // 서비스에서 에러가 있다면 에러 통보

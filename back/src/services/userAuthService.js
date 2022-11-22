@@ -91,7 +91,7 @@ const userAuthService = {
   updateUserInfo: async ({ userId, toUpdate }) => {
     let user = await User.findById({ userId });
 
-    const oldImageUrl = user.imageUrl
+    const oldImageUrl = user.imageUrl;
 
     // 비밀번호와 이미지 업데이트
     if (toUpdate.password && toUpdate.imageUrl) {
@@ -106,11 +106,11 @@ const userAuthService = {
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
-      deleteUserImage(oldImageUrl);
+        await deleteUserImage(oldImageUrl);
     }
 
     // 비밀번호만 업데이트
-    if (toUpdate.password) {
+    if (toUpdate.password && !toUpdate.imageUrl) {
       const fieldToUpdate = {};
       const newValue = {};
 
@@ -125,7 +125,7 @@ const userAuthService = {
     }
 
     // 이미지만 업데이트
-    if (toUpdate.imageUrl) {
+    if (toUpdate.imageUrl && !toUpdate.password) {
       const fieldToUpdate = {};
       const newValue = {};
 
@@ -137,7 +137,7 @@ const userAuthService = {
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
-      deleteUserImage(oldImageUrl);
+      await deleteUserImage(oldImageUrl);
     }
 
     return user;
