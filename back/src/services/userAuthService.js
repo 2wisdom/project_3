@@ -59,7 +59,7 @@ const userAuthService = {
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
     const accessToken = jwt.sign({ userId: userInfo.userId }, secretKey, {
       // 토큰 유효 기간, 발행자
-      expiresIn: "1h",
+      expiresIn: "3s",
       issuer: "team12",
     });
 
@@ -106,7 +106,7 @@ const userAuthService = {
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
-        await deleteUserImage(oldImageUrl);
+      await deleteUserImage(oldImageUrl);
     }
 
     // 비밀번호만 업데이트
