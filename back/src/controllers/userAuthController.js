@@ -1,6 +1,7 @@
 const express = require("express");
 
 const { userAuthService } = require("../services/userAuthService");
+const { deleteUserImage } = require("../middlewares/deleteImage");
 
 const userAuthController = {
   //회원가입
@@ -88,7 +89,7 @@ const userAuthController = {
       const deletedUser = await userAuthService.deleteUserInfo(userId);
 
       if (!deletedUser.errorMessage && deletedUser.imageUrl) {
-        await userAuthService.deleteUserImage(deletedUser.imageUrl);
+        await deleteUserImage(deletedUser.imageUrl);
       }
       if (deletedUser.errorMessage) throw new Error("회원 삭제 실패");
 

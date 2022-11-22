@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -147,17 +145,6 @@ const userAuthService = {
     user.errorMessage = null;
 
     return user;
-  },
-
-  deleteUserImage: async (imageUrl) => {
-    fs.unlink(
-      `/Volumes/projets/elice/projects/third-project-team12/team12/back/${imageUrl}`,
-      (err) => {
-        if (err) {
-          throw new Error("이미지 삭제 실패");
-        }
-      }
-    );
   },
 };
 
