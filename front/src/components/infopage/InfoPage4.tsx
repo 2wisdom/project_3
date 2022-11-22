@@ -1,19 +1,17 @@
 import InfoPageRoot from "../../styles/MainPage/InfoPageRoot";
 import InfoPageContainer from "../../styles/MainPage/InfoPageContainer";
-
-
-const MainPage2 = () => {
+const InfoPage4 = () => {
   return (
     <>
      <InfoPageRoot>
       <InfoPageContainer>
-      <div className="MainPage2">
-        <p>메인페이지2</p>
+      <div className="MainPage1">
+        <p>메인페이지4</p>
       </div>
       </InfoPageContainer>
-      </InfoPageRoot>
+    </InfoPageRoot>
     </>
   );
 };
 
-export default MainPage2;
+export default InfoPage4;
