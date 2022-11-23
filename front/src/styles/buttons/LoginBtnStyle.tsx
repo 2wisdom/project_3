@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 const LoginBtnStyle = styled.button`
+    width:7rem;
+    height:4rem;
     color:#3278E4;
     position: relative;
-    padding: 10px;
-    font-size:12px;
+    font-size:1.3em;
     font-weight:bold;
     background-color : #FFFFFF;
     decoration : none;
