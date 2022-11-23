@@ -1,5 +1,6 @@
 const express = require("express");
 const Post = require("../db/models/Post");
+const os = require("os");
 
 const postController = {
   // 전체 게시글 조회
@@ -27,6 +28,34 @@ const postController = {
     ]);
 
     return res.json(post);
+  },
+
+  // 이미지 업로드
+  uploadImage: async (req, res) => {
+    if (!req.headers["content-type"].startsWith("multipart/form-data")) {
+      throw Error({ message: "Content-Type once multipart/form-data" });
+    }
+
+    const isWindow = os.platform() === "win32";
+
+    const url = `${req.protocol}://${req.hostname}${
+      parseInt(process.env.SERVER_PORT, 10) === 80
+        ? ""
+        : `:${process.env.SERVER_PORT}`
+    }`;
+
+    let path = req.file.path;
+
+    // support window
+    if (isWindow) {
+      path = path.split("\\").join("/");
+    }
+
+    const resolveUrl = `${url}/${path}`;
+
+    return res.json({
+      url: resolveUrl,
+    });
   },
 
   // 게시글 작성

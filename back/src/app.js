@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 
 const express = require("express");
 const cors = require("cors");
@@ -10,7 +11,6 @@ const postRouter = require("./routers/PostRouter");
 
 const app = express();
 
-// multer storage 설정
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     // 저장 경로
@@ -53,7 +53,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // 정적 파일 제공
-app.use("/images/userImages", express.static(path.join(__dirname, "images/userImages")));
+app.use("/images", express.static(path.join(__dirname, "..", "images")));
 
 // 라우팅
 app.use("/users", userAuthRouter);
