@@ -4,13 +4,15 @@ import LoginBtn from './buttons/LoginBtn';
 import Nav from "../styles/Nav.module.css"
 const NavBar = () => {
     const navigate = useNavigate();
+    console.log('Nav',Nav);
+    console.log('Nav.logoTitle',Nav.logoTitle);
     return(
         <>
-        <div className="nav">
-            <div className='navContainer'>
-            <a className='logo' onClick={() => {
+        <div className={Nav.nav}>
+            <div className={Nav.navContainer}>
+            <a className={Nav.logo} onClick={() => {
                 navigate("/");
-            }}><p className="logoTitle">잎게뭐야</p></a>
+            }}><p className={Nav.logoTitle}>잎게뭐야</p></a>
             <ul>
                 <li className="navItem"><p>잎게뭐야 소개</p></li>
                 <li className="navItem">식물 찾기</li>
