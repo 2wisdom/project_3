@@ -39,7 +39,7 @@ const MainPage = () => {
                     <div className={Info1.sub1}>
                     <div className={Info1.subRight}>
                         <p className={Info1.subTitle2}>내가 찍은 사진을 자랑하고 싶다면?</p>
-                        <button type='button' className={Info1.yellowBtn}>자랑하기</button>
+                        <button type='button' className={Info1.yellowBtn3}>자랑하기</button>
                         </div>
                         <div className={Info1.subImage2}></div>
                         
