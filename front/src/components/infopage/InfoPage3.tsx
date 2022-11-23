@@ -1,5 +1,5 @@
-import InfoPageRoot from "../../styles/MainPage/InfoPageRoot";
-import InfoPageContainer from "../../styles/MainPage/InfoPageContainer";
+import InfoPageRoot from "../../styles/infoPage/InfoPageRoot";
+import InfoPageContainer from "../../styles/infoPage/InfoPageContainer";
 
 const InfoPage3 = () => {
   return (
