@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import create from "zustand";
 import * as Api from "../api/Api";
-// import userStore from "../store/Login"
+import useUserStore from "../store/Login";
 
 interface LoginData {
   email: string;
   password: string;
 }
 
-
 const Login = () => {
   const [userData, setUserData] = useState<LoginData>({
     email: "",
     password: "",
   });
-  console.log(userData)
-
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  console.log(userData);
+  const setUser = useUserStore((state) => state.setUser);
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (id: string) => {
@@ -30,13 +26,13 @@ const Login = () => {
       );
   };
 
-  //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
-  const isEmailValid = validateEmail(userData.email);
-  // 비밀번호가 4글자 이상인지 여부를 확인함.
-  const isPasswordValid = userData.password.length >= 4;
-  //
-  // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
-  const isFormValid = isEmailValid && isPasswordValid;
+  // //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
+  // const isEmailValid = validateEmail(userData.email);
+  // // 비밀번호가 4글자 이상인지 여부를 확인함.
+  // const isPasswordValid = userData.password.length >= 4;
+  // //
+  // // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
+  // const isFormValid = isEmailValid && isPasswordValid;
 
   // 로그인실패 알려줌
   const [loginFailed, setLoginFailed] = useState(false);
@@ -49,20 +45,23 @@ const Login = () => {
       const res = await Api.post("!!", userData);
       // 유저 정보는 response의 data임.
       const user = res.data;
-      // zus 업데이트 const setUser=user
+      // const user={"email": "spspsp@naver.com", "password":"sspspsp", "token":"Dfdfdf"};
+      // user상태 업데이트
+      setUser(user);
 
       // JWT 토큰은 유저 정보의 token임.
       const jwtToken = user.token;
-      // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
-      sessionStorage.setItem("userToken", jwtToken);
-      // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
-      dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: user,
-      });
+    
+      // // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
+      // sessionStorage.setItem("userToken", jwtToken);
+      // // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
+      // dispatch({
+      //   type: "LOGIN_SUCCESS",
+      //   payload: user,
+      // });
 
-      // 기본 페이지로 이동함.
-      navigate("/", { replace: true });
+      // // 기본 페이지로 이동함.
+      // navigate("/", { replace: true });
     } catch (err) {
       console.log("로그인에 실패하였습니다.\n", err);
       setLoginFailed(true); //로그인 실패 알려주기
@@ -82,15 +81,27 @@ const Login = () => {
           type="text"
           placeholder="아이디를 입력하세요"
           value={userData.email}
-          onChange={(e) => setUserData({...userData, email: e.target.value})}
+          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
         />
         <LoginInput
           id="password"
           type="password"
           placeholder="비밀번호를 입력하세요"
           value={userData.password}
-          onChange={(e) => setUserData({...userData, password: e.target.value})}
+          onChange={(e) =>
+            setUserData({ ...userData, password: e.target.value })
+          }
         />
+        <LoginFail>
+          {loginFailed && (
+            <p>
+              이메일 또는 비밀번호를 잘못 입력했습니다.
+              <br />
+              입력하신 내용을 다시 확인해주세요.
+            </p>
+          )}
+        </LoginFail>
+
         <LoginButton>로 그 인</LoginButton>
 
         <P>
@@ -108,13 +119,13 @@ const MainContent = styled.div`
   height: 80%;
   margin: 0 auto;
 `;
+
 const P = styled.div`
   margin-top: 5%;
   margin-bottom: 5%;
 `;
+
 const LoginContainer = styled.form`
-  width: 100%;
-  height: 80%;
   flex-direction: column;
   justify-content: center;
   align-item: center;
@@ -168,3 +179,9 @@ const LoginButton = styled.button`
   margin-top: 5%;
   cursor: pointer;
 `;
+
+const LoginFail = styled.div`
+  color: red;
+  font-size: 18px;
+  margin: 0 auto;
+`
