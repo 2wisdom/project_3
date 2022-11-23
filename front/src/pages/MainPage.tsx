@@ -3,13 +3,13 @@ import Info1 from "../styles/infoPage/InfoPage.module.css";
 import NavBar from '@/components/NavBar';
 // import Fade from 'react-reveal/Fade';
 import Reveal from 'react-reveal/Reveal';
-import Info from './InfoPageMain';
+
 import { Animator, ScrollContainer, ScrollPage, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, StickyIn, StickyOut, Zoom, ZoomIn, ZoomOut } from "react-scroll-motion";
 import { Animation } from "react-scroll-motion";
 const MainPage = () => {
     return(
         <>
-        <NavBar/> 
+        {/* <NavBar/>  */}
         <ScrollContainer snap="mandatory">
             <ScrollPage page={0}>
                 <Animator animation={batch(Fade())}>
