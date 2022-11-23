@@ -7,7 +7,8 @@ html { font-size: 62.5%; }
 .nav {
     margin: 0;
     padding: 0;
-    
+    position:sticky;
+    top:0;
 }
 ul {
     list-style:none;
@@ -41,6 +42,6 @@ ul {
     margin-right: 2rem;
 }
 .loginBtn {
-    padding-top: 0.6rem;
+    padding-top: 1rem;
     
 }
