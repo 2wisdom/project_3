@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import * as Api from "../api/Api";
-import useUserStore from "../store/Login";
+import create from 'zustand'
+import * as Api from "/../api/Api";
 
 interface LoginData {
   email: string;
