@@ -1,0 +1,47 @@
+/* jua */
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,300;1,700;1,800&display=swap');
+/* Nanum Gothic */
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,300;1,700;1,800&display=swap');
+/* common */
+html { font-size: 62.5%; }
+.nav {
+    margin: 0;
+    padding: 0;
+    position:sticky;
+    top:0;
+}
+ul {
+    list-style:none;
+}
+.navContainer {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    display: flex;
+}
+
+/* logo styles */
+.logo {
+
+}
+.logoTitle{
+    color:#000000;
+    font-weight: 700;
+    font-size: 2.2rem;
+    font-family: 'Nansum Gothic', sans-serif;
+}
+
+/* navItem */
+.navItemInner {
+    display: flex;
+    margin: auto;
+    
+} 
+.navItem {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.8rem;
+    margin-right: 2rem;
+}
+.loginBtn {
+    padding-top: 1rem;
+    
+}

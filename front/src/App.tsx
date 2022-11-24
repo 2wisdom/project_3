@@ -1,15 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Login from "./components/login"
-import Register from "./components/Register"
-import Info from "./pages/Info"
+import NavBar from '@/components/NavBar';
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Main from "./pages/MainPage";
 
 const App = () => {
     return (
         <>
             <BrowserRouter>
+                <NavBar></NavBar>
                 <Routes>
-                    <Route path="/" element={<Info />} />
+                <Route path="/" element={<Main />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     {/* <Route path="/search-plant" element={<Search />} />

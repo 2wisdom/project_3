@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as Api from "../api/Api";
 import useUserStore from "../store/Login";
+import * as L from "../styles/LoginPage/Login.styled";
 
 interface LoginData {
   email: string;
@@ -69,21 +70,21 @@ const Login = () => {
   };
 
   return (
-    <MainContent>
-      <LoginContainer onSubmit={handleSubmit}>
-        <LoginTitle>로 그 인</LoginTitle>
-        <P>
+    <L.MainContent>
+      <L.LoginContainer onSubmit={handleSubmit}>
+        <L.LoginTitle>로 그 인</L.LoginTitle>
+        <L.P>
           식물 관련된 모든 것을 할 수 있는 플랫폼, 잎게뭐야에 오신 것을
           환영합니다.
-        </P>
-        <LoginInput
+        </L.P>
+        <L.LoginInput
           id="email"
           type="text"
           placeholder="아이디를 입력하세요"
           value={userData.email}
           onChange={(e) => setUserData({ ...userData, email: e.target.value })}
         />
-        <LoginInput
+        <L.LoginInput
           id="password"
           type="password"
           placeholder="비밀번호를 입력하세요"
@@ -92,7 +93,7 @@ const Login = () => {
             setUserData({ ...userData, password: e.target.value })
           }
         />
-        <LoginFail>
+        <L.LoginFail>
           {loginFailed && (
             <p>
               이메일 또는 비밀번호를 잘못 입력했습니다.
@@ -100,88 +101,16 @@ const Login = () => {
               입력하신 내용을 다시 확인해주세요.
             </p>
           )}
-        </LoginFail>
+        </L.LoginFail>
 
-        <LoginButton>로 그 인</LoginButton>
+        <L.LoginButton>로 그 인</L.LoginButton>
 
-        <P>
+        <L.P>
           아직 잎게뭐야 계정이 없으신가요?
           <Link to="/register">회원가입</Link>
-        </P>
-      </LoginContainer>
-    </MainContent>
+        </L.P>
+      </L.LoginContainer>
+    </L.MainContent>
   );
 };
 export default Login;
-
-const MainContent = styled.div`
-  width: 70%;
-  height: 80%;
-  margin: 0 auto;
-`;
-
-const P = styled.div`
-  margin-top: 5%;
-  margin-bottom: 5%;
-`;
-
-const LoginContainer = styled.form`
-  flex-direction: column;
-  justify-content: center;
-  align-item: center;
-  text-align: center;
-  font-family: "NanumGothic";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 20px;
-`;
-
-const LoginTitle = styled.div`
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 36px;
-  margin-bottom: 3%;
-  margin-top: 8%;
-  text-decoration: underline solid #3278e4;
-  text-underline-position: under;
-`;
-
-const LoginInput = styled.input`
-  width: 470px;
-  height: 74px;
-  display: block;
-  background: #ebebeb;
-  border-radius: 12px;
-  border: none;
-  display: block;
-  margin: 0 auto;
-  margin-top: 3%;
-  margin-bottom: 3%;
-  text-align: center;
-  font-size: 24px;
-  line-height: 24px;
-  :focus {
-    border: 3px solid #3278e4;
-  }
-`;
-
-const LoginButton = styled.button`
-  width: 470px;
-  height: 92px;
-  color: #ffffff;
-  background: #000000;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 36px;
-  margin: 0 auto;
-  margin-top: 5%;
-  cursor: pointer;
-`;
-
-const LoginFail = styled.div`
-  color: red;
-  font-size: 18px;
-  margin: 0 auto;
-`

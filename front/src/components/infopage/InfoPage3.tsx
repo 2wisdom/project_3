@@ -1,7 +1,7 @@
-import InfoPageRoot from "../../styles/MainPage/InfoPageRoot";
-import InfoPageContainer from "../../styles/MainPage/InfoPageContainer";
+import InfoPageRoot from "../../styles/infoPage/InfoPageRoot";
+import InfoPageContainer from "../../styles/infoPage/InfoPageContainer";
 
-const MainPage3 = () => {
+const InfoPage3 = () => {
   return (
     <>
       <InfoPageRoot>
@@ -15,4 +15,4 @@ const MainPage3 = () => {
   );
 };
 
-export default MainPage3;
+export default InfoPage3;
