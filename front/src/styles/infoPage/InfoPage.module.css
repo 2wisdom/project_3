@@ -3,7 +3,16 @@
 .container {
     margin:0px;
     padding: 0px;
-
+   
+}
+.scrollContainer{
+    overflow: scroll;
+    /* IE scroll 숨김 */
+    -ms-overflow-style: none;
+}
+.scrollContainer::-webkit-scrollbar { 
+    display: none;
+    width: 0 !important;
 }
 .Inner {
     width: 100%;

@@ -30,6 +30,7 @@ const MainPage = () => {
                         <div className={Info1.subRight}>
                         <p className={Info1.subTitle}>내가 보고 있는 식물을 바로 찾고 싶다면?</p>
                         <button type='button' className={Info1.yellowBtn}>식물찾기</button>
+                  
                         </div>
                     </div>
                 </Animator>
