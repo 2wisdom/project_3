@@ -1,6 +1,5 @@
 // import "./styles.css";
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { Link, Navigate, useMatch, useNavigate } from "react-router-dom";
 import * as Api from "../api/Api";
 import * as R from "../styles/RegisterPage/Register.styled";
@@ -17,7 +16,7 @@ const Register = () => {
     email: "",
     password: "",
   });
-  console.log("resigterData: ", registerData);
+  // console.log("resigterData: ", registerData);
   const [confirmPassword, setConfirmPassword] = useState("");
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
@@ -54,40 +53,44 @@ const Register = () => {
   //이메일 중복 체크
   const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
   const [clickEmailConfirm, setClickEmailConfirm] = useState(false);
-  
+
   //닉네임 중복 체크
-  const [isNameDuplicate, setIsNameDuplicate] = useState(false);
+  const [isNameDuplicate, setIsNameDuplicate] = useState(true);
   const [clickNameConfirm, setClickNameConfirm] = useState(false);
-  
+
   // 위 4개 조건이 모두 동시에 만족되는지 여부를 확인함.
   const isFormValid =
     isNameValid && isPasswordValid && isPasswordSame && isEmailValid;
-  
+
   // 나중에 변경하기..? // 위에 조건 모두 동시에 만족되는지?
   // const isFormValid =
   //   isNameValid && isPasswordValid && isPasswordSame && isEmailValid && !isEmailDuplicate && !isNameDuplicate
-  
-    
-  
-  const handleNameConfirm = async () => {
+
+  const handleNameConfirm = async (tag: string, value: string) => {
     try {
-      const res = await Api.get("주소", registerData.name);
-    } catch {
-      setIsNameDuplicate(true);
+      const res = await Api.get(`users/${tag}`, value);
+      if (res.status === 200) {
+        setIsNameDuplicate(false);
+      }
+    } catch (err: any) {
+      console.log(err)
+      if (err.status === 409) {
+        setIsNameDuplicate(true);
+      }
+      setClickNameConfirm(true);
     }
-    setClickNameConfirm(true);
   };
 
   const handleEmailConfirm = async () => {
-    try {
-      const res = await Api.get("주소", registerData.email);
-    } catch {
-      setIsEmailDuplicate(true);
-    }
-    setClickEmailConfirm(true);
+    // try {
+    //   const res = await Api.get("주소", registerData.email);
+    // } catch {
+    //   setIsEmailDuplicate(true);
+    // }
+    // setClickEmailConfirm(true);
   };
 
-  const handleSubmit = async(e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
@@ -95,7 +98,7 @@ const Register = () => {
 
       alert("회원가입에 성공하셨습니다.");
     } catch (err) {
-      console.log("회원가입에 실패하였습니다.", err)
+      console.log("회원가입에 실패하였습니다.", err);
     }
   };
 
@@ -117,7 +120,7 @@ const Register = () => {
           />
           <R.ConfirmBtn
             type="button"
-            onClick={handleNameConfirm}
+            onClick={() => handleNameConfirm("name", registerData.name)}
             disabled={!isNameValid ? true : false}
           >
             중복 확인

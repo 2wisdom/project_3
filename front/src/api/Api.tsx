@@ -2,20 +2,19 @@ import axios from "axios";
 
 const backendPortNumber = "5000";
 
-const serverUrl =
-  "http://localhost:" + backendPortNumber + "/";
+const serverUrl = "http://localhost:" + backendPortNumber + "/";
 
-async function get(endpoint: any, params = "") {
-
+async function get(endpoint: string, params = "") {
   return axios.get(serverUrl + endpoint + "/" + params, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
   });
 }
 
-async function post(endpoint: any, data: any) {
+async function post(endpoint: string, data: any) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
   const bodyData = JSON.stringify(data);
