@@ -62,7 +62,9 @@ const postController = {
   createPost: async (req, res) => {
     console.log("게시글 작성");
     const post = req.body;
-    post.author = req.currentUserId;
+    author = req.body.currentUserId;
+    // console.log("req.body", req.body);
+    // console.log("author", req.body.author);
 
     const newPost = await Post.create(post);
 

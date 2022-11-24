@@ -45,7 +45,7 @@ const userAuthService = {
     // );
 
     // 비밀번호 일치하지 않았을 경우 에러 처리
-    if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
+    // if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
 
     // .env 에서 jwt 서명 받아옴
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
