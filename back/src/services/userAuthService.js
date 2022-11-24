@@ -57,9 +57,16 @@ const userAuthService = {
     });
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
+    let expiresIn = "3s";
+
+    // hack: email주소가 @abc.com 이면, expiresIn 을 7d 로 설정
+    if (userInfo.email.endsWith("@test.com")) {
+      expiresIn = "7d";
+    }
+
     const accessToken = jwt.sign({ userId: userInfo.userId }, secretKey, {
       // 토큰 유효 기간, 발행자
-      expiresIn: "3s",
+      expiresIn,
       issuer: "team12",
     });
 

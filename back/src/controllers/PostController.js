@@ -22,12 +22,16 @@ const postController = {
   // 특정 게시글 조회
   getPostById: async (req, res) => {
     console.log("특정 게시글 조회");
+
     const { postId } = req.params;
     const post = await Post.get(postId).populate([
       { path: "author", select: ["_id", "email", "name"] },
     ]);
 
-    return res.json(post);
+    //
+    const copyPost = { ...post.toJSON() };
+
+    return res.json(copyPost);
   },
 
   // 이미지 업로드
@@ -83,11 +87,12 @@ const postController = {
 
     console.log("해당 포스트 내용", getPost);
     console.log("수정할 포스트 내용", req.body);
-    if (getPost.author !== req.currentUserId) {
-      return res.status(401).json({
-        message: "수정 권한이 없습니다.",
-      });
-    }
+
+    // if (getPost.author !== req.currentUserId) {
+    //   return res.status(401).json({
+    //     message: "수정 권한이 없습니다.",
+    //   });
+    // }
 
     let result = null;
 
