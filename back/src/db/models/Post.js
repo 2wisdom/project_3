@@ -14,13 +14,11 @@ const Post = {
    */
   create: (post) => {
     if (!!post.id) {
-      throw new Error({ message: "invalid pass property post.id" });
+      throw new Error("invalid pass property post.id");
     }
 
     if (!post.author) {
-      throw new Error({
-        message: "author is required",
-      });
+      throw new Error("author is required");
     }
 
     return PostModel.create(post);

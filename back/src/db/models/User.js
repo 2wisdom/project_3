@@ -29,7 +29,6 @@ const User = {
       "_id email password name imageUrl"
       // mongoose document를 필요한 javascript object로 반환
     ).lean();
-
     // 고유 아이디 키 이름인 _id를 userId로 교체
     if (user) user = responseInfo(user);
 

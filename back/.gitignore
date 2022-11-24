@@ -1,7 +1,5 @@
 node_modules
 .env
 yarn.lock
-
-
-images/*
-!images/.gitkeep
+.DS_Store
+logs

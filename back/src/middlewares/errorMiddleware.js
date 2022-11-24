@@ -9,11 +9,17 @@ function errorMiddleware(error, req, res, next) {
 
   let parse = {};
 
-  try {
+  if (typeof error !== "string") {
     parse = JSON.parse(error);
-  } catch (e) {
+  } else {
     parse = error;
   }
+
+  // try {
+  //   parse = JSON.parse(error);
+  // } catch (e) {
+  //   parse = error;
+  // }
 
   res.status(400).send(parse);
 }

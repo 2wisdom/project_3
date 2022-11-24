@@ -8,7 +8,7 @@ const userAuthController = {
   postAddUser: async (req, res, next) => {
     try {
       const { email, password, name } = req.body;
-      const imageUrl = 'leafGaeMoYa.png'
+      const imageUrl = "leafGaeMoYa.png";
       // 서비스 파일에서 addUser 함수 실행
       const userInfo = await userAuthService.addUserInfo({
         email,
@@ -61,11 +61,10 @@ const userAuthController = {
   },
   // 유저 정보 수정
   putUser: async (req, res, next) => {
+    const { userId } = req.params;
+    const password = req.body.password ?? null;
+    const imageUrl = req.file?.path ?? null;
     try {
-      const { userId } = req.params;
-      const password = req.body.password ?? null;
-      const imageUrl = req.file?.path ?? null;
-
       // 변경할 정보를 toUpdate에 초기화
       const toUpdate = { password, imageUrl };
 
@@ -80,6 +79,7 @@ const userAuthController = {
 
       res.status(200).json(updatedUser);
     } catch (err) {
+      await deleteUserImage(imageUrl);
       next(err);
     }
   },
