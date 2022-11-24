@@ -34,7 +34,6 @@ const Register = () => {
   const inputStart = registerData.name.length >= 1;
   const isNameValid =
     registerData.name.length >= 2 && registerData.name.length <= 8;
-  const isCofirm = false
   //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
   const isEmailValid = validateEmail(registerData.email);
   // 비밀번호가 4글자 이상인지 여부를 확인함.
@@ -46,23 +45,26 @@ const Register = () => {
   const isFormValid =
     isNameValid && isPasswordValid && isPasswordSame && isEmailValid;
 
-  //닉네임 중복 버튼 클릭했는지
   //이메일 중복시 알려줌
   const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
+  const [clickEmailConfirm, setClickEmailConfirm] = useState(false);
+
   //닉네임 중복시 알려줌
   const [isNameDuplicate, setIsNameDuplicate] = useState(false);
-  console.log("닉네임중복?", isNameDuplicate);
-
-  const handleConfirm = async () => {
+  const [clickNameConfirm, setClickNameConfirm] = useState(false);
+  
+  const handleConfirm = async (buttonName) => {
     try {
       const res = await Api.get("주소", registerData.name);
     } 
-    
     catch {
       setIsNameDuplicate(true);
     }
+    setClickNameConfirm(true);
   };
-
+  console.log("2: ", clickNicknameConfirm)
+  console.log("2: ", isNameDuplicate)
+  
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
@@ -95,7 +97,7 @@ const Register = () => {
             닉네임을 2글자 이상, 8글자 이하로 설정해주세요.
           </R.NotifyNotValid>
         )}
-        {!isNameDuplicate? (
+        {clickNicknameConfirm && (!isNameDuplicate? (
           <R.NotifyValid>
             사용가능한 닉네임입니다.
           </R.NotifyValid>
@@ -103,7 +105,7 @@ const Register = () => {
           <R.NotifyNotValid>
             중복된 닉네임입니다.
           </R.NotifyNotValid>
-        )}
+        ))}
         <R.ContentBox>
           <R.Tag>이메일</R.Tag>
           <R.Input

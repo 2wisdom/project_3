@@ -106,7 +106,7 @@ const Login = () => {
         <L.LoginButton>로 그 인</L.LoginButton>
 
         <L.P>
-          아직 잎게뭐야 계정이 없으신가요?
+          아직 잎게뭐야 계정이 없으신가요? 
           <Link to="/register">회원가입</Link>
         </L.P>
       </L.LoginContainer>
