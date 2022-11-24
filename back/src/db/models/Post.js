@@ -17,9 +17,9 @@ const Post = {
       throw new Error("invalid pass property post.id");
     }
 
-    // if (!post.author) {
-    //   throw new Error("author is required");
-    // }
+    if (!post.author) {
+      throw new Error("author is required");
+    }
 
     return PostModel.create(post);
   },
