@@ -9,7 +9,7 @@ import { Animation } from "react-scroll-motion";
 const MainPage = () => {
     return(
         <>
-        <NavBar/> 
+        {/* <NavBar/>  */}
         <ScrollContainer snap="mandatory">
             <ScrollPage page={0}>
                 <Animator animation={batch(Fade())}>

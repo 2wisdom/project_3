@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from '@/components/NavBar';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Info from "./pages/InfoPage";
+import Main from "./pages/MainPage";
 
 const App = () => {
     return (
@@ -11,9 +11,8 @@ const App = () => {
                 <NavBar></NavBar>
                 <Routes>
                 <Route path="/" element={<Main />} />
-                    {/* <Route path="/" element={<Info />} /> */}
-                    {/* <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} /> */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                     {/* <Route path="/search-plant" element={<Search />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/market" element={<Market />} /> */}    

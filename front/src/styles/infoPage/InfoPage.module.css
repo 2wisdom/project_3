@@ -19,13 +19,13 @@
 .title {
     padding : 100px 0;
     padding-top: 23rem;
-    padding-left: 650px;
+    padding-left: 629px;
     line-height: 0rem;
 }
 .description{
     font-family: 'Nanum Gothic', sans-serif;
-    font-size: 4rem;
-    padding-left: 3rem;
+    font-size: 2.5rem;
+    padding-right: 8rem;
     font-weight: 800;
     
 }
@@ -33,6 +33,7 @@
     font-family: 'Nanum Gothic', sans-serif;
     font-size: 8rem;
     font-weight: 600;
+    padding-bottom: 1rem;
 }
 /* sub common */
 .sub1{
