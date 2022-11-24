@@ -81,6 +81,8 @@ const postController = {
 
     const getPost = await Post.get(postId);
 
+    console.log("해당 포스트 내용", getPost);
+    console.log("수정할 포스트 내용", req.body);
     if (getPost.author !== req.currentUserId) {
       return res.status(401).json({
         message: "수정 권한이 없습니다.",
