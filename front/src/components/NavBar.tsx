@@ -18,7 +18,9 @@ const NavBar = () => {
                     <li className={Nav.navItem}>커뮤니티</li>
                     <li className={Nav.navItem}>식물마켓</li>
                 </ul>
-                <div className={Nav.loginBtn}>
+                <div className={Nav.loginBtn} onClick={()=>{
+                    navigate("/login")
+                }}>
                     <LoginBtn></LoginBtn>
                 </div>
             </div>
