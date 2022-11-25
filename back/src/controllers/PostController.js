@@ -66,14 +66,13 @@ const postController = {
   createPost: async (req, res) => {
     console.log("게시글 작성");
     const post = req.body;
-    author = req.body.currentUserId;
-    // console.log("req.body", req.body);
-    // console.log("author", req.body.author);
+    post.author = req.currentUserId;
 
     const newPost = await Post.create(post);
 
     return res.json({
-      id: newPost.id,
+      // id: newPost.id,
+      newPost,
     });
   },
 
@@ -88,11 +87,13 @@ const postController = {
     console.log("해당 포스트 내용", getPost);
     console.log("수정할 포스트 내용", req.body);
 
-    // if (getPost.author !== req.currentUserId) {
-    //   return res.status(401).json({
-    //     message: "수정 권한이 없습니다.",
-    //   });
-    // }
+    console.log("currentUserId", req.currentUserId);
+
+    if (getPost.author !== req.currentUserId) {
+      return res.status(401).json({
+        message: "수정 권한이 없습니다.",
+      });
+    }
 
     let result = null;
 
