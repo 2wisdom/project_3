@@ -6,6 +6,7 @@ const { deleteUserImage } = require("../middlewares/deleteImage");
 const userAuthController = {
   //회원가입
   postAddUser: async (req, res, next) => {
+
     try {
       const { email, password, name } = req.body;
       const imageUrl = "leafGaeMoYa.png";
@@ -79,6 +80,7 @@ const userAuthController = {
 
   // 로그인
   postLogin: async (req, res, next) => {
+
     try {
       const { email, password } = req.body;
 
