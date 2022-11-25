@@ -25,7 +25,7 @@ function loginRequired(req, res, next) {
 
     next();
   } catch (error) {
-    console.log(error.name === "TokenExpiredError");  
+    console.log(`로그인 리콰열드 확인`,error.name === "TokenExpiredError");  
     if (error.name === "TokenExpiredError") {
       res.status(403).send("토큰이 만료 되었습니다.")
       return;

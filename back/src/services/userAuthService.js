@@ -86,7 +86,7 @@ const userAuthService = {
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
     let refreshToken = jwt.sign({ userId: userInfo.userId }, secretKey, {
-      expiresIn: "7d",
+      expiresIn: "3s",
       issuer: "team12",
     });
 
