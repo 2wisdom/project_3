@@ -13,18 +13,15 @@ userAuthRouter.post(
 );
 
 // 이메일 중복 조회
-userAuthRouter.get(
-  "/email/:email", userAuthController.getCheckEmail
-);
+userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);
 
 // 닉네임 중복 조회
-userAuthRouter.get(
-  "/name/:name", userAuthController.getCheckName
-);
+userAuthRouter.get("/name/:name", userAuthController.getCheckName);
 
 // 로그인
 userAuthRouter.post(
   "/login",
+  loginRequired,
   user_Validation.ValidatePostLogin,
   userAuthController.postLogin
 );

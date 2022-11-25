@@ -14,7 +14,9 @@ const userAuthService = {
 
     // models 에서 데이터 찾기, 없다면 null을 return
     const userEmail = await User.findByEmail(newUser.email);
+
     if (userEmail) throw new Error("중복된 아이디입니다.");
+    //질문 트라이 캐치? 에러? 중복된 아이디가 안나옴
 
     // 비밀번호 암호화
     // const hashedPassword = await bcrypt.hash(newUser.password, SALT_ROUND);
@@ -67,8 +69,9 @@ const userAuthService = {
   login: async (email, password) => {
     // models 에서 유저 정보 데이터 찾기
     const userInfo = await User.findByEmail(email);
-    console.log(`유저 서비스 에러 확인: `, userInfo);
-    // 데이터를 찾지 못했을 경우 에러 처리
+
+    const { userId, name } = userInfo;
+
     if (!userInfo) throw new Error("이메일이 없습니다.");
 
     // // 암호화된 비밀번호와 입력된 비밀번호 비교
@@ -85,24 +88,44 @@ const userAuthService = {
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
-    let refreshToken = jwt.sign({ userId: userInfo.userId }, secretKey, {
-      expiresIn: "7d",
+    let refreshToken = jwt.sign({ userId: userId }, secretKey, {
+      expiresIn: "14d",
       issuer: "team12",
     });
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
-    const accessToken = jwt.sign({ userId: userInfo.userId }, secretKey, {
+    const accessToken = jwt.sign({ userId: userId }, secretKey, {
       // 토큰 유효 기간, 발행자
-      expiresIn: "3s",
+      expiresIn: "30m",
       issuer: "team12",
     });
 
-    const newToken = { refreshToken: refreshToken, userId: userInfo.userId };
+    const isTokenExist = await Token.findById(userId);
+    const tokenId = isTokenExist.tokenId;
 
-    const createdNewTokenInfo = await Token.create(newToken);
-    let = refreshToken = createdNewTokenInfo.refreshToken;
+    if (isTokenExist) {
+      const fieldToUpdate = {};
+      const newValue = {};
 
-    const { userId, name } = userInfo;
+      fieldToUpdate.refreshToken = "refreshToken";
+      fieldToUpdate.userId = "userId";
+
+      newValue.refreshToken = refreshToken;
+      newValue.userId = userId;
+
+      updatedNewTokenInfo = await Token.update({
+        tokenId,
+        fieldToUpdate,
+        newValue,
+      });
+
+      let = refreshToken = updatedNewTokenInfo.refreshToken;
+    } else if (!isTokenExist) {
+      const newToken = { refreshToken: refreshToken, userId: userInfo.userId };
+
+      const createdNewTokenInfo = await Token.create(newToken);
+      let = refreshToken = createdNewTokenInfo.refreshToken;
+    }
 
     // 토큰, 고유아이디, 이메일, 이름
     const loginUser = { refreshToken, accessToken, userId, email, name };
