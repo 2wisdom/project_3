@@ -27,7 +27,7 @@ userAuthRouter.post(
 );
 
 // 유저 정보 조회
-userAuthRouter.get("/:userId", loginRequired, userAuthController.getUser);
+userAuthRouter.get("/:userId", userAuthController.getUser);
 
 // 유저 정보 수정, 업데이트
 userAuthRouter.put(

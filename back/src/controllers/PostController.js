@@ -25,7 +25,7 @@ const postController = {
 
     const { postId } = req.params;
     const post = await Post.get(postId).populate([
-      { path: "author", select: ["_id", "email", "name"] },
+      { path: "author", select: ["_id", "email", "name", "imageUrl"] },
     ]);
 
     //
