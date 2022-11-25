@@ -86,14 +86,14 @@ const userAuthService = {
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
     let refreshToken = jwt.sign({ userId: userInfo.userId }, secretKey, {
-      expiresIn: "3s",
+      expiresIn: "14d",
       issuer: "team12",
     });
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
     const accessToken = jwt.sign({ userId: userInfo.userId }, secretKey, {
       // 토큰 유효 기간, 발행자
-      expiresIn: "3s",
+      expiresIn: "30m",
       issuer: "team12",
     });
 
