@@ -13,9 +13,13 @@ const NavBar = () => {
                 }}><p className={Nav.logoTitle}>잎게뭐야</p></a>
             
                 <ul className={Nav.navItemInner}>
-                    <li className={Nav.navItem}>잎게뭐야 소개</li>
+                    <li className={Nav.navItem} onClick={() => {
+                    navigate("/");
+                }}>잎게뭐야 소개</li>
                     <li className={Nav.navItem}>식물 찾기</li>
-                    <li className={Nav.navItem}>커뮤니티</li>
+                    <li className={Nav.navItem} onClick={()=> {
+                        navigate("/communityShowOff");
+                    }}>커뮤니티</li>
                     <li className={Nav.navItem}>식물마켓</li>
                 </ul>
                 <div className={Nav.loginBtn} onClick={()=>{
