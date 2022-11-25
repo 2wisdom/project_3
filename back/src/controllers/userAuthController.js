@@ -26,6 +26,57 @@ const userAuthController = {
       next(err);
     }
   },
+
+  // 이메일 중복 조회
+  getCheckEmail: async (req, res, next) => {
+    try {
+      const { email } = req.params;
+
+      // 중복되는 이메일이 있으면 데이터, 중복되는 이메일이 없으면 undefined
+      const isEmailExist = await userAuthService.CheckEmailExist(email);
+
+      // 중복되는 이메일이 있는 경우
+      if (isEmailExist.email) {
+        if (isEmailExist.errorMessage) throw new Error("유저조회 실패");
+        res.status(409).json("duplicated email");
+        return;
+      }
+
+      // 중복되는 이메일이 없는 경우
+      if (!isEmailExist.email) {
+        if (isEmailExist.errorMessage) throw new Error("유저조회 실패");
+        res.status(200).json("OK");
+      }
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  // 닉네임 중복 조회
+  getCheckName: async (req, res, next) => {
+    try {
+      const { name } = req.params;
+
+      // 중복되는 닉네임이 있으면 데이터, 중복되는 닉네임이 없으면 undefined
+      const isNameExist = await userAuthService.CheckNameExist(name);
+
+      // 중복되는 닉네임이 있는 경우
+      if (isNameExist.name) {
+        if (isNameExist.errorMessage) throw new Error("유저조회 실패");
+        res.status(409).json("duplicated name");
+        return;
+      }
+
+      // 중복되는 닉네임이 없는 경우
+      if (!isNameExist.name) {
+        if (isNameExist.errorMessage) throw new Error("유저조회 실패");
+        res.status(200).json("OK");
+      }
+    } catch (err) {
+      next(err);
+    }
+  },
+
   // 로그인
   postLogin: async (req, res, next) => {
     try {
@@ -42,6 +93,7 @@ const userAuthController = {
       next(err);
     }
   },
+
   // 유저 정보 조회
   getUser: async (req, res, next) => {
     try {
@@ -59,6 +111,7 @@ const userAuthController = {
       next(err);
     }
   },
+
   // 유저 정보 수정
   putUser: async (req, res, next) => {
     const { userId } = req.params;
