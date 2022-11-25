@@ -7,8 +7,9 @@ import CommuityShowOff from "./pages/CommunityShowOff";
 const App = () => {
     return (
         <>
+         
             <BrowserRouter>
-                <NavBar></NavBar>
+            <NavBar></NavBar>
                 <Routes>
                 <Route path="/" element={<Main />} />
                     <Route path="/login" element={<Login />} />

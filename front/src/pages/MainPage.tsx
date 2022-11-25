@@ -16,8 +16,8 @@ const MainPage = () => {
                     <div className={Info1.container}>
                     <div className={Info1.Inner}>
                     <div className={Info1.title}>
-                        <p className={Info1.description}>내 손안의 식물도감</p>
-                        <p className={Info1.logoTitle}>잎게뭐야</p>
+                        {/* <p className={Info1.description}>내 손안의 식물도감</p>
+                        <p className={Info1.logoTitle}>잎게뭐야</p> */}
                     </div>
                     </div>
                     </div>
