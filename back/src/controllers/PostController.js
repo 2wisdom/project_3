@@ -22,12 +22,16 @@ const postController = {
   // 특정 게시글 조회
   getPostById: async (req, res) => {
     console.log("특정 게시글 조회");
+
     const { postId } = req.params;
     const post = await Post.get(postId).populate([
       { path: "author", select: ["_id", "email", "name"] },
     ]);
 
-    return res.json(post);
+    //
+    const copyPost = { ...post.toJSON() };
+
+    return res.json(copyPost);
   },
 
   // 이미지 업로드
@@ -67,7 +71,8 @@ const postController = {
     const newPost = await Post.create(post);
 
     return res.json({
-      id: newPost.id,
+      // id: newPost.id,
+      newPost,
     });
   },
 
@@ -78,6 +83,11 @@ const postController = {
     const { postId } = req.params;
 
     const getPost = await Post.get(postId);
+
+    console.log("해당 포스트 내용", getPost);
+    console.log("수정할 포스트 내용", req.body);
+
+    console.log("currentUserId", req.currentUserId);
 
     if (getPost.author !== req.currentUserId) {
       return res.status(401).json({

@@ -17,15 +17,13 @@ async function loginRequired(req, res, next) {
     return;
   }
   const userInfo = await User.findByEmail(email);
-  const userId = userInfo.userId
+  const userId = userInfo.userId;
 
   // 리프레쉬 토큰 디비에서 가져오기
   const getRefreshTokenInfo = await Token.findById(userId);
 
   if (getRefreshTokenInfo.refreshToken === userToken) {
     try {
-
-
       const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
 
       // 토큰을 서명으로 확인, 디코딩

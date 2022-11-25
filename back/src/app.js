@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 
+const { authMiddleware } = require("./middlewares/authMiddleware");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const postRouter = require("./routers/PostRouter");
@@ -58,6 +59,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // 정적 파일 제공
 app.use("/public", express.static(path.join(__dirname, "..", "public")));
+
+// global middlewares
+app.use(authMiddleware);
 
 // 라우팅
 app.use("/users", userAuthRouter);
