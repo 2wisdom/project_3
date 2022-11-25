@@ -1,4 +1,4 @@
-import React from  "react";
+import React, { useState } from  "react";
 import Info1 from "../styles/infoPage/InfoPage.module.css";
 import NavBar from '@/components/NavBar';
 // import Fade from 'react-reveal/Fade';
@@ -7,17 +7,25 @@ import Info from './InfoPageMain';
 import { Animator, ScrollContainer, ScrollPage, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, StickyIn, StickyOut, Zoom, ZoomIn, ZoomOut } from "react-scroll-motion";
 import { Animation } from "react-scroll-motion";
 const MainPage = () => {
+    const [text,setText] = useState(null);
+    const hello = !!text;
+    const hell2 = !text;
+    const hello3 = text;
+    console.log('!!text',hello);
+    console.log('!text',hell2);
+    console.log('text',hello3);
     return(
         <>
         {/* <NavBar/>  */}
+        
         <ScrollContainer snap="mandatory">
             <ScrollPage page={0}>
                 <Animator animation={batch(Fade())}>
                     <div className={Info1.container}>
                     <div className={Info1.Inner}>
                     <div className={Info1.title}>
-                        <p className={Info1.description}>내 손안의 식물도감</p>
-                        <p className={Info1.logoTitle}>잎게뭐야</p>
+                        {/* <p className={Info1.description}>내 손안의 식물도감</p>
+                        <p className={Info1.logoTitle}>잎게뭐야</p> */}
                     </div>
                     </div>
                     </div>
@@ -30,6 +38,7 @@ const MainPage = () => {
                         <div className={Info1.subRight}>
                         <p className={Info1.subTitle}>내가 보고 있는 식물을 바로 찾고 싶다면?</p>
                         <button type='button' className={Info1.yellowBtn}>식물찾기</button>
+                  
                         </div>
                     </div>
                 </Animator>

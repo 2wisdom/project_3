@@ -73,3 +73,9 @@ export const LoginFail = styled.div`
   font-size: 1.1rem;
   margin: 0 auto;
 `
+
+export const NotifyFail = styled.div`
+  color: red;
+  font-size: 1rem;
+  height: 2rem;
+`;

@@ -8,6 +8,7 @@ const multer = require("multer");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const postRouter = require("./routers/PostRouter");
+const logger = require("./config/logger");
 
 const app = express();
 
@@ -65,9 +66,6 @@ app.use("/posts", postRouter);
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");
 });
-
-const logger = require("./config/logger");
-logger.info("Hello World");
 
 // 오류 처리 미들웨어 정의
 app.use(errorMiddleware);

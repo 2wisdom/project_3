@@ -29,11 +29,45 @@ const userAuthService = {
     return createdNewUser;
   },
 
+  // 이메일 중복 조회
+  CheckEmailExist: async (email) => {
+    // 중복되는 이메일이 있으면 데이터, 중복되는 이메일이 없으면 null
+    const userEmail = await User.findByEmail(email);
+
+    // 이메일이 디비에 없을 경우
+    if (!userEmail) {
+      const checkedEmail = {};
+      checkedEmail.email = undefined;
+      checkedEmail.errorMessage = null;
+      return checkedEmail;
+    }
+    // 이메일이 디비에 있을 경우
+    userEmail.errorMessage = null;
+    return userEmail;
+  },
+
+  // 닉네임 중복 조회
+  CheckNameExist: async (name) => {
+    // 중복되는 닉네임이 있으면 데이터, 중복되는 닉네임이 없으면 null
+    const userName = await User.findByName(name);
+
+    // 닉네임이 디비에 없을 경우
+    if (!userName) {
+      const checkedName = {};
+      checkedName.name = undefined;
+      checkedName.errorMessage = null;
+      return checkedName;
+    }
+    // 닉네임이 디비에 있을 경우
+    userName.errorMessage = null;
+    return userName;
+  },
+
   // 로그인
   login: async (email, password) => {
     // models 에서 유저 정보 데이터 찾기
     const userInfo = await User.findByEmail(email);
-
+    console.log(`유저 서비스 에러 확인: `, userInfo);
     // 데이터를 찾지 못했을 경우 에러 처리
     if (!userInfo) throw new Error("이메일이 없습니다.");
 
@@ -45,13 +79,13 @@ const userAuthService = {
     // );
 
     // 비밀번호 일치하지 않았을 경우 에러 처리
-    if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
+    // if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
 
     // .env 에서 jwt 서명 받아옴
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
-    let refreshToken = jwt.sign({}, secretKey, {
+    let refreshToken = jwt.sign({ userId: userInfo.userId }, secretKey, {
       expiresIn: "7d",
       issuer: "team12",
     });
