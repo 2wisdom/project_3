@@ -6,11 +6,12 @@ interface User {
     name: string;
     userId: string;
     profileImg?: string;
+    token?: string;
 }
 
 type StateProps = {
     user: User | null
-    setUser: (user: User) => void;
+    setUser: (user: User | null) => void;
 }
 
 const useUserStore = create<StateProps>((set) => ({
@@ -18,7 +19,8 @@ const useUserStore = create<StateProps>((set) => ({
         email: "",
         name: "",
         userId: "",
-        profileImg: ""
+        profileImg: "",
+        token: ""
     },
     setUser: (user) =>
         set((state) => ({

@@ -1,6 +1,6 @@
 // import "./styles.css";
-import React, { useState, useEffect } from "react";
-import { Link, Navigate, useMatch, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Api from "../api/Api";
 import * as R from "../styles/RegisterPage/Register.styled";
 
@@ -11,14 +11,24 @@ interface RegisterData {
 }
 
 const Register = () => {
+  const navigate = useNavigate();
   const [registerData, setRegisterData] = useState<RegisterData>({
     name: "",
     email: "",
     password: "",
   });
-  // console.log("resigterData: ", registerData);
+
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate()
+  const [isFormSubmit, setIsFormSubmit] = useState(false);
+
+  //이메일 중복 체크
+  const [isEmailDuplicate, setIsEmailDuplicate] = useState(true);
+  const [clickEmailConfirm, setClickEmailConfirm] = useState(false);
+
+  //닉네임 중복 체크
+  const [isNameDuplicate, setIsNameDuplicate] = useState(true);
+  const [clickNameConfirm, setClickNameConfirm] = useState<boolean>(false);
+
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email: string) => {
     return email
@@ -27,45 +37,30 @@ const Register = () => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
-
   //비밀번호가 8자 이상, 숫자+문자 형태인지 regex를 이용해 확인함.
-  const ValidatePassword = (password: string) => {
+  const validatePassword = (password: string) => {
     return password.match(/^(?=.*\d)(?=.*[a-zA-Z]).{8,10}$/gm);
   };
-
-  // 입력 시작했는지 체크
+  // 입력 시작 체크
   const inputStart = (target: string) => {
     return target.length >= 1;
   };
 
-  // 닉네임이 2~8자인지 확인함.
+  // 닉네임이 2~8자 확인.
   const isNameValid =
     registerData.name.length >= 2 && registerData.name.length <= 8;
-  // 위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
+  // 이메일 형태 확인.
   const isEmailValid = validateEmail(registerData.email);
-  // 비밀번호가 최소 8자, 하나 이상의 문자와 하나의 숫자 여부를 확인함.
+  // 비밀번호 최소 8자, 문자+숫자 확인.
   const isPasswordValid =
     registerData.password.length >= 8 &&
-    ValidatePassword(registerData.password);
-  // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
+    validatePassword(registerData.password);
+  // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인.
   const isPasswordSame = registerData.password === confirmPassword;
-
-  //이메일 중복 체크
-  const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
-  const [clickEmailConfirm, setClickEmailConfirm] = useState(false);
-
-  //닉네임 중복 체크
-  const [isNameDuplicate, setIsNameDuplicate] = useState(true);
-  const [clickNameConfirm, setClickNameConfirm] = useState<boolean>(false);
 
   // // 위 4개 조건이 모두 동시에 만족되는지 여부를 확인함.
   const isFormValid =
     isNameValid && isPasswordValid && isPasswordSame && isEmailValid;
-
-  const [isFormSubmit, setIsFormSubmit] = useState(false);
-  // 나중에 변경하기..? // 위에 조건 모두 동시에 만족되는지?
-  // const isFormValid =
-  //   isPasswordValid && isPasswordSame && !isEmailDuplicate && !isNameDuplicate;
 
   const handleNameConfirm = async (value: string) => {
     try {
@@ -96,18 +91,17 @@ const Register = () => {
     }
     setClickEmailConfirm(true);
   };
-  console.log(isEmailDuplicate)
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit: React.FormEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
     setIsFormSubmit(true);
 
     if (!isNameDuplicate && !isEmailDuplicate) {
       try {
         const res = await Api.post("users", registerData);
-
+        
         alert("회원가입에 성공하셨습니다.");
-        navigate("/login")
+        navigate("/login");
       } catch (err) {
         console.log("회원가입에 실패하였습니다.", err);
       }
@@ -125,16 +119,15 @@ const Register = () => {
             type="text"
             placeholder="닉네임을 입력하세요"
             value={registerData.name}
-            onChange={
-              (e) => setRegisterData({ ...registerData, name: e.target.value })
-              // setClickNameConfirm(false)
-            }
+            onChange={(e) => {
+              setClickNameConfirm(false);
+              setRegisterData({ ...registerData, name: e.target.value });
+            }}
           />
           <R.ConfirmBtn
             type="button"
             onClick={() => handleNameConfirm(registerData.name)}
             disabled={!isNameValid ? true : false}
-            // border={!isNameValid ? {#3278e4} : {}}
           >
             중복 확인
           </R.ConfirmBtn>
@@ -162,10 +155,10 @@ const Register = () => {
             type="text"
             placeholder="이메일을 입력하세요"
             value={registerData.email}
-            onChange={
-              (e) => setRegisterData({ ...registerData, email: e.target.value })
-              // setClickRegisterConfirm(false)
-            }
+            onChange={(e) => {
+              setClickNameConfirm(false);
+              setRegisterData({ ...registerData, email: e.target.value });
+            }}
           />
           <R.ConfirmBtn
             type="button"

@@ -36,6 +36,7 @@ export const ContentBox = styled.div`
   height: 7rem;
   justify-content: center;
 `;
+
 export const PasswordContentBox = styled(ContentBox)`
   padding-right: 12.5rem;
 `;
@@ -50,6 +51,7 @@ export const Tag = styled.div`
 
   text-align: center;
 `;
+
 export const Input = styled.input`
   width: 40rem;
   height: 4.5rem;
@@ -67,12 +69,6 @@ export const Input = styled.input`
   }
 `;
 
-//   ${(props) =>
-//         props.primary && //primary 가 존재할 경우
-//         css`
-//         border: red solid 0.15rem;
-//         `}
-
 export const ConfirmBtn = styled.button`
   width: 12rem;
   height: 4.5rem;
@@ -85,12 +81,13 @@ export const ConfirmBtn = styled.button`
   border: 2px solid #3278e4;
   border-radius: 8px;
   outline: 0;
-  cursor: pointer;
+  cursor: ${props => !props.disabled && "pointer"};
+  opacity: ${props => props.disabled && "0.6"};  
 `;
 
 export const SubmitButton = styled.button`
-  width: 40rem;
-  height: 5.5rem;
+width: 40rem;
+height: 5.5rem;
   color: #ffffff;
   background: #000000;
   border-radius: 0.75rem;
@@ -99,15 +96,22 @@ export const SubmitButton = styled.button`
   line-height: 2rem;
   margin: 0 auto;
   margin-top: 5%;
-  cursor: pointer;
+  cursor: ${props => !props.disabled && "pointer"};
+  opacity: ${props => props.disabled && "0.6"};  
 `;
 
 export const NotifyNotValid = styled.div`
   color: red;
   font-size: 1rem;
   height: 2rem;
-`;
+  `;
 
 export const NotifyValid = styled(NotifyNotValid)`
   color: green;
 `;
+
+  //   ${(props) =>
+  //         props.primary && //primary 가 존재할 경우
+  //         css`
+  //         border: red solid 0.15rem;
+  //         `}
