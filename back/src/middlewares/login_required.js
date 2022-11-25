@@ -11,7 +11,7 @@ function loginRequired(req, res, next) {
     res.status(400).send("로그인한 유저만 사용할 수 있는 서비스입니다.");
     return;
   }
-
+  
   // 해당 token 이 정상적인 token인지 확인 -> 토큰에 담긴 user_id 정보 추출
   try {
     // .env 에서 jwt 서명 가져오기
@@ -25,6 +25,11 @@ function loginRequired(req, res, next) {
 
     next();
   } catch (error) {
+    console.log(error.name === "TokenExpiredError");  
+    if (error.name === "TokenExpiredError") {
+      res.status(403).send("토큰이 만료 되었습니다.")
+      return;
+    }
     res.status(400).send("정상적인 토큰이 아닙니다. 다시 한 번 확인해 주세요.");
     return;
   }

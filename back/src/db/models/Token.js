@@ -19,6 +19,39 @@ const Token = {
 
     return createdNewToken;
   },
+
+  // 고유 Id 로 데이터 검색
+  findById: async (userId) => {
+    // 생성과 수정 날짜 데이터를 제외한 _id, email, name만 user에 초기화
+    let user = await TokenModel.findOne(
+      { userId },
+      "_id refreshToken userId"
+    ).lean();
+
+    if (user) user = responseInfo(user);
+
+    return user;
+  },
+
+  // 회원 정보 수정 {유저고유 아이디, 변경할 항목, 변경될 데이터}
+  update: async ({ userId, fieldToUpdate, newValue }) => {
+    const filter = { _id: userId };
+    const update = {
+      [fieldToUpdate.password]: newValue.password,
+      [fieldToUpdate.imageUrl]: newValue.imageUrl,
+    };
+
+    // 업데이트 전 데이터를 리턴하지 말고 업데이트 후 데이터를 리턴
+    const option = { returnOriginal: false };
+
+    let updatedUser = await UserModel.findOneAndUpdate(
+      filter,
+      update,
+      option
+    ).lean();
+
+    return updatedUser;
+  },
 };
 
 exports.Token = Token;

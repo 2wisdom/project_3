@@ -67,7 +67,7 @@ const userAuthService = {
   login: async (email, password) => {
     // models 에서 유저 정보 데이터 찾기
     const userInfo = await User.findByEmail(email);
-    console.log(`유저 서비스 에러 확인: `, userInfo);
+
     // 데이터를 찾지 못했을 경우 에러 처리
     if (!userInfo) throw new Error("이메일이 없습니다.");
 
