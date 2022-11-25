@@ -73,7 +73,7 @@ const Register = () => {
         setIsNameDuplicate(false);
       }
     } catch (err: any) {
-      console.log(err)
+      console.log(err);
       if (err.status === 409) {
         setIsNameDuplicate(true);
       }
@@ -131,12 +131,13 @@ const Register = () => {
             닉네임을 2글자 이상, 8글자 이하로 설정해주세요.
           </R.NotifyNotValid>
         )}
-        {clickNameConfirm &&
-          (!isNameDuplicate ? (
+        {clickNameConfirm && (
+          !isNameDuplicate ? (
             <R.NotifyValid>사용가능한 닉네임입니다.</R.NotifyValid>
           ) : (
             <R.NotifyNotValid>중복된 닉네임입니다.</R.NotifyNotValid>
-          ))}
+          )
+        )}
         <R.ContentBox>
           <R.Tag>이메일</R.Tag>
           <R.Input
