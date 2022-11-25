@@ -1,30 +1,62 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
-
+import { useEffect, useState } from 'react';
+import Search from "../components/search/Search";
+import ShowOff from "../styles/showOffPage/ShowOff.module.css"
+import * as Api from "../api/Api";
 const CommuityShowOff = () => {
+  const showOffText : String= "내가 찍은 사진을 자랑해보세요";
+
+  interface CardData {
+    postId:number,
+    userId:string,
+    email:string,
+    title:string,
+    contents:string,
+
+  }
+  const CardData = () => {
+    const [cardData,setCardData] = useState<CardData>({
+      postId:0,
+      userId:"",
+      email:"",
+      title:"",
+      contents:"",
+    })
+  }
+
+    Api.get("posts").then(res => {
+      console.log('res',res);
+      console.log('dataType',typeof(res.data.docs[0].createdAt))
+    }
+    );
+    Api.get("posts?page=2&limit=10").then(res => {
+      console.log('posts?page=1&limit=10',res);
+    }
+    );
+    Api.get("posts/2").then(res => {
+      console.log('posts/:2',res);
+    }
+    );
     return (
         <>
-         <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2} columns={16}>
-        <Grid item xs={8}>
-          <Item>xs=8</Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>xs=8</Item>
-        </Grid>
-      </Grid>
-    </Box>
+        <div className={ShowOff.container}>
+          <div className={ShowOff.Inner}>
+            <div className={ShowOff.buttonContainer}>
+              <div className={ShowOff.buttonInner}>
+              <button className={ShowOff.yellowBtn}>질문하기</button>
+              <button  className={ShowOff.yellowBtn}>자랑하기</button>
+              </div>
+            </div>
+            <div className={ShowOff.rightInner}>
+              <div className={ShowOff.titleSearchInner}>
+                <h2 className={ShowOff.title}>내가 찍은 사진을 자랑해보세요</h2>
+                <Search></Search>
+              </div>
+              <div className={ShowOff.cardInner}></div>
+            </div>
+          </div>
+        </div>
+      
     </>
     )
 }

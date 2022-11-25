@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import * as Api from "../api/Api";
 import * as R from "../styles/RegisterPage/Register.styled";
 
+console.log('R',R);
 interface RegisterData {
   name: string;
   email: string;

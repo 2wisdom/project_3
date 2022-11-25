@@ -1,4 +1,4 @@
-import React from  "react";
+import React, { useState } from  "react";
 import Info1 from "../styles/infoPage/InfoPage.module.css";
 import NavBar from '@/components/NavBar';
 // import Fade from 'react-reveal/Fade';
@@ -7,9 +7,17 @@ import Info from './InfoPageMain';
 import { Animator, ScrollContainer, ScrollPage, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, StickyIn, StickyOut, Zoom, ZoomIn, ZoomOut } from "react-scroll-motion";
 import { Animation } from "react-scroll-motion";
 const MainPage = () => {
+    const [text,setText] = useState(null);
+    const hello = !!text;
+    const hell2 = !text;
+    const hello3 = text;
+    console.log('!!text',hello);
+    console.log('!text',hell2);
+    console.log('text',hello3);
     return(
         <>
         {/* <NavBar/>  */}
+        
         <ScrollContainer snap="mandatory">
             <ScrollPage page={0}>
                 <Animator animation={batch(Fade())}>
