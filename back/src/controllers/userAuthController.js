@@ -9,7 +9,7 @@ const userAuthController = {
 
     try {
       const { email, password, name } = req.body;
-      const imageUrl = "leafGaeMoYa.png";
+      const imageUrl = "leavesGetMoreYards.png";
       // 서비스 파일에서 addUser 함수 실행
       const userInfo = await userAuthService.addUserInfo({
         email,
