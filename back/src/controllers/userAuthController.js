@@ -23,8 +23,8 @@ const userAuthController = {
 
       // userInfo를 promise로 반환 하여 전달
       res.status(201).json(userInfo);
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   },
 
@@ -48,8 +48,8 @@ const userAuthController = {
         if (isEmailExist.errorMessage) throw new Error("유저조회 실패");
         res.status(200).json("OK");
       }
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   },
 
@@ -73,8 +73,8 @@ const userAuthController = {
         if (isNameExist.errorMessage) throw new Error("유저조회 실패");
         res.status(200).json("OK");
       }
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   },
 
@@ -90,8 +90,8 @@ const userAuthController = {
       if (userLoginInfo.errorMessage) throw new Error("로그인 실패");
 
       res.status(201).send(userLoginInfo);
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   },
 
@@ -108,8 +108,8 @@ const userAuthController = {
         throw new Error("회원 정보 불러오기 실패");
 
       res.status(200).send(currentUserInfo);
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   },
 
@@ -132,9 +132,9 @@ const userAuthController = {
       if (updatedUser.errorMessage) throw new Error("회원 정보 불러오기 실패");
 
       res.status(200).json(updatedUser);
-    } catch (err) {
+    } catch (error) {
       await deleteUserImage(imageUrl);
-      next(err);
+      next(error);
     }
   },
   // 유저 정보 삭제
@@ -142,15 +142,15 @@ const userAuthController = {
     try {
       const { userId } = req.params;
       const deletedUser = await userAuthService.deleteUserInfo(userId);
-      const deletedToken = await tokenService.deleteUserInfo(userId);
+      const deletedToken = await tokenService.deleteTokenInfo(userId);
       if (!deletedUser.errorMessage && deletedUser.imageUrl) {
         await deleteUserImage(deletedUser.imageUrl);
       }
       if (deletedUser.errorMessage) throw new Error("회원 삭제 실패");
 
       res.status(200).json(deletedUser);
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   },
 };
