@@ -100,10 +100,13 @@ const userAuthService = {
       issuer: "team12",
     });
 
-    const isTokenExist = await Token.findById(userId);
-    const tokenId = isTokenExist.tokenId;
+    const isTokenExist = await Token.findByUserId(userId);
+    console.log(`유저 서비스 확인1: `, isTokenExist);
+
 
     if (isTokenExist) {
+      console.log(`유저 서비스 확인2: `, isTokenExist);
+      const tokenId = isTokenExist.tokenId;
       const fieldToUpdate = {};
       const newValue = {};
 
@@ -128,7 +131,7 @@ const userAuthService = {
     }
 
     // 토큰, 고유아이디, 이메일, 이름
-    const loginUser = { refreshToken, accessToken, userId, email, name };
+    const loginUser = { accessToken, userId, email, name };
 
     loginUser.errorMessage = null;
 

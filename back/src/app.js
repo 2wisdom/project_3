@@ -8,6 +8,7 @@ const multer = require("multer");
 const { authMiddleware } = require("./middlewares/authMiddleware");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
+const { tokenRouter } = require("./routers/tokenRouter");
 const postRouter = require("./routers/PostRouter");
 const logger = require("./config/logger");
 
@@ -66,6 +67,7 @@ app.use(authMiddleware);
 // 라우팅
 app.use("/users", userAuthRouter);
 app.use("/posts", postRouter);
+app.use("/token", tokenRouter);
 
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");

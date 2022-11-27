@@ -21,7 +21,6 @@ userAuthRouter.get("/name/:name", userAuthController.getCheckName);
 // 로그인
 userAuthRouter.post(
   "/login",
-  loginRequired,
   user_Validation.ValidatePostLogin,
   userAuthController.postLogin
 );
