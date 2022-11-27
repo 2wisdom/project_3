@@ -1,6 +1,7 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
+const jwt_decode = require("jwt-decode");
 
-const { tokenService } = require("../services/userAuthService");
 const { Token } = require("../db/models/Token");
 
 const tokenController = {
@@ -9,11 +10,7 @@ const tokenController = {
     const userAccessToken =
       req.headers["authorization"]?.split(" ")[1] ?? "null";
 
-    console.log(`토큰 컨트롤러 확인1: `, userAccessToken);
-
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
-
-    console.log(`토큰 컨트롤러 확인2: `, secretKey);
 
     // 엑세스 토큰을 안보냈을 경우
     if (userAccessToken === "null") {
@@ -26,18 +23,43 @@ const tokenController = {
 
     // 엑세스 토큰을 보냈을 경우
     try {
-      console.log(`토큰 컨트롤러 확인3: `, userAccessToken);
-      const decodedAccessToken = jwt.decode(userAccessToken, secretKey);
-      console.log(`토큰 컨트롤러 확인4: `, decodedAccessToken);
+      const decodedAccessToken = jwt_decode(userAccessToken, secretKey);
+
       const accessTokenUserId = decodedAccessToken.userId;
 
-      const tokenInfo = Token.findByUserId(accessTokenUserId);
-      if (tokenInfo) {
-        const refreshToken = tokenInfo.refreshToken;
-        const refreshTokenUserId = jwt.verify(refreshToken, secretKey);
-        console.log(`토큰 컨트롤러 확인10: `, refreshTokenUserId);
+      const tokenInfo = await Token.findByUserId(accessTokenUserId);
+
+      const refreshToken = tokenInfo.refreshToken;
+      const refreshTokenInfo = jwt.verify(refreshToken, secretKey);
+      const refreshTokenUserId = refreshTokenInfo.userId;
+
+      // 엑세스 토큰 재발급
+      if (refreshTokenUserId === accessTokenUserId) {
+        const accessToken = jwt.sign(
+          { userId: refreshTokenUserId },
+          secretKey,
+          {
+            // 토큰 유효 기간, 발행자
+            expiresIn: "30m",
+            issuer: "team12",
+          }
+        );
+
+        const newAccessToken = { accessToken: accessToken };
+        res.status(201).send(newAccessToken);
+        return newAccessToken;
       }
-    } catch (error) {}
+    } catch (error) {
+      // 리프레쉬 토큰 만료
+      if (error.name === "TokenExpiredError") {
+        res.status(403).send("refresh token이 만료 되었습니다.");
+        return;
+      }
+      res
+        .status(400)
+        .send("정상적인 토큰이 아닙니다. 다시 한 번 확인해 주세요.");
+      return;
+    }
   },
 };
 

@@ -50,6 +50,12 @@ const Token = {
     ).lean();
     return updatedToken;
   },
+
+  delete: async (userId) => {
+
+    const deletedTokenInfo = await TokenModel.deleteOne({userId: userId});
+    return deletedTokenInfo;
+  }
 };
 
 exports.Token = Token;
