@@ -89,7 +89,7 @@ const userAuthService = {
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
     let refreshToken = jwt.sign({ userId: userId }, secretKey, {
-      expiresIn: "14d",
+      expiresIn: "1d",
       issuer: "team12",
     });
 
@@ -100,10 +100,12 @@ const userAuthService = {
       issuer: "team12",
     });
 
-    const isTokenExist = await Token.findById(userId);
-    const tokenId = isTokenExist.tokenId;
+    const isTokenExist = await Token.findByUserId(userId);
+
 
     if (isTokenExist) {
+
+      const tokenId = isTokenExist.tokenId;
       const fieldToUpdate = {};
       const newValue = {};
 
@@ -128,7 +130,7 @@ const userAuthService = {
     }
 
     // 토큰, 고유아이디, 이메일, 이름
-    const loginUser = { refreshToken, accessToken, userId, email, name };
+    const loginUser = { accessToken, userId, email, name };
 
     loginUser.errorMessage = null;
 
