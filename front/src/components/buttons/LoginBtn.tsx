@@ -1,14 +1,14 @@
-import React from "react";
-import classNames from "classnames";
-import LoginBtnStyle from '../../styles/buttons/LoginBtnStyle';
-const LoginBtn= () => {
-    return(
-        <>
-                <LoginBtnStyle className='loginBtn'>로그인</LoginBtnStyle>
-        </>
-    )
+import LoginBtnStyle from "../../styles/buttons/LoginBtnStyle";
 
-}
+const LoginBtn = ({ isLogin }: any) => {
+  const btnState = isLogin ? "로그아웃" : "로그인";
 
+  
+  return (
+    <>
+      <LoginBtnStyle className="loginBtn">{btnState}</LoginBtnStyle>
+    </>
+  );
+};
 
 export default LoginBtn;

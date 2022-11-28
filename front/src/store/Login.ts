@@ -10,9 +10,10 @@ interface User {
 }
 
 type StateProps = {
-    user: User | null
-    setUser: (user: User | null) => void;
-    isLogin: boolean
+    user: User
+    setUser: (user: User) => void;
+    // isLogin: boolean
+    // setIsLogin: (isLogin: boolean) => void;
 }
 
 const useUserStore = create<StateProps>((set) => ({
@@ -27,8 +28,10 @@ const useUserStore = create<StateProps>((set) => ({
         set((state) => ({
             ...state,
             user
-        })),
-    isLogin: false
+        }))
+    // isLogin: false
+    // setIsLogin: (isLogin) =>
+    //     set({isLogin: isLogin})
 }));
 
 

@@ -21,8 +21,9 @@ const Login = () => {
   // console.log(loginData);
 
   const setUser = useUserStore((state) => state.setUser);
-  const currentUser = useUserStore((state) => state.user);
-  console.log("currentUser: ", currentUser);
+  // const setIsLogin = useUserStore((state) => state.isLogin);
+  // const currentUser = useUserStore((state) => state.user);
+  // console.log("currentUser: ", currentUser);
 
   const isEmailValid = validateEmail(loginData.email);
   const isPasswordValid = validatePassword(loginData.password);
@@ -33,23 +34,24 @@ const Login = () => {
 
     try {
       if (!isFormValid) {
-        throw console.log("id ");
+        throw console.log("validate error");
       }
       const res = await Api.post("users/login", loginData);
-      const user = res.data;
-      console.log("res.data: ", user);
-      //전역유저 상태업데이트
-      setUser(user);
+      if (res.status === 201) {
+        const user = res.data;
+        console.log("res.data: ", user);
+        //전역유저 상태업데이트
+        setUser(user);
+        // setIsLogin(true);
+        const accessToken = user.accessToken;
+        localStorage.setItem("accessToken", accessToken);
+        navigate("/");
+      }
 
-      const accessToken = user.accessToken;
-
-      localStorage.setItem("accessToken", accessToken);
       // dispatch({
       //   type: "LOGIN_SUCCESS",
       //   payload: user,
       // });
-
-      navigate("/");
     } catch (err) {
       console.log("로그인에 실패하였습니다.\n", err);
       setLoginFailed(true);
