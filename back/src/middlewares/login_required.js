@@ -3,6 +3,7 @@ const { default: mongoose } = require("mongoose");
 
 const { Token } = require("../db/models/Token");
 const { User } = require("../db/models/User");
+const { deleteUserImage } = require("../middlewares/deleteImage");
 
 async function loginRequired(req, res, next) {
 
@@ -30,6 +31,7 @@ async function loginRequired(req, res, next) {
     next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
+      await deleteUserImage(req.file.path);
       res.status(403).send("access token expired");
       return;
     }

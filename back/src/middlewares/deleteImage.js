@@ -2,8 +2,9 @@ const fs = require("fs");
 const path = require("path");
 
 const deleteUserImage = async (imageUrl) => {
-  if (imageUrl !== "leavesGetMoreYards.png") {
-    await fs.unlink(path.join(__dirname, "..", "..", imageUrl), (err) => {
+  console.log(`이미지 삭제 확인:`,imageUrl)
+  if (imageUrl !== "public/images/leavesGetMoreYards.png") {
+    fs.unlink(path.join(__dirname, "..", "..", imageUrl), (err) => {
       if (err) {
         throw new Error("이미지 삭제 실패");
       }
