@@ -5,9 +5,12 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 
+// const { authMiddleware } = require("./middlewares/authMiddleware");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
+const { tokenRouter } = require("./routers/tokenRouter");
 const postRouter = require("./routers/PostRouter");
+const logger = require("./config/logger");
 
 const app = express();
 
@@ -61,13 +64,11 @@ app.use("/public", express.static(path.join(__dirname, "..", "public")));
 // 라우팅
 app.use("/users", userAuthRouter);
 app.use("/posts", postRouter);
+app.use("/token", tokenRouter);
 
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");
 });
-
-const logger = require("./config/logger");
-logger.info("Hello World");
 
 // 오류 처리 미들웨어 정의
 app.use(errorMiddleware);

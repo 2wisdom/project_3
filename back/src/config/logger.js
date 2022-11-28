@@ -1,10 +1,14 @@
 const { createLogger, transports, format } = require("winston");
 const { combine, timestamp, label, printf, json, simple, colorize } = format;
 
+const date = new Date();
+date.setHours(date.getHours() + 9);
+const date_format = date.toISOString().split("T")[0];
+
+// 로그 출력 형식
 const printFormat = printf(({ timestamp, label, level, message }) => {
   return `${timestamp} [${label}] ${level} : ${message}`;
 });
-
 const printLogFormat = {
   file: combine(
     label({
@@ -17,11 +21,12 @@ const printLogFormat = {
   console: combine(colorize(), simple()),
 };
 
+// 로크 저장 파일 위치, 레벨 및 출력 레벨
 const options = {
   file: new transports.File({
-    filename: "access.log",
+    filename: `${date_format}.error.log`,
     dirname: "./logs",
-    level: "info",
+    level: "error",
     format: printLogFormat.file,
   }),
   console: new transports.Console({
@@ -34,6 +39,7 @@ const logger = createLogger({
   transports: [options.file],
 });
 
+// 로그 출력 유무
 if (process.env.NODE_ENV !== "production") {
   logger.add(options.console);
 }

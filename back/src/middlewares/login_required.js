@@ -1,7 +1,11 @@
 const jwt = require("jsonwebtoken");
 const { default: mongoose } = require("mongoose");
 
-function loginRequired(req, res, next) {
+const { Token } = require("../db/models/Token");
+const { User } = require("../db/models/User");
+
+async function loginRequired(req, res, next) {
+
   // request 헤더로부터 authorization bearer 토큰을 받음. authorization: 'Bearer 토큰'
   const userToken = req.headers["authorization"]?.split(" ")[1] ?? "null";
 
@@ -25,6 +29,10 @@ function loginRequired(req, res, next) {
 
     next();
   } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      res.status(403).send("access token expired");
+      return;
+    }
     res.status(400).send("정상적인 토큰이 아닙니다. 다시 한 번 확인해 주세요.");
     return;
   }

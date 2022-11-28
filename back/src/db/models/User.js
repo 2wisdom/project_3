@@ -29,6 +29,21 @@ const User = {
       "_id email password name imageUrl"
       // mongoose document를 필요한 javascript object로 반환
     ).lean();
+
+    // 고유 아이디 키 이름인 _id를 userId로 교체
+    if (user) user = responseInfo(user);
+
+    return user;
+  },
+
+  // name 로 데이터 검색
+  findByName: async (name) => {
+    // 생성과 수정 날짜 데이터를 제외한 _id, email, password, name만 user에 초기화
+    let user = await UserModel.findOne(
+      { name },
+      "_id email password name imageUrl"
+      // mongoose document를 필요한 javascript object로 반환
+    ).lean();
     // 고유 아이디 키 이름인 _id를 userId로 교체
     if (user) user = responseInfo(user);
 
