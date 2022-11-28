@@ -14,6 +14,7 @@ const postController = {
       sort: {
         createdAt: -1,
       },
+      populate: "author",
     });
 
     return res.json(list);
@@ -25,7 +26,7 @@ const postController = {
 
     const { postId } = req.params;
     const post = await Post.get(postId).populate([
-      { path: "author", select: ["_id", "email", "name", "imageUrl"] },
+      { path: "author", select: ["_id", "name", "imageUrl"] },
     ]);
 
     //
