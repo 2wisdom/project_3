@@ -69,9 +69,9 @@ const NavBar = () => {
           <div
             className={Nav.loginBtn}
             // onClick={logout}
-            onClick={() => {
-                isLogin ? ({ logout }) : (navigate("/login"));
-              }}
+            onClick= {
+                isLogin ? logout : () => navigate("/login")
+              }
           >
             <LoginBtn isLogin={isLogin}></LoginBtn>
           </div>

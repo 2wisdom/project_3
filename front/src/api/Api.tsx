@@ -76,3 +76,16 @@ async function del(endpoint: string, params: string | null) {
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,
 // A.get, A.post 로 쓸 수 있음.
 export { get, post, put, del as delete };
+
+
+// axios.interceptors.response.use(
+//   function (response) {
+//     // 응답 데이터를 가공
+//     // ...
+//     return response;
+//   },
+//   function (error) {
+//     // 오류 응답을 처리
+//     // ...
+//     return Promise.reject(error);
+//   });

@@ -1,4 +1,3 @@
-import { useReducer } from "react";
 import create from "zustand";
 
 interface User {
@@ -12,8 +11,6 @@ interface User {
 type StateProps = {
     user: User
     setUser: (user: User) => void;
-    // isLogin: boolean
-    // setIsLogin: (isLogin: boolean) => void;
 }
 
 const useUserStore = create<StateProps>((set) => ({
@@ -29,11 +26,7 @@ const useUserStore = create<StateProps>((set) => ({
             ...state,
             user
         }))
-    // isLogin: false
-    // setIsLogin: (isLogin) =>
-    //     set({isLogin: isLogin})
 }));
-
 
 export default useUserStore;
 

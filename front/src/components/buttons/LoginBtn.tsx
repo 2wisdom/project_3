@@ -1,6 +1,10 @@
 import LoginBtnStyle from "../../styles/buttons/LoginBtnStyle";
 
-const LoginBtn = ({ isLogin }: any) => {
+interface LoginProps{
+    isLogin: boolean
+}
+
+const LoginBtn:React.FunctionComponent<LoginProps> = ({ isLogin }) => {
   const btnState = isLogin ? "로그아웃" : "로그인";
 
   

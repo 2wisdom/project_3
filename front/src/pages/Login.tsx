@@ -40,18 +40,11 @@ const Login = () => {
       if (res.status === 201) {
         const user = res.data;
         console.log("res.data: ", user);
-        //전역유저 상태업데이트
         setUser(user);
-        // setIsLogin(true);
         const accessToken = user.accessToken;
         localStorage.setItem("accessToken", accessToken);
         navigate("/");
       }
-
-      // dispatch({
-      //   type: "LOGIN_SUCCESS",
-      //   payload: user,
-      // });
     } catch (err) {
       console.log("로그인에 실패하였습니다.\n", err);
       setLoginFailed(true);
