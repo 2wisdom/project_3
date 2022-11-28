@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../api/Api";
 import * as R from "../styles/RegisterPage/Register.styled";
+import { validateEmail, validatePassword } from "../components/Validate";
 
-console.log('R',R);
+console.log("R", R);
 interface RegisterData {
   name: string;
   email: string;
@@ -24,26 +25,14 @@ const Register = () => {
 
   //이메일 중복 체크
   const [isEmailDuplicate, setIsEmailDuplicate] = useState(true);
-  const [clickEmailConfirm, setClickEmailConfirm] = useState(false);
+  const [isClickEmailConfirm, setIsClickEmailConfirm] = useState(false);
 
   //닉네임 중복 체크
   const [isNameDuplicate, setIsNameDuplicate] = useState(true);
   const [clickNameConfirm, setClickNameConfirm] = useState<boolean>(false);
 
-  //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
-  const validateEmail = (email: string) => {
-    return email
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-  //비밀번호가 8자 이상, 숫자+문자 형태인지 regex를 이용해 확인함.
-  const validatePassword = (password: string) => {
-    return password.match(/^(?=.*\d)(?=.*[a-zA-Z]).{8,10}$/gm);
-  };
   // 입력 시작 체크
-  const inputStart = (target: string) => {
+  const isInputStart = (target: string) => {
     return target.length >= 1;
   };
 
@@ -53,9 +42,7 @@ const Register = () => {
   // 이메일 형태 확인.
   const isEmailValid = validateEmail(registerData.email);
   // 비밀번호 최소 8자, 문자+숫자 확인.
-  const isPasswordValid =
-    registerData.password.length >= 8 &&
-    validatePassword(registerData.password);
+  const isPasswordValid = validatePassword(registerData.password);
   // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인.
   const isPasswordSame = registerData.password === confirmPassword;
 
@@ -90,7 +77,7 @@ const Register = () => {
         setIsEmailDuplicate(true);
       }
     }
-    setClickEmailConfirm(true);
+    setIsClickEmailConfirm(true);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLDivElement> = async (e) => {
@@ -100,9 +87,10 @@ const Register = () => {
     if (!isNameDuplicate && !isEmailDuplicate) {
       try {
         const res = await Api.post("users", registerData);
-        
-        alert("회원가입에 성공하셨습니다.");
-        navigate("/login");
+        if (res.status === 201) {
+          alert("회원가입에 성공하셨습니다.");
+          navigate("/login");
+        }
       } catch (err) {
         console.log("회원가입에 실패하였습니다.", err);
       }
@@ -133,7 +121,7 @@ const Register = () => {
             중복 확인
           </R.ConfirmBtn>
         </R.ContentBox>
-        {inputStart(registerData.name) && !isNameValid && (
+        {isInputStart(registerData.name) && !isNameValid && (
           <R.NotifyNotValid>
             닉네임을 2글자 이상, 8글자 이하로 설정해주세요.
           </R.NotifyNotValid>
@@ -157,7 +145,7 @@ const Register = () => {
             placeholder="이메일을 입력하세요"
             value={registerData.email}
             onChange={(e) => {
-              setClickNameConfirm(false);
+              setIsClickEmailConfirm(false);
               setRegisterData({ ...registerData, email: e.target.value });
             }}
           />
@@ -169,10 +157,10 @@ const Register = () => {
             중복 확인
           </R.ConfirmBtn>
         </R.ContentBox>
-        {inputStart(registerData.email) && !isEmailValid && (
+        {isInputStart(registerData.email) && !isEmailValid && (
           <R.NotifyNotValid>email형식이 아닙니다</R.NotifyNotValid>
         )}
-        {clickEmailConfirm ? (
+        {isClickEmailConfirm ? (
           !isEmailDuplicate ? (
             <R.NotifyValid>사용가능한 이메일입니다.</R.NotifyValid>
           ) : (
@@ -196,7 +184,7 @@ const Register = () => {
             }
           />
         </R.PasswordContentBox>
-        {inputStart(registerData.password) && !isPasswordValid && (
+        {isInputStart(registerData.password) && !isPasswordValid && (
           <R.NotifyNotValid>
             비밀번호는 8~20자, 영문+숫자를 조합해주세요.
           </R.NotifyNotValid>
@@ -210,7 +198,7 @@ const Register = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </R.PasswordContentBox>
-        {inputStart(confirmPassword) && !isPasswordSame && (
+        {isInputStart(confirmPassword) && !isPasswordSame && (
           <R.NotifyNotValid>비밀번호가 일치하지 않습니다.</R.NotifyNotValid>
         )}
         <R.SubmitButton disabled={!isFormValid}>회원가입</R.SubmitButton>
