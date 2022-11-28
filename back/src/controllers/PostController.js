@@ -63,7 +63,7 @@ const postController = {
     });
   },
 
-  // 게시글 작성
+  // 게시글 생성
   createPost: async (req, res) => {
     console.log("게시글 작성");
     const post = req.body;
@@ -72,7 +72,6 @@ const postController = {
     const newPost = await Post.create(post);
 
     return res.json({
-      // id: newPost.id,
       newPost,
     });
   },
