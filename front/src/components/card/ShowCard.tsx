@@ -1,5 +1,5 @@
 import React from "react";
-import * as CommunityCardInterface from "../../store/CommunityCard";
+import * as CommunityCardInterface from "../../store/CommunityShowCard";
 import Card from "../../styles/showOffPage/ShowOffCard.module.css";
 // import imageSample from "../../../assets/infoPage/main.png";
 // import imageSample from "../../../assets/infoPage/main.png";
