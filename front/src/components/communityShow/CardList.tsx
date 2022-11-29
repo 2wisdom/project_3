@@ -1,18 +1,20 @@
 import React from "react";
-import Card from "../card/ShowCard";
+import ShowCard from "../card/ShowCard";
 import CardListStyle from "../../styles/showOffPage/CardList.module.css";
 const CardList = ({ showCardData }: { showCardData: any }) => {
+  console.log("showCardData", showCardData);
   return (
     <div className={CardListStyle.cardList}>
       {showCardData.docs &&
         showCardData.docs.map((item: any) => {
-          <Card
-          // image={CardListStyle.image}
-          // title={CardListStyle.title}
-          // userImage={CardListStyle.userImage}
-          // userName={CardListStyle.userName}
-          // date={CardListStyle.date}
-          ></Card>;
+          <ShowCard
+            key={item._id}
+            image={item.imageUrl}
+            title={item.title}
+            userImage={item.author.imageUrl}
+            userName={item.author.name}
+            date={item.updateAt}
+          ></ShowCard>;
         })}
     </div>
   );

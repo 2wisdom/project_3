@@ -57,8 +57,8 @@ const CommuityShow = () => {
               <Search></Search>
             </div>
             <div className={Show.cardInner}>
-              {/* {showCards.docs &&
-                showCards.docs.map((item: any) => (
+              {/* {showCardData.docs &&
+                showCardData.docs.map((item: any) => (
                   <ul>
                     <li key={item._id}>imageUrl : {item.imageUrl}</li>
                     <li key={item._id}>title : {item.title}</li>
@@ -67,7 +67,9 @@ const CommuityShow = () => {
                     <li key={item._id}>date : {item.updateAt}</li>
                   </ul>
                 ))} */}
-              <ShowCardList showCardData={...showCardData}></ShowCardList>
+              {showCardData && (
+                <ShowCardList showCardData={showCardData}></ShowCardList>
+              )}
             </div>
           </div>
         </div>
