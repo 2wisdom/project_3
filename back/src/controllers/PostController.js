@@ -14,7 +14,11 @@ const postController = {
       sort: {
         createdAt: -1,
       },
-      populate: "author",
+      populate: {
+        path: "author",
+        // 왜 imageURL이 뜨지 않는가 ...
+        select: ["_id", "name", "imageURL"],
+      },
     });
 
     return res.json(list);
@@ -84,10 +88,8 @@ const postController = {
 
     const getPost = await Post.get(postId);
 
-    console.log("해당 포스트 내용", getPost);
-    console.log("수정할 포스트 내용", req.body);
-
-    console.log("currentUserId", req.currentUserId);
+    // console.log("해당 포스트 내용 postId", getPost);
+    // console.log("수정할 포스트 내용 post", req.body);
 
     if (getPost.author !== req.currentUserId) {
       return res.status(401).json({
@@ -96,12 +98,18 @@ const postController = {
     }
 
     let result = null;
+    post._id = postId;
+    result = await Post.update(post);
 
-    try {
-      result = await Post.update(post);
-    } catch (err) {
-      return next(err.message);
-    }
+    console.log("result", result);
+
+    // try {
+    //   result = await Post.update(post);
+    // } catch (err) {
+    //   return next(err.message);
+    // }
+
+    // console.log("result", result);
 
     return res.json(result);
   },
