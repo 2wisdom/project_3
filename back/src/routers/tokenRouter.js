@@ -6,7 +6,7 @@ const { tokenController } = require("../controllers/tokenController");
 const { user_Validation } = require("../middlewares/validation");
 
 // access token 재발급
-tokenRouter.get("/", tokenController.postReissueToken);
+tokenRouter.post("/", tokenController.postReissueToken);
 
 tokenRouter.delete("/", tokenController.deleteLogout);
 
