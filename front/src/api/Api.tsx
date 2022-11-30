@@ -23,12 +23,14 @@ async function get(endpoint: string, params: string | null) {
   }
 }
 
-async function post(endpoint: string, data: any) {
+async function post(endpoint: string, data: string | null) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
-  let bodyData = null
-  if (data != null){
-  bodyData = JSON.stringify(data);}
+  // let bodyData = null;
+  // if (data != null) {
+  const bodyData = JSON.stringify(data);
+  console.log("bodyData: ", bodyData);
+  // }
   console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
   console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
 
@@ -79,32 +81,6 @@ async function del(endpoint: string, params: string | null) {
 // A.get, A.post 로 쓸 수 있음.
 export { get, post, put, del as delete };
 
-// axios.interceptors.response.use(
-//   (res) => {
-//     return res;
-//   },
-//   async (error) => {
-//     // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
-//     // 응답 오류가 있는 작업 수행
-//     const config = error.config;
-//     console.log(config);
-//     if (error.status === 403) {
-//       try {
-//         const res = await post("/token", null);
-//         if (res.status === 201) {
-//           const accessToken = res.data.accessToken;
-//           localStorage.setItem("accessToken", accessToken);
-//           return axios.request(config);
-//         }
-//       } catch (err: any) {
-//         console.log("로그인이 만료되었습니다.", err);
-//         alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
-//         return Promise.reject(err);
-//       }
-//     }
-//   }
-// );
-
 // https://github.com/axios/axios
 // export interface AxiosError<T> extends Error {
 //   config: AxiosRequestConfig;
@@ -121,23 +97,31 @@ axios.interceptors.response.use(
   },
   async (error: AxiosError) => {
     console.log("interceptors err: ", error);
-    if (error.request.status === 403) {
+
+    if (error.request.status === 403 && error!.response!.data == 'access token expired') {
+      const originalConfig = error.config;
+      // https://github.com/axios/axios/issues/5143 문제해결
+      originalConfig!.headers = { ...originalConfig!.headers };
       try {
-        const res = await post("token", null);
+        const res = await get("token", null);
         console.log("res: ", res);
         if (res.status === 201) {
           const accessToken = res.data.accessToken;
           localStorage.setItem("accessToken", accessToken);
-          const config = error.config;
-          console.log("config: ", config);
-          return axios.request(config);
+          //config가 null값이 아님을 알림
+          originalConfig!.headers!.Authorization = `Bearer ${accessToken}`;
+          return axios(originalConfig!);
         }
-      } catch (err: any) {
-        // console.log("로그인이 만료되었습니다.", err);
-        // alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
-        // localStorage.clear()
-        // return Promise.resolve(err);
+      } 
+      catch (err: any) {
+        //여기엔 뭘 작성해야할까요?
       }
+    }
+    else if (error.request.status === 403 && error!.response!.data == 'refresh token이 만료 되었습니다.') {
+      // console.log("리프레쉬토큰 만료", error)
+      alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+      localStorage.clear()
+      return Promise.resolve(error);
     }
     return Promise.reject(error);
   }

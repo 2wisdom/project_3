@@ -4,6 +4,7 @@ import NavBar from "@/components/NavBar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Main from "./pages/MainPage";
+import myPage from "./pages/myPage";
 import useUserStore from "./store/Login";
 import CommuityShowOff from "./pages/CommunityShowOff";
 import * as Api from "./api/Api";
@@ -29,6 +30,7 @@ const App = () => {
   const getUser = async () => {
     try {
       const res = await Api.get("users", null);
+      console.log(res.config)
       if (res.status === 200) {
         setUser(res.data);
       }
@@ -53,6 +55,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/communityShowOff" element={<CommuityShowOff />} />
+          {/* <Route path="/myPage" element={<myPage />} /> */}
           {/* <Route path="/search-plant" element={<Search />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/market" element={<Market />} /> */}
