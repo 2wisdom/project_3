@@ -6,7 +6,6 @@ const { User } = require("../db/models/User");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 
 async function loginRequired(req, res, next) {
-
   // request 헤더로부터 authorization bearer 토큰을 받음. authorization: 'Bearer 토큰'
   const userToken = req.headers["authorization"]?.split(" ")[1] ?? "null";
 
@@ -30,7 +29,7 @@ async function loginRequired(req, res, next) {
 
     next();
   } catch (error) {
-    if (error.name === "TokenExpiredError") {
+    if (error.name === "TokenExpiredError" && req.file) {
       await deleteUserImage(req.file.path);
       res.status(403).send("access token expired");
       return;
