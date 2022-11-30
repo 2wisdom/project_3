@@ -33,6 +33,9 @@ async function loginRequired(req, res, next) {
       await deleteUserImage(req.file.path);
       res.status(403).send("access token expired");
       return;
+    } else if (error.name === "TokenExpiredError" && !req.file) {
+      res.status(403).send("access token expired");
+      return;
     }
     res.status(400).send("정상적인 토큰이 아닙니다. 다시 한 번 확인해 주세요.");
     return;
