@@ -79,9 +79,11 @@ const tokenController = {
     try {
       const decodedAccessToken = jwt_decode(userAccessToken, secretKey);
       const accessTokenUserId = decodedAccessToken.userId;
-      const deletedToken = await tokenService.deleteTokenInfo(accessTokenUserId);
-      
-      res.status(200).json(deletedToken) 
+      const deletedToken = await tokenService.deleteTokenInfo(
+        accessTokenUserId
+      );
+
+      res.status(200).json(deletedToken);
     } catch (error) {
       next(error);
     }
