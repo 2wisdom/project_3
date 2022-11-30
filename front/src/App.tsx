@@ -4,7 +4,7 @@ import NavBar from "@/components/NavBar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Main from "./pages/MainPage";
-import myPage from "./pages/myPage";
+import MyPage from "./pages/MyPage";
 import useUserStore from "./store/Login";
 import CommuityShowOff from "./pages/CommunityShowOff";
 import * as Api from "./api/Api";
@@ -30,14 +30,14 @@ const App = () => {
   const getUser = async () => {
     try {
       const res = await Api.get("users", null);
-      console.log(res.config)
+      console.log(res.config);
       if (res.status === 200) {
         setUser(res.data);
       }
     } catch (err: any) {
       if (err.response.status === 400) {
         console.log("구경꾼이다");
-      }else{
+      } else {
         console.log(err);
       }
     }
@@ -56,7 +56,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/communityShowOff" element={<CommuityShowOff />} />
-          {/* <Route path="/myPage" element={<myPage />} /> */}
+          <Route path="/myPage" element={<MyPage />} />
           {/* <Route path="/search-plant" element={<Search />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/market" element={<Market />} /> */}

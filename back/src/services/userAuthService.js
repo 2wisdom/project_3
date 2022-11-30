@@ -96,7 +96,7 @@ const userAuthService = {
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
     const accessToken = jwt.sign({ userId: userId }, secretKey, {
       // 토큰 유효 기간, 발행자
-      expiresIn: "10s",
+      expiresIn: "10m",
       issuer: "team12",
     });
 
