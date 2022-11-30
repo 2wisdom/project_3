@@ -35,9 +35,10 @@ const App = () => {
         setUser(res.data);
       }
     } catch (err: any) {
-      console.log("로그인했니: ", err);
       if (err.response.status === 400) {
         console.log("구경꾼이다");
+      }else{
+        console.log(err);
       }
     }
   };

@@ -5,7 +5,6 @@ import * as Api from "../api/Api";
 import * as R from "../styles/RegisterPage/Register.styled";
 import { validateEmail, validatePassword } from "../components/Validate";
 
-console.log("R", R);
 interface RegisterData {
   name: string;
   email: string;
@@ -58,7 +57,7 @@ const Register = () => {
       }
     } catch (err: any) {
       console.log(err);
-      if (err.status === 409) {
+      if (err.response.status === 409) {
         setIsNameDuplicate(true);
       }
     }
@@ -73,7 +72,7 @@ const Register = () => {
       }
     } catch (err: any) {
       console.log(err);
-      if (err.status === 409) {
+      if (err.response.status === 409) {
         setIsEmailDuplicate(true);
       }
     }

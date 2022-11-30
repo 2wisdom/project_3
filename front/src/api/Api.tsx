@@ -23,7 +23,7 @@ async function get(endpoint: string, params: string | null) {
   }
 }
 
-async function post(endpoint: string, data: string | null) {
+async function post(endpoint: string, data: object) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
   // let bodyData = null;
@@ -108,11 +108,11 @@ axios.interceptors.response.use(
         if (res.status === 201) {
           const accessToken = res.data.accessToken;
           localStorage.setItem("accessToken", accessToken);
-          //config가 null값이 아님을 알림
+          //새토큰으로 헤더 교체, null값이 아님을 알림: !
           originalConfig!.headers!.Authorization = `Bearer ${accessToken}`;
           return axios(originalConfig!);
         }
-      } 
+      }
       catch (err: any) {
         //여기엔 뭘 작성해야할까요?
       }
