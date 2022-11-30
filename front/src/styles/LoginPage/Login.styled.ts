@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const MainContent = styled.div`
   width: 90rem;
@@ -72,10 +73,11 @@ export const LoginFail = styled.div`
   color: red;
   font-size: 1.1rem;
   margin: 0 auto;
+  height: 2rem;
 `
 
-export const NotifyFail = styled.div`
-  color: red;
-  font-size: 1rem;
-  height: 2rem;
-`;
+export const StyledLink = styled(Link)`
+  margin-left: 1rem;
+  color: #3278e4;
+  text-decoration: none;
+`
