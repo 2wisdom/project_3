@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const backendPortNumber = "5000";
 
@@ -77,26 +77,63 @@ async function del(endpoint: string, params: string | null) {
 // A.get, A.post 로 쓸 수 있음.
 export { get, post, put, del as delete };
 
+// axios.interceptors.response.use(
+//   (res) => {
+//     return res;
+//   },
+//   async (error) => {
+//     // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
+//     // 응답 오류가 있는 작업 수행
+//     const config = error.config;
+//     console.log(config);
+//     if (error.status === 403) {
+//       try {
+//         const res = await post("/token", null);
+//         if (res.status === 201) {
+//           const accessToken = res.data.accessToken;
+//           localStorage.setItem("accessToken", accessToken);
+//           return axios.request(config);
+//         }
+//       } catch (err: any) {
+//         console.log("로그인이 만료되었습니다.", err);
+//         alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+//         return Promise.reject(err);
+//       }
+//     }
+//   }
+// );
+
+// https://github.com/axios/axios
+// export interface AxiosError<T> extends Error {
+//   config: AxiosRequestConfig;
+//   code?: string;
+//   request?: any;
+//   response?: AxiosResponse<T>;
+//   isAxiosError: boolean;
+//   toJSON: () => object;
+// }
+
 axios.interceptors.response.use(
   (res) => {
     return res;
   },
-  async (error) => {
-    // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
-    // 응답 오류가 있는 작업 수행
+  async (error: AxiosError) => {
     if (error.status === 403) {
       try {
         const res = await post("/token", null);
         if (res.status === 201) {
           const accessToken = res.data.accessToken;
           localStorage.setItem("accessToken", accessToken);
-          return;
+          const config = error.config;
+          console.log("config: ", config);
+          // return axios.request(config);
         }
       } catch (err: any) {
         console.log("로그인이 만료되었습니다.", err);
         alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+        return Promise.resolve(err);
       }
     }
-    return res;
+    return Promise.resolve(error);
   }
 );

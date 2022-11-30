@@ -12,7 +12,9 @@ const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   //여기서 로그인중이면 localstorage의 토큰만 보내서 유저정보 받아옴
   useEffect(() => {
-    Api.get("users", null).then((res) => setUser(res.data));
+    Api.get("users", null)
+      .then((res) => setUser(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
