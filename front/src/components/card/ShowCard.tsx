@@ -3,7 +3,9 @@ import * as CommunityCardInterface from "../../store/CommunityShowCard";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
 // import imageSample from "../../../assets/infoPage/main.png";
 // import imageSample from "../../../assets/infoPage/main.png";
+import imageSample from "../../../assets/infoPage/main.png";
 import Avatar from "@mui/material/Avatar";
+import * as showCardStore from "../../store/CommunityShowCard";
 
 const ShowCard = ({
   key,
@@ -13,19 +15,20 @@ const ShowCard = ({
   userName,
   date,
 }: {
-  key: any;
-  image: any;
-  title: any;
-  userImage: any;
-  userName: any;
-  date: any;
+  key: string;
+  image: string;
+  title: string;
+  userImage: string;
+  userName: string;
+  date: string;
 }) => {
-  console.log("image", image);
+  // console.log("userName", userName);
+
   return (
     <>
       <div className={Card.inner}>
-        {/* <img className={Card.Image} src={imageSample}></img> */}
-        <img className={Card.image}>{image}</img>
+        <img className={Card.Image} src={image}></img>
+        {/* <img className={Card.image}></img> */}
         <h3 className={Card.title}>{title}</h3>
         <div className={Card.footer}>
           <div className={Card.userInner}>

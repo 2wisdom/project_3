@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import Search from "../components/search/Search";
 import Show from "../styles/showOffPage/ShowPage.module.css";
 import ShowCardList from "../components/communityShow/CardList";
-import showCardStore from "../store/CommunityShowCard";
+import * as showCardStore from "../store/CommunityShowCard";
 import * as Api from "../api/Api";
 const CommuityShow = () => {
-  const showCardData = showCardStore((state: any) => state.showCards);
-  const apiGetShowCardData = showCardStore(
+  const showCardData = showCardStore.showCardStore(
+    (state: any) => state.showCards
+  );
+  const apiGetShowCardData = showCardStore.showCardStore(
     (state: any) => state.apiGetShowCards
   );
 
@@ -16,6 +18,11 @@ const CommuityShow = () => {
   }, []);
   // console.log("apiGetShowCardData", apiGetShowCardData);
   // console.log("showCardData", showCardData);
+  // console.log(
+  //   "showCardData.docs && showCardData.docs[0]",
+  //   showCardData.docs && showCardData.docs[0]
+  // );
+  // console.log("showCardData.docs._id", showCardData.docs._id);
 
   // console.log("showCardsType", typeof showCards);
   // const setShowCard = showCardStore((state) => state.setShowCard);

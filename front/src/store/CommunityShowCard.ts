@@ -4,8 +4,11 @@ import create from "zustand";
 import { persist } from "zustand/middleware";
 import * as Api from "../api/Api";
 //타입설정
-interface ShowCardType {
-  postId: string;
+export interface ShowCardType {
+  _Id: string;
+  imageURL: string;
+  imageUrl: string;
+  updatedAt: string;
   userId: string;
   email: string;
   userImageURL: string;
@@ -13,6 +16,11 @@ interface ShowCardType {
   title: string;
   date: string;
   contents: string;
+  page: number;
+  author: Array<string>;
+  docs: Array<string>;
+  pagingCounter: number;
+  totalPages: number;
 
   //   setPostId: (value: string) => void;
   //   setUserId: (value: string) => void;
@@ -24,7 +32,68 @@ interface ShowCardType {
   //   setContents: (value: string) => void;
 }
 
-const createShowCards = (set: any, get: any) => ({
+// export interface showCardTest {
+//   hasNextPage: boolean;
+//   hasPrevPage: boolean;
+//   limit: number;
+//   nextPage: number;
+//   page: number;
+//   padginCounter: number;
+//   prevPage: number;
+//   totalDocs: number;
+//   totalPages: number;
+//   docs: {
+//     map: any;
+//     item: [
+//       author: [
+//         _id: string,
+//         email: string,
+//         imageUrl: string,
+//         name: string,
+//         password: string,
+//         updatedAt?: string,
+//         createdAt?: string
+//       ],
+//       _Id: string,
+//       imageURL: string,
+//       title: string,
+//       contents: string,
+//       createdAt?: string,
+//       updatedAt?: string
+//     ];
+//   };
+// }
+export interface showCardTest {
+  map: any;
+
+  author: {
+    _id: string;
+    email: string;
+    imageUrl: string;
+    name: string;
+    password: string;
+    updatedAt?: string;
+    createdAt?: string;
+  };
+
+  _id: string;
+  imageURL: string;
+  title: string;
+  contents: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface showCardList {
+  item: [showCardTest];
+  docs: [showCardTest];
+  showCardData: [showCardTest];
+  page: number;
+  pagingCounter: number;
+  totalPages: number;
+}
+
+export const createShowCards = (set: any, get: any) => ({
   showCards: [],
   apiGetShowCards: async () => {
     const res = await Api.get("posts");
@@ -32,7 +101,7 @@ const createShowCards = (set: any, get: any) => ({
   },
 });
 
-const showCardStore = create((set, get) => ({
+export const showCardStore = create((set, get) => ({
   ...createShowCards(set, get),
 }));
 // interface ShowCardState {
@@ -128,4 +197,4 @@ const showCardStore = create((set, get) => ({
 
 // }));
 
-export default showCardStore;
+// export default showCardStore;
