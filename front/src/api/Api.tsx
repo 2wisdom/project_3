@@ -26,7 +26,9 @@ async function get(endpoint: string, params: string | null) {
 async function post(endpoint: string, data: any) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
-  const bodyData = JSON.stringify(data);
+  let bodyData = null
+  if (data != null){
+  bodyData = JSON.stringify(data);}
   console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
   console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
 
@@ -118,22 +120,25 @@ axios.interceptors.response.use(
     return res;
   },
   async (error: AxiosError) => {
-    if (error.status === 403) {
+    console.log("interceptors err: ", error);
+    if (error.request.status === 403) {
       try {
-        const res = await post("/token", null);
+        const res = await post("token", null);
+        console.log("res: ", res);
         if (res.status === 201) {
           const accessToken = res.data.accessToken;
           localStorage.setItem("accessToken", accessToken);
           const config = error.config;
           console.log("config: ", config);
-          // return axios.request(config);
+          return axios.request(config);
         }
       } catch (err: any) {
-        console.log("로그인이 만료되었습니다.", err);
-        alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
-        return Promise.resolve(err);
+        // console.log("로그인이 만료되었습니다.", err);
+        // alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+        // localStorage.clear()
+        // return Promise.resolve(err);
       }
     }
-    return Promise.resolve(error);
+    return Promise.reject(error);
   }
 );

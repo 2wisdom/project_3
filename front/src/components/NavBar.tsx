@@ -9,9 +9,11 @@ const NavBar = () => {
   const navigate = useNavigate();
   // const isLogin = useUserStore((state) => state.isLogin);
   const user = useUserStore((state) => state.user);
+  console.log("user: ", user)
   const setUser = useUserStore((state) => state.setUser);
   const isLogin = user.email != "";
-  // console.log(isLogin)
+  // const isLogin = false;
+  console.log("isLogin: ", isLogin)
   const logout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
 

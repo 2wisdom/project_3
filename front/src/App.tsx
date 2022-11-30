@@ -11,10 +11,37 @@ import * as Api from "./api/Api";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   //여기서 로그인중이면 localstorage의 토큰만 보내서 유저정보 받아옴
+  // useEffect(() => {
+  //   Api.get("users", null)
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         setUser(res.data);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log("err: ", err)}
+  //       // if (err.status === 400) {
+  //       //   console.log("구경꾼");
+  //       // }
+  //     );
+  // }, []);
+
+  const getUser = async () => {
+    try {
+      const res = await Api.get("users", null);
+      if (res.status === 200) {
+        setUser(res.data);
+      }
+    } catch (err: any) {
+      console.log("로그인했니: ", err);
+      if (err.response.status === 400) {
+        console.log("구경꾼이다");
+      }
+    }
+  };
+
   useEffect(() => {
-    Api.get("users", null)
-      .then((res) => setUser(res.data))
-      .catch((err) => console.log(err));
+    getUser();
   }, []);
 
   return (
