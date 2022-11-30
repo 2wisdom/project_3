@@ -88,8 +88,13 @@ export interface showCardList {
   item: [showCardTest];
   docs: [showCardTest];
   showCardData: [showCardTest];
+  hasPrevPage: boolean;
+  limit: number;
+  nextPage: number;
   page: number;
-  pagingCounter: number;
+  padginCounter: number;
+  prevPage: number;
+  totalDocs: number;
   totalPages: number;
 }
 
