@@ -146,8 +146,7 @@ const userAuthService = {
 
   // 유저 정보 업데이트
   updateUserInfo: async ({ userId, toUpdate }) => {
- 
-    let user = await User.findById( userId );
+    let user = await User.findById(userId);
 
     const oldImageUrl = user.imageUrl;
 
@@ -183,10 +182,9 @@ const userAuthService = {
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
-      if(user.imageUrl === "leavesGetMoreYards.png") {
-        user.imageUrl = 'public/images/leavesGetMoreYards.png'
+      if (user.imageUrl === "leavesGetMoreYards.png") {
+        user.imageUrl = "public/images/leavesGetMoreYards.png";
       }
-
     }
 
     // 이미지만 업데이트
