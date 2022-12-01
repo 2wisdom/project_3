@@ -1,56 +1,61 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import UserInfo from "../components/myPage/UserContainer";
-import Password from "../components/myPage/PasswordContents";
+import styled from "styled-components";
+import { IProps } from "../../pages/myPage";
 import useUserStore from "@/store/Login";
 
-interface User {
-  email: string;
-  name: string;
-  profileImg?: string;
-  password?: string;
-  newPassword?: string;
-}
-
-export interface IProps {
-  newUser: User;
-  setNewUser: (user: User) => void;
-}
-
-const MyPage = () => {
-  // const navList = ["개인정보수정", "작성한글", "작성한 댓글"];
+const UserInfo = (
+  newUser: IProps["newUser"],
+  setNewUser: IProps["setNewUser"]
+) => {
   const user = useUserStore((state) => state.user);
-  const [newUser, setNewUser] = useState<IProps['newUser']>({
-    email: user.email,
-    name: user.name,
-    profileImg: user.profileImg,
-    password: "",
-    newPassword: "",
-  });
+  console.log(user);
 
   return (
-    <MainContent>
-      <MyPageContainer>
-        <NavBox>
-          <NavBtn>개인정보수정</NavBtn>
-        </NavBox>
-        <MainContainer>
-          <Title>마이페이지</Title>
-          <UserInfo {...newUser} {...setNewUser} />
-          <Password />
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Button variant="outlined">취소</Button>
-            <Button variant="outlined">적용</Button>
-          </Stack>
-        </MainContainer>
-      </MyPageContainer>
-    </MainContent>
+    <UserContainer>
+      <Stack alignItems="center">
+        <CardMedia
+          component="img"
+          height="194"
+          image="/static/images/cards/paella.jpg"
+          // alt="Paella dish"
+          // border-radius="50%"
+        />
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Button variant="outlined">삭제</Button>
+          <Button variant="contained" component="label">
+            변경
+            <input hidden accept="image/*" multiple type="file" />
+          </Button>
+        </Stack>
+      </Stack>
+      {/* <ImgContainer>
+            </ImgContainer> */}
+      <InputContainer>
+        <ContentBox>
+          <Tag>닉네임</Tag>
+          <Input
+            id="name"
+            type="text"
+            placeholder={user.name}
+            value={newUser.name}
+            onChange={(e) =>
+              setNewUser((prev) => ({ ...prev, name: e.targt.value }))
+            }
+          ></Input>
+        </ContentBox>
+        <ContentBox>
+          <Tag>이메일</Tag>
+          <Input placeholder={user.email}></Input>
+        </ContentBox>
+        <Button> 회원탈퇴 </Button>
+      </InputContainer>
+    </UserContainer>
   );
 };
-export default MyPage;
+export default UserInfo;
 
 const MainContent = styled.div`
   display: block;
@@ -60,7 +65,7 @@ const MainContent = styled.div`
   // background-color: grey;
 `;
 
-const MyPageContainer = styled.form`
+const LoginContainer = styled.form`
   display: flex;
   justify-content: left;
   align-item: left;

@@ -4,7 +4,7 @@ import NavBar from "@/components/NavBar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Main from "./pages/MainPage";
-import MyPage from "./pages/MyPage";
+import MyPage from "./pages/myPage";
 import useUserStore from "./store/Login";
 import CommuityShowOff from "./pages/CommunityShowOff";
 import * as Api from "./api/Api";

@@ -7,7 +7,6 @@ import * as Api from "../api/Api";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  // const isLogin = useUserStore((state) => state.isLogin);
   const user = useUserStore((state) => state.user);
   console.log("user: ", user)
   const setUser = useUserStore((state) => state.setUser);
