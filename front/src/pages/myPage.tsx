@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
@@ -17,13 +17,23 @@ interface User {
 
 export interface IProps {
   newUser: User;
-  setNewUser: (user: User) => void;
+  setNewUser: Dispatch<SetStateAction<User>>;
 }
+
+// export interface IProps {
+//   newUser: User;
+//   setNewUser: (user: User) => void;
+// }
+
+// export interface IProps {
+//   name: string
+//   setName: Dispatch<SetStateAction<string>>;
+// }
 
 const MyPage = () => {
   // const navList = ["개인정보수정", "작성한글", "작성한 댓글"];
   const user = useUserStore((state) => state.user);
-  const [newUser, setNewUser] = useState<IProps['newUser']>({
+  const [newUser, setNewUser] = useState<IProps["newUser"]>({
     email: user.email,
     name: user.name,
     profileImg: user.profileImg,
@@ -31,6 +41,13 @@ const MyPage = () => {
     newPassword: "",
   });
 
+  // const [name, setName] = useState<IProps["name"]>("");
+  // console.log(name)
+  // const onChangeHandler = (
+  // setNewUser:Dispatch<SetStateAction<User>>
+  // );
+
+  // console.log("1: ", newUser);
   return (
     <MainContent>
       <MyPageContainer>
@@ -40,6 +57,7 @@ const MyPage = () => {
         <MainContainer>
           <Title>마이페이지</Title>
           <UserInfo {...newUser} {...setNewUser} />
+          {/* <UserInfo name={name} setName={setName} /> */}
           <Password />
           <Stack direction="row" alignItems="center" spacing={2}>
             <Button variant="outlined">취소</Button>

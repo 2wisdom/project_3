@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -9,9 +9,14 @@ import useUserStore from "@/store/Login";
 const UserInfo = (
   newUser: IProps["newUser"],
   setNewUser: IProps["setNewUser"]
+  // name: string,
+  // setName: Dispatch<SetStateAction<string>>
 ) => {
   const user = useUserStore((state) => state.user);
-  console.log(user);
+  console.log("newUser: ", newUser)
+  // const onChangeHandler = (
+  //   setNewUser:Dispatch<SetStateAction<User>>
+  //   );
 
   return (
     <UserContainer>
@@ -42,7 +47,7 @@ const UserInfo = (
             placeholder={user.name}
             value={newUser.name}
             onChange={(e) =>
-              setNewUser((prev) => ({ ...prev, name: e.targt.value }))
+              setNewUser((state) => ({ ...state, name: e.target.value }))
             }
           ></Input>
         </ContentBox>
