@@ -5,11 +5,21 @@ const { loginRequired } = require("../middlewares/login_required");
 const { commentController } = require("../controllers/CommentController");
 
 /**
+ * 댓글 조회
+ * GET /comments/getComments
+ */
+commentRouter.get(
+  "/getComments",
+  [loginRequired],
+  commentController.getComments
+);
+
+/**
  * 댓글 생성
- * POST /comments/saveComment
+ * POST /comments/comment
  */
 commentRouter.post(
-  "/saveComment",
+  "/comment",
   [loginRequired],
   commentController.createComment
 );

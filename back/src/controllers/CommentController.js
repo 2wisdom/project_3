@@ -2,6 +2,16 @@ const express = require("express");
 const Comment = require("../db/schemas/commnet");
 
 const commentController = {
+  // 댓글 조회
+  getComments: (req, res) => {
+    Comment.find({ writingId: req.body.writingId })
+      .populate([{ path: "writer", select: ["_id", "name", "imageUrl"] }])
+      .exec((err, comments) => {
+        if (err) return res.status(400).send(err);
+        res.status(200).json({ success: true, comments });
+      });
+  },
+
   // 댓글 생성
   createComment: (req, res) => {
     const comment = new Comment(req.body);
