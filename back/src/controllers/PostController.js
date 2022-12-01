@@ -72,11 +72,11 @@ const postController = {
 
     const getPost = await Post.get(postId);
 
-    // if (getPost.author !== req.currentUserId) {
-    //   return res.status(401).json({
-    //     message: "수정 권한이 없습니다.",
-    //   });
-    // }
+    if (getPost.author !== req.currentUserId) {
+      return res.status(401).json({
+        message: "수정 권한이 없습니다.",
+      });
+    }
 
     try {
       let result = null;
@@ -95,7 +95,15 @@ const postController = {
     console.log("게시글 삭제");
     const { postId } = req.params;
 
+    const getPost = await Post.get(postId);
+    if (getPost.author !== req.currentUserId) {
+      return res.status(401).json({
+        message: "삭제 권한이 없습니다.",
+      });
+    }
+
     await Post.delete(postId);
+
     try {
       return res.json({
         id: postId,
