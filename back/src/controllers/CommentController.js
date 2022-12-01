@@ -4,6 +4,7 @@ const Comment = require("../db/schemas/commnet");
 const commentController = {
   // 댓글 조회
   getComments: (req, res) => {
+    console.log("댓글 조회");
     Comment.find({ writingId: req.body.writingId })
       .populate([{ path: "writer", select: ["_id", "name", "imageUrl"] }])
       .exec((err, comments) => {
@@ -14,6 +15,7 @@ const commentController = {
 
   // 댓글 생성
   createComment: (req, res) => {
+    console.log("댓글 생성");
     const comment = new Comment(req.body);
     comment.save((err, comment) => {
       if (err) return res.json({ success: false, err });
@@ -25,6 +27,11 @@ const commentController = {
           res.status(200).json({ success: true, result });
         });
     });
+  },
+
+  // 댓글 삭제
+  deleteComment: (req, res) => {
+    console.log("댓글 삭제");
   },
 };
 

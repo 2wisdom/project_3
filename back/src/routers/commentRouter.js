@@ -6,22 +6,20 @@ const { commentController } = require("../controllers/CommentController");
 
 /**
  * 댓글 조회
- * GET /comments/getComments
+ * GET /comments
  */
-commentRouter.get(
-  "/getComments",
-  [loginRequired],
-  commentController.getComments
-);
+commentRouter.get("/", [loginRequired], commentController.getComments);
 
 /**
  * 댓글 생성
- * POST /comments/comment
+ * POST /comments
  */
-commentRouter.post(
-  "/comment",
-  [loginRequired],
-  commentController.createComment
-);
+commentRouter.post("/", [loginRequired], commentController.createComment);
+
+/**
+ * 댓글 삭제
+ * DELETE /comments
+ */
+commentRouter.delete("/", [loginRequired], commentController.deleteComment);
 
 module.exports = commentRouter;
