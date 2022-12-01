@@ -1,6 +1,6 @@
 const express = require("express");
 const Post = require("../db/models/Post");
-const os = require("os");
+// const os = require("os");
 
 const postController = {
   // 전체 게시글 조회
@@ -17,7 +17,6 @@ const postController = {
       },
       populate: {
         path: "author",
-        // 왜 imageURL이 뜨지 않는가 ...
         select: ["_id", "name", "imageUrl"],
       },
     });
@@ -49,40 +48,40 @@ const postController = {
     }
   },
 
-  // 이미지 업로드
-  uploadImage: async (req, res) => {
-    console.log("이미지 업로드");
+  // // 이미지 업로드
+  // uploadImage: async (req, res) => {
+  //   console.log("이미지 업로드");
 
-    if (!req.headers["content-type"].startsWith("multipart/form-data")) {
-      throw Error({ message: "Content-Type once multipart/form-data" });
-    }
+  //   if (!req.headers["content-type"].startsWith("multipart/form-data")) {
+  //     throw Error({ message: "Content-Type once multipart/form-data" });
+  //   }
 
-    const isWindow = os.platform() === "win32";
+  //   const isWindow = os.platform() === "win32";
 
-    const url = `${req.protocol}://${req.hostname}${
-      parseInt(process.env.SERVER_PORT, 10) === 80
-        ? ""
-        : `:${process.env.SERVER_PORT}`
-    }`;
+  //   const url = `${req.protocol}://${req.hostname}${
+  //     parseInt(process.env.SERVER_PORT, 10) === 80
+  //       ? ""
+  //       : `:${process.env.SERVER_PORT}`
+  //   }`;
 
-    let path = req.file.path;
+  //   let path = req.file.path;
 
-    // support window
-    if (isWindow) {
-      path = path.split("\\").join("/");
-    }
+  //   // support window
+  //   if (isWindow) {
+  //     path = path.split("\\").join("/");
+  //   }
 
-    const resolveUrl = `${url}/${path}`;
+  //   const resolveUrl = `${url}/${path}`;
 
-    try {
-      return res.json({
-        url: resolveUrl,
-      });
-    } catch (err) {
-      console.log(err);
-      return res.status(400).send("Error");
-    }
-  },
+  //   try {
+  //     return res.json({
+  //       url: resolveUrl,
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //     return res.status(400).send("Error");
+  //   }
+  // },
 
   // 게시글 생성
   createPost: async (req, res) => {
