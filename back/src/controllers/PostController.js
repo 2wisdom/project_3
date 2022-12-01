@@ -18,7 +18,7 @@ const postController = {
       populate: {
         path: "author",
         // 왜 imageURL이 뜨지 않는가 ...
-        select: ["_id", "name", "imageURL"],
+        select: ["_id", "name", "imageUrl"],
       },
     });
 
