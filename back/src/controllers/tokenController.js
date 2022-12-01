@@ -41,7 +41,7 @@ const tokenController = {
           secretKey,
           {
             // 토큰 유효 기간, 발행자
-            expiresIn: "30m",
+            expiresIn: "10m",
             issuer: "team12",
           }
         );

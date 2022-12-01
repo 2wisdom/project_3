@@ -106,7 +106,7 @@ export interface showCardList {
 export const createShowCards = (set: any, get: any) => ({
   showCards: [],
   apiGetShowCards: async () => {
-    const res = await Api.get("posts");
+    const res = await Api.get("posts", null);
     set({ showCards: await res.data });
   },
 });
