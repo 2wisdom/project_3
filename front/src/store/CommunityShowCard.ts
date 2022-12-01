@@ -3,6 +3,10 @@ import { useReducer } from "react";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 import * as Api from "../api/Api";
+
+export const split = (str: string, delim: string = ""): string[] =>
+  str.split(delim);
+
 //타입설정
 export interface ShowCardType {
   _Id: string;
@@ -96,6 +100,7 @@ export interface showCardList {
   prevPage: number;
   totalDocs: number;
   totalPages: number;
+  length: number;
 }
 
 export const createShowCards = (set: any, get: any) => ({

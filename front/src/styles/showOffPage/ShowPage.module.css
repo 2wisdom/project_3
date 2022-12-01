@@ -16,27 +16,28 @@
 .buttonContainer {
   display: flex;
   flex-direction: column;
-  width: 15%;
+  width: 6%;
   height: 80vh;
+  margin-right: 2rem;
+
   /* background-color: aqua; */
 }
 .buttonInner {
   margin-top: 8rem;
 }
 .yellowBtn {
-  width: 200px;
+  width: 150px;
   height: 50px;
   /* font-family: 'Jua', sans-serif; */
   font-family: "Nanum Gothic", sans-serif;
   font-weight: 800;
-  font-size: 25px;
+  font-size: 20px;
   border: none;
   border-radius: 1rem;
   color: #000000;
   background-color: #ffda7b;
-  margin-right: 4rem;
+  /* margin-right: 4rem; */
   margin-top: 2rem;
-  margin-left: 1rem;
 }
 
 .rightInner {
@@ -69,5 +70,23 @@
   margin-left: auto;
   width: 100%;
   height: 70vh;
-  background-color: blue;
+  /* background-color: blue; */
+}
+/* moreBtn */
+.footer {
+  width: 100%;
+  display: flex;
+}
+.moreBtnInner {
+  width: 80%;
+}
+
+.writeBtnInner {
+  width: 20%;
+}
+
+.writeBtnOutline {
+  border: 2px solid #000000;
+  border-radius: 3rem;
+  padding: 1rem;
 }

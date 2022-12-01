@@ -6,33 +6,33 @@ import CardListStyle from "../../styles/showOffPage/CardList.module.css";
 import * as showCardStore from "../../store/CommunityShowCard";
 import Avatar from "@mui/material/Avatar";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
-
+import imageSample from "../../../../back/public/images/leavesGetMoreYards.png";
 const CardList = ({
   showCardData,
 }: {
   showCardData: showCardStore.showCardList;
 }) => {
-  const [visible, setVisible] = useState(10);
-  console.log("showCArdData", showCardData);
+  const [visible, setVisible] = useState(8);
+  // console.log("showCArdData", showCardData.docs && showCardData.docs.length);
   return (
     <div className={CardListStyle.cardList}>
-      {showCardData &&
-        showCardData.docs?.map((item: showCardStore.showCardTest) => {
-          return (
-            <ShowCard
-              key={item._id}
-              image={item.imageURL}
-              title={item.title}
-              userImage={item.author.imageUrl}
-              userName={item.author.name}
-              date={item.createdAt}
-            ></ShowCard>
-          );
-        })}
-      {showCardData && showCardData.totalDocs >= 10 ? (
-        <button> 더보기 </button>
-      ) : null}
-      ){" "}
+      <div className={CardListStyle.cardListInner}>
+        {showCardData &&
+          showCardData.docs
+            ?.slice(0, visible)
+            .map((item: showCardStore.showCardTest) => {
+              return (
+                <ShowCard
+                  key={item._id}
+                  image={imageSample}
+                  title={item.title}
+                  userImage={item.author.imageUrl}
+                  userName={item.author.name}
+                  date={item.createdAt}
+                ></ShowCard>
+              );
+            })}
+      </div>
     </div>
   );
 };

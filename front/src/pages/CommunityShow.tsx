@@ -4,6 +4,7 @@ import Search from "../components/search/Search";
 import Show from "../styles/showOffPage/ShowPage.module.css";
 import ShowCardList from "../components/communityShow/CardList";
 import * as showCardStore from "../store/CommunityShowCard";
+import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../api/Api";
 const CommuityShow = () => {
   const showCardData = showCardStore.showCardStore(
@@ -16,6 +17,7 @@ const CommuityShow = () => {
   useEffect(() => {
     apiGetShowCardData();
   }, []);
+  const [visible, setVisible] = useState(8);
   // console.log("apiGetShowCardData", apiGetShowCardData);
   // console.log("showCardData", showCardData);
   // console.log(
@@ -77,6 +79,19 @@ const CommuityShow = () => {
               {showCardData && (
                 <ShowCardList showCardData={showCardData}></ShowCardList>
               )}
+            </div>
+            <div className={Show.footer}>
+              <div className={Show.moreBtnInner}>
+                {showCardData.docs && visible < showCardData.docs.length ? (
+                  <button className={Show.moreBtn}> 더보기 </button>
+                ) : null}
+              </div>
+              <div className={Show.writeBtnInner}>
+                <EditIcon
+                  className={Show.writeBtnOutline}
+                  sx={{ fontSize: 35 }}
+                ></EditIcon>
+              </div>
             </div>
           </div>
         </div>

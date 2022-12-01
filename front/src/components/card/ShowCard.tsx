@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import * as CommunityCardInterface from "../../store/CommunityShowCard";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
 // import imageSample from "../../../assets/infoPage/main.png";
@@ -6,7 +7,8 @@ import Card from "../../styles/showOffPage/ShowCard.module.css";
 import imageSample from "../../../assets/infoPage/main.png";
 import Avatar from "@mui/material/Avatar";
 import * as showCardStore from "../../store/CommunityShowCard";
-
+import { height } from "@mui/system";
+import { split } from "../../store/CommunityShowCard";
 const ShowCard = ({
   key,
   image,
@@ -22,12 +24,16 @@ const ShowCard = ({
   userName: string;
   date: string;
 }) => {
-  // console.log("userName", userName);
+  const createDate = split(date, "T");
 
   return (
     <>
       <div className={Card.inner}>
-        <img className={Card.Image} src={image}></img>
+        <img
+          className={Card.Image}
+          src={image}
+          style={{ width: 267, height: 200 }}
+        ></img>
         {/* <img className={Card.image}></img> */}
         <h3 className={Card.title}>{title}</h3>
         <div className={Card.footer}>
@@ -41,7 +47,7 @@ const ShowCard = ({
 
             <h5 className={Card.userName}>{userName}</h5>
           </div>
-          <div className={Card.data}>{date}</div>
+          <div className={Card.data}>{createDate[0]}</div>
         </div>
       </div>
     </>
