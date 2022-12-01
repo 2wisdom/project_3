@@ -6,11 +6,13 @@ const CommentSchema = new mongoose.Schema(
     // 댓글 작성자
     writer: {
       type: String,
+      required: true,
       ref: "User",
     },
-    // 게시글 ID
+    // 해당 게시글 ID
     writingId: {
       type: String,
+      required: true,
       ref: "Post",
     },
     // reply to
@@ -21,6 +23,7 @@ const CommentSchema = new mongoose.Schema(
     // 댓글 내용
     content: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }
