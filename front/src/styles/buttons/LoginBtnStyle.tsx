@@ -12,7 +12,6 @@ const LoginBtnStyle = styled.button`
     border : 2px solid #3278E4;
     border-radius:8px;
     outline:0;
-
 `;
 
 export default LoginBtnStyle;

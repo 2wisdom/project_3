@@ -10,3 +10,7 @@ export const validateEmail = (email: string) => {
 export const validatePassword = (password: string) => {
     return password.match(/^(?=.*\d)(?=.*[a-zA-Z]).{8,10}$/gm);
 };
+
+export const isInputStart = (target: string) => {
+    return target.length >= 1;
+  };
