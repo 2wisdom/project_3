@@ -1,6 +1,5 @@
 const express = require("express");
 const Post = require("../db/models/Post");
-const os = require("os");
 
 const postController = {
   // 전체 게시글 조회
@@ -17,8 +16,7 @@ const postController = {
       },
       populate: {
         path: "author",
-        // 왜 imageURL이 뜨지 않는가 ...
-        select: ["_id", "name", "imageURL"],
+        select: ["_id", "name", "imageUrl"],
       },
     });
 
@@ -43,41 +41,6 @@ const postController = {
     try {
       const copyPost = { ...post.toJSON() };
       return res.json(copyPost);
-    } catch (err) {
-      console.log(err);
-      return res.status(400).send("Error");
-    }
-  },
-
-  // 이미지 업로드
-  uploadImage: async (req, res) => {
-    console.log("이미지 업로드");
-
-    if (!req.headers["content-type"].startsWith("multipart/form-data")) {
-      throw Error({ message: "Content-Type once multipart/form-data" });
-    }
-
-    const isWindow = os.platform() === "win32";
-
-    const url = `${req.protocol}://${req.hostname}${
-      parseInt(process.env.SERVER_PORT, 10) === 80
-        ? ""
-        : `:${process.env.SERVER_PORT}`
-    }`;
-
-    let path = req.file.path;
-
-    // support window
-    if (isWindow) {
-      path = path.split("\\").join("/");
-    }
-
-    const resolveUrl = `${url}/${path}`;
-
-    try {
-      return res.json({
-        url: resolveUrl,
-      });
     } catch (err) {
       console.log(err);
       return res.status(400).send("Error");
@@ -109,11 +72,11 @@ const postController = {
 
     const getPost = await Post.get(postId);
 
-    // if (getPost.author !== req.currentUserId) {
-    //   return res.status(401).json({
-    //     message: "수정 권한이 없습니다.",
-    //   });
-    // }
+    if (getPost.author !== req.currentUserId) {
+      return res.status(401).json({
+        message: "수정 권한이 없습니다.",
+      });
+    }
 
     try {
       let result = null;
@@ -132,7 +95,15 @@ const postController = {
     console.log("게시글 삭제");
     const { postId } = req.params;
 
+    const getPost = await Post.get(postId);
+    if (getPost.author !== req.currentUserId) {
+      return res.status(401).json({
+        message: "삭제 권한이 없습니다.",
+      });
+    }
+
     await Post.delete(postId);
+
     try {
       return res.json({
         id: postId,

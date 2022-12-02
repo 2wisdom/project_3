@@ -1,7 +1,7 @@
 const { validationSchema } = require("./validationSchema");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 
-const user_Validation = {
+const userValidation = {
   ValidatePostAddUser: async (req, res, next) => {
     try {
       // 검사시작
@@ -13,7 +13,7 @@ const user_Validation = {
     }
     next();
   },
-  
+
   ValidatePostLogin: async (req, res, next) => {
     try {
       await validationSchema.postLoginSchema.validateAsync(req.body);
@@ -37,4 +37,4 @@ const user_Validation = {
   },
 };
 
-exports.user_Validation = user_Validation;
+exports.userValidation = userValidation;
