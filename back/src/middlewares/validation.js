@@ -1,6 +1,8 @@
 const { validationSchema } = require("./validationSchema");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 
+const errorMessage = "요청한 데이터 형식이 올바르지 않습니다.";
+
 const userValidation = {
   ValidatePostAddUser: async (req, res, next) => {
     try {
@@ -9,7 +11,8 @@ const userValidation = {
     } catch (error) {
       // 유효성 검사 에러
       const message = error.details.map((element) => element.message).join(",");
-      return res.status(400).json({ code: 400, message: message });
+      console.log(`errorMessage: `, message);
+      return res.status(400).json({ errorMessage: errorMessage });
     }
     next();
   },
@@ -19,7 +22,8 @@ const userValidation = {
       await validationSchema.postLoginSchema.validateAsync(req.body);
     } catch (error) {
       const message = error.details.map((element) => element.message).join(",");
-      return res.status(400).json({ code: 400, message: message });
+      console.log(`errorMessage: `, message);
+      return res.status(400).json({ errorMessage: errorMessage });
     }
     next();
   },
@@ -35,7 +39,8 @@ const userValidation = {
       }
 
       const message = error.details.map((element) => element.message).join(",");
-      return res.status(400).json({ code: 400, message: message });
+      console.log(`errorMessage: `, message);
+      return res.status(400).json({ errorMessage: errorMessage });
     }
     next();
   },
