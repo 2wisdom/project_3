@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import * as R from "../../styles/RegisterPage/Register.styled";
 import styled from "styled-components";
 import { IProps } from "../../pages/myPage";
 import { validatePassword, isInputStart } from "../Validate";
-import * as M from "../../styles/myPage/MyPage.styled";
+import * as M from "../../styles/MyPage/MyPage.styled";
+
+
 
 const PasswordEdit = ({ newUser, setNewUser }: IProps) => {
   // 비밀번호 최소 8자, 문자+숫자 확인.

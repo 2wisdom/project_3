@@ -131,6 +131,20 @@ export const Input = styled.input`
   }
 `;
 
+export const TagValue = styled.div`
+width: 40rem;
+  height: 4.5rem;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  display: block;
+  text-align: left;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  &:focus {
+    outline: none;
+  }
+  line-height: 4.5rem;
+`
 //
 export const PasswordContainer = styled(UserContainer)`
   display: flex;
@@ -139,4 +153,18 @@ export const PasswordContainer = styled(UserContainer)`
   height: 25rem;
   border: none;
   margin-top: 3rem;
+`;
+
+export const FileBtn = styled.label`
+  color: ${(props) => props.theme.fg};
+  border: 1px solid ${(props) => props.theme.fg};
+  background: ${(props) => props.theme.bg};
+  width: 8rem;
+  font-size: 1.2rem;
+  margin: 1em 0;
+  height: 3rem;
+  line-height: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
 `;

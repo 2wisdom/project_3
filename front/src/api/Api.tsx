@@ -96,8 +96,6 @@ axios.interceptors.response.use(
     return res;
   },
   async (error: AxiosError) => {
-    console.log("interceptors err: ", error);
-
     if (error.request.status === 403 && error!.response!.data == 'access token expired') {
       const originalConfig = error.config;
       // https://github.com/axios/axios/issues/5143 문제해결

@@ -25,7 +25,7 @@ const NavBar = () => {
           email: "",
           name: "",
           userId: "",
-          profileImg: "",
+          imageUrl: "",
           accessToken: "",
         });
       }

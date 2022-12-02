@@ -1,11 +1,12 @@
 import React, { Dispatch, SetStateAction } from "react";
 import * as R from "../../styles/RegisterPage/Register.styled";
-import * as M from "../../styles/myPage/MyPage.styled";
+import * as M from "../../styles/MyPage/MyPage.styled";
 import { SquareBtn, black } from "../../styles/buttons/BasicBtn";
 
-const PasswordCard = ({
-  isEditingPassword,
-}: React.Dispatch<React.SetStateAction<boolean>>) => {
+interface Props {
+  setIsEditingPassword: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const PasswordCard = ({ setIsEditingPassword }: Props) => {
   return (
     <M.PasswordContainer>
       <R.PasswordContentBox>
@@ -13,7 +14,7 @@ const PasswordCard = ({
         <SquareBtn
           theme={black}
           type="button"
-          onClick={() => isEditingPassword(true)}
+          onClick={() => setIsEditingPassword(true)}
         >
           수정
         </SquareBtn>
