@@ -36,6 +36,13 @@ userAuthRouter.put(
   userAuthController.putUser
 );
 
+// 유저 이미지 기본값으로 변경
+userAuthRouter.put(
+  "/defaultimage/:userId",
+  loginRequired,
+  userAuthController.putDefaultImage
+);
+
 // 회원 탈퇴
 userAuthRouter.delete("/:userId", loginRequired, userAuthController.deleteUser);
 
