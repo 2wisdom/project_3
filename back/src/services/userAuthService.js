@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../db/models/User");
 const { Token } = require("../db/models/Token");
 const { deleteUserImage } = require("../middlewares/deleteImage");
+const Post = require("../db/models/Post");
 
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 
@@ -142,6 +143,11 @@ const userAuthService = {
     getUserInfo.errorMessage = null;
 
     return getUserInfo;
+  },
+
+  // 마이페이지 게시글
+  userPosts: async (userId) => {
+    // const userPosts = await
   },
 
   // 유저 정보 업데이트

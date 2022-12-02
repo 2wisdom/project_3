@@ -64,6 +64,10 @@ const Post = {
 
     return PostModel.findByIdAndDelete(id);
   },
+
+  findAllUserPosts: async (userId) => {
+    const allUserPosts = await PostModel.find({ author: userId });
+  },
 };
 
 module.exports = Post;
