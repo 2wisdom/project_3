@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { useState, Dispatch, SetStateAction, useEffect } from "react";
 import UserInfo from "../components/myPage/UserContainer";
 import PasswordEdit from "../components/myPage/PasswordEdit";
 import PasswordCard from "../components/myPage/PasswordCard";
@@ -9,14 +9,14 @@ import axios from "axios";
 import { RoundBtn, white, violet } from "../styles/buttons/BasicBtn";
 import { ContentBox } from "@/styles/RegisterPage/Register.styled";
 
-interface User {
+interface Password {
   password: string;
   newPassword: string;
 }
 
 export interface IProps {
-  newUser: User;
-  setNewUser: Dispatch<SetStateAction<User>>;
+  newPassword: Password;
+  setNewPassword: Dispatch<SetStateAction<Password>>;
 }
 
 const MyPage = () => {
@@ -24,30 +24,55 @@ const MyPage = () => {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
-  const [newUser, setNewUser] = useState<User>({
+  const [newPassword, setNewPassword] = useState<Password>({
     password: "",
     newPassword: "",
   });
-  console.log(newUser);
+
   const [isEditingPassword, setIsEditingPassword] = useState<boolean>(false);
-  const [file, setFile] = useState<any>(null);
+  const [isDeleteProfileImg, setIsDeleteProfileImg] = useState<boolean>(false);
+  const [saveProfileImg, setSaveProfileImg] = useState<any>(null);
+  //이걸로는 프사 초기화 안됨.
+  const [previewImg, setPreviewImg] = useState<string>(user.imageUrl);
+
+  const resetPage = () => {
+    setPreviewImg(user.imageUrl);
+    setIsEditingPassword(false);
+    setIsDeleteProfileImg(false);
+    setSaveProfileImg(null);
+    setNewPassword({
+      password: "",
+      newPassword: "",
+    });
+  };
+  //처음 유저이미지 불러오기 + 저장했을 때 myPage초기화
+  useEffect(() => {
+    resetPage();
+  }, [user]);
 
   const userUpload: React.FormEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
+
+    if (isDeleteProfileImg === true) {
+      try {
+        ///프로필 삭제 api로 요청보내기
+      } catch {}
+    }
+
+    let formData = new FormData();
+    const temp = JSON.stringify(newPassword);
+    formData.append("body", temp);
+    if (saveProfileImg != null) {
+      formData.append("image", saveProfileImg);
+    }
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     };
-    const temp = JSON.stringify(newUser);
-    let formData = new FormData();
-    formData.append("body", temp);
-    if (file != null) {
-      formData.append("file", file);
-    }
-    console.log(formData);
 
+    //수정된 이미지, password api요청보내기
     try {
       const res = await axios.put(
         `http://${window.location.hostname}:5000/users/${user.userId}`,
@@ -72,14 +97,22 @@ const MyPage = () => {
           <M.NavBtn>개인정보수정</M.NavBtn>
         </M.NavBox>
         <M.MainContainer>
-          <UserInfo setFile={setFile} />
+          <UserInfo
+            setSaveProfileImg={setSaveProfileImg}
+            setIsDeleteProfileImg={setIsDeleteProfileImg}
+            previewImg={previewImg}
+            setPreviewImg={setPreviewImg}
+          />
           {!isEditingPassword ? (
             <PasswordCard setIsEditingPassword={setIsEditingPassword} />
           ) : (
-            <PasswordEdit newUser={newUser} setNewUser={setNewUser} />
+            <PasswordEdit
+              newPassword={newPassword}
+              setNewPassword={setNewPassword}
+            />
           )}
           <ContentBox>
-            <RoundBtn theme={white} type="button">
+            <RoundBtn theme={white} type="button" onClick={() => resetPage()}>
               취소
             </RoundBtn>
             <RoundBtn

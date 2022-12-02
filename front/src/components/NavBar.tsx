@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginBtn from "./buttons/LoginBtn";
 import Nav from "../styles/Nav.module.css";
@@ -8,14 +8,12 @@ import * as Api from "../api/Api";
 const NavBar = () => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
-  console.log("user: ", user)
+  console.log("user: ", user);
   const setUser = useUserStore((state) => state.setUser);
   const isLogin = user.email != "";
-  // const isLogin = false;
-  console.log("isLogin: ", isLogin)
+  // console.log("isLogin: ", isLogin);
   const logout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
-
     try {
       const res = await Api.delete("token", null);
       if (res.status === 200) {
@@ -69,10 +67,7 @@ const NavBar = () => {
           </ul>
           <div
             className={Nav.loginBtn}
-            // onClick={logout}
-            onClick= {
-                isLogin ? logout : () => navigate("/login")
-              }
+            onClick={isLogin ? logout : () => navigate("/login")}
           >
             <LoginBtn isLogin={isLogin}></LoginBtn>
           </div>

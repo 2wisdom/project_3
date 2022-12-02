@@ -1,17 +1,14 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import * as R from "../../styles/RegisterPage/Register.styled";
-import styled from "styled-components";
-import { IProps } from "../../pages/myPage";
+import { IProps } from "../../pages/MyPage";
 import { validatePassword, isInputStart } from "../Validate";
 import * as M from "../../styles/MyPage/MyPage.styled";
 
-
-
-const PasswordEdit = ({ newUser, setNewUser }: IProps) => {
+const PasswordEdit = ({ newPassword, setNewPassword }: IProps) => {
   // 비밀번호 최소 8자, 문자+숫자 확인.
   const [confirmPassword, setConfirmPassword] = useState("");
-  const isPasswordValid = validatePassword(newUser.newPassword!);
-  const isPasswordSame = newUser.newPassword === confirmPassword;
+  const isPasswordValid = validatePassword(newPassword.newPassword!);
+  const isPasswordSame = newPassword.newPassword === confirmPassword;
 
   return (
     <M.PasswordContainer>
@@ -21,8 +18,10 @@ const PasswordEdit = ({ newUser, setNewUser }: IProps) => {
           id="password"
           type="password"
           placeholder="기존 비밀번호를 입력하세요"
-          value={newUser.password}
-          onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+          value={newPassword.password}
+          onChange={(e) =>
+            setNewPassword({ ...newPassword, password: e.target.value })
+          }
         />
       </R.PasswordContentBox>
       <R.PasswordContentBox>
@@ -31,9 +30,9 @@ const PasswordEdit = ({ newUser, setNewUser }: IProps) => {
           id="newPassword"
           type="password"
           placeholder="새로운 비밀번호를 입력하세요"
-          value={newUser.newPassword}
+          value={newPassword.newPassword}
           onChange={(e) =>
-            setNewUser({ ...newUser, newPassword: e.target.value })
+            setNewPassword({ ...newPassword, newPassword: e.target.value })
           }
         />
       </R.PasswordContentBox>
@@ -47,7 +46,7 @@ const PasswordEdit = ({ newUser, setNewUser }: IProps) => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </R.PasswordContentBox>
-      {isInputStart(newUser.newPassword!) && !isPasswordValid && (
+      {isInputStart(newPassword.newPassword!) && !isPasswordValid && (
         <R.NotifyNotValid>
           비밀번호는 8~20자, 영문+숫자를 조합해주세요.
         </R.NotifyNotValid>
@@ -61,20 +60,3 @@ const PasswordEdit = ({ newUser, setNewUser }: IProps) => {
 
 export default PasswordEdit;
 
-const UserContainer = styled.div`
-  display: flex;
-  margin-left: 15rem;
-  justify-content: left;
-  align-item: left;
-  flex-direction: row;
-  border-bottom: 1px solid;
-`;
-
-const PasswordContainer = styled(UserContainer)`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  height: 30rem;
-  border: none;
-  margin-top: 3rem;
-`;
