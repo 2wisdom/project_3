@@ -4,7 +4,7 @@ interface User {
     email: string;
     name: string;
     userId: string;
-    profileImg?: string;
+    imageUrl: string;
     accessToken?: string;
 }
 
@@ -18,7 +18,7 @@ const useUserStore = create<StateProps>((set) => ({
         email: "",
         name: "",
         userId: "",
-        profileImg: "",
+        imageUrl: "",
         accessToken: ""
     },
     setUser: (user) =>

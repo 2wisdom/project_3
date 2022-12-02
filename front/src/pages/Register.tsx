@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../api/Api";
 import * as R from "../styles/RegisterPage/Register.styled";
-import { validateEmail, validatePassword } from "../components/Validate";
+import { validateEmail, validatePassword, isInputStart } from "../components/Validate";
 
 interface RegisterData {
   name: string;
@@ -29,11 +29,6 @@ const Register = () => {
   //닉네임 중복 체크
   const [isNameDuplicate, setIsNameDuplicate] = useState(true);
   const [clickNameConfirm, setClickNameConfirm] = useState<boolean>(false);
-
-  // 입력 시작 체크
-  const isInputStart = (target: string) => {
-    return target.length >= 1;
-  };
 
   // 닉네임이 2~8자 확인.
   const isNameValid =

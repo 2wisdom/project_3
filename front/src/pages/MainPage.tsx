@@ -28,9 +28,11 @@ const MainPage = () => {
   const hello = !!text;
   const hell2 = !text;
   const hello3 = text;
-  console.log("!!text", hello);
-  console.log("!text", hell2);
-  console.log("text", hello3);
+
+  // console.log('!!text',hello);
+  // console.log('!text',hell2);
+  // console.log('text',hello3);
+
   return (
     <>
       {/* <NavBar/>  */}
