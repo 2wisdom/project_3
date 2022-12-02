@@ -52,7 +52,6 @@ const User = {
 
   // 고유 Id 로 데이터 검색
   findById: async (userId) => {
-
     // 생성과 수정 날짜 데이터를 제외한 _id, email, name만 user에 초기화
     let user = await UserModel.findById(
       { _id: userId },

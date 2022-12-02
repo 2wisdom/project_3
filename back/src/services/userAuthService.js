@@ -89,14 +89,14 @@ const userAuthService = {
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
     let refreshToken = jwt.sign({ userId: userId }, secretKey, {
-      expiresIn: "1d",
+      expiresIn: process.env.REFRESH_EXPIRES_IN,
       issuer: "team12",
     });
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
     const accessToken = jwt.sign({ userId: userId }, secretKey, {
       // 토큰 유효 기간, 발행자
-      expiresIn: "10s",
+      expiresIn: process.env.ACCESS_EXPIRES_IN,
       issuer: "team12",
     });
 
@@ -147,9 +147,9 @@ const userAuthService = {
   // 유저 정보 업데이트
   updateUserInfo: async ({ userId, toUpdate }) => {
     let user = await User.findById(userId);
-
+    console.log(`유저 서비스 확인1`, user);
     const oldImageUrl = user.imageUrl;
-
+    console.log(`유저 서비스 확인2`, oldImageUrl);
     // 비밀번호와 이미지 업데이트
     if (toUpdate.password && toUpdate.imageUrl) {
       const fieldToUpdate = {};
