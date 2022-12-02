@@ -8,7 +8,7 @@ const { Router } = require("express");
 
 /**
  * 게시글 이미지 생성
- * POST /image-upload
+ * POST /images/image-upload
  */
 imageRouter.post("/image-upload", [loginRequired], imageController.uploadImage);
 
