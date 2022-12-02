@@ -5,11 +5,12 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 
-// const { authMiddleware } = require("./middlewares/authMiddleware");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const { tokenRouter } = require("./routers/tokenRouter");
 const postRouter = require("./routers/PostRouter");
+const imageRouter = require("./routers/imageRouter");
+const commentRouter = require("./routers/commentRouter");
 const logger = require("./config/logger");
 
 const app = express();
@@ -64,6 +65,8 @@ app.use("/public", express.static(path.join(__dirname, "..", "public")));
 // 라우팅
 app.use("/users", userAuthRouter);
 app.use("/posts", postRouter);
+app.use("/images", imageRouter);
+app.use("/comments", commentRouter);
 app.use("/token", tokenRouter);
 
 app.get("/", (req, res) => {
