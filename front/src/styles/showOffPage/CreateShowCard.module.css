@@ -1,0 +1,99 @@
+/* common */
+.container {
+  margin: 0px;
+  padding: 0px;
+  margin-top: 5rem;
+}
+
+.Inner {
+  /* background-color: aqua; */
+  width: 98%;
+  /* height: 60vh; */
+  height: 90vh;
+  margin: auto;
+  text-align: center;
+}
+/* title */
+.title {
+  width: 60%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid;
+  padding: 1em 0 0.8em;
+  text-align: center;
+  font-size: 25px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.5;
+  color: inherit;
+  outline: none;
+  margin-bottom: 3rem;
+}
+.title:focus::placeholder {
+  color: transparent;
+}
+
+/* img */
+.Img {
+  width: 50%;
+  height: 35rem;
+  border-radius: 4rem;
+}
+/* content */
+.content {
+  width: 50%;
+  height: 300px;
+  padding: 10px;
+  box-sizing: border-box;
+  /* border: solid 2px #1e90ff; */
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  resize: both;
+}
+.content:focus {
+  outline: none;
+}
+.content:focus::placeholder {
+  color: transparent;
+}
+
+/* btn */
+.btnInner {
+  width: 90%;
+  text-align: end;
+}
+/* removeBtn */
+.cancelBtn {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  border: 2px solid #000000;
+  cursor: pointer;
+  color: #000000;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 10px 21px;
+  text-decoration: none;
+}
+.cancelBtn:active {
+  position: relative;
+  top: 1px;
+}
+
+/* checkBtn */
+.checkBtn {
+  background-color: #000000;
+  border-radius: 1rem;
+  border: 2px solid #000000;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 10px 21px;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+.checkBtn:active {
+  position: relative;
+  top: 1px;
+}

@@ -89,8 +89,8 @@ export interface showCardTest {
 }
 
 export interface showCardList {
-  item: [showCardTest];
-  docs: [showCardTest];
+  item: showCardTest[];
+  docs: showCardTest[];
   showCardData: [showCardTest];
   hasPrevPage: boolean;
   limit: number;

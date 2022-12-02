@@ -4,9 +4,15 @@ import Search from "../components/search/Search";
 import Show from "../styles/showOffPage/ShowPage.module.css";
 import ShowCardList from "../components/communityShow/CardList";
 import * as showCardStore from "../store/CommunityShowCard";
+import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../api/Api";
 const CommuityShow = () => {
+  const navigate = useNavigate();
+  const [visible, setVisible] = useState(8);
+  // const [challengeData, setChallengeData] = useState([]);
+  // const [originalData, setOriginalData] = useState([]);
+
   const showCardData = showCardStore.showCardStore(
     (state: any) => state.showCards
   );
@@ -17,7 +23,10 @@ const CommuityShow = () => {
   useEffect(() => {
     apiGetShowCardData();
   }, []);
-  const [visible, setVisible] = useState(8);
+  const onClickHandelr = () => {
+    navigate("/createShowCard");
+  };
+
   // console.log("apiGetShowCardData", apiGetShowCardData);
   // console.log("showCardData", showCardData);
   // console.log(
@@ -56,14 +65,14 @@ const CommuityShow = () => {
         <div className={Show.Inner}>
           <div className={Show.buttonContainer}>
             <div className={Show.buttonInner}>
-              <button className={Show.yellowBtn}>질문하기</button>
+              <button className={Show.grayBtn}>질문하기</button>
               <button className={Show.yellowBtn}>자랑하기</button>
             </div>
           </div>
           <div className={Show.rightInner}>
             <div className={Show.titleSearchInner}>
               <h2 className={Show.title}>내가 찍은 사진을 자랑해보세요</h2>
-              <Search></Search>
+              <Search showCardData={showCardData}></Search>
             </div>
             <div className={Show.cardInner}>
               {/* {showCardData.docs &&
@@ -89,7 +98,10 @@ const CommuityShow = () => {
               <div className={Show.writeBtnInner}>
                 <EditIcon
                   className={Show.writeBtnOutline}
-                  sx={{ fontSize: 35 }}
+                  sx={{ fontSize: 30 }}
+                  onClick={() => {
+                    navigate("/createShowCard");
+                  }}
                 ></EditIcon>
               </div>
             </div>

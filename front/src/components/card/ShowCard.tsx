@@ -24,7 +24,7 @@ const ShowCard = ({
   userName: string;
   date: string;
 }) => {
-  const createDate = split(date, "T");
+  const createDate = date.split("T");
 
   return (
     <>
