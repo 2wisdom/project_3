@@ -29,10 +29,10 @@ const CommuityShow = () => {
 
   // console.log("apiGetShowCardData", apiGetShowCardData);
   // console.log("showCardData", showCardData);
-  // console.log(
-  //   "showCardData.docs && showCardData.docs[0]",
-  //   showCardData.docs && showCardData.docs[0]
-  // );
+  console.log(
+    "showCardData.docs && showCardData.docs[0]",
+    showCardData.docs && showCardData.docs[0]
+  );
   // console.log("showCardData.docs._id", showCardData.docs._id);
 
   // console.log("showCardsType", typeof showCards);
