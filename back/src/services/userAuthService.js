@@ -70,9 +70,9 @@ const userAuthService = {
     // models 에서 유저 정보 데이터 찾기
     const userInfo = await User.findByEmail(email);
 
-    const { userId, name } = userInfo;
-
     if (!userInfo) throw new Error("이메일이 없습니다.");
+
+    const { userId, name } = userInfo;
 
     // // 암호화된 비밀번호와 입력된 비밀번호 비교
     // const currentPasswordHash = userInfo.password;
@@ -89,21 +89,21 @@ const userAuthService = {
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
     let refreshToken = jwt.sign({ userId: userId }, secretKey, {
-      expiresIn: "14d",
+      expiresIn: "1d",
       issuer: "team12",
     });
 
     // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
     const accessToken = jwt.sign({ userId: userId }, secretKey, {
       // 토큰 유효 기간, 발행자
-      expiresIn: "30m",
+      expiresIn: "10s",
       issuer: "team12",
     });
 
-    const isTokenExist = await Token.findById(userId);
-    const tokenId = isTokenExist.tokenId;
+    const isTokenExist = await Token.findByUserId(userId);
 
     if (isTokenExist) {
+      const tokenId = isTokenExist.tokenId;
       const fieldToUpdate = {};
       const newValue = {};
 
@@ -128,7 +128,7 @@ const userAuthService = {
     }
 
     // 토큰, 고유아이디, 이메일, 이름
-    const loginUser = { refreshToken, accessToken, userId, email, name };
+    const loginUser = { accessToken, userId, email, name };
 
     loginUser.errorMessage = null;
 
@@ -146,7 +146,7 @@ const userAuthService = {
 
   // 유저 정보 업데이트
   updateUserInfo: async ({ userId, toUpdate }) => {
-    let user = await User.findById({ userId });
+    let user = await User.findById(userId);
 
     const oldImageUrl = user.imageUrl;
 
@@ -159,7 +159,7 @@ const userAuthService = {
       fieldToUpdate.imageUrl = "imageUrl";
       // 입력 받은 비밀번호 암호화
       // newValue.password = await bcrypt.hash(toUpdate.password, SALT_ROUND);
-      newValue.password = toupdate.password;
+      newValue.password = toUpdate.password;
       newValue.imageUrl = toUpdate.imageUrl;
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
@@ -174,13 +174,17 @@ const userAuthService = {
 
       fieldToUpdate.password = "password";
       fieldToUpdate.imageUrl = "imageUrl";
+
       // 입력 받은 비밀번호 암호화
       // newValue.password = await bcrypt.hash(toUpdate.password, SALT_ROUND);
-      newValue.password = toupdate.password;
+      newValue.password = toUpdate.password;
       newValue.imageUrl = user.imageUrl;
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
+      if (user.imageUrl === "leavesGetMoreYards.png") {
+        user.imageUrl = "public/images/leavesGetMoreYards.png";
+      }
     }
 
     // 이미지만 업데이트
@@ -192,11 +196,12 @@ const userAuthService = {
       fieldToUpdate.imageUrl = "imageUrl";
       // 입력 받은 비밀번호 암호화
       // newValue.password = await bcrypt.hash(user.password, SALT_ROUND);
-      newValue.password = toupdate.password;
+      newValue.password = toUpdate.password;
       newValue.imageUrl = toUpdate.imageUrl;
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
+
       await deleteUserImage(oldImageUrl);
     }
 

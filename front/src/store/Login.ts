@@ -1,4 +1,3 @@
-import { useReducer } from "react";
 import create from "zustand";
 
 interface User {
@@ -6,12 +5,12 @@ interface User {
     name: string;
     userId: string;
     profileImg?: string;
-    token?: string;
+    accessToken?: string;
 }
 
 type StateProps = {
-    user: User | null
-    setUser: (user: User | null) => void;
+    user: User
+    setUser: (user: User) => void;
 }
 
 const useUserStore = create<StateProps>((set) => ({
@@ -20,7 +19,7 @@ const useUserStore = create<StateProps>((set) => ({
         name: "",
         userId: "",
         profileImg: "",
-        token: ""
+        accessToken: ""
     },
     setUser: (user) =>
         set((state) => ({
@@ -28,7 +27,6 @@ const useUserStore = create<StateProps>((set) => ({
             user
         }))
 }));
-
 
 export default useUserStore;
 

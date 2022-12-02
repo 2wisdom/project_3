@@ -1,30 +1,37 @@
 const express = require("express");
 
+const { tokenService } = require("../services/tokenService");
 const { userAuthService } = require("../services/userAuthService");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 
 const userAuthController = {
   //회원가입
   postAddUser: async (req, res, next) => {
-
     try {
       const { email, password, name } = req.body;
-      const imageUrl = "leafGaeMoYa.png";
+      const imageUrl = "leavesGetMoreYards.png";
       // 서비스 파일에서 addUser 함수 실행
       const userInfo = await userAuthService.addUserInfo({
         email,
         password,
         name,
-        imageUrl,
+        imageUrl: "public/images/leavesGetMoreYards.png",
       });
+
+      const userInfoWithoutPassword = {
+        userId: userInfo.userId,
+        email: userInfo.email,
+        name: userInfo.name,
+        imageUrl: userInfo.imageUrl,
+      };
 
       // 서비스에서 에러가 있다면 에러 통보
       if (userInfo.errorMessage) throw new Error("회원가입 실패");
 
       // userInfo를 promise로 반환 하여 전달
-      res.status(201).json(userInfo);
-    } catch (err) {
-      next(err);
+      res.status(201).json(userInfoWithoutPassword);
+    } catch (error) {
+      next(error);
     }
   },
 
@@ -48,8 +55,8 @@ const userAuthController = {
         if (isEmailExist.errorMessage) throw new Error("유저조회 실패");
         res.status(200).json("OK");
       }
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   },
 
@@ -73,14 +80,13 @@ const userAuthController = {
         if (isNameExist.errorMessage) throw new Error("유저조회 실패");
         res.status(200).json("OK");
       }
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   },
 
   // 로그인
   postLogin: async (req, res, next) => {
-
     try {
       const { email, password } = req.body;
 
@@ -91,26 +97,29 @@ const userAuthController = {
       if (userLoginInfo.errorMessage) throw new Error("로그인 실패");
 
       res.status(201).send(userLoginInfo);
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   },
 
   // 유저 정보 조회
   getUser: async (req, res, next) => {
     try {
-      const { userId } = req.params;
+      const user_Id = req.currentUserId;
 
       // 서비스 파일에서 getUserInfo 함수 실행
-      const currentUserInfo = await userAuthService.getUserInfo(userId);
+      const currentUserInfo = await userAuthService.getUserInfo(user_Id);
+      const { userId, email, name, imageUrl } = currentUserInfo;
+
+      const currentUserInfoWithoutPassword = { userId, email, name, imageUrl };
 
       // 서비스에서 에러가 있다면 에러 통보
-      if (currentUserInfo.errorMessage)
+      if (currentUserInfoWithoutPassword.errorMessage)
         throw new Error("회원 정보 불러오기 실패");
 
-      res.status(200).send(currentUserInfo);
-    } catch (err) {
-      next(err);
+      res.status(200).send(currentUserInfoWithoutPassword);
+    } catch (error) {
+      next(error);
     }
   },
 
@@ -119,6 +128,7 @@ const userAuthController = {
     const { userId } = req.params;
     const password = req.body.password ?? null;
     const imageUrl = req.file?.path ?? null;
+
     try {
       // 변경할 정보를 toUpdate에 초기화
       const toUpdate = { password, imageUrl };
@@ -129,13 +139,23 @@ const userAuthController = {
         toUpdate,
       });
 
+      const updatedUserWithoutPassword = {
+        userId: updatedUser.userId,
+        email: updatedUser.email,
+        name: updatedUser.name,
+        imageUrl: updatedUser.imageUrl
+      }
+
       // 서비스에서 에러가 있다면 에러 통보
       if (updatedUser.errorMessage) throw new Error("회원 정보 불러오기 실패");
 
-      res.status(200).json(updatedUser);
-    } catch (err) {
-      await deleteUserImage(imageUrl);
-      next(err);
+      res.status(200).json(updatedUserWithoutPassword);
+    } catch (error) {
+      if (imageUrl) {
+        await deleteUserImage(imageUrl);
+      }
+
+      next(error);
     }
   },
   // 유저 정보 삭제
@@ -143,15 +163,15 @@ const userAuthController = {
     try {
       const { userId } = req.params;
       const deletedUser = await userAuthService.deleteUserInfo(userId);
-
+      const deletedToken = await tokenService.deleteTokenInfo(userId);
       if (!deletedUser.errorMessage && deletedUser.imageUrl) {
         await deleteUserImage(deletedUser.imageUrl);
       }
-      if (deletedUser.errorMessage) throw new Error("회원 삭제 실패");
+      if (deletedUser.errorMessage) throw new Error("회원 정보 삭제 실패");
 
-      res.status(200).json(deletedUser);
-    } catch (err) {
-      next(err);
+      res.status(200).json("회원 정보 삭제 성공");
+    } catch (error) {
+      next(error);
     }
   },
 };
