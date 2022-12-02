@@ -1,21 +1,28 @@
 import styled from "styled-components";
 
-const red = {
+//theme
+export const red = {
   fg: "white",
   bg: "red",
 };
 
-const white = {
+export const white = {
   fg: "black",
   bg: "white",
 };
 
-const black = {
+export const black = {
   fg: "white",
   bg: "black",
 };
 
-const SquareBtn = styled.button`
+export const violet = {
+  fg: "white",
+  bg: "#6F77FD",
+};
+
+
+export const SquareBtn = styled.button`
   color: ${(props) => props.theme.fg};
   border: 1px solid ${(props) => props.theme.fg};
   background: ${(props) => props.theme.bg};
@@ -28,7 +35,20 @@ const SquareBtn = styled.button`
   cursor: pointer;
 `;
 
-export default SquareBtn;
+export const RoundBtn = styled.button`
+  color: ${(props) => props.theme.fg};
+  border: 1px solid ${(props) => props.theme.fg};
+  background: ${(props) => props.theme.bg};
+  width: 6rem;
+  font-size: 1.2rem;
+  margin: 1em 1rem;
+  padding: 0.25em 1em;
+  height: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 20px;
+`;
+
 // ${(props)=>{
 //   return css`
 //   color: {props.color};

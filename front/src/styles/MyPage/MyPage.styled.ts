@@ -26,7 +26,7 @@ export const NavBox = styled.div`
   flex-direction: column;
   width: 15%;
   height: 80vh;
-  margin: 20rem 3rem 0 0;
+  margin: 5rem 0 0 0;
 `;
 
 export const NavBtn = styled.button`
@@ -50,20 +50,18 @@ export const NavBtn = styled.button`
 `;
 
 export const MainContainer = styled.form`
-  margin-top: 5rem;
   flex-direction: column;
   display: flex;
   width: 80%;
   height: 80vh;
-  background-color: white;
 `;
 
 export const Title = styled.div`
+  margin: 8rem 0 5rem 22rem;
   font-family: 'Jua', sans-serif;
   font-weight: 300;
   font-size:3rem;
-  padding-bottom:8rem;
-  padding-top: 3rem;
+  backgound-color: red;
 }`;
 
 export const UserContainer = styled.div`
@@ -72,7 +70,7 @@ export const UserContainer = styled.div`
   justify-content: left;
   align-item: left;
   flex-direction: row;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid grey;
 `;
 
 export const ImgContainer = styled.div`
@@ -100,19 +98,23 @@ export const InputContainer = styled.div`
 export const ContentBox = styled.div`
   display: flex;
   gap: 0.25rem;
-  padding: 0.25rem;
+  padding: 1rem;
   align-items: center;
   height: 7rem;
   justify-content: center;
 `;
 
 export const Tag = styled.div`
-  width: 5rem;
+  width: 7rem;
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 1.5rem;
   /* identical to box height */
   text-align: center;
+`;
+
+export const PwTag = styled(Tag)`
+  margin-right: 55rem;
 `;
 
 export const Input = styled.input`
@@ -129,13 +131,12 @@ export const Input = styled.input`
   }
 `;
 
-
 //
 export const PasswordContainer = styled(UserContainer)`
-display: flex;
-flex-direction: column;
-text-align: center;
-height: 30rem;
-border: none;
-margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 25rem;
+  border: none;
+  margin-top: 3rem;
 `;

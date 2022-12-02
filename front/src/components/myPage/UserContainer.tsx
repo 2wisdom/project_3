@@ -6,31 +6,17 @@ import styled from "styled-components";
 import { IProps } from "../../pages/myPage";
 import useUserStore from "@/store/Login";
 import * as M from "../../styles/myPage/MyPage.styled";
-import SquareBtn from "../../styles/buttons/SquareBtn";
+import { SquareBtn, red, white, black } from "../../styles/buttons/BasicBtn";
 
 const UserInfo = ({ newUser, setNewUser }: IProps) => {
   const user = useUserStore((state) => state.user);
-  const red = {
-    fg: "white",
-    bg: "red",
-  };
-
-  const white = {
-    fg: "black",
-    bg: "white",
-  };
-
-  const black = {
-    fg: "white",
-    bg: "black",
-  };
 
   return (
     <M.UserContainer>
       <Stack alignItems="center">
         <CardMedia
           component="img"
-          height="194"
+          height="180"
           image="/static/images/cards/paella.jpg"
           // alt="Paella dish"
           // border-radius="50%"

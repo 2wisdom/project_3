@@ -5,7 +5,7 @@ import { IProps } from "../../pages/myPage";
 import { validatePassword, isInputStart } from "../Validate";
 import * as M from "../../styles/myPage/MyPage.styled";
 
-const Password = ({ newUser, setNewUser }: IProps) => {
+const PasswordEdit = ({ newUser, setNewUser }: IProps) => {
   // 비밀번호 최소 8자, 문자+숫자 확인.
   const [confirmPassword, setConfirmPassword] = useState("");
   const isPasswordValid = validatePassword(newUser.newPassword!);
@@ -57,7 +57,7 @@ const Password = ({ newUser, setNewUser }: IProps) => {
   );
 };
 
-export default Password;
+export default PasswordEdit;
 
 const UserContainer = styled.div`
   display: flex;
