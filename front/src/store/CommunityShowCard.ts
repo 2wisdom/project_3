@@ -81,7 +81,7 @@ export interface showCardTest {
   };
 
   _id: string;
-  imageURL: string;
+  imageUrl: string;
   title: string;
   contents: string;
   createdAt: string;

@@ -25,13 +25,13 @@ const ShowCard = ({
   date: string;
 }) => {
   const createDate = date.split("T");
-
+  console.log("image", image);
   return (
     <>
       <div className={Card.inner}>
         <img
           className={Card.Image}
-          src={image}
+          src={`${image}`}
           style={{ width: 267, height: 200 }}
         ></img>
         {/* <img className={Card.image}></img> */}
