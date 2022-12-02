@@ -6,9 +6,9 @@ import Register from "./pages/Register";
 import Main from "./pages/MainPage";
 import MyPage from "./pages/myPage";
 import useUserStore from "./store/Login";
-import CommuityShowOff from "./pages/CommunityShowOff";
 import * as Api from "./api/Api";
-
+import CommuityShow from "./pages/CommunityShow";
+import CreateShowCard from "./pages/CreateShowCard";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   //여기서 로그인중이면 localstorage의 토큰만 보내서 유저정보 받아옴
@@ -55,11 +55,13 @@ const App = () => {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/communityShowOff" element={<CommuityShowOff />} />
           <Route path="/myPage" element={<MyPage />} />
+
+          <Route path="/communityShowOff" element={<CommuityShow />} />
           {/* <Route path="/search-plant" element={<Search />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/market" element={<Market />} /> */}
+          <Route path="/createShowCard" element={<CreateShowCard />}></Route>
         </Routes>
       </BrowserRouter>
     </>

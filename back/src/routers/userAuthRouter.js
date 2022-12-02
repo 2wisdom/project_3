@@ -3,12 +3,12 @@ const userAuthRouter = express.Router();
 
 const { loginRequired } = require("../middlewares/login_required");
 const { userAuthController } = require("../controllers/userAuthController");
-const { user_Validation } = require("../middlewares/validation");
+const { userValidation } = require("../middlewares/validation");
 
 // 회원가입
 userAuthRouter.post(
   "/",
-  user_Validation.ValidatePostAddUser,
+  userValidation.ValidatePostAddUser,
   userAuthController.postAddUser
 );
 
@@ -21,7 +21,7 @@ userAuthRouter.get("/name/:name", userAuthController.getCheckName);
 // 로그인
 userAuthRouter.post(
   "/login",
-  user_Validation.ValidatePostLogin,
+  userValidation.ValidatePostLogin,
   userAuthController.postLogin
 );
 

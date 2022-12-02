@@ -19,12 +19,6 @@ postRouter.get("/", postController.getAllPosts);
 postRouter.get("/:postId", postController.getPostById);
 
 /**
- * 게시글 이미지 생성
- * POST /posts/image-upload
- */
-postRouter.post("/image-upload", [loginRequired], postController.uploadImage);
-
-/**
  * 게시글 생성
  * POST /posts
  */
