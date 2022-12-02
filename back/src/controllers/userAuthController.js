@@ -158,6 +158,41 @@ const userAuthController = {
       next(error);
     }
   },
+
+  // 유저 이미지 기본값으로 변경
+  putDefaultImage: async (req, res, next) => {
+    const { userId } = req.params;
+    try {
+      const currentUserInfo = await userAuthService.getUserInfo(userId);
+
+      if (currentUserInfo.imageUrl !== "public/images/leavesGetMoreYards.png") {
+        const oldImageUrl = currentUserInfo.imageUrl;
+        const imageUrl = "public/images/leavesGetMoreYards.png";
+        const password = null;
+        const toUpdate = { password, imageUrl };
+
+        const updatedUser = await userAuthService.updateUserInfo({
+          userId,
+          toUpdate,
+        });
+        if (updatedUser.errorMessage)
+          throw new Error("회원 정보 불러오기 실패");
+
+        const updatedUserWithoutPassword = {
+          userId: updatedUser.userId,
+          email: updatedUser.email,
+          name: updatedUser.name,
+          imageUrl: updatedUser.imageUrl,
+        };
+
+        return res.status(200).json(updatedUserWithoutPassword);
+      }
+      res.status(400).json("이미 기본 이미지입니다");
+    } catch (error) {
+      next(error);
+    }
+  },
+
   // 유저 정보 삭제
   deleteUser: async (req, res, next) => {
     try {
