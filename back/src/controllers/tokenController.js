@@ -7,7 +7,7 @@ const { Token } = require("../db/models/Token");
 
 const tokenController = {
   // 엑세스 토큰 재발급
-  postReissueToken: async (req, res, next) => {
+  getReissueToken: async (req, res, next) => {
     const userAccessToken =
       req.headers["authorization"]?.split(" ")[1] ?? "null";
 
@@ -41,7 +41,7 @@ const tokenController = {
           secretKey,
           {
             // 토큰 유효 기간, 발행자
-            expiresIn: "10m",
+            expiresIn: process.env.ACCESS_EXPIRES_IN,
             issuer: "team12",
           }
         );

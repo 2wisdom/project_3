@@ -143,8 +143,8 @@ const userAuthController = {
         userId: updatedUser.userId,
         email: updatedUser.email,
         name: updatedUser.name,
-        imageUrl: updatedUser.imageUrl
-      }
+        imageUrl: updatedUser.imageUrl,
+      };
 
       // 서비스에서 에러가 있다면 에러 통보
       if (updatedUser.errorMessage) throw new Error("회원 정보 불러오기 실패");

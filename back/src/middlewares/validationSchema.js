@@ -16,6 +16,7 @@ const validationSchema = {
     password: Joi.string()
       .pattern(new RegExp("^[a-zA-Z0-9]{8,10}$"))
       .required(),
+    // .regex()
   }),
   // 로그인 유효성 검사 스키마
   postLoginSchema: Joi.object({
@@ -31,9 +32,9 @@ const validationSchema = {
   }),
   // 비밀번호 수정 유효성 검사 스키마
   putUserSchema: Joi.object({
-    password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{8,10}$"))
+    password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,10}$")),
+    // .allow(null, ""),
   }),
 };
-
+// allow
 exports.validationSchema = validationSchema;
