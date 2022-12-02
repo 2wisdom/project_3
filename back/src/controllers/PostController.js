@@ -6,7 +6,7 @@ const postController = {
   getAllPosts: async (req, res) => {
     console.log("전체 게시글 조회");
 
-    const { page = "1", limit = "10" } = req.query;
+    const { page = "1", limit = "8" } = req.query;
 
     const list = await Post.findAll({
       page,
