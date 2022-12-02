@@ -29,7 +29,12 @@ userAuthRouter.post(
 userAuthRouter.get("/", loginRequired, userAuthController.getUser);
 
 // 유저 정보 수정, 업데이트
-userAuthRouter.put("/:userId", loginRequired, userAuthController.putUser);
+userAuthRouter.put(
+  "/:userId",
+  userValidation.ValidatePutUser,
+  loginRequired,
+  userAuthController.putUser
+);
 
 // 회원 탈퇴
 userAuthRouter.delete("/:userId", loginRequired, userAuthController.deleteUser);

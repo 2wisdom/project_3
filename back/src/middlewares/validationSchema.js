@@ -11,13 +11,19 @@ const validationSchema = {
       })
       .required(),
     // 문자. 알파벳,숫자. 2자 이상. 8자 이하
-    name: Joi.string().alphanum().min(2).max(8).required(),
-    // 문자. 정규식(최소 8 자, 하나 이상의 문자와 하나의 숫자)
-    password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{8,10}$"))
+    name: Joi.string()
+      .trim()
+      .min(2)
+      .max(8)
+      .regex(/^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/)
       .required(),
-    // .regex()
+    // 문자. 정규식(최소 8자, 최대 20자, 하나 이상의 문자와 하나의 숫자)
+    password: Joi.string()
+      .trim()
+      .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*\W)(?=.\S+$).{8,20}$/)
+      .required(),
   }),
+
   // 로그인 유효성 검사 스키마
   postLoginSchema: Joi.object({
     email: Joi.string()
@@ -27,14 +33,16 @@ const validationSchema = {
       })
       .required(),
     password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{8,10}$"))
+      .trim()
+      .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*\W)(?=.\S+$).{8,20}$/)
       .required(),
   }),
   // 비밀번호 수정 유효성 검사 스키마
   putUserSchema: Joi.object({
-    password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,10}$")),
-    // .allow(null, ""),
+    password: Joi.string()
+      .trim()
+      .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*\W)(?=.\S+$).{8,20}$/)
+      .allow(null, ""),
   }),
 };
-// allow
 exports.validationSchema = validationSchema;

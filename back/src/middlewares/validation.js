@@ -29,7 +29,11 @@ const userValidation = {
       await validationSchema.putUserSchema.validateAsync(req.body);
     } catch (error) {
       const imageUrl = req.file?.path ?? null;
-      await deleteUserImage(imageUrl);
+
+      if (imageUrl) {
+        await deleteUserImage(imageUrl);
+      }
+
       const message = error.details.map((element) => element.message).join(",");
       return res.status(400).json({ code: 400, message: message });
     }
