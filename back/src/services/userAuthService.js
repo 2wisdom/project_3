@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../db/models/User");
 const { Token } = require("../db/models/Token");
 const { deleteUserImage } = require("../middlewares/deleteImage");
+const Post = require("../db/models/Post");
 
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 
@@ -134,7 +135,7 @@ const userAuthService = {
 
     return loginUser;
   },
-
+  // 유저 정보 조회(userId)
   getUserInfo: async (userId) => {
     // models 에서 유저 고유 아이디로 데이터 찾기
     const getUserInfo = await User.findById(userId);
@@ -142,6 +143,11 @@ const userAuthService = {
     getUserInfo.errorMessage = null;
 
     return getUserInfo;
+  },
+
+  // 마이페이지 게시글
+  userPosts: async (userId) => {
+    const userPosts = await Post.findAllUserPosts(userId);
   },
 
   // 유저 정보 업데이트
@@ -207,7 +213,7 @@ const userAuthService = {
 
     return user;
   },
-
+  // 유저 정보 삭제
   deleteUserInfo: async (userId) => {
     // models의 delete 함수 실행
     let user = await User.delete(userId);

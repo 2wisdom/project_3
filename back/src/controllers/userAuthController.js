@@ -123,6 +123,14 @@ const userAuthController = {
     }
   },
 
+  // 마이페이지 작성글 조회
+  getUserPost: async (req, res, next) => {
+    const { userId } = req.params;
+    try {
+      currentUserPost = await userAuthService.userPosts(userId);
+    } catch (error) {}
+  },
+
   // 유저 정보 수정
   putUser: async (req, res, next) => {
     const { userId } = req.params;
