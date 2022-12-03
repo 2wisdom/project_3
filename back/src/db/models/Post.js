@@ -66,7 +66,9 @@ const Post = {
   },
 
   findAllUserPosts: async (userId) => {
-    const allUserPosts = await PostModel.find({ author: userId });
+    const allUserPosts = await PostModel.find({ author: userId }).lean();
+    console.log(`Post.js 확인: `, allUserPosts);
+    return allUserPosts;
   },
 };
 

@@ -135,7 +135,7 @@ const userAuthService = {
 
     return loginUser;
   },
-
+  // 유저 정보 조회(userId)
   getUserInfo: async (userId) => {
     // models 에서 유저 고유 아이디로 데이터 찾기
     const getUserInfo = await User.findById(userId);
@@ -147,7 +147,7 @@ const userAuthService = {
 
   // 마이페이지 게시글
   userPosts: async (userId) => {
-    // const userPosts = await
+    const userPosts = await Post.findAllUserPosts(userId);
   },
 
   // 유저 정보 업데이트
@@ -213,7 +213,7 @@ const userAuthService = {
 
     return user;
   },
-
+  // 유저 정보 삭제
   deleteUserInfo: async (userId) => {
     // models의 delete 함수 실행
     let user = await User.delete(userId);
