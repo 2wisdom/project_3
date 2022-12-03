@@ -21,11 +21,9 @@ const CardList = ({
           showCardData.docs
             ?.slice(0, visible)
             .map((item: showCardStore.showCardTest) => {
-              console.log("showCardData.docs", showCardData.docs);
-              console.log("item.imageURL", item.imageUrl);
               return (
                 <ShowCard
-                  key={item._id}
+                  postId={item._id}
                   image={item.imageUrl}
                   title={item.title}
                   userImage={item.author?.imageUrl}

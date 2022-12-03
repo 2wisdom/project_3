@@ -4,11 +4,12 @@ import NavBar from "@/components/NavBar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Main from "./pages/MainPage";
-import MyPage from "./pages/MyPage";
+import MyPage from "./pages/myPage";
 import useUserStore from "./store/Login";
 import * as Api from "./api/Api";
 import CommuityShow from "./pages/CommunityShow";
 import CreateShowCard from "./pages/CreateShowCard";
+import ShowCardDetail from "./pages/ShowCardDetail";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.setUser);
@@ -27,7 +28,7 @@ const App = () => {
       }
     }
   };
-  
+
   useEffect(() => {
     getUser();
   }, [user]);
@@ -47,6 +48,7 @@ const App = () => {
                     <Route path="/community" element={<Community />} />
                     <Route path="/market" element={<Market />} /> */}
           <Route path="/createShowCard" element={<CreateShowCard />}></Route>
+          <Route path="/showCardDetail" element={<ShowCardDetail />}></Route>
         </Routes>
       </BrowserRouter>
     </>

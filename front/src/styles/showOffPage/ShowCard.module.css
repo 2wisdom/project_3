@@ -4,16 +4,13 @@
   /* background-color: bisque; */
   margin: auto;
   margin-right: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 6rem;
+  cursor: pointer;
+  transition: 0.3s;
 }
-
-/* .image {
-  width: 257px;
-  height: 200px;
-  object-fit: fill;
-  border-radius: 4rem;
-} */
-
+.inner:hover {
+  transform: scale(1.1);
+}
 .title {
   font-size: 1.5rem;
 }
@@ -21,7 +18,7 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  padding-top: 2rem;
+  /* padding-top: 2rem; */
 }
 
 .userInner {
@@ -45,5 +42,5 @@
   font-size: 1.5rem;
   font-weight: 400;
   padding-top: 0.5rem;
-  padding-right: 1rem;
+  padding-right: 2.3rem;
 }
