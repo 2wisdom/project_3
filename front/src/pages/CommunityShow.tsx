@@ -29,10 +29,10 @@ const CommuityShow = () => {
 
   // console.log("apiGetShowCardData", apiGetShowCardData);
   // console.log("showCardData", showCardData);
-  console.log(
-    "showCardData.docs && showCardData.docs[0]",
-    showCardData.docs && showCardData.docs[0]
-  );
+  // console.log(
+  //   "showCardData.docs && showCardData.docs[0]",
+  //   showCardData.docs && showCardData.docs[0]
+  // );
   // console.log("showCardData.docs._id", showCardData.docs._id);
 
   // console.log("showCardsType", typeof showCards);
@@ -75,16 +75,6 @@ const CommuityShow = () => {
               <Search showCardData={showCardData}></Search>
             </div>
             <div className={Show.cardInner}>
-              {/* {showCardData.docs &&
-                showCardData.docs.map((item: any) => (
-                  <ul>
-                    <li key={item._id}>imageUrl : {item.imageUrl}</li>
-                    <li key={item._id}>title : {item.title}</li>
-                    <li key={item._id}>userImage : {item.author.imageUrl}</li>
-                    <li key={item._id}>userName : {item.author.name}</li>
-                    <li key={item._id}>date : {item.updateAt}</li>
-                  </ul>
-                ))} */}
               {showCardData && (
                 <ShowCardList showCardData={showCardData}></ShowCardList>
               )}

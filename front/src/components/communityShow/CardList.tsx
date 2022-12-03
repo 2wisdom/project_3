@@ -17,19 +17,19 @@ const CardList = ({
   return (
     <div className={CardListStyle.cardList}>
       <div className={CardListStyle.cardListInner}>
-        {showCardData &&
+        {showCardData.docs &&
           showCardData.docs
             ?.slice(0, visible)
             .map((item: showCardStore.showCardTest) => {
-              console.log("item._id", item._id);
+              console.log("showCardData.docs", showCardData.docs);
               console.log("item.imageURL", item.imageUrl);
               return (
                 <ShowCard
                   key={item._id}
                   image={item.imageUrl}
                   title={item.title}
-                  userImage={item.author.imageUrl}
-                  userName={item.author.name}
+                  userImage={item.author?.imageUrl}
+                  userName={item.author?.name}
                   date={item.createdAt}
                 ></ShowCard>
               );

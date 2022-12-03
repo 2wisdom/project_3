@@ -33,8 +33,7 @@ const ShowCard = ({
           className={Card.Image}
           src={`${image}`}
           style={{ width: 267, height: 200 }}
-        ></img>
-        {/* <img className={Card.image}></img> */}
+        />
         <h3 className={Card.title}>{title}</h3>
         <div className={Card.footer}>
           <div className={Card.userInner}>
