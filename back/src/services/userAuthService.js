@@ -196,8 +196,8 @@ const userAuthService = {
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
-      if (user.imageUrl === "leavesGetMoreYards.png") {
-        user.imageUrl = "public/images/leavesGetMoreYards.png";
+      if (user.imageUrl === process.env.DEFAULT_IMAGE_NAME) {
+        user.imageUrl = process.env.DEFAULT_IMAGE_URL;
       }
     }
 

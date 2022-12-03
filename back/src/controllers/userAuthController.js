@@ -9,13 +9,13 @@ const userAuthController = {
   postAddUser: async (req, res, next) => {
     try {
       const { email, password, name } = req.body;
-      const imageUrl = "leavesGetMoreYards.png";
+      const imageUrl = process.env.DEFAULT_IMAGE_NAME;
       // 서비스 파일에서 addUser 함수 실행
       const userInfo = await userAuthService.addUserInfo({
         email,
         password,
         name,
-        imageUrl: "public/images/leavesGetMoreYards.png",
+        imageUrl: process.env.DEFAULT_IMAGE_URL,
       });
 
       const userInfoWithoutPassword = {
@@ -184,9 +184,9 @@ const userAuthController = {
     try {
       const currentUserInfo = await userAuthService.getUserInfo(userId);
 
-      if (currentUserInfo.imageUrl !== "public/images/leavesGetMoreYards.png") {
+      if (currentUserInfo.imageUrl !== process.env.DEFAULT_IMAGE_URL) {
         const oldImageUrl = currentUserInfo.imageUrl;
-        const imageUrl = "public/images/leavesGetMoreYards.png";
+        const imageUrl = process.env.DEFAULT_IMAGE_URL;
         const password = null;
         const toUpdate = { password, imageUrl };
 
