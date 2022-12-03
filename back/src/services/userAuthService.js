@@ -148,6 +148,14 @@ const userAuthService = {
   // 마이페이지 게시글
   userPosts: async (userId) => {
     const userPosts = await Post.findAllUserPosts(userId);
+
+    if (userPosts.length === 0) {
+      userPosts.posts = "없음";
+      return userPosts;
+    }
+    userPosts.errorMessage = null;
+
+    return userPosts;
   },
 
   // 유저 정보 업데이트

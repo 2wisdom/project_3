@@ -127,8 +127,19 @@ const userAuthController = {
   getUserPost: async (req, res, next) => {
     const { userId } = req.params;
     try {
-      currentUserPost = await userAuthService.userPosts(userId);
-    } catch (error) {}
+      const currentUserPost = await userAuthService.userPosts(userId);
+
+      if (currentUserPost.errorMessage)
+        throw new Error("회원 정보 불러오기 실패");
+
+      if (currentUserPost.posts) {
+        return res.status(200).send("게시물 없음");
+      }
+
+      res.status(200).send(currentUserPost);
+    } catch (error) {
+      next(error);
+    }
   },
 
   // 유저 정보 수정

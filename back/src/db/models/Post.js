@@ -65,9 +65,10 @@ const Post = {
     return PostModel.findByIdAndDelete(id);
   },
 
+  /** userId와 일치하는 게시글 데이터를 가져온다 */
   findAllUserPosts: async (userId) => {
     const allUserPosts = await PostModel.find({ author: userId }).lean();
-    console.log(`Post.js 확인: `, allUserPosts);
+
     return allUserPosts;
   },
 };
