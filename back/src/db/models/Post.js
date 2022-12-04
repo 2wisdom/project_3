@@ -66,10 +66,24 @@ const Post = {
   },
 
   /** userId와 일치하는 게시글 데이터를 가져온다 */
-  findAllUserPosts: async (userId) => {
-    const allUserPosts = await PostModel.find({ author: userId }).lean();
+  findUserAllPosts: async (userId, page) => {
+    const allUserPosts = await PostModel.find({ author: userId })
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * 8)
+      .limit(8)
+      .lean();
 
     return allUserPosts;
+  },
+
+  getPostsByQuestion: async (options, page) => {
+    const Posts = await PostModel.find({ $or: options })
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * 8)
+      .limit(8)
+      .lean();
+
+    return Posts;
   },
 };
 

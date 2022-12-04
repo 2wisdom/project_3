@@ -146,11 +146,11 @@ const userAuthService = {
   },
 
   // 마이페이지 게시글
-  userPosts: async (userId) => {
-    const userPosts = await Post.findAllUserPosts(userId);
+  userPosts: async (userId, page) => {
+    const userPosts = await Post.findUserAllPosts(userId, page);
 
     if (userPosts.length === 0) {
-      userPosts.posts = "없음";
+      userPosts.posts = "게시물 없음";
       return userPosts;
     }
     userPosts.errorMessage = null;

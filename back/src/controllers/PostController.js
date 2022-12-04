@@ -1,5 +1,6 @@
 const express = require("express");
 const Post = require("../db/models/Post");
+const { postService } = require("../services/postService");
 
 const postController = {
   // 전체 게시글 조회
@@ -111,6 +112,25 @@ const postController = {
     } catch (err) {
       console.log(err);
       return res.status(400).send("Error");
+    }
+  },
+
+  // 타이틀 검색
+  getPostsByQuestionController: async (req, res, next) => {
+    try {
+      const { option } = req.query;
+      const { question } = req.query;
+      const { page } = req.query;
+
+      const searchResults = await postService.getPostsByQuestionService(
+        option,
+        question,
+        page
+      );
+
+      res.status(200).send(searchResults);
+    } catch (error) {
+      next(error);
     }
   },
 };

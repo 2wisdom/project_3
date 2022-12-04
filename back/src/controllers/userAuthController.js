@@ -125,9 +125,10 @@ const userAuthController = {
 
   // 마이페이지 작성글 조회
   getUserPost: async (req, res, next) => {
-    const { userId } = req.params;
+    const { userId } = req.query;
+    const { page } = req.query;
     try {
-      const currentUserPost = await userAuthService.userPosts(userId);
+      const currentUserPost = await userAuthService.userPosts(userId, page);
 
       if (currentUserPost.errorMessage)
         throw new Error("회원 정보 불러오기 실패");
