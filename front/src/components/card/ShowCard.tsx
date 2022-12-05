@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import * as CommunityCardInterface from "../../store/CommunityShowCard";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
@@ -12,6 +12,12 @@ import { split } from "../../store/CommunityShowCard";
 import imageError from "../../../assets/error/imageError.jpg";
 import { useNavigate } from "react-router-dom";
 import ShowCardDetail from "@/pages/ShowCardDetail";
+
+// export interface DetailOpenProps {
+//   postId: string;
+//   isDetailOpen: boolean;
+//   setIsDetailOpen: Dispatch<SetStateAction<boolean>>;
+// }
 const ShowCard = ({
   postId,
   image,
@@ -28,8 +34,9 @@ const ShowCard = ({
   date: string;
 }) => {
   const navigate = useNavigate();
+
   const createDate = date.split("T");
-  console.log("ShowCard-postId", postId);
+
   return (
     <div className={Card.inner}>
       <img
@@ -40,15 +47,11 @@ const ShowCard = ({
           currentTarget.onerror = null; // prevents looping
           currentTarget.src = imageError;
         }}
-        onClick={() => {
-          navigate("/showCardDetail");
-        }}
+        onClick={() => navigate(`/showCardDetail/${postId}`)}
       />
       <h3
         className={Card.title}
-        onClick={() => {
-          navigate("/showCardDetail");
-        }}
+        onClick={() => navigate(`/showCardDetail/${postId}`)}
       >
         {title}
       </h3>
@@ -59,30 +62,23 @@ const ShowCard = ({
             alt="Remy Sharp"
             src={userImage}
             sx={{ width: 24, height: 24 }}
-            onClick={() => {
-              navigate("/showCardDetail");
-            }}
+            onClick={() => navigate(`/showCardDetail/${postId}`)}
           />
 
           <h5
             className={Card.userName}
-            onClick={() => {
-              navigate("/showCardDetail");
-            }}
+            onClick={() => navigate(`/showCardDetail/${postId}`)}
           >
             {userName}
           </h5>
         </div>
         <div
           className={Card.data}
-          onClick={() => {
-            navigate("/showCardDetail");
-          }}
+          onClick={() => navigate(`/showCardDetail/${postId}`)}
         >
           {createDate[0]}
         </div>
       </div>
-      {postId && <ShowCardDetail postId={postId}></ShowCardDetail>}
     </div>
   );
 };

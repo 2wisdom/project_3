@@ -7,6 +7,7 @@ import * as showCardStore from "../../store/CommunityShowCard";
 import Avatar from "@mui/material/Avatar";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
 import imageSample from "../../../../back/public/images/leavesGetMoreYards.png";
+import ShowCardDetail from "@/pages/ShowCardDetail";
 const CardList = ({
   showCardData,
 }: {

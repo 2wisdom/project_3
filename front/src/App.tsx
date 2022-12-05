@@ -48,7 +48,10 @@ const App = () => {
                     <Route path="/community" element={<Community />} />
                     <Route path="/market" element={<Market />} /> */}
           <Route path="/createShowCard" element={<CreateShowCard />}></Route>
-          <Route path="/showCardDetail" element={<ShowCardDetail />}></Route>
+          <Route
+            path="/showCardDetail/:id"
+            element={<ShowCardDetail />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
