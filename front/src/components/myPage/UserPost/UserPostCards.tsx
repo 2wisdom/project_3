@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Show from "../../../styles/showOffPage/ShowPage.module.css";
-import ShowCardList from "../../../components/communityShow/CardList";
-import * as showCardStore from "../../../store/MyPage";
+import ShowCardList from "../../communityShow/CardList";
 import useUserStore from "../../../store/Login";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
@@ -47,7 +46,7 @@ const UserPostCards = () => {
 
   useEffect(() => {
     apiGetShowCardData();
-  }, []);
+  }, [user.userId]);
 
   return (
     <div className={Show.container}>

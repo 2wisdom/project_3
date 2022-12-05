@@ -51,7 +51,7 @@ const EditUserInfo = () => {
     resetPage();
   }, [user]);
 
-  const userUpload: React.FormEventHandler<HTMLDivElement> = async (e) => {
+  const userUpload: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
 
     if (isDeleteProfileImg === true) {

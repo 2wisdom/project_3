@@ -3,6 +3,9 @@ import { useState } from "react";
 import * as CommunityCardInterface from "../../../store/CommunityShowCard";
 import Card from "../../../styles/showOffPage/ShowCard.module.css";
 import Avatar from "@mui/material/Avatar";
+import useUserStore from "../../../store/Login";
+import Stack from "@mui/material/Stack";
+import { SquareBtn, white, black } from "../../../styles/buttons/BasicBtn";
 
 interface showCard {
   key: string;
@@ -21,6 +24,7 @@ const UserPostCard = ({
   userName,
   date,
 }: showCard) => {
+  const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
   console.log("image", image);
   return (
@@ -37,7 +41,7 @@ const UserPostCard = ({
             {/* <img className={Card.userImage}></img> */}
             <Avatar
               alt="Remy Sharp"
-              src={userImage}
+              src={`http://${window.location.hostname}:5000/${user.imageUrl}`}
               sx={{ width: 24, height: 24 }}
             />
 
@@ -45,6 +49,14 @@ const UserPostCard = ({
           </div>
           <div className={Card.data}>{createDate[0]}</div>
         </div>
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <SquareBtn theme={white} type="button">
+            삭제
+          </SquareBtn>
+          <SquareBtn theme={black} type="button">
+            수정
+          </SquareBtn>
+        </Stack>
       </div>
     </>
   );

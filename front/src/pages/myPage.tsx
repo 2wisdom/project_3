@@ -1,7 +1,7 @@
 import React, { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import EditUserInfo from "../components/myPage/EditUserInfo/EditUserInfo";
-import UserPost from "../components/myPage/UserPost/UserPost";
+import UserPostCards from "../components/myPage/UserPost/UserPostCards";
 import useUserStore from "@/store/Login";
 import * as M from "../styles/MyPage/MyPage.styled";
 // import { Api } from "@mui/icons-material";
@@ -40,7 +40,7 @@ const MyPage = () => {
         <M.MainContainer>
           <Routes>
             <Route path="" element={<EditUserInfo />} />
-            <Route path="userPost" element={<UserPost />} />
+            <Route path="userPost" element={<UserPostCards />} />
             {/* <Route path="userComment/" element={UserComment} /> */}
           </Routes>
         </M.MainContainer>

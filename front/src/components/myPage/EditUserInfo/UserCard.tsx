@@ -27,9 +27,7 @@ const UserCard = ({
   const user = useUserStore((state) => state.user);
   const defaultImage = "public/images/leavesGetMoreYards.png";
   // const goodFileInput = useRef<HTMLInputElement>(null);
-  const [previewURL, setPreviewURL] = useState<string | ArrayBuffer | null>(
-    null
-  );
+  const [previewURL, setPreviewURL] = useState<string>("");
 
   // 프로필 이미지 미리보기
   const changeProfileImgPreview = async (previewFile: any) => {
@@ -45,7 +43,7 @@ const UserCard = ({
     const reader = new FileReader();
     reader.onload = async () => {
       if (reader.readyState === 2) {
-        setPreviewURL(reader.result);
+        setPreviewURL(reader.result as string);
       }
     };
     reader.readAsDataURL(previewFile);
@@ -55,9 +53,10 @@ const UserCard = ({
     if (confirm("잎게뭐야를 정말 탈퇴하시겠습니까?")) {
       try {
         const res = await Api.delete("users", `${user.userId}`);
-        navigate("/");
-        if (res.status === 200) {
+        if(res.status === 200) {
           alert("정상적으로 회원탈퇴 처리되었습니다.");
+        }else{
+          console.log(res)
         }
       } catch (err) {
         console.log("회원탈퇴에러", err);
@@ -88,7 +87,7 @@ const UserCard = ({
               setIsDeleteProfileImg(true);
               setSaveProfileImg(null);
               setImg(defaultImage);
-              setPreviewURL(null);
+              setPreviewURL("");
             }}
           >
             삭제
