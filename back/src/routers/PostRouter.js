@@ -32,7 +32,7 @@ postRouter.put("/:postId", [loginRequired], postController.updatePost);
 
 /**
  * 게시글 삭제
- * DELETE /posts/:postIda
+ * DELETE /posts/:postId
  */
 postRouter.delete("/:postId", [loginRequired], postController.deletePost);
 
