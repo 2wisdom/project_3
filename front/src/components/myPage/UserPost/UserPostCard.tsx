@@ -54,7 +54,7 @@ const UserPostCard = ({
           <SquareBtn theme={white} type="button">
             삭제
           </SquareBtn>
-          <SquareBtn theme={black} type="button" onClick={navigate(``)}>
+          <SquareBtn theme={black} type="button">
             수정
           </SquareBtn>
         </Stack>

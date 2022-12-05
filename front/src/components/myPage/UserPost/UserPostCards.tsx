@@ -24,27 +24,25 @@ export interface showCard {
 const UserPostCards = () => {
   const user = useUserStore((state) => state.user);
   const [page, setPage] = useState<number>(1);
-  //   const showCardData = showCardStore.showCardStore(
-  //     (state: any) => state.showCards
-  //   );
-  //   const apiGetShowCardData = showCardStore.showCardStore(
-  //     (state: any) => state.apiGetShowCards
-  //   );
-  const [showCards, setShowCards] = useState<showCard[]>([]);
 
+  const [showCards, setShowCards] = useState<showCard[]>([]);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const isLastPage = page >= totalPage;
+  console.log("user", user);
   const apiGetShowCardData = async () => {
     try {
       const res = await Api.get(
         "users",
         `posts?userId=${user.userId}&page=${page}`
       );
-      setShowCards(res.data);
-      setPage(page + 1);
+      if (res.data !== []) {
+        setShowCards(res.data.userPosts);
+        setTotalPage(res.data.totalPage);
+      }
     } catch (err) {
       console.log(err);
     }
   };
-  console.log("data: ", showCards);
 
   useEffect(() => {
     apiGetShowCardData();
@@ -58,15 +56,15 @@ const UserPostCards = () => {
     try {
       const res = await Api.get(
         "users",
-        `posts?userId=${user.userId}&page=${page}`
+        `posts?userId=${user.userId}&page=${page+1}`
       );
-      setShowCards([...showCards, ...res.data]);
-      setPage(page + 1);
+      setShowCards([...showCards, ...res.data.userPosts]);
+      setPage(page+1);
     } catch (err) {
       console.log("더보기 에러: ", err);
     }
   };
-  console.log(page);
+
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
@@ -90,10 +88,11 @@ const UserPostCards = () => {
               </div>
               <div className={Show.footer}>
                 <div className={Show.moreBtnInner}>
-                  <button className={Show.moreBtn} onClick={loadMoreCards}>
-                    {" "}
-                    더보기{" "}
-                  </button>
+                  {!isLastPage && 
+                    <button className={Show.moreBtn} onClick={loadMoreCards}>
+                      더보기
+                    </button>
+                  }
                 </div>
               </div>
             </div>
