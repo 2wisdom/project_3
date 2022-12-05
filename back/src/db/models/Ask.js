@@ -65,7 +65,7 @@ const Ask = {
     return AskModel.findByIdAndDelete(id);
   },
 
-  /** userId와 일치하는 게시글 데이터를 조회 */
+  // userId와 일치하는 게시글 데이터를 조회
   findUserAllAsks: async (userId, page) => {
     const allUserAsks = await AskModel.find({ author: userId })
       .sort({ createdAt: -1 })
@@ -76,7 +76,16 @@ const Ask = {
     return allUserAsks;
   },
 
-  /** 검색 단어와 일치하는 게시물을 조회 */
+  // userId와 일치하는 게시글 데이터 개수 조회
+  findUserAllAsksCount: async (userId) => {
+    const allUserAsksCount = await AskModel.countDocuments({
+      author: userId,
+    }).lean();
+
+    return allUserAsksCount;
+  },
+
+  //  검색 단어와 일치하는 게시물을 조회
   getAsksByQuestion: async (options, page) => {
     const Asks = await AskModel.find({ $or: options })
       .sort({ createdAt: -1 })

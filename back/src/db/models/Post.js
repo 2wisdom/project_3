@@ -65,7 +65,7 @@ const Post = {
     return PostModel.findByIdAndDelete(id);
   },
 
-  /** userId와 일치하는 게시글 데이터를 조회 */
+  // userId와 일치하는 게시글 데이터를 조회
   findUserAllPosts: async (userId, page) => {
     const allUserPosts = await PostModel.find({ author: userId })
       .sort({ createdAt: -1 })
@@ -76,7 +76,16 @@ const Post = {
     return allUserPosts;
   },
 
-  /** 검색 단어와 일치하는 게시물을 조회 */
+  // userId와 일치하는 게시글 데이터 개수 조회
+  findUserAllPostsCount: async (userId) => {
+    const allUserPostsCount = await PostModel.countDocuments({
+      author: userId,
+    }).lean();
+
+    return allUserPostsCount;
+  },
+
+  // 검색 단어와 일치하는 게시물을 조회
   getPostsByQuestion: async (options, page) => {
     const Posts = await PostModel.find({ $or: options })
       .sort({ createdAt: -1 })

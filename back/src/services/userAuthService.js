@@ -150,6 +150,10 @@ const userAuthService = {
   // 마이페이지 자랑하기 게시글
   userPosts: async (userId, page) => {
     const userPosts = await Post.findUserAllPosts(userId, page);
+    const userPostsCount = await Post.findUserAllPostsCount(userId);
+
+    const totalPage = Math.ceil(userPostsCount / 8);
+    userPosts.totalPage = totalPage;
 
     if (userPosts.length === 0) {
       userPosts.posts = "게시물 없음";
@@ -160,9 +164,13 @@ const userAuthService = {
     return userPosts;
   },
 
-  // 마이페이지 자랑하기 게시글
+  // 마이페이지 마켓 게시글
   userMarkets: async (userId, page) => {
     const userMarkets = await Market.findUserAllMarkets(userId, page);
+    const userMarketsCount = await Market.findUserAllMarketsCount(userId);
+
+    const totalPage = Math.ceil(userMarketsCount / 8);
+    userMarkets.totalPage = totalPage;
 
     if (userMarkets.length === 0) {
       userMarkets.posts = "게시물 없음";
@@ -173,9 +181,13 @@ const userAuthService = {
     return userMarkets;
   },
 
-  // 마이페이지 자랑하기 게시글
+  // 마이페이지 질문하기 게시글
   userAsks: async (userId, page) => {
     const userAsks = await Ask.findUserAllAsks(userId, page);
+    const userAsksCount = await Ask.findUserAllAsksCount(userId);
+
+    const totalPage = Math.ceil(userAsksCount / 8);
+    userAsksCount.totalPage = totalPage;
 
     if (userAsks.length === 0) {
       userAsks.posts = "게시물 없음";

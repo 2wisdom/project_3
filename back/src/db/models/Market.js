@@ -65,7 +65,7 @@ const Market = {
     return MarketModel.findByIdAndDelete(id);
   },
 
-  /** userId와 일치하는 게시글 데이터를 조회 */
+  // userId와 일치하는 게시글 데이터를 조회
   findUserAllMarkets: async (userId, page) => {
     const allUserMarkets = await MarketModel.find({ author: userId })
       .sort({ createdAt: -1 })
@@ -76,7 +76,16 @@ const Market = {
     return allUserMarkets;
   },
 
-  /** 검색 단어와 일치하는 게시물을 조회 */
+  // userId와 일치하는 게시글 데이터 개수 조회
+  findUserAllMarketsCount: async (userId) => {
+    const allUserMarketsCount = await MarketModel.countDocuments({
+      author: userId,
+    }).lean();
+
+    return allUserMarketsCount;
+  },
+
+  // 검색 단어와 일치하는 게시물을 조회
   getMarketsByQuestion: async (options, page) => {
     const Markets = await MarketModel.find({ $or: options })
       .sort({ createdAt: -1 })
