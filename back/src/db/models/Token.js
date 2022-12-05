@@ -10,29 +10,8 @@ const responseInfo = (tokenInfo) => {
 };
 
 const Token = {
-  /**
-   *
-   * @param {object} newToken
-   * @param {string} newToken.userId
-   * @param {string} newToken.refreshToken
-   * @returns
-   */
   create: async (newToken) => {
-    console.log("newToken: ", newToken);
-    // newUser을 몽고디비에 생성
-    let createdNewToken = await TokenModel.findOneAndUpdate(
-      {
-        userId: newToken.userId,
-      },
-      {
-        refreshToken: newToken.refreshToken,
-      },
-      {
-        new: true,
-        upsert: true,
-      }
-    );
-    // let createdNewToken = await TokenModel.create(newToken);
+    let createdNewToken = await TokenModel.create(newToken);
 
     // Moogoose Document에서 필요한 응답에 필요한 _doc 만 responseInfo 로 전달
     if (createdNewToken) createdNewToken = responseInfo(createdNewToken._doc);
@@ -41,7 +20,7 @@ const Token = {
   },
 
   // 고유 Id 로 데이터 검색
-  findById: async (userId) => {
+  findByUserId: async (userId) => {
     // 생성과 수정 날짜 데이터를 제외한 _id, email, name만 user에 초기화
     let user = await TokenModel.findOne(
       { userId },
@@ -49,7 +28,7 @@ const Token = {
     ).lean();
 
     if (user) user = responseInfo(user);
-
+    if (!user) user = null;
     return user;
   },
 
@@ -70,6 +49,11 @@ const Token = {
       option
     ).lean();
     return updatedToken;
+  },
+
+  deleteByUserId: async (userId) => {
+    const deletedTokenInfo = await TokenModel.deleteOne({ userId: userId });
+    return deletedTokenInfo;
   },
 };
 

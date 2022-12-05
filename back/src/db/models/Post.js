@@ -41,9 +41,9 @@ const Post = {
    * 포스트를 수정한다
    */
   update: (post) => {
-    if (!post._id) {
-      throw Error(JSON.stringify({ message: "post._id is required" }, null, 2));
-    }
+    // if (!post._id) {
+    //   throw Error(JSON.stringify({ message: "post._id is required" }, null, 2));
+    // }
 
     return PostModel.findByIdAndUpdate(
       post._id,
@@ -63,6 +63,27 @@ const Post = {
     }
 
     return PostModel.findByIdAndDelete(id);
+  },
+
+  /** userId와 일치하는 게시글 데이터를 조회 */
+  findUserAllPosts: async (userId, page) => {
+    const allUserPosts = await PostModel.find({ author: userId })
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * 8)
+      .limit(8)
+      .lean();
+
+    return allUserPosts;
+  },
+
+  /** 검색 단어와 일치하는 게시물을 조회 */
+  getPostsByQuestion: async (options, page) => {
+    const Posts = await PostModel.find({ $or: options })
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * 8)
+      .limit(8)
+      .lean();
+    return Posts;
   },
 };
 

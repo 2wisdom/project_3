@@ -1,0 +1,49 @@
+.inner {
+  width: 20%;
+  height: 100%;
+  /* background-color: bisque; */
+  margin: auto;
+  margin-right: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* .image {
+  width: 257px;
+  height: 200px;
+  object-fit: fill;
+  border-radius: 4rem;
+} */
+
+.title {
+  font-size: 1.5rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+}
+
+.userInner {
+  display: flex;
+}
+.userImage {
+  width: 25px;
+  height: 25px;
+  border: 1px solid gray;
+  border-radius: 20px;
+}
+
+.userName {
+  font-size: 1.5rem;
+  margin: auto;
+  padding-left: 1rem;
+  font-weight: 400;
+}
+
+.data {
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+}

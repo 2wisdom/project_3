@@ -19,6 +19,10 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
+        test: /\.(png|jpg)$/i,
+        type: "asset/resource",
+      },
+      {
         test: /\.(sa|sc|c)ss$/i,
         use: [
           "style-loader",

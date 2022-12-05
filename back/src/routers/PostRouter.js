@@ -19,12 +19,6 @@ postRouter.get("/", postController.getAllPosts);
 postRouter.get("/:postId", postController.getPostById);
 
 /**
- * 게시글 이미지 생성
- * POST /posts/image-upload
- */
-postRouter.post("/image-upload", [loginRequired], postController.uploadImage);
-
-/**
  * 게시글 생성
  * POST /posts
  */
@@ -38,7 +32,7 @@ postRouter.put("/:postId", [loginRequired], postController.updatePost);
 
 /**
  * 게시글 삭제
- * DELETE /posts/:postId
+ * DELETE /posts/:postIda
  */
 postRouter.delete("/:postId", [loginRequired], postController.deletePost);
 

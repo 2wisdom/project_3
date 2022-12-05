@@ -1,0 +1,144 @@
+.container {
+  margin: 0px;
+  padding: 0px;
+  margin-top: 5rem;
+}
+.Inner {
+  display: flex;
+  width: 98%;
+  /* height: 60vh; */
+  height: 90vh;
+  margin: auto;
+  /* text-align : center;
+    align-items : center; */
+}
+/* button */
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  width: 6%;
+  height: 80vh;
+  margin-right: 4rem;
+
+  /* background-color: aqua; */
+}
+.buttonInner {
+  margin-top: 8rem;
+}
+.grayBtn {
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+  /* font-family: 'Jua', sans-serif; */
+  font-family: "Nanum Gothic", sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  border: none;
+  border-radius: 1rem;
+  color: #ffffff;
+  background-color: #bdbdbd;
+  /* margin-right: 4rem; */
+  margin-top: 2rem;
+}
+.yellowBtn {
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+  /* font-family: 'Jua', sans-serif; */
+  font-family: "Nanum Gothic", sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  border: none;
+  border-radius: 1rem;
+  color: #000000;
+  background-color: #ffda7b;
+  /* margin-right: 4rem; */
+  margin-top: 2rem;
+}
+.yellowBtn:hover {
+  background-color: #ffda7b;
+  color: #000000;
+}
+.rightInner {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 80vh;
+}
+/* title & search */
+.titleSearchInner {
+  margin-left: auto;
+  width: 100%;
+  height: 10vh;
+  /* margin: auto; */
+  /* background-color: aliceblue; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: "Jua", sans-serif;
+  font-weight: 300;
+  font-size: 3rem;
+  padding-bottom: 8rem;
+  padding-left: 4rem;
+}
+
+/* card */
+.cardInner {
+  margin-left: auto;
+  width: 100%;
+  height: 70vh;
+  /* background-color: blue; */
+}
+/* moreBtn */
+.footer {
+  width: 100%;
+  display: flex;
+  /* justify-content: center; */
+  margin-top: 2rem;
+}
+.moreBtnInner {
+  /* width: 80%; */
+  /* margin-right: 10rem; */
+  margin: auto;
+}
+
+.moreBtn {
+  background-color: #ffffff;
+  border-radius: 28px;
+  border: 2px solid #000000;
+  cursor: pointer;
+  color: #000000;
+  font-size: 13px;
+  padding: 12px 20px;
+  text-decoration: none;
+  margin-left: 6rem;
+  /* justify-content: center; */
+}
+.moreBtn:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+.moreBtn:active {
+  position: relative;
+  top: 1px;
+}
+
+.writeBtnInner {
+  /* width: 20%; */
+  /* text-align: end; */
+  /* align-items: flex-end; */
+}
+
+.writeBtnOutline {
+  cursor: pointer;
+  border: 2px solid #000000;
+  border-radius: 3rem;
+  padding: 1rem;
+  /* justify-content: end; */
+}
+.writeBtnOutline:active {
+  position: relative;
+  top: 1px;
+}
