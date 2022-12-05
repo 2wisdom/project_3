@@ -2,6 +2,7 @@ const express = require("express");
 
 const { postController } = require("../controllers/postController");
 const { marketController } = require("../controllers/marketController");
+const { askController } = require("../controllers/askController");
 
 const searchRouter = express.Router();
 
@@ -15,6 +16,12 @@ searchRouter.get(
 searchRouter.get(
   "/markets?:option?:question?:page",
   marketController.getMarketsByQuestionController
+);
+
+// 마켓 게시글 검색
+searchRouter.get(
+  "/asks?:option?:question?:page",
+  askController.getAsksByQuestionController
 );
 
 exports.searchRouter = searchRouter;
