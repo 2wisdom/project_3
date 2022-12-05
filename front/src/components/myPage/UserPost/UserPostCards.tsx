@@ -9,6 +9,7 @@ import * as Api from "../../../api/Api";
 import ShowCard from "./UserPostCard";
 import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
+import axios from "axios";
 
 export interface showCard {
   author: string;
@@ -22,7 +23,7 @@ export interface showCard {
 
 const UserPostCards = () => {
   const user = useUserStore((state) => state.user);
-  const [page, setPage] = useState<string>("1");
+  const [page, setPage] = useState<number>(1);
   //   const showCardData = showCardStore.showCardStore(
   //     (state: any) => state.showCards
   //   );
@@ -38,6 +39,7 @@ const UserPostCards = () => {
         `posts?userId=${user.userId}&page=${page}`
       );
       setShowCards(res.data);
+      setPage(page + 1);
     } catch (err) {
       console.log(err);
     }
@@ -48,6 +50,23 @@ const UserPostCards = () => {
     apiGetShowCardData();
   }, [user.userId]);
 
+  const loadMoreCards: React.MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
+    e.preventDefault();
+
+    try {
+      const res = await Api.get(
+        "users",
+        `posts?userId=${user.userId}&page=${page}`
+      );
+      setShowCards([...showCards, ...res.data]);
+      setPage(page + 1);
+    } catch (err) {
+      console.log("더보기 에러: ", err);
+    }
+  };
+  console.log(page);
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
@@ -69,13 +88,14 @@ const UserPostCards = () => {
                   );
                 })}
               </div>
-              {/* <div className={Show.footer}>
-            <div className={Show.moreBtnInner}>
-              {showCardData.docs && visible < showCardData.docs.length ? (
-                <button className={Show.moreBtn}> 더보기 </button>
-              ) : null}
-            </div>
-          </div> */}
+              <div className={Show.footer}>
+                <div className={Show.moreBtnInner}>
+                  <button className={Show.moreBtn} onClick={loadMoreCards}>
+                    {" "}
+                    더보기{" "}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

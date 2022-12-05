@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import * as CommunityCardInterface from "../../../store/CommunityShowCard";
 import Card from "../../../styles/showOffPage/ShowCard.module.css";
 import Avatar from "@mui/material/Avatar";
@@ -24,6 +24,7 @@ const UserPostCard = ({
   userName,
   date,
 }: showCard) => {
+  const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
   console.log("image", image);
@@ -53,7 +54,7 @@ const UserPostCard = ({
           <SquareBtn theme={white} type="button">
             삭제
           </SquareBtn>
-          <SquareBtn theme={black} type="button">
+          <SquareBtn theme={black} type="button" onClick={navigate(``)}>
             수정
           </SquareBtn>
         </Stack>

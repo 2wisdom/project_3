@@ -15,7 +15,7 @@ const MyPage = () => {
     { name: "작성한 댓글", address: "userComment" },
   ];
 
-  // const [pickedNav, setPickedNav] = useState("개인정보수정");
+  const [pickedNav, setPickedNav] = useState("개인정보수정");
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
@@ -30,7 +30,8 @@ const MyPage = () => {
                 type="button"
                 value={nav.name}
                 key={nav.name}
-                onClick={() => navigate(nav.address)}
+                // {pickedNav===this.value && (primary)}
+                onClick={(e) => {navigate(nav.address)}}
               >
                 {nav.name}
               </M.NavBtn>

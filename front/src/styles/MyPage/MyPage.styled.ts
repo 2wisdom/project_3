@@ -25,7 +25,7 @@ export const MyPageContainer = styled.form`
 export const NavBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 10rem;
+  // width: 10rem;
   height: 80vh;
   margin: 5rem 0 0 0;
 `;
@@ -37,7 +37,6 @@ export const NavBtn = styled.button`
   font-size: 2rem;
   border: none;
   border-radius: 1rem;
-  // color: ${(props) => props || "white"};
   background-color: #ffda7b;
   margin-right: 4rem;
   margin-top: 2rem;
@@ -45,9 +44,15 @@ export const NavBtn = styled.button`
   cursor: pointer;
   // background-color: #eaebfc;
   background-color: #d8d8d8;
-  color: black;
-  // color: white;
+  color: white;
 `;
+
+//  ${(props) =>
+//     props.primary &&
+//     css`
+//       color: black;
+//       background: #eaebfc;
+//     `}
 
 export const MainContainer = styled.form`
   flex-direction: column;

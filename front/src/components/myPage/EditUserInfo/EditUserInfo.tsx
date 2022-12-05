@@ -20,7 +20,6 @@ export interface IProps {
 }
 
 const EditUserInfo = () => {
-  // const navList = ["개인정보수정", "작성한글", "작성한 댓글"];
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
