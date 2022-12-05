@@ -151,17 +151,19 @@ const userAuthService = {
   userPosts: async (userId, page) => {
     const userPosts = await Post.findUserAllPosts(userId, page);
     const userPostsCount = await Post.findUserAllPostsCount(userId);
+    const userPostsResponse = {};
 
     const totalPage = Math.ceil(userPostsCount / 8);
-    userPosts.totalPage = totalPage;
+    userPostsResponse.totalPage = totalPage;
+    userPostsResponse.userPosts = userPosts;
 
     if (userPosts.length === 0) {
       userPosts.posts = "게시물 없음";
       return userPosts;
     }
-    userPosts.errorMessage = null;
+    userPostsResponse.errorMessage = null;
 
-    return userPosts;
+    return userPostsResponse;
   },
 
   // 마이페이지 마켓 게시글
@@ -187,6 +189,7 @@ const userAuthService = {
     const userAsksCount = await Ask.findUserAllAsksCount(userId);
 
     const totalPage = Math.ceil(userAsksCount / 8);
+    ㅕ;
     userAsksCount.totalPage = totalPage;
 
     if (userAsks.length === 0) {
