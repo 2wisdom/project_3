@@ -6,6 +6,7 @@ const { Token } = require("../db/models/Token");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 const Post = require("../db/models/Post");
 const Market = require("../db/models/Market");
+const Ask = require("../db/models/Ask");
 
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 
@@ -170,6 +171,19 @@ const userAuthService = {
     userMarkets.errorMessage = null;
 
     return userMarkets;
+  },
+
+  // 마이페이지 자랑하기 게시글
+  userAsks: async (userId, page) => {
+    const userAsks = await Ask.findUserAllAsks(userId, page);
+
+    if (userAsks.length === 0) {
+      userAsks.posts = "게시물 없음";
+      return userAsks;
+    }
+    userAsks.errorMessage = null;
+
+    return userAsks;
   },
 
   // 유저 정보 업데이트

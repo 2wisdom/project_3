@@ -134,7 +134,7 @@ const userAuthController = {
         throw new Error("회원 정보 불러오기 실패");
 
       if (currentUserPosts.posts) {
-        return res.status(200).send("게시물 없음");
+        return res.status(200).send([]);
       }
 
       res.status(200).send(currentUserPosts);
@@ -157,10 +157,30 @@ const userAuthController = {
         throw new Error("회원 정보 불러오기 실패");
 
       if (currentUserMarkets.posts) {
-        return res.status(200).send("게시물 없음");
+        return res.status(200).send([]);
       }
 
       res.status(200).send(currentUserMarkets);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  // 마이페이지 질문하기 작성글 조회
+  getUserAsks: async (req, res, next) => {
+    const { userId } = req.query;
+    const { page } = req.query;
+    try {
+      const currentUserAsks = await userAuthService.userAsks(userId, page);
+
+      if (currentUserAsks.errorMessage)
+        throw new Error("회원 정보 불러오기 실패");
+
+      if (currentUserAsks.posts) {
+        return res.status(200).send([]);
+      }
+
+      res.status(200).send(currentUserAsks);
     } catch (error) {
       next(error);
     }

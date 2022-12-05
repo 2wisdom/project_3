@@ -16,7 +16,7 @@ const askService = {
     } else {
       throw new Error("검색 옵션이 없습니다.");
     }
-    const searchedAsks = await Ask.getasksByQuestion(options, page);
+    const searchedAsks = await Ask.getAsksByQuestion(options, page);
 
     if (searchedAsks.length === 0) {
       searchedAsks.asks = "게시물 없음";
