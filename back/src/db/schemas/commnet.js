@@ -13,7 +13,6 @@ const CommentSchema = new mongoose.Schema(
     writingId: {
       type: String,
       required: true,
-      ref: "Post",
     },
     // reply to
     responseTo: {

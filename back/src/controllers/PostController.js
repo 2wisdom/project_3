@@ -1,5 +1,6 @@
 const express = require("express");
 const Post = require("../db/models/Post");
+const { postService } = require("../services/postService");
 
 const postController = {
   // 전체 게시글 조회
@@ -111,6 +112,30 @@ const postController = {
     } catch (err) {
       console.log(err);
       return res.status(400).send("Error");
+    }
+  },
+
+  // 게시물 검색
+  getPostsByQuestionController: async (req, res, next) => {
+    try {
+      const { option } = req.query;
+      const { question } = req.query;
+      const { page } = req.query;
+
+      const searchedPosts = await postService.getPostsByQuestionService(
+        option,
+        question,
+        page
+      );
+      if (searchedPosts.errorMessage) throw new Error("게시물 조회 실패");
+
+      if (searchedPosts.posts) {
+        return res.status(200).send("게시물 없음");
+      }
+
+      res.status(200).send(searchedPosts);
+    } catch (error) {
+      next(error);
     }
   },
 };

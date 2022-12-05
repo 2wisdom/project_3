@@ -8,7 +8,10 @@ const multer = require("multer");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const { tokenRouter } = require("./routers/tokenRouter");
-const postRouter = require("./routers/PostRouter");
+const { searchRouter } = require("./routers/searchRouter");
+const postRouter = require("./routers/postRouter");
+const askRouter = require("./routers/askRouter");
+const marketRouter = require("./routers/marketRouter");
 const imageRouter = require("./routers/imageRouter");
 const commentRouter = require("./routers/commentRouter");
 const logger = require("./config/logger");
@@ -65,9 +68,12 @@ app.use("/public", express.static(path.join(__dirname, "..", "public")));
 // 라우팅
 app.use("/users", userAuthRouter);
 app.use("/posts", postRouter);
+app.use("/asks", askRouter);
+app.use("/markets", marketRouter);
 app.use("/images", imageRouter);
 app.use("/comments", commentRouter);
 app.use("/token", tokenRouter);
+app.use("/search", searchRouter);
 
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");

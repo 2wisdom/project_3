@@ -9,13 +9,13 @@ const userAuthController = {
   postAddUser: async (req, res, next) => {
     try {
       const { email, password, name } = req.body;
-      const imageUrl = "leavesGetMoreYards.png";
+      const imageUrl = process.env.DEFAULT_IMAGE_NAME;
       // 서비스 파일에서 addUser 함수 실행
       const userInfo = await userAuthService.addUserInfo({
         email,
         password,
         name,
-        imageUrl: "public/images/leavesGetMoreYards.png",
+        imageUrl: process.env.DEFAULT_IMAGE_URL,
       });
 
       const userInfoWithoutPassword = {
@@ -123,12 +123,47 @@ const userAuthController = {
     }
   },
 
-  // 마이페이지 작성글 조회
-  getUserPost: async (req, res, next) => {
-    const { userId } = req.params;
+  // 마이페이지 자랑하기 작성글 조회
+  getUserPosts: async (req, res, next) => {
+    const { userId } = req.query;
+    const { page } = req.query;
     try {
-      currentUserPost = await userAuthService.userPosts(userId);
-    } catch (error) {}
+      const currentUserPosts = await userAuthService.userPosts(userId, page);
+
+      if (currentUserPosts.errorMessage)
+        throw new Error("회원 정보 불러오기 실패");
+
+      if (currentUserPosts.posts) {
+        return res.status(200).send("게시물 없음");
+      }
+
+      res.status(200).send(currentUserPosts);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  // 마이페이지 마켓 작성글 조회
+  getUserMarkets: async (req, res, next) => {
+    const { userId } = req.query;
+    const { page } = req.query;
+    try {
+      const currentUserMarkets = await userAuthService.userMarkets(
+        userId,
+        page
+      );
+
+      if (currentUserMarkets.errorMessage)
+        throw new Error("회원 정보 불러오기 실패");
+
+      if (currentUserMarkets.posts) {
+        return res.status(200).send("게시물 없음");
+      }
+
+      res.status(200).send(currentUserMarkets);
+    } catch (error) {
+      next(error);
+    }
   },
 
   // 유저 정보 수정
@@ -173,9 +208,9 @@ const userAuthController = {
     try {
       const currentUserInfo = await userAuthService.getUserInfo(userId);
 
-      if (currentUserInfo.imageUrl !== "public/images/leavesGetMoreYards.png") {
+      if (currentUserInfo.imageUrl !== process.env.DEFAULT_IMAGE_URL) {
         const oldImageUrl = currentUserInfo.imageUrl;
-        const imageUrl = "public/images/leavesGetMoreYards.png";
+        const imageUrl = process.env.DEFAULT_IMAGE_URL;
         const password = null;
         const toUpdate = { password, imageUrl };
 

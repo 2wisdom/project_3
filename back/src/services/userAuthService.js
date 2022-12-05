@@ -5,6 +5,7 @@ const { User } = require("../db/models/User");
 const { Token } = require("../db/models/Token");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 const Post = require("../db/models/Post");
+const Market = require("../db/models/Market");
 
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 
@@ -145,9 +146,30 @@ const userAuthService = {
     return getUserInfo;
   },
 
-  // 마이페이지 게시글
-  userPosts: async (userId) => {
-    const userPosts = await Post.findAllUserPosts(userId);
+  // 마이페이지 자랑하기 게시글
+  userPosts: async (userId, page) => {
+    const userPosts = await Post.findUserAllPosts(userId, page);
+
+    if (userPosts.length === 0) {
+      userPosts.posts = "게시물 없음";
+      return userPosts;
+    }
+    userPosts.errorMessage = null;
+
+    return userPosts;
+  },
+
+  // 마이페이지 자랑하기 게시글
+  userMarkets: async (userId, page) => {
+    const userMarkets = await Market.findUserAllMarkets(userId, page);
+
+    if (userMarkets.length === 0) {
+      userMarkets.posts = "게시물 없음";
+      return userMarkets;
+    }
+    userMarkets.errorMessage = null;
+
+    return userMarkets;
   },
 
   // 유저 정보 업데이트
@@ -188,8 +210,8 @@ const userAuthService = {
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
-      if (user.imageUrl === "leavesGetMoreYards.png") {
-        user.imageUrl = "public/images/leavesGetMoreYards.png";
+      if (user.imageUrl === process.env.DEFAULT_IMAGE_NAME) {
+        user.imageUrl = process.env.DEFAULT_IMAGE_URL;
       }
     }
 
