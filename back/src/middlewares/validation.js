@@ -3,6 +3,11 @@ const { deleteUserImage } = require("../middlewares/deleteImage");
 
 const errorMessage = "요청한 데이터 형식이 올바르지 않습니다.";
 
+const errorFunction = (res, error) => {
+  const message = error.details.map((element) => element.message).join(",");
+  console.log(`errorMessage: `, message);
+};
+
 const userValidation = {
   ValidatePostAddUser: async (req, res, next) => {
     try {
@@ -10,8 +15,7 @@ const userValidation = {
       await validationSchema.postAddUserSchema.validateAsync(req.body);
     } catch (error) {
       // 유효성 검사 에러
-      const message = error.details.map((element) => element.message).join(",");
-      console.log(`errorMessage: `, message);
+      errorFunction(res, error);
       return res.status(400).json({ errorMessage: errorMessage });
     }
     next();
@@ -21,8 +25,7 @@ const userValidation = {
     try {
       await validationSchema.postLoginSchema.validateAsync(req.body);
     } catch (error) {
-      const message = error.details.map((element) => element.message).join(",");
-      console.log(`errorMessage: `, message);
+      errorFunction(res, error);
       return res.status(400).json({ errorMessage: errorMessage });
     }
     next();
@@ -38,8 +41,7 @@ const userValidation = {
         await deleteUserImage(imageUrl);
       }
 
-      const message = error.details.map((element) => element.message).join(",");
-      console.log(`errorMessage: `, message);
+      errorFunction(res, error);
       return res.status(400).json({ errorMessage: errorMessage });
     }
     next();
