@@ -115,20 +115,25 @@ const postController = {
     }
   },
 
-  // 타이틀 검색
+  // 게시물 검색
   getPostsByQuestionController: async (req, res, next) => {
     try {
       const { option } = req.query;
       const { question } = req.query;
       const { page } = req.query;
 
-      const searchResults = await postService.getPostsByQuestionService(
+      const searchedPosts = await postService.getPostsByQuestionService(
         option,
         question,
         page
       );
+      if (searchedPosts.errorMessage) throw new Error("게시물 조회 실패");
 
-      res.status(200).send(searchResults);
+      if (searchedPosts.posts) {
+        return res.status(200).send("게시물 없음");
+      }
+
+      res.status(200).send(searchedPosts);
     } catch (error) {
       next(error);
     }

@@ -8,6 +8,7 @@ const multer = require("multer");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const { tokenRouter } = require("./routers/tokenRouter");
+const { searchRouter } = require("./routers/searchRouter");
 const postRouter = require("./routers/PostRouter");
 const imageRouter = require("./routers/imageRouter");
 const commentRouter = require("./routers/commentRouter");
@@ -68,6 +69,7 @@ app.use("/posts", postRouter);
 app.use("/images", imageRouter);
 app.use("/comments", commentRouter);
 app.use("/token", tokenRouter);
+app.use("/search", searchRouter);
 
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");

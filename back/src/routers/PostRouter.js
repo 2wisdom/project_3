@@ -32,16 +32,8 @@ postRouter.put("/:postId", [loginRequired], postController.updatePost);
 
 /**
  * 게시글 삭제
- * DELETE /posts/:postId
+ * DELETE /posts/:postIda
  */
 postRouter.delete("/:postId", [loginRequired], postController.deletePost);
-
-/**
- * 게시글 검색
- */
-postRouter.get(
-  "/search?:option?:question?:page",
-  postController.getPostsByQuestionController
-);
 
 module.exports = postRouter;

@@ -2,7 +2,8 @@ const Post = require("../db/models/Post");
 
 const postService = {
   getPostsByQuestionService: async (option, question, page) => {
-    const options = [];
+    let options = [];
+
     if (option === "title") {
       options = [{ title: new RegExp(question) }];
     } else if (option === "contents") {
@@ -15,8 +16,16 @@ const postService = {
     } else {
       throw new Error("검색 옵션이 없습니다.");
     }
-    await Post.getPostsByQuestion(options, page);
-    return;
+    const searchedPosts = await Post.getPostsByQuestion(options, page);
+
+    if (searchedPosts.length === 0) {
+      searchedPosts.posts = "게시물 없음";
+      return searchedPosts;
+    }
+
+    searchedPosts.errorMessage = null;
+
+    return searchedPosts;
   },
 };
 exports.postService = postService;
