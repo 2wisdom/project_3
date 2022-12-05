@@ -40,13 +40,14 @@ const App = () => {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/myPage/*" element={<MyPage />} />
 
           <Route path="/communityShowOff" element={<CommuityShow />} />
           {/* <Route path="/search-plant" element={<Search />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/market" element={<Market />} /> */}
           <Route path="/createShowCard" element={<CreateShowCard />}></Route>
+          {/* <Route component={NotFound} /> */}
         </Routes>
       </BrowserRouter>
     </>
