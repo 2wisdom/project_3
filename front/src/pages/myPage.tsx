@@ -41,7 +41,7 @@ const MyPage = () => {
           <Routes>
             <Route path="" element={<EditUserInfo />} />
             <Route path="userPost" element={<UserPost />} />
-            {/* <Route path="/login" element={} /> */}
+            {/* <Route path="userComment/" element={UserComment} /> */}
           </Routes>
         </M.MainContainer>
       </M.MyPageContainer>

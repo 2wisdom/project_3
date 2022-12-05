@@ -5,13 +5,14 @@ const LoginBtnStyle = styled.button`
     height:4rem;
     color:#3278E4;
     position: relative;
-    font-size:1.3em;
+    font-size:1.3rem;
     font-weight:bold;
     background-color : #FFFFFF;
     decoration : none;
     border : 2px solid #3278E4;
     border-radius:8px;
     outline:0;
+    margin-right: 3rem;
 `;
 
 export default LoginBtnStyle;

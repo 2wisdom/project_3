@@ -3,8 +3,6 @@ import UserInfo from "./UserCard";
 import PasswordEdit from "./PasswordEdit";
 import PasswordCard from "./PasswordCard";
 import useUserStore from "@/store/Login";
-import * as M from "../../../styles/MyPage/MyPage.styled";
-import * as R from "../../../styles/RegisterPage/Register.styled";
 import axios from "axios";
 import { RoundBtn, white, violet } from "../../../styles/buttons/BasicBtn";
 import { ContentBox } from "@/styles/RegisterPage/Register.styled";

@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const MainContent = styled.div`
   display: block;
-  width: 130rem;
+  width: 90%;
   height: 90%;
   margin: 0 auto;
   // background-color: grey;
@@ -36,13 +37,14 @@ export const NavBtn = styled.button`
   font-size: 25px;
   border: none;
   border-radius: 1rem;
-  color: #000000;
+  // color: ${(props) => props || "white"};
   background-color: #ffda7b;
   margin-right: 4rem;
   margin-top: 2rem;
   margin-left: 1rem;
   width: 20rem;
   height: 5.5rem;
+  cursor: pointer;
   // background-color: #eaebfc;
   background-color: #d8d8d8;
   color: black;
@@ -153,6 +155,10 @@ export const PasswordContainer = styled(UserContainer)`
   height: 25rem;
   border: none;
   margin-top: 3rem;
+`;
+
+export const PasswordContentBox = styled(ContentBox)`
+  padding-right: 12.5rem;
 `;
 
 export const FileBtn = styled.label`

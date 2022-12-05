@@ -9,7 +9,7 @@ interface Props {
 const PasswordCard = ({ setIsEditingPassword }: Props) => {
   return (
     <M.PasswordContainer>
-      <R.PasswordContentBox>
+      <M.PasswordContentBox>
         <M.PwTag>비밀번호</M.PwTag>
         <SquareBtn
           theme={black}
@@ -18,7 +18,7 @@ const PasswordCard = ({ setIsEditingPassword }: Props) => {
         >
           수정
         </SquareBtn>
-      </R.PasswordContentBox>
+      </M.PasswordContentBox>
     </M.PasswordContainer>
   );
 };

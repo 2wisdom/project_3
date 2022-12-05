@@ -4,14 +4,13 @@ import LoginBtn from "./buttons/LoginBtn";
 import Nav from "../styles/Nav.module.css";
 import useUserStore from "../store/Login";
 import * as Api from "../api/Api";
+import { FaUserCircle } from 'react-icons/fa';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
-  console.log("user: ", user);
   const setUser = useUserStore((state) => state.setUser);
   const isLogin = user.email != "";
-  // console.log("isLogin: ", isLogin);
   const logout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
     try {
@@ -70,6 +69,9 @@ const NavBar = () => {
             onClick={isLogin ? logout : () => navigate("/login")}
           >
             <LoginBtn isLogin={isLogin}></LoginBtn>
+          </div>
+          <div className={Nav.userIconBox}>
+            <FaUserCircle size="3.5rem" color="#3278E4" onClick={() => navigate("/myPage")}/>
           </div>
         </div>
       </div>
