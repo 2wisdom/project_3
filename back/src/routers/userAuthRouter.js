@@ -22,8 +22,11 @@ userAuthRouter.post(
 // 유저 정보 조회
 userAuthRouter.get("/", loginRequired, userAuthController.getUser);
 
-// 유저 작성글 조회
-userAuthRouter.get("/posts?:userId?:page", userAuthController.getUserPost);
+// 유저 자랑하기 작성글 조회
+userAuthRouter.get("/posts?:userId?:page", userAuthController.getUserPosts);
+
+// 유저 마켓 작성글 조회
+userAuthRouter.get("/markets?:userId?:page", userAuthController.getUserMarkets);
 
 // 이메일 중복 조회
 userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);

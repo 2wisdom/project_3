@@ -123,21 +123,44 @@ const userAuthController = {
     }
   },
 
-  // 마이페이지 작성글 조회
-  getUserPost: async (req, res, next) => {
+  // 마이페이지 자랑하기 작성글 조회
+  getUserPosts: async (req, res, next) => {
     const { userId } = req.query;
     const { page } = req.query;
     try {
-      const currentUserPost = await userAuthService.userPosts(userId, page);
+      const currentUserPosts = await userAuthService.userPosts(userId, page);
 
-      if (currentUserPost.errorMessage)
+      if (currentUserPosts.errorMessage)
         throw new Error("회원 정보 불러오기 실패");
 
-      if (currentUserPost.posts) {
+      if (currentUserPosts.posts) {
         return res.status(200).send("게시물 없음");
       }
 
-      res.status(200).send(currentUserPost);
+      res.status(200).send(currentUserPosts);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  // 마이페이지 마켓 작성글 조회
+  getUserMarkets: async (req, res, next) => {
+    const { userId } = req.query;
+    const { page } = req.query;
+    try {
+      const currentUserMarkets = await userAuthService.userMarkets(
+        userId,
+        page
+      );
+
+      if (currentUserMarkets.errorMessage)
+        throw new Error("회원 정보 불러오기 실패");
+
+      if (currentUserMarkets.posts) {
+        return res.status(200).send("게시물 없음");
+      }
+
+      res.status(200).send(currentUserMarkets);
     } catch (error) {
       next(error);
     }
