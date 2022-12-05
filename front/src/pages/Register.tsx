@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../api/Api";
 import * as R from "../styles/RegisterPage/Register.styled";
-import { validateEmail, validatePassword, isInputStart } from "../components/Validate";
+import { validateEmail, validatePassword, validateName, isInputStart } from "../components/Validate";
 
 interface RegisterData {
   name: string;
@@ -31,8 +31,7 @@ const Register = () => {
   const [clickNameConfirm, setClickNameConfirm] = useState<boolean>(false);
 
   // 닉네임이 2~8자 확인.
-  const isNameValid =
-    registerData.name.length >= 2 && registerData.name.length <= 8;
+  const isNameValid = validateName(registerData.name);
   // 이메일 형태 확인.
   const isEmailValid = validateEmail(registerData.email);
   // 비밀번호 최소 8자, 문자+숫자 확인.
@@ -180,7 +179,7 @@ const Register = () => {
         </R.PasswordContentBox>
         {isInputStart(registerData.password) && !isPasswordValid && (
           <R.NotifyNotValid>
-            비밀번호는 8~20자, 영문+숫자를 조합해주세요.
+            비밀번호는 8~20자, 영문+숫자+특수문자를 조합해주세요.
           </R.NotifyNotValid>
         )}
         <R.PasswordContentBox>
