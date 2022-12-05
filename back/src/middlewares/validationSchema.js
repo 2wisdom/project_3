@@ -37,7 +37,10 @@ const validationSchema = {
   }),
   // 비밀번호 수정 유효성 검사 스키마
   putUserSchema: Joi.object({
-    password: password,
+    password: Joi.string()
+      .trim()
+      .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*\W)(?=.\S+$).{8,20}$/)
+      .allow(null, ""),
   }),
 };
 exports.validationSchema = validationSchema;
