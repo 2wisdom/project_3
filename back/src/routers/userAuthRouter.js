@@ -23,7 +23,7 @@ userAuthRouter.post(
 userAuthRouter.get("/", loginRequired, userAuthController.getUser);
 
 // 유저 작성글 조회
-userAuthRouter.get("/post?:userId?:page", userAuthController.getUserPost);
+userAuthRouter.get("/posts?:userId?:page", userAuthController.getUserPost);
 
 // 이메일 중복 조회
 userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);
