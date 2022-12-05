@@ -8,38 +8,15 @@ const multer = require("multer");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const { tokenRouter } = require("./routers/tokenRouter");
-const postRouter = require("./routers/PostRouter");
+const { searchRouter } = require("./routers/searchRouter");
+const postRouter = require("./routers/postRouter");
+const askRouter = require("./routers/askRouter");
+const marketRouter = require("./routers/marketRouter");
 const imageRouter = require("./routers/imageRouter");
 const commentRouter = require("./routers/commentRouter");
-const logger = require("./config/logger");
+const { fileStorage, fileFilter } = require("./middlewares/uploadFile");
 
 const app = express();
-
-// 이미지 처리
-const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // 저장 경로
-    cb(null, "./public/images");
-  },
-  // 파일 저장 이름
-  filename: (req, file, cb) => {
-    cb(null, new Date().getTime() + "-" + file.originalname.replace(/ /g, ""));
-  },
-});
-
-// multer fileFilter 설정
-const fileFilter = (req, file, cb) => {
-  // png, jpg, jpeg 형식의 이미지만 허용
-  if (
-    file.mimetype === "image/png" ||
-    file.mimetype === "image/jpg" ||
-    file.mimetype === "image/jpeg"
-  ) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
 
 // multipart/form-data 형태의 데이터 해석
 app.use(
@@ -65,9 +42,12 @@ app.use("/public", express.static(path.join(__dirname, "..", "public")));
 // 라우팅
 app.use("/users", userAuthRouter);
 app.use("/posts", postRouter);
+app.use("/asks", askRouter);
+app.use("/markets", marketRouter);
 app.use("/images", imageRouter);
 app.use("/comments", commentRouter);
 app.use("/token", tokenRouter);
+app.use("/search", searchRouter);
 
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");

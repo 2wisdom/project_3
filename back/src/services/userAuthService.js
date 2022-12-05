@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../db/models/User");
 const { Token } = require("../db/models/Token");
 const { deleteUserImage } = require("../middlewares/deleteImage");
+const Post = require("../db/models/Post");
+const Market = require("../db/models/Market");
+const Ask = require("../db/models/Ask");
 
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 
@@ -134,7 +137,7 @@ const userAuthService = {
 
     return loginUser;
   },
-
+  // 유저 정보 조회(userId)
   getUserInfo: async (userId) => {
     // models 에서 유저 고유 아이디로 데이터 찾기
     const getUserInfo = await User.findById(userId);
@@ -142,6 +145,60 @@ const userAuthService = {
     getUserInfo.errorMessage = null;
 
     return getUserInfo;
+  },
+
+  // 마이페이지 자랑하기 게시글
+  userPosts: async (userId, page) => {
+    const userPosts = await Post.findUserAllPosts(userId, page);
+    const userPostsCount = await Post.findUserAllPostsCount(userId);
+    const userPostsResponse = {};
+
+    const totalPage = Math.ceil(userPostsCount / 8);
+    userPostsResponse.totalPage = totalPage;
+    userPostsResponse.userPosts = userPosts;
+
+    if (userPosts.length === 0) {
+      userPosts.posts = "게시물 없음";
+      return userPosts;
+    }
+    userPostsResponse.errorMessage = null;
+
+    return userPostsResponse;
+  },
+
+  // 마이페이지 마켓 게시글
+  userMarkets: async (userId, page) => {
+    const userMarkets = await Market.findUserAllMarkets(userId, page);
+    const userMarketsCount = await Market.findUserAllMarketsCount(userId);
+
+    const totalPage = Math.ceil(userMarketsCount / 8);
+    userMarkets.totalPage = totalPage;
+
+    if (userMarkets.length === 0) {
+      userMarkets.posts = "게시물 없음";
+      return userMarkets;
+    }
+    userMarkets.errorMessage = null;
+
+    return userMarkets;
+  },
+
+  // 마이페이지 질문하기 게시글
+  userAsks: async (userId, page) => {
+    const userAsks = await Ask.findUserAllAsks(userId, page);
+    const userAsksCount = await Ask.findUserAllAsksCount(userId);
+
+    const totalPage = Math.ceil(userAsksCount / 8);
+    ㅕ;
+    userAsksCount.totalPage = totalPage;
+
+    if (userAsks.length === 0) {
+      userAsks.posts = "게시물 없음";
+      return userAsks;
+    }
+    userAsks.errorMessage = null;
+
+    return userAsks;
   },
 
   // 유저 정보 업데이트
@@ -182,8 +239,8 @@ const userAuthService = {
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
       user = await User.update({ userId, fieldToUpdate, newValue });
-      if (user.imageUrl === "leavesGetMoreYards.png") {
-        user.imageUrl = "public/images/leavesGetMoreYards.png";
+      if (user.imageUrl === process.env.DEFAULT_IMAGE_NAME) {
+        user.imageUrl = process.env.DEFAULT_IMAGE_URL;
       }
     }
 
@@ -207,7 +264,7 @@ const userAuthService = {
 
     return user;
   },
-
+  // 유저 정보 삭제
   deleteUserInfo: async (userId) => {
     // models의 delete 함수 실행
     let user = await User.delete(userId);

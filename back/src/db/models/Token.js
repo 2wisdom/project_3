@@ -28,7 +28,7 @@ const Token = {
     ).lean();
 
     if (user) user = responseInfo(user);
-    if (!user) user = null
+    if (!user) user = null;
     return user;
   },
 
@@ -51,11 +51,10 @@ const Token = {
     return updatedToken;
   },
 
-  delete: async (userId) => {
-
-    const deletedTokenInfo = await TokenModel.deleteOne({userId: userId});
+  deleteByUserId: async (userId) => {
+    const deletedTokenInfo = await TokenModel.deleteOne({ userId: userId });
     return deletedTokenInfo;
-  }
+  },
 };
 
 exports.Token = Token;
