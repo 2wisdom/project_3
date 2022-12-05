@@ -16,7 +16,7 @@ const marketService = {
     } else {
       throw new Error("검색 옵션이 없습니다.");
     }
-    const searchedMarkets = await Market.getmarketsByQuestion(options, page);
+    const searchedMarkets = await Market.getMarketsByQuestion(options, page);
 
     if (searchedMarkets.length === 0) {
       searchedMarkets.markets = "게시물 없음";
