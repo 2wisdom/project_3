@@ -14,7 +14,6 @@ const askRouter = require("./routers/askRouter");
 const marketRouter = require("./routers/marketRouter");
 const imageRouter = require("./routers/imageRouter");
 const commentRouter = require("./routers/commentRouter");
-const logger = require("./config/logger");
 const { fileStorage, fileFilter } = require("./middlewares/uploadFile");
 
 const app = express();
