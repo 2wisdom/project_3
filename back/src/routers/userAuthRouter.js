@@ -28,6 +28,9 @@ userAuthRouter.get("/posts?:userId?:page", userAuthController.getUserPosts);
 // 유저 마켓 작성글 조회
 userAuthRouter.get("/markets?:userId?:page", userAuthController.getUserMarkets);
 
+// 유저 질문하기 작성글 조회
+userAuthRouter.get("/asks?:userId?:page", userAuthController.getUserAsks);
+
 // 이메일 중복 조회
 userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);
 
