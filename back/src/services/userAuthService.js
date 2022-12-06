@@ -76,7 +76,7 @@ const userAuthService = {
 
     if (!userInfo) throw new Error("이메일이 없습니다.");
 
-    const { userId, name } = userInfo;
+    const { userId, name, imageUrl } = userInfo;
 
     // // 암호화된 비밀번호와 입력된 비밀번호 비교
     // const currentPasswordHash = userInfo.password;
@@ -132,7 +132,7 @@ const userAuthService = {
     }
 
     // 토큰, 고유아이디, 이메일, 이름
-    const loginUser = { accessToken, userId, email, name };
+    const loginUser = { accessToken, userId, email, name, imageUrl };
 
     loginUser.errorMessage = null;
 
@@ -240,14 +240,15 @@ const userAuthService = {
 
     // 비밀번호와 이미지 업데이트
     if (toUpdate.password && toUpdate.imageUrl) {
+      console.log(`유서 서비스 확인 1`);
       const fieldToUpdate = {};
       const newValue = {};
-
+      console.log();
       fieldToUpdate.password = "password";
       fieldToUpdate.imageUrl = "imageUrl";
       // 입력 받은 비밀번호 암호화
       // newValue.password = await bcrypt.hash(toUpdate.password, SALT_ROUND);
-      newValue.password = toUpdate.password;
+      newValue.newPassword = toUpdate.newPassword;
       newValue.imageUrl = toUpdate.imageUrl;
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
@@ -257,6 +258,7 @@ const userAuthService = {
 
     // 비밀번호만 업데이트
     if (toUpdate.password && !toUpdate.imageUrl) {
+      console.log(`유서 서비스 확인 2`);
       const fieldToUpdate = {};
       const newValue = {};
 
@@ -277,6 +279,7 @@ const userAuthService = {
 
     // 이미지만 업데이트
     if (toUpdate.imageUrl && !toUpdate.password) {
+      console.log(`유서 서비스 확인 3`);
       const fieldToUpdate = {};
       const newValue = {};
 

@@ -96,7 +96,10 @@ axios.interceptors.response.use(
     return res;
   },
   async (error: AxiosError) => {
-    if (error.request.status === 403 && error!.response!.data == 'access token expired') {
+    if (
+      error.request.status === 403 &&
+      error!.response!.data == "access token expired"
+    ) {
       const originalConfig = error.config;
       // https://github.com/axios/axios/issues/5143 문제해결
       originalConfig!.headers = { ...originalConfig!.headers };
@@ -110,15 +113,16 @@ axios.interceptors.response.use(
           originalConfig!.headers!.Authorization = `Bearer ${accessToken}`;
           return axios(originalConfig!);
         }
-      }
-      catch (err: any) {
+      } catch (err: any) {
         //여기엔 뭘 작성해야할까요?
       }
-    }
-    else if (error.request.status === 403 && error!.response!.data == 'refresh token이 만료 되었습니다.') {
+    } else if (
+      error.request.status === 403 &&
+      error!.response!.data == "refresh token이 만료 되었습니다."
+    ) {
       // console.log("리프레쉬토큰 만료", error)
       alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
-      localStorage.clear()
+      localStorage.clear();
       return Promise.resolve(error);
     }
     return Promise.reject(error);
