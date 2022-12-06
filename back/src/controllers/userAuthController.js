@@ -186,6 +186,29 @@ const userAuthController = {
     }
   },
 
+  // 마이페이지 작성 코멘트 조회
+  getUserComments: async (req, res, next) => {
+    const { userId } = req.query;
+    const { page } = req.query;
+    try {
+      const currentUserComments = await userAuthService.userComments(
+        userId,
+        page
+      );
+
+      if (currentUserComments.errorMessage)
+        throw new Error("회원 정보 불러오기 실패");
+
+      if (currentUserComments.posts) {
+        return res.status(200).send("게시물 없음");
+      }
+
+      res.status(200).send(currentUserComments);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   // 유저 정보 수정
   putUser: async (req, res, next) => {
     const { userId } = req.params;

@@ -7,6 +7,7 @@ const { deleteUserImage } = require("../middlewares/deleteImage");
 const Post = require("../db/models/Post");
 const Market = require("../db/models/Market");
 const Ask = require("../db/models/Ask");
+const Comment = require("../db/schemas/commnet");
 
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 
@@ -153,15 +154,16 @@ const userAuthService = {
     const userPostsCount = await Post.findUserAllPostsCount(userId);
     const userPostsResponse = {};
 
+    if (userPosts.length === 0) {
+      userPosts.posts = "게시물 없음";
+      return userPosts;
+    }
+
     const totalPage = Math.ceil(userPostsCount / 8);
 
     userPostsResponse.totalPage = totalPage;
     userPostsResponse.userPosts = userPosts;
 
-    if (userPosts.length === 0) {
-      userPosts.posts = "게시물 없음";
-      return userPosts;
-    }
     userPostsResponse.errorMessage = null;
 
     return userPostsResponse;
@@ -173,15 +175,16 @@ const userAuthService = {
     const userMarketsCount = await Market.findUserAllMarketsCount(userId);
     const userMarketsResponse = {};
 
+    if (userMarkets.length === 0) {
+      userMarkets.posts = "게시물 없음";
+      return userMarkets;
+    }
+
     const totalPage = Math.ceil(userMarketsCount / 8);
 
     userMarketsResponse.totalPage = totalPage;
     userMarketsResponse.userMarkets = userMarkets;
 
-    if (userMarkets.length === 0) {
-      userMarkets.posts = "게시물 없음";
-      return userMarkets;
-    }
     userMarketsResponse.errorMessage = null;
 
     return userMarketsResponse;
@@ -193,18 +196,40 @@ const userAuthService = {
     const userAsksCount = await Ask.findUserAllAsksCount(userId);
     const userAsksResponse = {};
 
+    if (userAsks.length === 0) {
+      userAsks.posts = "게시물 없음";
+      return userAsks;
+    }
+
     const totalPage = Math.ceil(userAsksCount / 8);
 
     userAsksResponse.totalPage = totalPage;
     userAsksResponse.userMarkets = userAsks;
 
-    if (userAsks.length === 0) {
-      userAsks.posts = "게시물 없음";
-      return userAsks;
-    }
     userAsksResponse.errorMessage = null;
 
     return userAsksResponse;
+  },
+
+  // 마이페이지 코멘트
+  userComments: async (userId, page) => {
+    const userComments = await Comment.findUserAllComments(userId, page);
+    const userCommentsCount = await Comment.findUserAllCommentsCount(userId);
+    const userCommentsResponse = {};
+
+    if (userComments.length === 0) {
+      userComments.posts = "게시물 없음";
+      return userComments;
+    }
+
+    const totalPage = Math.ceil(userCommentsCount / 8);
+
+    userCommentsResponse.totalPage = totalPage;
+    userCommentsResponse.userMarkets = userComments;
+
+    userCommentsResponse.errorMessage = null;
+
+    return userCommentsResponse;
   },
 
   // 유저 정보 업데이트
