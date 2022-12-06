@@ -34,8 +34,7 @@ const ShowCard = ({
   date: string;
 }) => {
   const navigate = useNavigate();
-
-  const createDate = date.split("T");
+  const createDate = date?.split("T");
 
   return (
     <div className={Card.inner}>

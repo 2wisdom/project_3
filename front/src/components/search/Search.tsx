@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from "react";
 import * as SearchStyle from "../../styles/search/SearchStyle";
 import SearchIcon from "@mui/icons-material/Search";
-import * as showCardStore from "../../store/CommunityShowCard";
 import { ListItem } from "@mui/material";
 import { SettingsSystemDaydreamTwoTone } from "@mui/icons-material";
+interface showCard {
+  // map: any;
+  author: {
+    _id: string;
+    email: string;
+    imageUrl: string;
+    name: string;
+    password: string;
+    updatedAt?: string;
+    createdAt?: string;
+  };
 
-const Search = ({
-  showCardData,
-}: {
-  showCardData: showCardStore.showCardList;
-}) => {
+  _id: string;
+  imageUrl: string;
+  title: string;
+  contents: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+const Search = ({ showCardData }: { showCardData: showCard[] }) => {
   const [searchInput, setSearchInput]: [string, (search: string) => void] =
     useState("");
 
@@ -19,11 +33,11 @@ const Search = ({
     setSearchInput(e.target.value);
   };
   useEffect(() => {
-    const result =
-      showCardData &&
-      showCardData.docs?.filter((item: showCardStore.showCardTest) =>
-        item.title.toLowerCase().includes(searchInput.toLowerCase())
-      );
+    // const result =
+    //   showCardData &&
+    //   showCardData.docs?.filter((item: showCardStore.showCardTest) =>
+    //     item.title.toLowerCase().includes(searchInput.toLowerCase())
+    //   );
   }, [searchInput]);
   return (
     <>
