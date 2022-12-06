@@ -154,6 +154,7 @@ const userAuthService = {
     const userPostsResponse = {};
 
     const totalPage = Math.ceil(userPostsCount / 8);
+
     userPostsResponse.totalPage = totalPage;
     userPostsResponse.userPosts = userPosts;
 
@@ -170,35 +171,40 @@ const userAuthService = {
   userMarkets: async (userId, page) => {
     const userMarkets = await Market.findUserAllMarkets(userId, page);
     const userMarketsCount = await Market.findUserAllMarketsCount(userId);
+    const userMarketsResponse = {};
 
     const totalPage = Math.ceil(userMarketsCount / 8);
-    userMarkets.totalPage = totalPage;
+
+    userMarketsResponse.totalPage = totalPage;
+    userMarketsResponse.userMarkets = userMarkets;
 
     if (userMarkets.length === 0) {
       userMarkets.posts = "게시물 없음";
       return userMarkets;
     }
-    userMarkets.errorMessage = null;
+    userMarketsResponse.errorMessage = null;
 
-    return userMarkets;
+    return userMarketsResponse;
   },
 
   // 마이페이지 질문하기 게시글
   userAsks: async (userId, page) => {
     const userAsks = await Ask.findUserAllAsks(userId, page);
     const userAsksCount = await Ask.findUserAllAsksCount(userId);
+    const userAsksResponse = {};
 
     const totalPage = Math.ceil(userAsksCount / 8);
-    ㅕ;
-    userAsksCount.totalPage = totalPage;
+
+    userAsksResponse.totalPage = totalPage;
+    userAsksResponse.userMarkets = userAsks;
 
     if (userAsks.length === 0) {
       userAsks.posts = "게시물 없음";
       return userAsks;
     }
-    userAsks.errorMessage = null;
+    userAsksResponse.errorMessage = null;
 
-    return userAsks;
+    return userAsksResponse;
   },
 
   // 유저 정보 업데이트
