@@ -21,6 +21,19 @@ export interface showCard {
   _id: string;
 }
 
+export interface props {
+  key: string;
+  _id: string;
+  image: string;
+  title: string;
+  userImage: string;
+  userName: string;
+  date: string;
+  page: number;
+  showCards: showCard[];
+  setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
+}
+
 const UserPostCards = () => {
   const user = useUserStore((state) => state.user);
   const [page, setPage] = useState<number>(1);
@@ -35,7 +48,7 @@ const UserPostCards = () => {
         "users",
         `posts?userId=${user.userId}&page=${page}`
       );
-      if (res.data !== []) {
+      if (res.data !== "게시물 없음") {
         setShowCards(res.data.userPosts);
         setTotalPage(res.data.totalPage);
       }
@@ -83,6 +96,9 @@ const UserPostCards = () => {
                       userName={user.name}
                       userImage={user.imageUrl}
                       date={showcard.createdAt}
+                      page={page}
+                      showCards={showCards}
+                      setShowCards={setShowCards}
                     />
                   );
                 })}
