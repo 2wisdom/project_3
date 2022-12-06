@@ -5,7 +5,9 @@ const commentController = {
   // 댓글 조회
   getComments: (req, res) => {
     console.log("댓글 조회");
-    Comment.find({ writingId: req.body.writingId })
+    const { writingId } = req.params;
+
+    Comment.find({ writingId })
       .populate([{ path: "writer", select: ["_id", "name", "imageUrl"] }])
       .exec((err, comments) => {
         if (err) return res.status(400).send(err);
