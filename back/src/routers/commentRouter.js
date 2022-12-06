@@ -14,7 +14,11 @@ commentRouter.get("/:writingId", commentController.getComments);
  * 댓글 생성
  * POST /comments
  */
-commentRouter.post("/", [loginRequired], commentController.createComment);
+commentRouter.post(
+  "/:writingId",
+  [loginRequired],
+  commentController.createComment
+);
 
 /**
  * 댓글 삭제
