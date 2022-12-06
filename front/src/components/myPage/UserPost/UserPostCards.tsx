@@ -24,12 +24,13 @@ export interface showCard {
 export interface props {
   key: string;
   _id: string;
-  image: string;
+  imageUrl: string;
   title: string;
   userImage: string;
   userName: string;
   date: string;
   page: number;
+  contents: string;
   showCards: showCard[];
   setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
 }
@@ -91,12 +92,13 @@ const UserPostCards = () => {
                     <ShowCard
                       key={showcard._id}
                       _id={showcard._id}
-                      image={showcard.imageUrl}
+                      imageUrl={showcard.imageUrl}
                       title={showcard.title}
                       userName={user.name}
                       userImage={user.imageUrl}
                       date={showcard.createdAt}
                       page={page}
+                      contents={showcard.contents}
                       showCards={showCards}
                       setShowCards={setShowCards}
                     />

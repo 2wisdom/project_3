@@ -25,11 +25,12 @@ import { props } from "./UserPostCards";
 const UserPostCard = ({
   key,
   _id,
-  image,
+  imageUrl,
   title,
   userName,
   date,
   page,
+  contents,
   showCards,
   setShowCards,
 }: props) => {
@@ -72,7 +73,7 @@ const UserPostCard = ({
       <div className={Card.inner}>
         <img
           className={Card.Image}
-          src={`${image}`}
+          src={`${imageUrl}`}
           style={{ width: 267, height: 200 }}
           onClick={() => navigate(`/showCardDetail/${_id}`)}
         />
@@ -102,7 +103,19 @@ const UserPostCard = ({
           <SquareBtn theme={white} type="button" onClick={deleteCard}>
             삭제
           </SquareBtn>
-          <SquareBtn theme={black} type="button">
+          <SquareBtn
+            theme={black}
+            type="button"
+            onClick={() =>
+              navigate(`/editCard/${_id}`, {
+                state: {
+                  title: `${title}`,
+                  contents: `${contents}`,
+                  imageUrl: `${imageUrl}`
+                },
+              })
+            }
+          >
             수정
           </SquareBtn>
         </Stack>

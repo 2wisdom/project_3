@@ -67,6 +67,7 @@ const EditUserInfo = () => {
     if (saveProfileImg != null) {
       formData.append("image", saveProfileImg);
     }
+    console.log(formData);
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
