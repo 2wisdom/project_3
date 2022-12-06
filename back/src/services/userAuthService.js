@@ -159,7 +159,7 @@ const userAuthService = {
       return userPosts;
     }
 
-    const totalPage = Math.ceil(userPostsCount / 8);
+    const totalPage = Math.ceil(userPostsCount / process.env.PAGE_LIMIT_COUNT);
 
     userPostsResponse.totalPage = totalPage;
     userPostsResponse.userPosts = userPosts;
@@ -180,7 +180,9 @@ const userAuthService = {
       return userMarkets;
     }
 
-    const totalPage = Math.ceil(userMarketsCount / 8);
+    const totalPage = Math.ceil(
+      userMarketsCount / process.env.PAGE_LIMIT_COUNT
+    );
 
     userMarketsResponse.totalPage = totalPage;
     userMarketsResponse.userMarkets = userMarkets;
@@ -201,7 +203,7 @@ const userAuthService = {
       return userAsks;
     }
 
-    const totalPage = Math.ceil(userAsksCount / 8);
+    const totalPage = Math.ceil(userAsksCount / process.env.PAGE_LIMIT_COUNT);
 
     userAsksResponse.totalPage = totalPage;
     userAsksResponse.userMarkets = userAsks;
@@ -222,7 +224,9 @@ const userAuthService = {
       return userComments;
     }
 
-    const totalPage = Math.ceil(userCommentsCount / 8);
+    const totalPage = Math.ceil(
+      userCommentsCount / process.env.PAGE_LIMIT_COUNT
+    );
 
     userCommentsResponse.totalPage = totalPage;
     userCommentsResponse.userMarkets = userComments;

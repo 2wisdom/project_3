@@ -69,8 +69,8 @@ const Post = {
   findUserAllPosts: async (userId, page) => {
     const allUserPosts = await PostModel.find({ author: userId })
       .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
+      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+      .limit(process.env.PAGE_LIMIT_COUNT)
       .lean();
 
     return allUserPosts;
@@ -89,8 +89,8 @@ const Post = {
   getPostsByQuestion: async (options, page) => {
     const Posts = await PostModel.find({ $or: options })
       .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
+      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+      .limit(process.env.PAGE_LIMIT_COUNT)
       .lean();
     return Posts;
   },

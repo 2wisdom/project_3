@@ -69,8 +69,8 @@ const Ask = {
   findUserAllAsks: async (userId, page) => {
     const allUserAsks = await AskModel.find({ author: userId })
       .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
+      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+      .limit(process.env.PAGE_LIMIT_COUNT)
       .lean();
 
     return allUserAsks;
@@ -89,8 +89,8 @@ const Ask = {
   getAsksByQuestion: async (options, page) => {
     const Asks = await AskModel.find({ $or: options })
       .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
+      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+      .limit(process.env.PAGE_LIMIT_COUNT)
       .lean();
     return Asks;
   },

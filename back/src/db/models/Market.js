@@ -69,8 +69,8 @@ const Market = {
   findUserAllMarkets: async (userId, page) => {
     const allUserMarkets = await MarketModel.find({ author: userId })
       .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
+      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+      .limit(process.env.PAGE_LIMIT_COUNT)
       .lean();
 
     return allUserMarkets;
@@ -89,8 +89,8 @@ const Market = {
   getMarketsByQuestion: async (options, page) => {
     const Markets = await MarketModel.find({ $or: options })
       .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
+      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+      .limit(process.env.PAGE_LIMIT_COUNT)
       .lean();
     return Markets;
   },
