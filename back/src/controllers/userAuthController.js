@@ -3,6 +3,7 @@ const express = require("express");
 const { tokenService } = require("../services/tokenService");
 const { userAuthService } = require("../services/userAuthService");
 const { deleteUserImage } = require("../middlewares/deleteImage");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const userAuthController = {
   //회원가입
@@ -11,7 +12,7 @@ const userAuthController = {
       const { email, password, name } = req.body;
       const imageUrl = process.env.DEFAULT_IMAGE_NAME;
       // 서비스 파일에서 addUser 함수 실행
-      const userInfo = await userAuthService.addUserInfo({
+      const userInfo = await wrapper(userAuthService.addUserInfo, {
         email,
         password,
         name,
@@ -91,7 +92,11 @@ const userAuthController = {
       const { email, password } = req.body;
 
       // 서비스 파일에서 login 함수 실행
-      const userLoginInfo = await userAuthService.login(email, password);
+      const userLoginInfo = await wrapper(
+        userAuthService.login,
+        email,
+        password
+      );
 
       // 서비스에서 에러가 있다면 에러 통보
       if (userLoginInfo.errorMessage) throw new Error("로그인 실패");
@@ -125,9 +130,10 @@ const userAuthController = {
 
   // 마이페이지 자랑하기 작성글 조회
   getUserPosts: async (req, res, next) => {
-    const { userId } = req.query;
-    const { page } = req.query;
     try {
+      const { userId } = req.query;
+      const { page } = req.query;
+
       const currentUserPosts = await userAuthService.userPosts(userId, page);
 
       if (currentUserPosts.errorMessage)

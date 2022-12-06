@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 const { User } = require("../db/models/User");
 const { Token } = require("../db/models/Token");
 const { deleteUserImage } = require("../middlewares/deleteImage");
@@ -14,25 +15,32 @@ const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 const userAuthService = {
   // 회원가입
   addUserInfo: async (newUser) => {
-    // .env 에서 암호화 난이도 가져오기
+    try {
+      // .env 에서 암호화 난이도 가져오기
+      console.log(newUser);
+      // models 에서 데이터 찾기, 없다면 null을 return
 
-    // models 에서 데이터 찾기, 없다면 null을 return
-    const userEmail = await User.findByEmail(newUser.email);
+      const userEmail = await wrapper(User.findByEmail, newUser.email);
 
-    if (userEmail) throw new Error("중복된 아이디입니다.");
-    //질문 트라이 캐치? 에러? 중복된 아이디가 안나옴
+      console.log(`왜 언디파인이지?`, userEmail);
 
-    // 비밀번호 암호화
-    // const hashedPassword = await bcrypt.hash(newUser.password, SALT_ROUND);
+      if (userEmail) throw new Error("중복된 아이디입니다.");
+      //질문 트라이 캐치? 에러? 중복된 아이디가 안나옴
 
-    // // 암호화된 비밀번호 newUser에 초기화
-    // newUser.password = hashedPassword;
+      // 비밀번호 암호화
+      // const hashedPassword = await bcrypt.hash(newUser.password, SALT_ROUND);
 
-    // 모델에 유저 데이터 입력
-    const createdNewUser = await User.create(newUser);
-    createdNewUser.errorMessage = null;
+      // // 암호화된 비밀번호 newUser에 초기화
+      // newUser.password = hashedPassword;
 
-    return createdNewUser;
+      // 모델에 유저 데이터 입력
+      const createdNewUser = await wrapper(User.create, newUser);
+      createdNewUser.errorMessage = null;
+
+      return createdNewUser;
+    } catch (error) {
+      return error;
+    }
   },
 
   // 이메일 중복 조회
@@ -71,72 +79,79 @@ const userAuthService = {
 
   // 로그인
   login: async (email, password) => {
-    // models 에서 유저 정보 데이터 찾기
-    const userInfo = await User.findByEmail(email);
+    try {
+      // models 에서 유저 정보 데이터 찾기
+      const userInfo = await wrapper(User.findByEmail, email);
 
-    if (!userInfo) throw new Error("이메일이 없습니다.");
+      if (!userInfo) throw new Error("이메일이 없습니다.");
 
-    const { userId, name, imageUrl } = userInfo;
+      const { userId, name, imageUrl } = userInfo;
 
-    // // 암호화된 비밀번호와 입력된 비밀번호 비교
-    // const currentPasswordHash = userInfo.password;
-    // const isPasswordcurrent = await bcrypt.compare(
-    //   password,
-    //   currentPasswordHash
-    // );
+      // // 암호화된 비밀번호와 입력된 비밀번호 비교
+      // const currentPasswordHash = userInfo.password;
+      // const isPasswordcurrent = await bcrypt.compare(
+      //   password,
+      //   currentPasswordHash
+      // );
 
-    // 비밀번호 일치하지 않았을 경우 에러 처리
-    // if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
+      // 비밀번호 일치하지 않았을 경우 에러 처리
+      // if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
 
-    // .env 에서 jwt 서명 받아옴
-    const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
+      // .env 에서 jwt 서명 받아옴
+      const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
 
-    // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
-    let refreshToken = jwt.sign({ userId: userId }, secretKey, {
-      expiresIn: process.env.REFRESH_EXPIRES_IN,
-      issuer: "team12",
-    });
-
-    // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
-    const accessToken = jwt.sign({ userId: userId }, secretKey, {
-      // 토큰 유효 기간, 발행자
-      expiresIn: process.env.ACCESS_EXPIRES_IN,
-      issuer: "team12",
-    });
-
-    const isTokenExist = await Token.findByUserId(userId);
-
-    if (isTokenExist) {
-      const tokenId = isTokenExist.tokenId;
-      const fieldToUpdate = {};
-      const newValue = {};
-
-      fieldToUpdate.refreshToken = "refreshToken";
-      fieldToUpdate.userId = "userId";
-
-      newValue.refreshToken = refreshToken;
-      newValue.userId = userId;
-
-      updatedNewTokenInfo = await Token.update({
-        tokenId,
-        fieldToUpdate,
-        newValue,
+      // 유저 정보 고유 아이디와 jwt 서명을 사용하여 refresh jwt 토큰 생성
+      let refreshToken = jwt.sign({ userId: userId }, secretKey, {
+        expiresIn: process.env.REFRESH_EXPIRES_IN,
+        issuer: "team12",
       });
 
-      let = refreshToken = updatedNewTokenInfo.refreshToken;
-    } else if (!isTokenExist) {
-      const newToken = { refreshToken: refreshToken, userId: userInfo.userId };
+      // 유저 정보 고유 아이디와 jwt 서명을 사용하여 access jwt 토큰 생성
+      const accessToken = jwt.sign({ userId: userId }, secretKey, {
+        // 토큰 유효 기간, 발행자
+        expiresIn: process.env.ACCESS_EXPIRES_IN,
+        issuer: "team12",
+      });
 
-      const createdNewTokenInfo = await Token.create(newToken);
-      let = refreshToken = createdNewTokenInfo.refreshToken;
+      const isTokenExist = await wrapper(Token.findByUserId, userId);
+
+      if (isTokenExist) {
+        const tokenId = isTokenExist.tokenId;
+        const fieldToUpdate = {};
+        const newValue = {};
+
+        fieldToUpdate.refreshToken = "refreshToken";
+        fieldToUpdate.userId = "userId";
+
+        newValue.refreshToken = refreshToken;
+        newValue.userId = userId;
+
+        updatedNewTokenInfo = await wrapper(Token.update, {
+          tokenId,
+          fieldToUpdate,
+          newValue,
+        });
+
+        let = refreshToken = updatedNewTokenInfo.refreshToken;
+      } else if (!isTokenExist) {
+        const newToken = {
+          refreshToken: refreshToken,
+          userId: userInfo.userId,
+        };
+
+        const createdNewTokenInfo = await wrapper(Token.create, newToken);
+        let = refreshToken = createdNewTokenInfo.refreshToken;
+      }
+
+      // 토큰, 고유아이디, 이메일, 이름
+      const loginUser = { accessToken, userId, email, name, imageUrl };
+
+      loginUser.errorMessage = null;
+
+      return loginUser;
+    } catch (error) {
+      return error;
     }
-
-    // 토큰, 고유아이디, 이메일, 이름
-    const loginUser = { accessToken, userId, email, name, imageUrl };
-
-    loginUser.errorMessage = null;
-
-    return loginUser;
   },
   // 유저 정보 조회(userId)
   getUserInfo: async (userId) => {

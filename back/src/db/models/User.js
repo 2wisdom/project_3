@@ -1,5 +1,7 @@
 const { UserModel } = require("../schemas/user");
 
+const { wrapper } = require("../../middlewares/errorHandlingWrapper");
+
 // 고유 아이디 키 이름인 _id를 userId로 교체
 const responseInfo = (userInfo) => {
   if (userInfo) {
@@ -12,28 +14,38 @@ const responseInfo = (userInfo) => {
 const User = {
   // 회원가입
   create: async (newUser) => {
-    // newUser을 몽고디비에 생성
-    let createdNewUser = await UserModel.create(newUser);
+    try {
+      // newUser을 몽고디비에 생성
+      let createdNewUser = await UserModel.create(newUser);
 
-    // Moogoose Document에서 필요한 응답에 필요한 _doc 만 responseInfo 로 전달
-    if (createdNewUser) createdNewUser = responseInfo(createdNewUser._doc);
+      // Moogoose Document에서 필요한 응답에 필요한 _doc 만 responseInfo 로 전달
+      if (createdNewUser) createdNewUser = responseInfo(createdNewUser._doc);
 
-    return createdNewUser;
+      return createdNewUser;
+    } catch (error) {
+      return error;
+    }
   },
 
   // email 로 데이터 검색
   findByEmail: async (email) => {
-    // 생성과 수정 날짜 데이터를 제외한 _id, email, password, name만 user에 초기화
-    let user = await UserModel.findOne(
-      { email },
-      "_id email password name imageUrl"
-      // mongoose document를 필요한 javascript object로 반환
-    ).lean();
+    try {
+      console.log(email);
+      // 생성과 수정 날짜 데이터를 제외한 _id, email, password, name만 user에 초기화
+      let user = await UserModel.findOne(
+        { email },
+        "_id email password name imageUrl"
+        // mongoose document를 필요한 javascript object로 반환
+      ).lean();
+      console.log(user);
+      // 고유 아이디 키 이름인 _id를 userId로 교체
+      if (user) user = responseInfo(user);
+      console.log(user);
 
-    // 고유 아이디 키 이름인 _id를 userId로 교체
-    if (user) user = responseInfo(user);
-
-    return user;
+      return user;
+    } catch (error) {
+      return error;
+    }
   },
 
   // name 로 데이터 검색
