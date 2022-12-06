@@ -6,6 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import useUserStore from "../../../store/Login";
 import Stack from "@mui/material/Stack";
 import { SquareBtn, white, black } from "../../../styles/buttons/BasicBtn";
+import * as Api from "../../../api/Api";
 
 interface showCard {
   key: string;
@@ -20,14 +21,26 @@ const UserPostCard = ({
   key,
   image,
   title,
-  userImage,
   userName,
   date,
 }: showCard) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
-  console.log("image", image);
+  // console.log("_id", key);
+
+  const deleteCard = async () => {
+     if (confirm("정말 삭제하시겠습니까?")){
+      try{
+      const res = Api.delete ("posts",  `${key}`);
+      
+     }catch(err){
+      alert("게시물 삭제 도중 오류가 발생했습니다. 다시 시도해주세요")
+     }
+     }
+  }
+
+
   return (
     <>
       <div className={Card.inner}>
@@ -51,7 +64,7 @@ const UserPostCard = ({
           <div className={Card.data}>{createDate[0]}</div>
         </div>
         <Stack direction="row" alignItems="center" spacing={2}>
-          <SquareBtn theme={white} type="button">
+          <SquareBtn theme={white} type="button" onClick={deleteCard}>
             삭제
           </SquareBtn>
           <SquareBtn theme={black} type="button">

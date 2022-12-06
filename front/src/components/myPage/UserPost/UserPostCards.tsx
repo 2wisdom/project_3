@@ -28,7 +28,7 @@ const UserPostCards = () => {
   const [showCards, setShowCards] = useState<showCard[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = page >= totalPage;
-  console.log("user", user);
+  // console.log("user", user);
   const apiGetShowCardData = async () => {
     try {
       const res = await Api.get(
@@ -79,8 +79,8 @@ const UserPostCards = () => {
                       key={showcard._id}
                       image={showcard.imageUrl}
                       title={showcard.title}
-                      userImage={showcard.imageUrl}
                       userName={user.name}
+                      userImage={user.imageUrl}
                       date={showcard.createdAt}
                     />
                   );

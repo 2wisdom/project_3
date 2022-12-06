@@ -71,9 +71,10 @@ const NavBar = () => {
           >
             <LoginBtn isLogin={isLogin}></LoginBtn>
           </div>
+          {isLogin &&
           <div className={Nav.userIconBox}>
             <FaUserCircle size="3.5rem" color="#3278E4" onClick={() => navigate("/myPage")}/>
-          </div>
+          </div>}
         </div>
       </div>
     </>

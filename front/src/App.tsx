@@ -32,7 +32,6 @@ const App = () => {
   useEffect(() => {
     getUser();
   }, [user]);
-  console.log("app", user);
   return (
     <>
       <BrowserRouter>
