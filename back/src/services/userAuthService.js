@@ -76,7 +76,7 @@ const userAuthService = {
 
     if (!userInfo) throw new Error("이메일이 없습니다.");
 
-    const { userId, name } = userInfo;
+    const { userId, name, imageUrl } = userInfo;
 
     // // 암호화된 비밀번호와 입력된 비밀번호 비교
     // const currentPasswordHash = userInfo.password;
@@ -132,7 +132,7 @@ const userAuthService = {
     }
 
     // 토큰, 고유아이디, 이메일, 이름
-    const loginUser = { accessToken, userId, email, name };
+    const loginUser = { accessToken, userId, email, name, imageUrl };
 
     loginUser.errorMessage = null;
 
