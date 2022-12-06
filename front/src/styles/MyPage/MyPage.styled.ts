@@ -61,13 +61,26 @@ export const MainContainer = styled.form`
   height: 80vh;
 `;
 
-export const Title = styled.div`
+export const TitleContainer = styled.div`
+  flex-direction: row;
+  display: flex;
+  font-family: "Jua", sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
   margin: 8rem 0 5rem 22rem;
-  font-family: 'Jua', sans-serif;
-  font-weight: 300;
-  font-size:3rem;
-  backgound-color: red;
+`;
+
+export const Title = styled.div`
+  margin-right: 5rem;
 }`;
+
+export const topNav = styled.button`
+  font-size: 1.5rem;
+  margin: 2rem 3rem 0 0;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  `;
 
 export const UserContainer = styled.div`
   display: flex;

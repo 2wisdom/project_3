@@ -55,7 +55,7 @@ const EditUserInfo = () => {
 
     if (isDeleteProfileImg === true) {
       try {
-        await Api.put(`users/defaultimage${user.userId}`, {});
+        await Api.put(`users/defaultimage/${user.userId}`, {});
       } catch (err) {
         alert("프로필사진 삭제 중 오류가 발생하였습니다. 재시도해주세요");
       }
@@ -75,11 +75,10 @@ const EditUserInfo = () => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       };
-
       //수정된 이미지, password api요청보내기
       try {
         const res = await axios.put(
-          `http://${window.location.hostname}:5000/users/${user.userId}`,
+          `http://${window.location.hostname}:5000/users/defaultimage${user.userId}`,
           formData,
           config
         );

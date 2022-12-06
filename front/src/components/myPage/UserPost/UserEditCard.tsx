@@ -16,6 +16,7 @@ const UserEditCard = () => {
   const title = location.state.title;
   const contents = location.state.contents;
   const imageUrl = location.state.imageUrl;
+  const category = location.state.category;
   const _id: string = location.state._id;
 
   const [ShowCardData, setShowCardData] = useState<ShowCardData>({
@@ -57,7 +58,7 @@ const UserEditCard = () => {
   ) => {
     e.preventDefault();
     try {
-      const res = await Api.put(`posts/${_id}`, ShowCardData);
+      const res = await Api.put(`${category}/${_id}`, ShowCardData);
       if (res.status === 200 || res.status === 201) {
         navigate(`/showCardDetail/${_id}`);
       }

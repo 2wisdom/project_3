@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import { SquareBtn, white, black } from "../../../styles/buttons/BasicBtn";
 import * as Api from "../../../api/Api";
 import { props } from "./UserPostCards";
+import {TopNavStore} from "@/store/MyPage";
 
 // interface props {
 //   key: string;
@@ -37,18 +38,19 @@ const UserPostCard = ({
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
+  const {pickedTopNav} = TopNavStore();
 
   const deleteCard = async () => {
     if (confirm("정말 삭제하시겠습니까?")) {
       try {
-        const res = await Api.delete("posts", `${_id}`);
+        const res = await Api.delete(`${pickedTopNav.apiAddress}`, `${_id}`);
         if (res.status == 200) {
           //페이지 재정렬
           for (let i = 1; i <= page; i++) {
             try {
               const res = await Api.get(
                 "users",
-                `posts?userId=${user.userId}&page=${i}`
+                `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${i}`
               );
               if (i == 1) {
                 setShowCards([...res.data.userPosts]);
@@ -106,7 +108,7 @@ const UserPostCard = ({
             type="button"
             onClick={() =>
               navigate(`/editCard/${_id}`, {
-                state: { title, contents, imageUrl, _id:`${_id}`  },
+                state: { title, contents, imageUrl, _id:`${_id}`, category:`${pickedTopNav.apiAddress}`  },
               })
             }
           >

@@ -9,7 +9,7 @@ import * as Api from "../../../api/Api";
 import ShowCard from "./UserPostCard";
 import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
-import axios from "axios";
+import {TopNavStore} from "@/store/MyPage";
 
 export interface showCard {
   author: string;
@@ -38,29 +38,32 @@ export interface props {
 const UserPostCards = () => {
   const user = useUserStore((state) => state.user);
   const [page, setPage] = useState<number>(1);
-
   const [showCards, setShowCards] = useState<showCard[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
-  const isLastPage = page >= totalPage;
+  const isLastPage = page == totalPage;
+  const {pickedTopNav} = TopNavStore();
+  console.log(pickedTopNav.apiAddress);
   // console.log("user", user);
   const apiGetShowCardData = async () => {
     try {
       const res = await Api.get(
         "users",
-        `posts?userId=${user.userId}&page=${page}`
+        `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page}`
       );
-      if (res.data !== "게시물 없음") {
+      if (res.data == "게시물 없음"){
+        setShowCards([]);
+      }else {
         setShowCards(res.data.userPosts);
         setTotalPage(res.data.totalPage);
       }
     } catch (err) {
-      console.log(err);
+      console.log(err);  
     }
   };
 
   useEffect(() => {
     apiGetShowCardData();
-  }, [user.userId]);
+  }, [pickedTopNav]);
 
   const loadMoreCards: React.MouseEventHandler<HTMLButtonElement> = async (
     e
@@ -70,7 +73,7 @@ const UserPostCards = () => {
     try {
       const res = await Api.get(
         "users",
-        `posts?userId=${user.userId}&page=${page + 1}`
+        `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page + 1}`
       );
       setShowCards([...showCards, ...res.data.userPosts]);
       setPage(page + 1);
@@ -82,8 +85,6 @@ const UserPostCards = () => {
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
-        <div className={Show.buttonContainer}></div>
-        <div className={Show.rightInner}>
           <div className={Show.cardInner}>
             <div className={CardListStyle.cardList}>
               <div className={CardListStyle.cardListInner}>
@@ -107,7 +108,7 @@ const UserPostCards = () => {
               </div>
               <div className={Show.footer}>
                 <div className={Show.moreBtnInner}>
-                  {!isLastPage && (
+                  {!isLastPage && showCards.length != 0 && (
                     <button className={Show.moreBtn} onClick={loadMoreCards}>
                       더보기
                     </button>
@@ -118,7 +119,7 @@ const UserPostCards = () => {
           </div>
         </div>
       </div>
-    </div>
+   
   );
 };
 export default UserPostCards;
