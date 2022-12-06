@@ -67,7 +67,7 @@ const User = {
   update: async ({ userId, fieldToUpdate, newValue }) => {
     const filter = { _id: userId };
     const update = {
-      [fieldToUpdate.password]: newValue.password,
+      [fieldToUpdate.password]: newValue.newPassword,
       [fieldToUpdate.imageUrl]: newValue.imageUrl,
     };
 

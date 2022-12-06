@@ -31,6 +31,9 @@ userAuthRouter.get("/markets?:userId?:page", userAuthController.getUserMarkets);
 // 유저 질문하기 작성글 조회
 userAuthRouter.get("/asks?:userId?:page", userAuthController.getUserAsks);
 
+// 유저 작성 코멘트 조회
+userAuthRouter.get("/comments?:userId?:page", userAuthController.getUserAsks);
+
 // 이메일 중복 조회
 userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);
 
@@ -38,12 +41,7 @@ userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);
 userAuthRouter.get("/name/:name", userAuthController.getCheckName);
 
 // 유저 정보 수정, 업데이트
-userAuthRouter.put(
-  "/:userId",
-  userValidation.ValidatePutUser,
-  loginRequired,
-  userAuthController.putUser
-);
+userAuthRouter.put("/:userId", loginRequired, userAuthController.putUser);
 
 // 유저 이미지 기본값으로 변경
 userAuthRouter.put(
