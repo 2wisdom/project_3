@@ -10,6 +10,7 @@ import * as Api from "../../../api/Api";
 
 interface showCard {
   key: string;
+  _id: string;
   image: string;
   title: string;
   userImage: string;
@@ -19,6 +20,7 @@ interface showCard {
 
 const UserPostCard = ({
   key,
+  _id,
   image,
   title,
   userName,
@@ -27,13 +29,15 @@ const UserPostCard = ({
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
-  // console.log("_id", key);
+  console.log(_id, key, image, title, userName, date,)
 
   const deleteCard = async () => {
      if (confirm("정말 삭제하시겠습니까?")){
       try{
-      const res = Api.delete ("posts",  `${key}`);
-      
+      const res = await Api.delete ("posts",  `${_id}`);
+      if (res.status == 200){
+        await 
+      }
      }catch(err){
       alert("게시물 삭제 도중 오류가 발생했습니다. 다시 시도해주세요")
      }

@@ -56,15 +56,15 @@ const UserPostCards = () => {
     try {
       const res = await Api.get(
         "users",
-        `posts?userId=${user.userId}&page=${page+1}`
+        `posts?userId=${user.userId}&page=${page + 1}`
       );
       setShowCards([...showCards, ...res.data.userPosts]);
-      setPage(page+1);
+      setPage(page + 1);
     } catch (err) {
       console.log("더보기 에러: ", err);
     }
   };
-
+  console.log(showCards);
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
@@ -77,6 +77,7 @@ const UserPostCards = () => {
                   return (
                     <ShowCard
                       key={showcard._id}
+                      _id={showcard._id}
                       image={showcard.imageUrl}
                       title={showcard.title}
                       userName={user.name}
@@ -88,11 +89,11 @@ const UserPostCards = () => {
               </div>
               <div className={Show.footer}>
                 <div className={Show.moreBtnInner}>
-                  {!isLastPage && 
+                  {!isLastPage && (
                     <button className={Show.moreBtn} onClick={loadMoreCards}>
                       더보기
                     </button>
-                  }
+                  )}
                 </div>
               </div>
             </div>
