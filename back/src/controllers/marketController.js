@@ -80,7 +80,6 @@ const marketController = {
     }
 
     try {
-      let result = null;
       market._id = marketId;
       result = await Market.update(market);
 

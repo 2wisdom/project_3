@@ -80,7 +80,6 @@ const postController = {
     }
 
     try {
-      let result = null;
       post._id = postId;
       result = await Post.update(post);
 

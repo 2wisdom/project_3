@@ -80,7 +80,6 @@ const askController = {
     }
 
     try {
-      let result = null;
       ask._id = askId;
       result = await Ask.update(ask);
 
