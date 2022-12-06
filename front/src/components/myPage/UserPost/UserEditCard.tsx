@@ -16,72 +16,57 @@ const UserEditCard = () => {
   const title = location.state.title;
   const contents = location.state.contents;
   const imageUrl = location.state.imageUrl;
+  const _id: string = location.state._id;
 
   const [ShowCardData, setShowCardData] = useState<ShowCardData>({
-    title: title,
-    contents: contents,
-    imageUrl: imageUrl,
+    title,
+    contents,
+    imageUrl,
   });
 
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
-  const onChangeImage = (e: any) => {
+  const onChangeImage = async (e: any) => {
     e.preventDefault();
     const formData = new FormData();
-    let result = "";
     formData.append("image", e.target.files[0] as any);
-    async () => {
-      try {
-        let res = axios({
-          method: "post",
-          url: "http://localhost:5000/images/image-upload",
-          data: formData,
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-        result = (await res).data.url;
-        setShowCardData((prev) => ({
-          ...prev,
-          imageUrl: result,
-        }));
-      } catch (err) {
-        console.log("imageErr", err);
-        alert("이미지 수정 중 오류가 발생했습니다. 다시 시도해주세요");
-      }
-    };
+    try {
+      const res = await axios({
+        method: "post",
+        url: "http://localhost:5000/images/image-upload",
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      const result = res.data.url;
+      setShowCardData((prev) => ({
+        ...prev,
+        imageUrl: result,
+      }));
+    } catch (err) {
+      console.log("imageErr", err);
+      alert("이미지 수정 중 오류가 발생했습니다. 다시 시도해주세요");
+    }
   };
-  //   const handleSetValue = () => {
-  //     if (contentRef.current != null) {
-  //       const text = contentRef.current.value;
-  //       setContent(text);
-  //       setShowCardData((prev) => ({
-  //         ...prev,
-  //         contents: text,
-  //       }));
-  //     }
-  //   };
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
     e.preventDefault();
-    console.log("ShowCardData", ShowCardData);
     try {
-      const res = await Api.post("posts", ShowCardData);
+      const res = await Api.put(`posts/${_id}`, ShowCardData);
       if (res.status === 200 || res.status === 201) {
-        console.log("res : ", res);
-        alert("게시물 수정 성공!");
-        navigate("/communityShowOff");
+        navigate(`/showCardDetail/${_id}`);
       }
     } catch (err) {
       console.log("err : ", err);
-      alert("게시물 수정 실패!");
+      alert("게시물 수정 도중 오류가 발생했습니다. 다시 시도해주세요");
     }
   };
-  console.log("ShowCardData",ShowCardData)
+
   return (
     <form>
       <div className={Create.container}>

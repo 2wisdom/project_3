@@ -43,10 +43,8 @@ const UserPostCard = ({
       try {
         const res = await Api.delete("posts", `${_id}`);
         if (res.status == 200) {
-          console.log("1");
           //페이지 재정렬
           for (let i = 1; i <= page; i++) {
-            console.log("2");
             try {
               const res = await Api.get(
                 "users",
@@ -108,11 +106,7 @@ const UserPostCard = ({
             type="button"
             onClick={() =>
               navigate(`/editCard/${_id}`, {
-                state: {
-                  title: `${title}`,
-                  contents: `${contents}`,
-                  imageUrl: `${imageUrl}`
-                },
+                state: { title, contents, imageUrl, _id:`${_id}`  },
               })
             }
           >

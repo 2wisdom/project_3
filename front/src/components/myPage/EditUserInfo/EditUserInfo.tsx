@@ -62,16 +62,12 @@ const EditUserInfo = () => {
     }
 
     let formData = new FormData();
-    const pwJson = JSON.stringify(newPassword.password);
-    const newPwJson = JSON.stringify(newPassword.password);
-    formData.append("jsonPassword", pwJson);
-    formData.append("jsonNewPassword", pwJson);
     formData.append("password", newPassword.password);
     formData.append("newPassword", newPassword.password);
     if (saveProfileImg != null) {
       formData.append("image", saveProfileImg);
     }
-    console.log(formData);
+    
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",

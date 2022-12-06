@@ -78,7 +78,7 @@ const UserPostCards = () => {
       console.log("더보기 에러: ", err);
     }
   };
-  console.log(showCards);
+  
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
