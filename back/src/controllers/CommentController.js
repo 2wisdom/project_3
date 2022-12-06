@@ -22,6 +22,7 @@ const commentController = {
     const { writingId } = req.params;
 
     comment.writingId = writingId;
+    comment.writer = req.currentUserId;
 
     comment.save((err, comment) => {
       if (err) return res.json({ success: false, err });
