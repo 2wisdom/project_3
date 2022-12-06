@@ -23,6 +23,7 @@ const App = () => {
     } catch (err: any) {
       if (err.response.status === 400) {
         console.log("구경꾼이다");
+        // navigate("/");
       } else {
         console.log(err);
       }
@@ -32,7 +33,6 @@ const App = () => {
   useEffect(() => {
     getUser();
   }, [user]);
-
   return (
     <>
       <BrowserRouter>
@@ -41,17 +41,20 @@ const App = () => {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/myPage/*" element={<MyPage />} />
 
           <Route path="/communityShowOff" element={<CommuityShow />} />
           {/* <Route path="/search-plant" element={<Search />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/market" element={<Market />} /> */}
           <Route path="/createShowCard" element={<CreateShowCard />}></Route>
+
           <Route
             path="/showCardDetail/:id"
             element={<ShowCardDetail />}
           ></Route>
+
+          {/* <Route component={NotFound} /> */}
         </Routes>
       </BrowserRouter>
     </>

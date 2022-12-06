@@ -4,14 +4,13 @@ import LoginBtn from "./buttons/LoginBtn";
 import Nav from "../styles/Nav.module.css";
 import useUserStore from "../store/Login";
 import * as Api from "../api/Api";
+import { FaUserCircle } from 'react-icons/fa';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
-  console.log("user: ", user);
   const setUser = useUserStore((state) => state.setUser);
   const isLogin = user.email != "";
-  // console.log("isLogin: ", isLogin);
   const logout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
     try {
@@ -26,6 +25,7 @@ const NavBar = () => {
           imageUrl: "",
           accessToken: "",
         });
+        navigate("/");
       }
     } catch (err) {
       console.log("로그아웃에 실패하였습니다.", err);
@@ -71,6 +71,10 @@ const NavBar = () => {
           >
             <LoginBtn isLogin={isLogin}></LoginBtn>
           </div>
+          {isLogin &&
+          <div className={Nav.userIconBox}>
+            <FaUserCircle size="3.5rem" color="#3278E4" onClick={() => navigate("/myPage")}/>
+          </div>}
         </div>
       </div>
     </>

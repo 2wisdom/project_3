@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const MainContent = styled.div`
   display: block;
-  width: 130rem;
+  width: 90%rem;
   height: 90%;
   margin: 0 auto;
   // background-color: grey;
@@ -24,30 +25,34 @@ export const MyPageContainer = styled.form`
 export const NavBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 15%;
+  // width: 10rem;
   height: 80vh;
   margin: 5rem 0 0 0;
 `;
 
 export const NavBtn = styled.button`
-  width: 200px;
-  height: 50px;
+  width: 15rem;
+  height: 5rem;
   font-weight: 800;
-  font-size: 25px;
+  font-size: 2rem;
   border: none;
   border-radius: 1rem;
-  color: #000000;
   background-color: #ffda7b;
   margin-right: 4rem;
   margin-top: 2rem;
   margin-left: 1rem;
-  width: 20rem;
-  height: 5.5rem;
+  cursor: pointer;
   // background-color: #eaebfc;
   background-color: #d8d8d8;
-  color: black;
-  // color: white;
+  color: white;
 `;
+
+//  ${(props) =>
+//     props.primary &&
+//     css`
+//       color: black;
+//       background: #eaebfc;
+//     `}
 
 export const MainContainer = styled.form`
   flex-direction: column;
@@ -132,7 +137,7 @@ export const Input = styled.input`
 `;
 
 export const TagValue = styled.div`
-width: 40rem;
+  width: 40rem;
   height: 4.5rem;
   border: none;
   border-bottom: 1px solid #ccc;
@@ -144,7 +149,7 @@ width: 40rem;
     outline: none;
   }
   line-height: 4.5rem;
-`
+`;
 //
 export const PasswordContainer = styled(UserContainer)`
   display: flex;
@@ -153,6 +158,10 @@ export const PasswordContainer = styled(UserContainer)`
   height: 25rem;
   border: none;
   margin-top: 3rem;
+`;
+
+export const PasswordContentBox = styled(ContentBox)`
+  padding-right: 12.5rem;
 `;
 
 export const FileBtn = styled.label`

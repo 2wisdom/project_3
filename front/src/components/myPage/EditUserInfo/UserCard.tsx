@@ -1,53 +1,51 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Stack from "@mui/material/Stack";
 import useUserStore from "@/store/Login";
-import * as M from "../../styles/MyPage/MyPage.styled";
+import * as M from "../../../styles/MyPage/MyPage.styled";
 import axios from "axios";
-import { SquareBtn, red, white, black } from "../../styles/buttons/BasicBtn";
+import { SquareBtn, red, white, black } from "../../../styles/buttons/BasicBtn";
 import { ConfirmationNumber } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import * as Api from "../../api/Api";
+import * as Api from "../../../api/Api";
 
 interface Props {
+  saveProfileImg: React.Dispatch<any>;
   setSaveProfileImg: React.Dispatch<React.SetStateAction<any>>;
   setIsDeleteProfileImg: React.Dispatch<React.SetStateAction<boolean>>;
-  previewImg: string;
-  setPreviewImg: React.Dispatch<React.SetStateAction<string>>;
+  img: string;
+  setImg: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const UserInfo = ({
+const UserCard = ({
+  saveProfileImg,
   setSaveProfileImg,
   setIsDeleteProfileImg,
-  previewImg,
-  setPreviewImg,
+  img,
+  setImg,
 }: Props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const defaultImage = "public/images/leavesGetMoreYards.png";
+  const [previewURL, setPreviewURL] = useState<string>("");
 
-  //프로필 이미지 미리보기
+  // 프로필 이미지 미리보기
   const changeProfileImgPreview = async (previewFile: any) => {
-    let formData = new FormData();
-    formData.append("image", previewFile);
-    try {
-      const res = await axios({
-        method: "post",
-        //api안나옴
-        url: "~~",
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      //api수정되면 바꿀부분
-      const result = res.data.url;
-      setPreviewImg(result);
-      console.log("result: ", result);
-    } catch (err) {
-      console.log("imageErr", err);
-      alert("이미지가 조건에 맞지않습니다.");
+    if (previewFile.lastModifiedDate.size > 5242880) {
+      alert("5mb 이하 이미지만 프로필 사진으로 설정 가능합니다.");
+      return;
     }
+    // else if ( previewFile.lastModifiedDate.type not in ){
+    // alert("이미지 형식은 png, jpg, jpeg만 가능합니다.");
+    //return;
+    // }
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      if (reader.readyState === 2) {
+        setPreviewURL(reader.result as string);
+      }
+    };
+    reader.readAsDataURL(previewFile);
   };
 
   const signOut = async () => {
@@ -55,8 +53,8 @@ const UserInfo = ({
       try {
         const res = await Api.delete("users", `${user.userId}`);
         if (res.status === 200) {
-          navigate("/");
-          console.log("정상적으로 회원탈퇴 처리되었습니다.");
+          alert("정상적으로 회원탈퇴 처리되었습니다.");
+          localStorage.clear();
         }
       } catch (err) {
         console.log("회원탈퇴에러", err);
@@ -70,7 +68,12 @@ const UserInfo = ({
       <Stack alignItems="center">
         <img
           height="180"
-          src={`http://${window.location.hostname}:5000/${previewImg}`}
+          //이미지상태만들기
+          src={
+            saveProfileImg == null
+              ? `http://${window.location.hostname}:5000/${img}`
+              : previewURL
+          }
           alt="profileImg"
           // border-radius="50%"
         />
@@ -81,7 +84,8 @@ const UserInfo = ({
             onClick={() => {
               setIsDeleteProfileImg(true);
               setSaveProfileImg(null);
-              setPreviewImg(defaultImage);
+              setImg(defaultImage);
+              setPreviewURL("");
             }}
           >
             삭제
@@ -93,6 +97,7 @@ const UserInfo = ({
             type="file"
             id="input-file"
             style={{ display: "none" }}
+            accept="image/jpg, image/png, image/jpeg"
             onChange={(e) => {
               setSaveProfileImg(e.target.files![0]);
               setIsDeleteProfileImg(false);
@@ -111,11 +116,10 @@ const UserInfo = ({
           <M.TagValue>{user.email}</M.TagValue>
         </M.ContentBox>
         <SquareBtn theme={red} onClick={signOut}>
-          {" "}
-          회원탈퇴{" "}
+          회원탈퇴
         </SquareBtn>
       </M.InputContainer>
     </M.UserContainer>
   );
 };
-export default UserInfo;
+export default UserCard;
