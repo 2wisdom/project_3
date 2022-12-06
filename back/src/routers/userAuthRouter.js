@@ -43,7 +43,7 @@ userAuthRouter.get("/name/:name", userAuthController.getCheckName);
 // 유저 정보 수정, 업데이트
 userAuthRouter.put(
   "/:userId",
-  userValidation.ValidatePutUser,
+
   loginRequired,
   userAuthController.putUser
 );

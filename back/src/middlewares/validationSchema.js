@@ -41,6 +41,11 @@ const validationSchema = {
       .trim()
       .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*\W)(?=.\S+$).{8,20}$/)
       .allow(null, ""),
+
+    newPassword: Joi.string()
+      .trim()
+      .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*\W)(?=.\S+$).{8,20}$/)
+      .allow(null, ""),
   }),
 };
 exports.validationSchema = validationSchema;

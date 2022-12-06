@@ -6,6 +6,8 @@ const { User } = require("../db/models/User");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 
 async function loginRequired(req, res, next) {
+  console.log(`리콰어드 확인:`, req.body, req.file);
+
   // request 헤더로부터 authorization bearer 토큰을 받음. authorization: 'Bearer 토큰'
   const userToken = req.headers["authorization"]?.split(" ")[1] ?? "null";
 

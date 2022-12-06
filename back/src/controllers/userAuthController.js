@@ -211,14 +211,15 @@ const userAuthController = {
 
   // 유저 정보 수정
   putUser: async (req, res, next) => {
+    console.log(`유저 컨트롤 확인1: `, req.body[0], req.file);
     const { userId } = req.params;
-    const password = req.body.password ?? null;
+    const newPassword = req.body.newPassword ?? null;
     const imageUrl = req.file?.path ?? null;
 
     try {
       // 변경할 정보를 toUpdate에 초기화
-      const toUpdate = { password, imageUrl };
-
+      const toUpdate = { newPassword, imageUrl };
+      console.log(`유저 컨트롤 확인2: `, userId, toUpdate);
       // 서비스 파일에서 updateUser 함수 실행
       const updatedUser = await userAuthService.updateUserInfo({
         userId,
