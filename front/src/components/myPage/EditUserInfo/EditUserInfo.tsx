@@ -62,8 +62,12 @@ const EditUserInfo = () => {
     }
 
     let formData = new FormData();
-    const temp = JSON.stringify(newPassword);
-    formData.append("body", temp);
+    const pwJson = JSON.stringify(newPassword.password);
+    const newPwJson = JSON.stringify(newPassword.password);
+    formData.append("jsonPassword", pwJson);
+    formData.append("jsonNewPassword", pwJson);
+    formData.append("password", newPassword.password);
+    formData.append("newPassword", newPassword.password);
     if (saveProfileImg != null) {
       formData.append("image", saveProfileImg);
     }
