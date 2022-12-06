@@ -236,16 +236,20 @@ const userAuthService = {
   updateUserInfo: async ({ userId, toUpdate }) => {
     let user = await User.findById(userId);
 
+    const oldPassword = user.password;
     const oldImageUrl = user.imageUrl;
 
     // 비밀번호와 이미지 업데이트
-    if (toUpdate.password && toUpdate.imageUrl) {
-      console.log(`유서 서비스 확인 1`);
+    if (toUpdate.newPassword && toUpdate.imageUrl) {
+      if (user.password !== toUpdate.password)
+        throw new Error("비밀번호가 일치하지 않습니다.");
+
       const fieldToUpdate = {};
       const newValue = {};
-      console.log();
+
       fieldToUpdate.password = "password";
       fieldToUpdate.imageUrl = "imageUrl";
+
       // 입력 받은 비밀번호 암호화
       // newValue.password = await bcrypt.hash(toUpdate.password, SALT_ROUND);
       newValue.newPassword = toUpdate.newPassword;
@@ -257,8 +261,10 @@ const userAuthService = {
     }
 
     // 비밀번호만 업데이트
-    if (toUpdate.password && !toUpdate.imageUrl) {
-      console.log(`유서 서비스 확인 2`);
+    if (toUpdate.newPassword && !toUpdate.imageUrl) {
+      if (user.password !== toUpdate.password)
+        throw new Error("비밀번호가 일치하지 않습니다.");
+
       const fieldToUpdate = {};
       const newValue = {};
 
@@ -267,7 +273,7 @@ const userAuthService = {
 
       // 입력 받은 비밀번호 암호화
       // newValue.password = await bcrypt.hash(toUpdate.password, SALT_ROUND);
-      newValue.password = toUpdate.password;
+      newValue.password = toUpdate.newPassword;
       newValue.imageUrl = user.imageUrl;
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
@@ -278,8 +284,7 @@ const userAuthService = {
     }
 
     // 이미지만 업데이트
-    if (toUpdate.imageUrl && !toUpdate.password) {
-      console.log(`유서 서비스 확인 3`);
+    if (toUpdate.imageUrl && !toUpdate.newPassword) {
       const fieldToUpdate = {};
       const newValue = {};
 
@@ -287,7 +292,7 @@ const userAuthService = {
       fieldToUpdate.imageUrl = "imageUrl";
       // 입력 받은 비밀번호 암호화
       // newValue.password = await bcrypt.hash(user.password, SALT_ROUND);
-      newValue.password = toUpdate.password;
+      newValue.password = oldPassword;
       newValue.imageUrl = toUpdate.imageUrl;
 
       // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트

@@ -215,16 +215,11 @@ const userAuthController = {
     const newPassword = req.body.newPassword ?? null;
     const password = req.body.password ?? null;
     const imageUrl = req.file?.path ?? null;
-    console.log(`유저 컨트롤 확인1: `, req.body);
-    try {
-      const currentUserInfo = await userAuthService.getUserInfo(userId);
-      console.log(`유저 컨트롤 확인2: `, currentUserInfo.password);
-      if (currentUserInfo.password !== password)
-        throw new Error("비밀번호가 일치하지 않습니다.");
 
+    try {
       // 변경할 정보를 toUpdate에 초기화
-      const toUpdate = { newPassword, imageUrl };
-      console.log(`유저 컨트롤 확인3: `, userId, toUpdate);
+      const toUpdate = { newPassword, imageUrl, password };
+
       // 서비스 파일에서 updateUser 함수 실행
       const updatedUser = await userAuthService.updateUserInfo({
         userId,

@@ -33,7 +33,6 @@ const userValidation = {
 
   ValidatePutUser: async (req, res, next) => {
     try {
-      console.log(`벨리데이션 확인1: `, req.body, req.file);
       await validationSchema.putUserSchema.validateAsync(req.body);
     } catch (error) {
       const imageUrl = req.file?.path ?? null;
@@ -45,7 +44,6 @@ const userValidation = {
       errorFunction(res, error);
       return res.status(400).json({ errorMessage: errorMessage });
     }
-    console.log(`벨리데이션 확인2: `, req.body);
     next();
   },
 };
