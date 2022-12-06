@@ -8,7 +8,7 @@ const { commentController } = require("../controllers/commentController");
  * 댓글 조회
  * GET /comments
  */
-commentRouter.get("/", [loginRequired], commentController.getComments);
+commentRouter.get("/:writingId", commentController.getComments);
 
 /**
  * 댓글 생성
