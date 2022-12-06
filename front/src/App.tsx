@@ -10,6 +10,7 @@ import * as Api from "./api/Api";
 import CommuityShow from "./pages/CommunityShow";
 import CreateShowCard from "./pages/CreateShowCard";
 import ShowCardDetail from "./pages/ShowCardDetail";
+import UserEditCard from "./components/myPage/UserPost/UserEditCard";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.setUser);
@@ -52,6 +53,10 @@ const App = () => {
           <Route
             path="/showCardDetail/:id"
             element={<ShowCardDetail />}
+          ></Route>
+          <Route
+            path="/editCard/:id"
+            element={<UserEditCard />}
           ></Route>
 
           {/* <Route component={NotFound} /> */}

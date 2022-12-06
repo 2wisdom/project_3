@@ -21,6 +21,20 @@ export interface showCard {
   _id: string;
 }
 
+export interface props {
+  key: string;
+  _id: string;
+  imageUrl: string;
+  title: string;
+  userImage: string;
+  userName: string;
+  date: string;
+  page: number;
+  contents: string;
+  showCards: showCard[];
+  setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
+}
+
 const UserPostCards = () => {
   const user = useUserStore((state) => state.user);
   const [page, setPage] = useState<number>(1);
@@ -35,7 +49,7 @@ const UserPostCards = () => {
         "users",
         `posts?userId=${user.userId}&page=${page}`
       );
-      if (res.data !== []) {
+      if (res.data !== "게시물 없음") {
         setShowCards(res.data.userPosts);
         setTotalPage(res.data.totalPage);
       }
@@ -56,15 +70,15 @@ const UserPostCards = () => {
     try {
       const res = await Api.get(
         "users",
-        `posts?userId=${user.userId}&page=${page+1}`
+        `posts?userId=${user.userId}&page=${page + 1}`
       );
       setShowCards([...showCards, ...res.data.userPosts]);
-      setPage(page+1);
+      setPage(page + 1);
     } catch (err) {
       console.log("더보기 에러: ", err);
     }
   };
-
+  console.log(showCards);
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
@@ -77,22 +91,27 @@ const UserPostCards = () => {
                   return (
                     <ShowCard
                       key={showcard._id}
-                      image={showcard.imageUrl}
+                      _id={showcard._id}
+                      imageUrl={showcard.imageUrl}
                       title={showcard.title}
                       userName={user.name}
                       userImage={user.imageUrl}
                       date={showcard.createdAt}
+                      page={page}
+                      contents={showcard.contents}
+                      showCards={showCards}
+                      setShowCards={setShowCards}
                     />
                   );
                 })}
               </div>
               <div className={Show.footer}>
                 <div className={Show.moreBtnInner}>
-                  {!isLastPage && 
+                  {!isLastPage && (
                     <button className={Show.moreBtn} onClick={loadMoreCards}>
                       더보기
                     </button>
-                  }
+                  )}
                 </div>
               </div>
             </div>
