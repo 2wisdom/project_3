@@ -36,7 +36,6 @@ const UserPostCard = ({
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
-  console.log(_id, key, image, title, userName, date);
 
   const deleteCard = async () => {
     if (confirm("정말 삭제하시겠습니까?")) {
@@ -70,15 +69,22 @@ const UserPostCard = ({
 
   return (
     <>
-      <div className={Card.inner} 
-      onClick={() => navigate(`/showCardDetail/${_id}`)}>
+      <div className={Card.inner}>
         <img
           className={Card.Image}
           src={`${image}`}
           style={{ width: 267, height: 200 }}
+          onClick={() => navigate(`/showCardDetail/${_id}`)}
         />
-        <h3 className={Card.title}>{title}</h3>
-        <div className={Card.footer}
+        <h3
+          className={Card.title}
+          onClick={() => navigate(`/showCardDetail/${_id}`)}
+        >
+          {title}
+        </h3>
+        <div
+          className={Card.footer}
+          onClick={() => navigate(`/showCardDetail/${_id}`)}
         >
           <div className={Card.userInner}>
             {/* <img className={Card.userImage}></img> */}
