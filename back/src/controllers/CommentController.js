@@ -19,6 +19,10 @@ const commentController = {
   createComment: (req, res) => {
     console.log("댓글 생성");
     const comment = new Comment(req.body);
+    const { writingId } = req.params;
+
+    comment.writingId = writingId;
+
     comment.save((err, comment) => {
       if (err) return res.json({ success: false, err });
 
