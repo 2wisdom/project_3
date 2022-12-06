@@ -55,40 +55,46 @@ const EditUserInfo = () => {
 
     if (isDeleteProfileImg === true) {
       try {
-        Api.put("users/defaultimage", user.userId);
+        await Api.put(`users/defaultimage${user.userId}`, {});
       } catch (err) {
         alert("프로필사진 삭제 중 오류가 발생하였습니다. 재시도해주세요");
       }
     }
-
     let formData = new FormData();
-    formData.append("password", newPassword.password);
-    formData.append("newPassword", newPassword.password);
-    if (saveProfileImg != null) {
-      formData.append("image", saveProfileImg);
-    }
-    
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    };
-
-    //수정된 이미지, password api요청보내기
-    try {
-      const res = await axios.put(
-        `http://${window.location.hostname}:5000/users/${user.userId}`,
-        formData,
-        config
-      );
-      if (res.status === 200) {
-        console.log("유저 정보 수정 성공");
-        setUser(res.data);
+    if (newPassword.password !== "" || saveProfileImg != null) {
+      if (newPassword.password !== "") {
+        formData.append("password", newPassword.password);
+        formData.append("newPassword", newPassword.newPassword);
       }
-    } catch (err: any) {
-      console.log("유저 수정 에러", "err");
-      alert("유저정보 수정 중 오류가 발생했습니다. 재시도해주세요. ");
+      if (saveProfileImg != null) {
+        formData.append("image", saveProfileImg);
+      }
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      };
+
+      //수정된 이미지, password api요청보내기
+      try {
+        const res = await axios.put(
+          `http://${window.location.hostname}:5000/users/${user.userId}`,
+          formData,
+          config
+        );
+        if (res.status === 200) {
+          console.log("유저 정보 수정 성공");
+          setUser(res.data);
+        }
+      } catch (err: any) {
+        if (err.response.data === "비밀번호가 일치하지 않습니다."){
+          alert("기존 비밀번호가 일치하지 않습니다. 다시 확인해주세요.")
+        }else{
+          console.log("유저 수정 에러", err);
+        alert("유저정보 수정 중 오류가 발생했습니다. 재시도해주세요. ");
+        }
+      }
     }
   };
 
