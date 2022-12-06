@@ -31,6 +31,9 @@ userAuthRouter.get("/markets?:userId?:page", userAuthController.getUserMarkets);
 // 유저 질문하기 작성글 조회
 userAuthRouter.get("/asks?:userId?:page", userAuthController.getUserAsks);
 
+// 유저 작성 코멘트 조회
+userAuthRouter.get("/comments?:userId?:page", userAuthController.getUserAsks);
+
 // 이메일 중복 조회
 userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);
 
