@@ -7,11 +7,18 @@ import * as showCardStore from "../store/CommunityShowCard";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../api/Api";
+// interface showCard{
+
+// }
 const CommuityShow = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(8);
   // const [challengeData, setChallengeData] = useState([]);
   // const [originalData, setOriginalData] = useState([]);
+  const [page, setPage] = useState<number>(1);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(true);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const isLastPage = page >= totalPage;
 
   const showCardData = showCardStore.showCardStore(
     (state: any) => state.showCards
@@ -20,45 +27,24 @@ const CommuityShow = () => {
     (state: any) => state.apiGetShowCards
   );
 
+  //확인용
+  useEffect(() => {
+    Api.get(`posts?page=${page + 1}&limit=8`, null).then((res) => {
+      console.log("res-page8", res.data);
+    });
+  }, []);
+  console.log("page확인", page);
   useEffect(() => {
     apiGetShowCardData();
   }, []);
-  const onClickHandelr = () => {
-    navigate("/createShowCard");
+
+  const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    Api.get(`posts?page=${page + 1}&limit=8`, null).then((res) => {
+      console.log("res-page8", res.data);
+    });
   };
 
-  // console.log("apiGetShowCardData", apiGetShowCardData);
-  // console.log("showCardData", showCardData);
-  // console.log(
-  //   "showCardData.docs && showCardData.docs[0]",
-  //   showCardData.docs && showCardData.docs[0]
-  // );
-  // console.log("showCardData.docs._id", showCardData.docs._id);
-
-  // console.log("showCardsType", typeof showCards);
-  // const setShowCard = showCardStore((state) => state.setShowCard);
-  // // const ShowCard = showCardStore((state) => state.showCard);
-  // const ShowCard = showCardStore();
-  // useEffect(() => {
-  //   Api.get("posts").then((res) => {
-  //     setShowCard(res.data);
-  //     // console.log("res", res.data.docs[0]._id);
-  //   });
-  // }, []);
-  // console.log("showCard", ShowCard.showCard);
-  // console.log("CardData", showCardData);
-  // Api.get("posts?page=2&limit=10").then((res) => {
-  //   console.log("posts?page=1&limit=10", res);
-  // });
-  // Api.get("posts/2").then((res) => {
-  //   console.log("posts/:2", res);
-  // });
-  // {
-  //   showCards &&
-  //     showCards.docs?.map((item: any) => (
-  //       <div key={item._id}>value: {item}</div>
-  //     ));
-  // }
   return (
     <>
       <div className={Show.container}>
@@ -81,8 +67,11 @@ const CommuityShow = () => {
             </div>
             <div className={Show.footer}>
               <div className={Show.moreBtnInner}>
-                {showCardData.docs && visible < showCardData.docs.length ? (
-                  <button className={Show.moreBtn}> 더보기 </button>
+                {hasNextPage ? (
+                  <button className={Show.moreBtn} onClick={moreBtnHandler}>
+                    {" "}
+                    더보기{" "}
+                  </button>
                 ) : null}
               </div>
               <div className={Show.writeBtnInner}>

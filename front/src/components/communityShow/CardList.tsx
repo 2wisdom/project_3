@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import ShowCard from "../card/ShowCard";
 import CardListStyle from "../../styles/showOffPage/CardList.module.css";
@@ -8,13 +8,16 @@ import Avatar from "@mui/material/Avatar";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
 import imageSample from "../../../../back/public/images/leavesGetMoreYards.png";
 import ShowCardDetail from "@/pages/ShowCardDetail";
+
 const CardList = ({
   showCardData,
 }: {
   showCardData: showCardStore.showCardList;
 }) => {
   const [visible, setVisible] = useState(8);
-  // console.log("showCArdData", showCardData.docs && showCardData.docs.length);
+
+  console.log("showCArdData", showCardData.docs && showCardData);
+
   return (
     <div className={CardListStyle.cardList}>
       <div className={CardListStyle.cardListInner}>

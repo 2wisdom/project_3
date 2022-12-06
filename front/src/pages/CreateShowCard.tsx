@@ -38,11 +38,7 @@ const CreateShowCard = () => {
     if (!showCardImage.imageFileUrl) {
       reader.onload = async () => {
         if (reader.readyState === 2) {
-          // console.log("e.target.files[0].name", e.target.files[0]);
           formData.append("image", e.target.files[0] as any);
-          // const text = formData.get("image") as string;
-          // console.log("imageText", text);
-          // console.log("image", text);
           if (formData) {
             try {
               let res = axios({

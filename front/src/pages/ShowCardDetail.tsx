@@ -34,7 +34,6 @@ const ShowCardDetail = () => {
     if (id) {
       Api.get(`posts/${id}`, null)
         .then((res) => {
-          console.log("res.data", res.data);
           setDetailData({
             title: res.data?.title,
             userImg: res.data?.author?.imageUrl,
@@ -43,7 +42,17 @@ const ShowCardDetail = () => {
             imageUrl: res.data?.imageUrl,
             contents: res.data?.contents,
           });
-          console.log("detailRes.data", res.data);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    }
+  }, []);
+  useEffect(() => {
+    if (id) {
+      Api.get("comments", null)
+        .then((res) => {
+          console.log("res.data-comments", res.data);
         })
         .catch((err) => {
           console.log("err", err);
