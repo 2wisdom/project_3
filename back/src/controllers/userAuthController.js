@@ -134,7 +134,7 @@ const userAuthController = {
         throw new Error("회원 정보 불러오기 실패");
 
       if (currentUserPosts.posts) {
-        return res.status(200).send([]);
+        return res.status(200).send("게시물 없음");
       }
 
       res.status(200).send(currentUserPosts);
@@ -157,7 +157,7 @@ const userAuthController = {
         throw new Error("회원 정보 불러오기 실패");
 
       if (currentUserMarkets.posts) {
-        return res.status(200).send([]);
+        return res.status(200).send("게시물 없음");
       }
 
       res.status(200).send(currentUserMarkets);
@@ -177,7 +177,7 @@ const userAuthController = {
         throw new Error("회원 정보 불러오기 실패");
 
       if (currentUserAsks.posts) {
-        return res.status(200).send([]);
+        return res.status(200).send("게시물 없음");
       }
 
       res.status(200).send(currentUserAsks);
