@@ -121,11 +121,13 @@ const marketController = {
       const { question } = req.query;
       const { page } = req.query;
 
-      const searchedMarkets = await marketService.getMarketsByQuestionService(
+      const searchedMarkets = await wrapper(
+        marketService.getMarketsByQuestionService,
         option,
         question,
         page
       );
+
       if (searchedMarkets.errorMessage) throw new Error("게시물 조회 실패");
 
       if (searchedMarkets.markets) {

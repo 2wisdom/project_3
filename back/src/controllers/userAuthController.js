@@ -4,6 +4,7 @@ const { tokenService } = require("../services/tokenService");
 const { userAuthService } = require("../services/userAuthService");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
+const { writeLog } = require("../middlewares/writeLog");
 
 const userAuthController = {
   //회원가입
@@ -11,6 +12,7 @@ const userAuthController = {
     try {
       const { email, password, name } = req.body;
       const imageUrl = process.env.DEFAULT_IMAGE_NAME;
+
       // 서비스 파일에서 addUser 함수 실행
       const userInfo = await wrapper(userAuthService.addUserInfo, {
         email,
@@ -29,6 +31,7 @@ const userAuthController = {
       // 서비스에서 에러가 있다면 에러 통보
       if (userInfo.errorMessage) throw new Error("회원가입 실패");
 
+      writeLog("info", email, req, "회원가입 성공");
       // userInfo를 promise로 반환 하여 전달
       res.status(201).json(userInfoWithoutPassword);
     } catch (error) {
@@ -42,7 +45,10 @@ const userAuthController = {
       const { email } = req.params;
 
       // 중복되는 이메일이 있으면 데이터, 중복되는 이메일이 없으면 undefined
-      const isEmailExist = await userAuthService.CheckEmailExist(email);
+      const isEmailExist = await wrapper(
+        userAuthService.CheckEmailExist,
+        email
+      );
 
       // 중복되는 이메일이 있는 경우
       if (isEmailExist.email) {
@@ -67,7 +73,7 @@ const userAuthController = {
       const { name } = req.params;
 
       // 중복되는 닉네임이 있으면 데이터, 중복되는 닉네임이 없으면 undefined
-      const isNameExist = await userAuthService.CheckNameExist(name);
+      const isNameExist = await wrapper(userAuthService.CheckNameExist, name);
 
       // 중복되는 닉네임이 있는 경우
       if (isNameExist.name) {
@@ -101,6 +107,7 @@ const userAuthController = {
       // 서비스에서 에러가 있다면 에러 통보
       if (userLoginInfo.errorMessage) throw new Error("로그인 실패");
 
+      writeLog("info", email, req, "로그인 성공");
       res.status(201).send(userLoginInfo);
     } catch (error) {
       next(error);
@@ -113,7 +120,10 @@ const userAuthController = {
       const user_Id = req.currentUserId;
 
       // 서비스 파일에서 getUserInfo 함수 실행
-      const currentUserInfo = await userAuthService.getUserInfo(user_Id);
+      const currentUserInfo = await wrapper(
+        userAuthService.getUserInfo,
+        user_Id
+      );
       const { userId, email, name, imageUrl } = currentUserInfo;
 
       const currentUserInfoWithoutPassword = { userId, email, name, imageUrl };
@@ -134,7 +144,11 @@ const userAuthController = {
       const { userId } = req.query;
       const { page } = req.query;
 
-      const currentUserPosts = await userAuthService.userPosts(userId, page);
+      const currentUserPosts = await wrapper(
+        userAuthService.userPosts,
+        userId,
+        page
+      );
 
       if (currentUserPosts.errorMessage)
         throw new Error("회원 정보 불러오기 실패");
@@ -151,10 +165,12 @@ const userAuthController = {
 
   // 마이페이지 마켓 작성글 조회
   getUserMarkets: async (req, res, next) => {
-    const { userId } = req.query;
-    const { page } = req.query;
     try {
-      const currentUserMarkets = await userAuthService.userMarkets(
+      const { userId } = req.query;
+      const { page } = req.query;
+
+      const currentUserMarkets = await wrapper(
+        userAuthService.userMarkets,
         userId,
         page
       );
@@ -174,10 +190,15 @@ const userAuthController = {
 
   // 마이페이지 질문하기 작성글 조회
   getUserAsks: async (req, res, next) => {
-    const { userId } = req.query;
-    const { page } = req.query;
     try {
-      const currentUserAsks = await userAuthService.userAsks(userId, page);
+      const { userId } = req.query;
+      const { page } = req.query;
+
+      const currentUserAsks = await wrapper(
+        userAuthService.userAsks,
+        userId,
+        page
+      );
 
       if (currentUserAsks.errorMessage)
         throw new Error("회원 정보 불러오기 실패");
@@ -217,17 +238,17 @@ const userAuthController = {
 
   // 유저 정보 수정
   putUser: async (req, res, next) => {
-    const { userId } = req.params;
-    const newPassword = req.body.newPassword ?? null;
-    const password = req.body.password ?? null;
-    const imageUrl = req.file?.path ?? null;
-
     try {
+      const { userId } = req.params;
+      const newPassword = req.body.newPassword ?? null;
+      const password = req.body.password ?? null;
+      const imageUrl = req.file?.path ?? null;
+
       // 변경할 정보를 toUpdate에 초기화
       const toUpdate = { newPassword, imageUrl, password };
 
       // 서비스 파일에서 updateUser 함수 실행
-      const updatedUser = await userAuthService.updateUserInfo({
+      const updatedUser = await wrapper(userAuthService.updateUserInfo, {
         userId,
         toUpdate,
       });
@@ -254,9 +275,13 @@ const userAuthController = {
 
   // 유저 이미지 기본값으로 변경
   putDefaultImage: async (req, res, next) => {
-    const { userId } = req.params;
     try {
-      const currentUserInfo = await userAuthService.getUserInfo(userId);
+      const { userId } = req.params;
+
+      const currentUserInfo = await wrapper(
+        userAuthService.getUserInfo,
+        userId
+      );
 
       if (currentUserInfo.imageUrl !== process.env.DEFAULT_IMAGE_URL) {
         const oldImageUrl = currentUserInfo.imageUrl;
@@ -264,7 +289,7 @@ const userAuthController = {
         const password = null;
         const toUpdate = { password, imageUrl };
 
-        const updatedUser = await userAuthService.updateUserInfo({
+        const updatedUser = await wrapper(userAuthService.updateUserInfo, {
           userId,
           toUpdate,
         });
@@ -290,7 +315,7 @@ const userAuthController = {
   deleteUser: async (req, res, next) => {
     try {
       const { userId } = req.params;
-      const deletedUser = await userAuthService.deleteUserInfo(userId);
+      const deletedUser = await wrapper(userAuthService.deleteUserInfo, userId);
       const deletedToken = await tokenService.deleteTokenInfo(userId);
       if (!deletedUser.errorMessage && deletedUser.imageUrl) {
         await deleteUserImage(deletedUser.imageUrl);

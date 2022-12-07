@@ -3,7 +3,7 @@ const wrapper = (fn, ...args) =>
     try {
       const result = await fn.apply({}, args);
       if (result instanceof Error) throw result;
-      resolve();
+      resolve(result);
     } catch (error) {
       reject(error);
     }

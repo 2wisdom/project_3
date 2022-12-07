@@ -67,32 +67,44 @@ const Post = {
 
   // userId와 일치하는 게시글 데이터를 조회
   findUserAllPosts: async (userId, page) => {
-    const allUserPosts = await PostModel.find({ author: userId })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
-      .limit(process.env.PAGE_LIMIT_COUNT)
-      .lean();
+    try {
+      const allUserPosts = await PostModel.find({ author: userId })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .lean();
 
-    return allUserPosts;
+      return allUserPosts;
+    } catch (error) {
+      return error;
+    }
   },
 
   // userId와 일치하는 게시글 데이터 개수 조회
   findUserAllPostsCount: async (userId) => {
-    const allUserPostsCount = await PostModel.countDocuments({
-      author: userId,
-    }).lean();
+    try {
+      const allUserPostsCount = await PostModel.countDocuments({
+        author: userId,
+      }).lean();
 
-    return allUserPostsCount;
+      return allUserPostsCount;
+    } catch (error) {
+      return error;
+    }
   },
 
   // 검색 단어와 일치하는 게시물을 조회
   getPostsByQuestion: async (options, page) => {
-    const Posts = await PostModel.find({ $or: options })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
-      .limit(process.env.PAGE_LIMIT_COUNT)
-      .lean();
-    return Posts;
+    try {
+      const Posts = await PostModel.find({ $or: options })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .lean();
+      return Posts;
+    } catch (error) {
+      return error;
+    }
   },
 };
 
