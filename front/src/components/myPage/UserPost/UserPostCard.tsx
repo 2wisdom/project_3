@@ -8,20 +8,7 @@ import Stack from "@mui/material/Stack";
 import { SquareBtn, white, black } from "../../../styles/buttons/BasicBtn";
 import * as Api from "../../../api/Api";
 import { props } from "./UserPostCards";
-import {TopNavStore} from "@/store/MyPage";
-
-// interface props {
-//   key: string;
-//   _id: string;
-//   image: string;
-//   title: string;
-//   userImage: string;
-//   userName: string;
-//   date: string;
-//   page: number;
-//   showCards: showCard[];
-//   setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
-// }
+import { TopNavStore } from "@/store/MyPage";
 
 const UserPostCard = ({
   key,
@@ -34,11 +21,12 @@ const UserPostCard = ({
   contents,
   showCards,
   setShowCards,
+  // price,
 }: props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
-  const {pickedTopNav} = TopNavStore();
+  const { pickedTopNav } = TopNavStore();
 
   const deleteCard = async () => {
     if (confirm("정말 삭제하시겠습니까?")) {
@@ -97,7 +85,10 @@ const UserPostCard = ({
 
             <h5 className={Card.userName}>{userName}</h5>
           </div>
-          <div className={Card.data}>{createDate[0]}</div>
+
+          <div className={Card.data}>
+            {pickedTopNav.name !== "식물마켓" ? createDate[0] : `${price}원`}
+          </div>
         </div>
         <Stack direction="row" alignItems="center" spacing={2}>
           <SquareBtn theme={white} type="button" onClick={deleteCard}>
@@ -108,7 +99,13 @@ const UserPostCard = ({
             type="button"
             onClick={() =>
               navigate(`/editCard/${_id}`, {
-                state: { title, contents, imageUrl, _id:`${_id}`, category:`${pickedTopNav.apiAddress}`  },
+                state: {
+                  title,
+                  contents,
+                  imageUrl,
+                  _id: `${_id}`,
+                  category: `${pickedTopNav.apiAddress}`,
+                },
               })
             }
           >

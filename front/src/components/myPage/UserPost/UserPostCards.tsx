@@ -9,7 +9,7 @@ import * as Api from "../../../api/Api";
 import ShowCard from "./UserPostCard";
 import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
-import {TopNavStore} from "@/store/MyPage";
+import { TopNavStore } from "@/store/MyPage";
 
 export interface showCard {
   author: string;
@@ -18,6 +18,7 @@ export interface showCard {
   title: string;
   updatedAt?: string;
   imageUrl: string;
+  price: number;
   _id: string;
 }
 
@@ -31,6 +32,7 @@ export interface props {
   date: string;
   page: number;
   contents: string;
+  price: number;
   showCards: showCard[];
   setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
 }
@@ -41,26 +43,31 @@ const UserPostCards = () => {
   const [showCards, setShowCards] = useState<showCard[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = page == totalPage;
-  const {pickedTopNav} = TopNavStore();
+  const { pickedTopNav } = TopNavStore();
+  const isMarketTap = pickedTopNav.name === "식물마켓";
   console.log(pickedTopNav.apiAddress);
-  // console.log("user", user);
+
   const apiGetShowCardData = async () => {
     try {
       const res = await Api.get(
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page}`
       );
-      if (res.data == "게시물 없음"){
+      if (res.data == "게시물 없음") {
         setShowCards([]);
-      }else {
-        setShowCards(res.data.userPosts);
+      } else {
+        if (isMarketTap) {
+          setShowCards(res.data.userMarkets);
+        } else {
+          setShowCards(res.data.userPosts);
+        }
         setTotalPage(res.data.totalPage);
       }
     } catch (err) {
-      console.log(err);  
+      console.log(err);
     }
   };
-
+  console.log(showCards[0].price);
   useEffect(() => {
     apiGetShowCardData();
   }, [pickedTopNav]);
@@ -81,45 +88,46 @@ const UserPostCards = () => {
       console.log("더보기 에러: ", err);
     }
   };
-  
+
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
-          <div className={Show.cardInner}>
-            <div className={CardListStyle.cardList}>
-              <div className={CardListStyle.cardListInner}>
-                {showCards.map((showcard) => {
-                  return (
-                    <ShowCard
-                      key={showcard._id}
-                      _id={showcard._id}
-                      imageUrl={showcard.imageUrl}
-                      title={showcard.title}
-                      userName={user.name}
-                      userImage={user.imageUrl}
-                      date={showcard.createdAt}
-                      page={page}
-                      contents={showcard.contents}
-                      showCards={showCards}
-                      setShowCards={setShowCards}
-                    />
-                  );
-                })}
-              </div>
-              <div className={Show.footer}>
-                <div className={Show.moreBtnInner}>
-                  {!isLastPage && showCards.length != 0 && (
-                    <button className={Show.moreBtn} onClick={loadMoreCards}>
-                      더보기
-                    </button>
-                  )}
-                </div>
+        <div className={Show.cardInner}>
+          <div className={CardListStyle.cardList}>
+            <div className={CardListStyle.cardListInner}>
+              {showCards.map((showcard) => {
+                return (
+                  <ShowCard
+                    key={showcard._id}
+                    _id={showcard._id}
+                    imageUrl={showcard.imageUrl}
+                    title={showcard.title}
+                    userName={user.name}
+                    userImage={user.imageUrl}
+                    date={showcard.createdAt}
+                    page={page}
+                    contents={showcard.contents}
+                    showCards={showCards}
+                    setShowCards={setShowCards}
+                    // {showCard.price && price={showCard.price}}
+                    price={showCard.price}
+                  />
+                );
+              })}
+            </div>
+            <div className={Show.footer}>
+              <div className={Show.moreBtnInner}>
+                {!isLastPage && showCards.length != 0 && (
+                  <button className={Show.moreBtn} onClick={loadMoreCards}>
+                    더보기
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-   
+    </div>
   );
 };
 export default UserPostCards;
