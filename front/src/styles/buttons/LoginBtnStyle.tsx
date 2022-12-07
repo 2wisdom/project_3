@@ -13,6 +13,7 @@ const LoginBtnStyle = styled.button`
     border-radius:8px;
     outline:0;
     margin-right: 3rem;
+    cursor: pointer;
 `;
 
 export default LoginBtnStyle;

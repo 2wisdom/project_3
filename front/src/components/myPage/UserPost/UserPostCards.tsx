@@ -20,6 +20,7 @@ export interface showCard {
   imageUrl: string;
   price: number;
   _id: string;
+  // marketCategory: string;
 }
 
 export interface props {
@@ -32,6 +33,7 @@ export interface props {
   date: string;
   contents: string;
   price: number;
+  // marketCategory: string;
   showCards: showCard[];
   setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
 }
@@ -44,7 +46,7 @@ const UserPostCards = () => {
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = page == totalPage;
   const isMarketTap = pickedTopNav.name === "식물마켓";
-  console.log(pickedTopNav.apiAddress);
+  console.log(pickedTopNav);
 
   const apiGetShowCardData = async () => {
     try {
@@ -110,6 +112,7 @@ const UserPostCards = () => {
                     showCards={showCards}
                     setShowCards={setShowCards}
                     price={showcard.price}
+                    // marketCategory= {showcard.price};
                   />
                 );
               })}

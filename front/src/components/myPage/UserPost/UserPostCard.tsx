@@ -21,6 +21,7 @@ const UserPostCard = ({
   showCards,
   setShowCards,
   price,
+  // marketCategory,
 }: props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
@@ -111,6 +112,7 @@ const UserPostCard = ({
                   price,
                   _id: `${_id}`,
                   category: `${pickedTopNav.apiAddress}`,
+                  marketCategory: "씨앗",
                 },
               })
             }

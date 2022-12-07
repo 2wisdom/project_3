@@ -10,6 +10,7 @@ import * as Api from "./api/Api";
 import CommuityShow from "./pages/CommunityShow";
 import CreateShowCard from "./pages/CreateShowCard";
 import ShowCardDetail from "./pages/ShowCardDetail";
+import Market from "./pages/Market";
 import UserEditCard from "./components/myPage/UserPost/UserEditCard";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
@@ -46,18 +47,15 @@ const App = () => {
 
           <Route path="/communityShowOff" element={<CommuityShow />} />
           {/* <Route path="/search-plant" element={<Search />} />
-                    <Route path="/community" element={<Community />} />
-                    <Route path="/market" element={<Market />} /> */}
+                    <Route path="/community" element={<Community />} /> */}
+          <Route path="/market" element={<Market />} />
           <Route path="/createShowCard" element={<CreateShowCard />}></Route>
 
           <Route
             path="/showCardDetail/:id"
             element={<ShowCardDetail />}
           ></Route>
-          <Route
-            path="/editCard/:id"
-            element={<UserEditCard />}
-          ></Route>
+          <Route path="/editCard/:id" element={<UserEditCard />}></Route>
 
           {/* <Route component={NotFound} /> */}
         </Routes>

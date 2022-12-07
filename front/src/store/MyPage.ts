@@ -40,3 +40,4 @@ export const pageStore = create<page>((set) => ({
   increasePage: () => set((state) => ({ page: state.page + 1 })),
   resetPage: () => set({ page: 1 })
 }));
+

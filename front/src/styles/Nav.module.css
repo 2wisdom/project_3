@@ -57,4 +57,5 @@ ul {
 .userIconBox {
   margin-top: 1.5rem;
   margin-left: 3rem;
+  cursor: pointer;
 }
