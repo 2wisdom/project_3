@@ -38,6 +38,7 @@ const UserEditCard = () => {
     { name: "씨앗", apiAddress: "d" },
     { name: "기타", apiAddress: "d" },
   ];
+  
   const OriginallySelectedCategory = categoryList.filter(
     (category) => category.name == marketCategory
   )[0];
