@@ -48,6 +48,7 @@ app.use("/images", imageRouter);
 app.use("/comments", commentRouter);
 app.use("/token", tokenRouter);
 app.use("/search", searchRouter);
+app.use("/lens", lensRouter);
 
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");
