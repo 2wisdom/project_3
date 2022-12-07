@@ -17,6 +17,8 @@ build/
 .idea/
 docs/_build/
 .vscode
+__pycache__
+resnet18_weights_best_acc.tar
 
 # Coverage reports
 htmlcov/
