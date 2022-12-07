@@ -41,7 +41,6 @@ const commentController = {
     console.log("댓글 삭제");
 
     const { commentId } = req.params;
-    console.log("id", req.params);
 
     Comment.findByIdAndDelete(commentId).exec((err) => {
       if (err) return res.json({ success: false, err });
