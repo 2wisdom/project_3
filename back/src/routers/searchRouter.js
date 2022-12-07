@@ -8,19 +8,19 @@ const searchRouter = express.Router();
 
 // 자랑하기 게시글 검색
 searchRouter.get(
-  "/posts?:option?:question?:page",
+  "/posts?option?question?page",
   postController.getPostsByQuestionController
 );
 
 // 마켓 게시글 검색
 searchRouter.get(
-  "/markets?:option?:question?:page",
+  "/markets?option?question?page",
   marketController.getMarketsByQuestionController
 );
 
 // 마켓 게시글 검색
 searchRouter.get(
-  "/asks?:option?:question?:page",
+  "/asks?option?question?page",
   askController.getAsksByQuestionController
 );
 
