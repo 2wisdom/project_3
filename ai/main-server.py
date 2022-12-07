@@ -14,6 +14,9 @@ from torchvision import transforms
 import torch.nn.functional as F
 from PIL import Image
 
+PUBLIC_PATH = os.environ.get("PUBLIC_PATH")
+
+
 app = FastAPI()
 
 
@@ -51,7 +54,7 @@ def transform_image(req_img):
 
 
 # AI 모델을 통해 이미지를 추론하고 이름과 확률을 출력
-async def get_prediction(req_img):
+def get_prediction(req_img):
     with torch.no_grad():
         tensor = transform_image(req_img)
         result = model(tensor)
@@ -71,17 +74,17 @@ async def get_prediction(req_img):
 # 백엔드로부터 요청 이미지 URL을 받음
 @app.post("/predict", name="이미지 URL 받기")
 async def predict(req_img: Data):
+    # print("hello world", req_img)
+    imgURL = os.path.join(req_img.imageUrl)
+    print(os.path.join(PUBLIC_PATH, imgURL))
+    name, probability = get_prediction(os.path.join(PUBLIC_PATH, imgURL))
 
-    imgUrl = "'" + f"{req_img.imageUrl}" + "'"
-
-    print("hello world", imgUrl)
-    # url = "http://localhost:5000/back"
-    # img = "public/images/leavesGetMoreYards.png"
-    # req_img = os.path.join(url, img)
-    # req_img = "../data/sample/1.jpg"
-    name, probability = await get_prediction(imgUrl)
     return JSONResponse({"plantName": name, "predictionRate": probability})
 
 
 if __name__ == '__main__':
     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
+
+    # url = "http://localhost:5000/back"
+    # img = "public/images/leavesGetMoreYards.png"
+    # req_img = os.path.join(url, img)
