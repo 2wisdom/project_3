@@ -6,13 +6,13 @@ const { commentController } = require("../controllers/commentController");
 
 /**
  * 댓글 조회
- * GET /comments
+ * GET /comments/:writingId
  */
 commentRouter.get("/:writingId", commentController.getComments);
 
 /**
  * 댓글 생성
- * POST /comments
+ * POST /comments/:writingId
  */
 commentRouter.post(
   "/:writingId",
@@ -22,8 +22,12 @@ commentRouter.post(
 
 /**
  * 댓글 삭제
- * DELETE /comments
+ * DELETE /comments/:commentId
  */
-commentRouter.delete("/", [loginRequired], commentController.deleteComment);
+commentRouter.delete(
+  "/:commentId",
+  [loginRequired],
+  commentController.deleteComment
+);
 
 module.exports = commentRouter;
