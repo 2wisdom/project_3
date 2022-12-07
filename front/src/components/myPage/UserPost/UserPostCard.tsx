@@ -8,7 +8,7 @@ import Stack from "@mui/material/Stack";
 import { SquareBtn, white, black } from "../../../styles/buttons/BasicBtn";
 import * as Api from "../../../api/Api";
 import { props } from "./UserPostCards";
-import { TopNavStore } from "@/store/MyPage";
+import { TopNavStore, pageStore } from "@/store/MyPage";
 
 const UserPostCard = ({
   key,
@@ -17,16 +17,17 @@ const UserPostCard = ({
   title,
   userName,
   date,
-  page,
   contents,
   showCards,
   setShowCards,
-  // price,
+  price,
 }: props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
   const { pickedTopNav } = TopNavStore();
+  const { page } = pageStore();
+  const isMarketTap = pickedTopNav.name === "식물마켓";
 
   const deleteCard = async () => {
     if (confirm("정말 삭제하시겠습니까?")) {
@@ -41,9 +42,13 @@ const UserPostCard = ({
                 `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${i}`
               );
               if (i == 1) {
-                setShowCards([...res.data.userPosts]);
+                isMarketTap
+                  ? setShowCards([...res.data.userMarkets])
+                  : setShowCards([...res.data.userPosts]);
               } else {
-                setShowCards([...showCards, ...res.data.userPosts]);
+                isMarketTap
+                  ? setShowCards([...showCards, ...res.data.userPosts])
+                  : setShowCards([...showCards, ...res.data.userPosts]);
               }
             } catch (err) {
               console.log("더보기 에러: ", err);
@@ -90,7 +95,7 @@ const UserPostCard = ({
             {pickedTopNav.name !== "식물마켓" ? createDate[0] : `${price}원`}
           </div>
         </div>
-        <Stack direction="row" alignItems="center" spacing={2}>
+        <Stack direction="row" alignItems="center" spacing={2} ml={5}>
           <SquareBtn theme={white} type="button" onClick={deleteCard}>
             삭제
           </SquareBtn>
@@ -103,6 +108,7 @@ const UserPostCard = ({
                   title,
                   contents,
                   imageUrl,
+                  price,
                   _id: `${_id}`,
                   category: `${pickedTopNav.apiAddress}`,
                 },

@@ -28,3 +28,15 @@ export const TopNavStore = create<topNavState>((set) => ({
 //     set((state) => ({ pickedNav: newPickedNav }));
 //   },
 // }));
+
+interface page {
+  page: number;
+  increasePage: () => void;
+  resetPage: () => void;
+}
+
+export const pageStore = create<page>((set) => ({
+  page: 1,
+  increasePage: () => set((state) => ({ page: state.page + 1 })),
+  resetPage: () => set({ page: 1 })
+}));

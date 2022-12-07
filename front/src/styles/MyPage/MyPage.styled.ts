@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const MainContent = styled.div`
   display: block;
-  width: 90%rem;
+  width: 140rem;
   height: 90%;
   margin: 0 auto;
   // background-color: grey;
@@ -174,7 +174,7 @@ export const PasswordContainer = styled(UserContainer)`
 `;
 
 export const PasswordContentBox = styled(ContentBox)`
-  padding-right: 12.5rem;
+  padding-right: 20rem;
 `;
 
 export const FileBtn = styled.label`

@@ -9,7 +9,7 @@ import * as Api from "../../../api/Api";
 import ShowCard from "./UserPostCard";
 import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
-import { TopNavStore } from "@/store/MyPage";
+import { TopNavStore, pageStore } from "@/store/MyPage";
 
 export interface showCard {
   author: string;
@@ -30,7 +30,6 @@ export interface props {
   userImage: string;
   userName: string;
   date: string;
-  page: number;
   contents: string;
   price: number;
   showCards: showCard[];
@@ -39,11 +38,11 @@ export interface props {
 
 const UserPostCards = () => {
   const user = useUserStore((state) => state.user);
-  const [page, setPage] = useState<number>(1);
+  const { page, increasePage, resetPage } = pageStore();
+  const { pickedTopNav } = TopNavStore();
   const [showCards, setShowCards] = useState<showCard[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = page == totalPage;
-  const { pickedTopNav } = TopNavStore();
   const isMarketTap = pickedTopNav.name === "식물마켓";
   console.log(pickedTopNav.apiAddress);
 
@@ -67,7 +66,7 @@ const UserPostCards = () => {
       console.log(err);
     }
   };
-  console.log(showCards[0].price);
+  // console.log(showCards[0].price);
   useEffect(() => {
     apiGetShowCardData();
   }, [pickedTopNav]);
@@ -82,8 +81,10 @@ const UserPostCards = () => {
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page + 1}`
       );
-      setShowCards([...showCards, ...res.data.userPosts]);
-      setPage(page + 1);
+      isMarketTap
+        ? setShowCards([...showCards, ...res.data.userMarkets])
+        : setShowCards([...showCards, ...res.data.userPosts]);
+      increasePage();
     } catch (err) {
       console.log("더보기 에러: ", err);
     }
@@ -105,12 +106,10 @@ const UserPostCards = () => {
                     userName={user.name}
                     userImage={user.imageUrl}
                     date={showcard.createdAt}
-                    page={page}
                     contents={showcard.contents}
                     showCards={showCards}
                     setShowCards={setShowCards}
-                    // {showCard.price && price={showCard.price}}
-                    price={showCard.price}
+                    price={showcard.price}
                   />
                 );
               })}

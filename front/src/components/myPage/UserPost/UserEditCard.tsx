@@ -4,11 +4,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as Api from "../../../api/Api";
 import Create from "../../../styles/showOffPage/CreateShowCard.module.css";
 import axios from "axios";
+import ShowCard from "@/components/card/ShowCard";
 
 interface ShowCardData {
   title: string;
   contents: string;
   imageUrl: string;
+  price?: number;
 }
 const UserEditCard = () => {
   const location = useLocation();
@@ -17,12 +19,14 @@ const UserEditCard = () => {
   const contents = location.state.contents;
   const imageUrl = location.state.imageUrl;
   const category = location.state.category;
+  const price = location.state.price;
   const _id: string = location.state._id;
-
+  console.log(location.state);
   const [ShowCardData, setShowCardData] = useState<ShowCardData>({
     title,
     contents,
     imageUrl,
+    price,
   });
 
   const fileInput = useRef<HTMLInputElement>(null);
@@ -108,6 +112,21 @@ const UserEditCard = () => {
               onChange={onChangeImage}
               ref={fileInput}
             ></input>
+            <input
+              type="number"
+              value={ShowCardData.price}
+              className={Create.priceInput}
+              placeholder="가격을 입력하세요"
+              step="100"
+              onChange={(e) =>
+                setShowCardData((prev) => ({
+                  ...prev,
+                  price: Number(e.target.value),
+                }))
+              }
+            >
+              {ShowCardData.price}
+            </input>
           </div>
           <textarea
             className={Create.content}
