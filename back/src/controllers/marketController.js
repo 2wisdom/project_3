@@ -1,6 +1,7 @@
 const express = require("express");
 const Market = require("../db/models/Market");
 const { marketService } = require("../services/marketService");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const marketController = {
   // 전체 게시글 조회
@@ -121,11 +122,13 @@ const marketController = {
       const { question } = req.query;
       const { page } = req.query;
 
-      const searchedMarkets = await marketService.getMarketsByQuestionService(
+      const searchedMarkets = await wrapper(
+        marketService.getMarketsByQuestionService,
         option,
         question,
         page
       );
+
       if (searchedMarkets.errorMessage) throw new Error("게시물 조회 실패");
 
       if (searchedMarkets.markets) {

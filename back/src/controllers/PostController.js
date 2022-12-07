@@ -1,6 +1,8 @@
 const express = require("express");
+
 const Post = require("../db/models/Post");
 const { postService } = require("../services/postService");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const postController = {
   // 전체 게시글 조회
@@ -121,7 +123,8 @@ const postController = {
       const { question } = req.query;
       const { page } = req.query;
 
-      const searchedPosts = await postService.getPostsByQuestionService(
+      const searchedPosts = await wrapper(
+        postService.getPostsByQuestionService,
         option,
         question,
         page

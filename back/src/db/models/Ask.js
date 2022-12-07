@@ -67,32 +67,44 @@ const Ask = {
 
   // userId와 일치하는 게시글 데이터를 조회
   findUserAllAsks: async (userId, page) => {
-    const allUserAsks = await AskModel.find({ author: userId })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
-      .lean();
+    try {
+      const allUserAsks = await AskModel.find({ author: userId })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .lean();
 
-    return allUserAsks;
+      return allUserAsks;
+    } catch (error) {
+      return error;
+    }
   },
 
   // userId와 일치하는 게시글 데이터 개수 조회
   findUserAllAsksCount: async (userId) => {
-    const allUserAsksCount = await AskModel.countDocuments({
-      author: userId,
-    }).lean();
+    try {
+      const allUserAsksCount = await AskModel.countDocuments({
+        author: userId,
+      }).lean();
 
-    return allUserAsksCount;
+      return allUserAsksCount;
+    } catch (error) {
+      return error;
+    }
   },
 
   //  검색 단어와 일치하는 게시물을 조회
   getAsksByQuestion: async (options, page) => {
-    const Asks = await AskModel.find({ $or: options })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
-      .lean();
-    return Asks;
+    try {
+      const Asks = await AskModel.find({ $or: options })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .lean();
+      return Asks;
+    } catch (error) {
+      return error;
+    }
   },
 };
 

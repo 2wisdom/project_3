@@ -1,5 +1,6 @@
 const { validationSchema } = require("./validationSchema");
 const { deleteUserImage } = require("../middlewares/deleteImage");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const errorMessage = "요청한 데이터 형식이 올바르지 않습니다.";
 
@@ -38,7 +39,7 @@ const userValidation = {
       const imageUrl = req.file?.path ?? null;
 
       if (imageUrl) {
-        await deleteUserImage(imageUrl);
+        await wrapper(deleteUserImage, imageUrl);
       }
 
       errorFunction(res, error);
