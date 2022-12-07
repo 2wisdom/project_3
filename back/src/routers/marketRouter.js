@@ -13,6 +13,12 @@ const { Router } = require("express");
 marketRouter.get("/", marketController.getAllMarkets);
 
 /**
+ * 카테고리별 게시물 조회
+ * GET /markets/categorys?category={}
+ */
+marketRouter.get("/categorys", marketController.getMarketByCategory);
+
+/**
  * 특정 게시물 조회
  * GET /markets/:marketId
  */
