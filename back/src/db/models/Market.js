@@ -67,32 +67,45 @@ const Market = {
 
   // userId와 일치하는 게시글 데이터를 조회
   findUserAllMarkets: async (userId, page) => {
-    const allUserMarkets = await MarketModel.find({ author: userId })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
-      .lean();
+    try {
+      const allUserMarkets = await MarketModel.find({ author: userId })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .lean();
 
-    return allUserMarkets;
+      return allUserMarkets;
+    } catch (error) {
+      return error;
+    }
   },
 
   // userId와 일치하는 게시글 데이터 개수 조회
   findUserAllMarketsCount: async (userId) => {
-    const allUserMarketsCount = await MarketModel.countDocuments({
-      author: userId,
-    }).lean();
+    try {
+      const allUserMarketsCount = await MarketModel.countDocuments({
+        author: userId,
+      }).lean();
 
-    return allUserMarketsCount;
+      return allUserMarketsCount;
+    } catch (error) {
+      return error;
+    }
   },
 
   // 검색 단어와 일치하는 게시물을 조회
   getMarketsByQuestion: async (options, page) => {
-    const Markets = await MarketModel.find({ $or: options })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
-      .lean();
-    return Markets;
+    try {
+      const Markets = await MarketModel.find({ $or: options })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .populate({ path: "author", select: ["_id", "name", "imageUrl"] })
+        .lean();
+      return Markets;
+    } catch (error) {
+      return error;
+    }
   },
 };
 

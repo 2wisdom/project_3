@@ -32,7 +32,10 @@ userAuthRouter.get("/markets?:userId?:page", userAuthController.getUserMarkets);
 userAuthRouter.get("/asks?:userId?:page", userAuthController.getUserAsks);
 
 // 유저 작성 코멘트 조회
-userAuthRouter.get("/comments?:userId?:page", userAuthController.getUserAsks);
+userAuthRouter.get(
+  "/comments?:userId?:page",
+  userAuthController.getUserComments
+);
 
 // 이메일 중복 조회
 userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);

@@ -1,6 +1,8 @@
 const express = require("express");
+
 const Ask = require("../db/models/Ask");
 const { askService } = require("../services/askService");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const askController = {
   // 전체 게시글 조회
@@ -121,7 +123,8 @@ const askController = {
       const { question } = req.query;
       const { page } = req.query;
 
-      const searchedAsks = await askService.getAsksByQuestionService(
+      const searchedAsks = await wrapper(
+        askService.getAsksByQuestionService,
         option,
         question,
         page

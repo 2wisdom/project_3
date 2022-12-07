@@ -9,6 +9,7 @@ const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const { tokenRouter } = require("./routers/tokenRouter");
 const { searchRouter } = require("./routers/searchRouter");
+const { lensRouter } = require("./routers/lensRouter");
 const postRouter = require("./routers/postRouter");
 const askRouter = require("./routers/askRouter");
 const marketRouter = require("./routers/marketRouter");
@@ -48,6 +49,7 @@ app.use("/images", imageRouter);
 app.use("/comments", commentRouter);
 app.use("/token", tokenRouter);
 app.use("/search", searchRouter);
+app.use("/lens", lensRouter);
 
 app.get("/", (req, res) => {
   res.send("페이지에 접속 하셨습니다.");
