@@ -32,8 +32,7 @@ const Search = ({
   setShowCardData: Dispatch<SetStateAction<showCard[]>>;
 }) => {
   console.log("key-search", key);
-  const [searchInput, setSearchInput]: [string, (search: string) => void] =
-    useState("");
+  const [searchInput, setSearchInput] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [showCards, setShowCards] = useState<showCard[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
@@ -42,21 +41,21 @@ const Search = ({
   };
 
   console.log("searchInput", searchInput);
-  const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === "Enter") {
-      useEffect(() => {
-        if (searchInput) {
-          Api.get(
-            `search/posts?option=all&question=${searchInput}&page=${page}`,
-            null
-          ).then((res) => {
-            setShowCardData(res.data.docs);
-            console.log("search-data", res);
-          });
-        }
-      }, [searchInput]);
-    }
-  };
+  // const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+  //   if (e.key === "Enter") {
+  //     useEffect(() => {
+  //       if (searchInput) {
+  //         Api.get(
+  //           `search/posts?option=all&question=${searchInput}&page=${page}`,
+  //           null
+  //         ).then((res) => {
+  //           setShowCardData(res.data.docs);
+  //           console.log("search-data", res);
+  //         });
+  //       }
+  //     }, [searchInput]);
+  //   }
+  // };
   useEffect(() => {
     if (searchInput) {
       Api.get(
@@ -77,7 +76,7 @@ const Search = ({
           type="text"
           value={searchInput}
           onChange={handleOnChange}
-          onKeyPress={handleKeyPress}
+          // onKeyPress={handleKeyPress}
           placeholder="검색어를 입력하세요"
         ></SearchStyle.Input>
         <SearchStyle.Iconlocation>
