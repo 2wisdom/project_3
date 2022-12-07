@@ -5,7 +5,7 @@ const { wrapper } = require("../middlewares/errorHandlingWrapper");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 
 const AiPortNumber = "8000";
-const serverUrl = "http://localhost:" + AiPortNumber + "/prediction";
+const serverUrl = "http://localhost:" + AiPortNumber + "/predict";
 
 const lensController = {
   postSendImage: async (req, res, next) => {

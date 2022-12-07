@@ -223,10 +223,12 @@ const userAuthController = {
 
   // 마이페이지 작성 코멘트 조회
   getUserComments: async (req, res, next) => {
-    const { userId } = req.query;
-    const { page } = req.query;
     try {
-      const currentUserComments = await userAuthService.userComments(
+      const { userId } = req.query;
+      const { page } = req.query;
+
+      const currentUserComments = await wrapper(
+        userAuthService.userComments,
         userId,
         page
       );

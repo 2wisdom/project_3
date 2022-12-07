@@ -1,4 +1,5 @@
 const Post = require("../db/models/Post");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const postService = {
   getPostsByQuestionService: async (option, question, page) => {
