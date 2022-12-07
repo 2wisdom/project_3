@@ -255,6 +255,7 @@ const userAuthController = {
       const password = req.body.password ?? null;
       const imageUrl = req.file?.path ?? null;
 
+      console.log(`유저 비밀번호 변경 확인:`, req.body);
       // 변경할 정보를 toUpdate에 초기화
       const toUpdate = { newPassword, imageUrl, password };
 
@@ -277,6 +278,7 @@ const userAuthController = {
       writeLog("info", userId, req, "유저 정보 수정 성공");
       res.status(200).json(updatedUserWithoutPassword);
     } catch (error) {
+      console.log(error);
       if (imageUrl) {
         await wrapper(deleteUserImage, imageUrl);
       }

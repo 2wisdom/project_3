@@ -44,7 +44,12 @@ userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);
 userAuthRouter.get("/name/:name", userAuthController.getCheckName);
 
 // 유저 정보 수정, 업데이트
-userAuthRouter.put("/:userId", loginRequired, userAuthController.putUser);
+userAuthRouter.put(
+  "/:userId",
+  loginRequired,
+  userValidation.ValidatePutUser,
+  userAuthController.putUser
+);
 
 // 유저 이미지 기본값으로 변경
 userAuthRouter.put(

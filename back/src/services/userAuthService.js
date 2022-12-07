@@ -249,7 +249,7 @@ const userAuthService = {
       const totalPage = Math.ceil(userAsksCount / process.env.PAGE_LIMIT_COUNT);
 
       userAsksResponse.totalPage = totalPage;
-      userAsksResponse.userMarkets = userAsks;
+      userAsksResponse.userAsks = userAsks;
 
       userAsksResponse.errorMessage = null;
 
