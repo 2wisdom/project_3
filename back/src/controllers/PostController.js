@@ -132,7 +132,7 @@ const postController = {
       if (searchedPosts.errorMessage) throw new Error("게시물 조회 실패");
 
       if (searchedPosts.posts) {
-        return res.status(200).send("게시물 없음");
+        return res.status(404).send("게시물 없음");
       }
 
       res.status(200).send(searchedPosts);
