@@ -33,10 +33,11 @@ const CommuityShow = () => {
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
   const [totalPage, setTotalPage] = useState<number>(1);
+  const key = "posts";
+  console.log("key", key);
   const apiGetShowCardData = async () => {
     await Api.get("posts", null)
       .then((res) => {
-        // console.log("res.data.hasNextPage", res.data.docs);
         setShowCardData(res.data.docs);
         setHasNextPage(res.data.hasNextPage);
         setPage(res.data.page);
@@ -45,15 +46,6 @@ const CommuityShow = () => {
         console.log("posts실패!", err);
       });
   };
-  console.log("page", page);
-  //확인용
-  // useEffect(() => {
-  //   Api.get(`posts?page=${page + 1}&limit=8`, null).then((res) => {
-  //     console.log("res-page8", res.data);
-  //     showCardData
-  //   });
-  // }, []);
-  // console.log("page확인", page);
   useEffect(() => {
     apiGetShowCardData();
   }, []);
@@ -61,7 +53,6 @@ const CommuityShow = () => {
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     Api.get(`posts?page=${page + 1}&limit=8`, null).then((res) => {
-      console.log("res-page", res.data);
       setShowCardData([...showCardData, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(res.data.page);
@@ -80,7 +71,7 @@ const CommuityShow = () => {
         <div className={Show.rightInner}>
           <div className={Show.titleSearchInner}>
             <h2 className={Show.title}>내가 찍은 사진을 자랑해보세요</h2>
-            {showCardData && <Search showCardData={showCardData}></Search>}
+            <Search key={key} setShowCardData={setShowCardData}></Search>
           </div>
           <div className={Show.cardInner}>
             {showCardData && (
@@ -91,8 +82,7 @@ const CommuityShow = () => {
             <div className={Show.moreBtnInner}>
               {showCardData && hasNextPage ? (
                 <button className={Show.moreBtn} onClick={moreBtnHandler}>
-                  {" "}
-                  더보기{" "}
+                  더보기
                 </button>
               ) : null}
             </div>

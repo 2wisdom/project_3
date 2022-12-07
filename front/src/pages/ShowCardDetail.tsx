@@ -15,7 +15,6 @@ interface DetailData {
   contents: string;
 }
 
-// }const ShowCardDetail = ({ postId }: { postId: string }) => {
 const ShowCardDetail = () => {
   const navigate = useNavigate();
   let { id } = useParams();
@@ -50,12 +49,12 @@ const ShowCardDetail = () => {
   }, []);
   useEffect(() => {
     if (id) {
-      Api.get("comments", null)
+      Api.get(`comments/${id}`, null)
         .then((res) => {
-          console.log("res.data-comments", res.data);
+          console.log(`res.data-comments`, res);
         })
         .catch((err) => {
-          console.log("err", err);
+          console.log("err-comments", err);
         });
     }
   }, []);
