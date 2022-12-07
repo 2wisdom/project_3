@@ -50,6 +50,39 @@ const marketController = {
     }
   },
 
+  // 카테고리별 게시물 조회
+  getMarketByCategory: async (req, res, next) => {
+    console.log("카테고리별 게시물 조회");
+
+    const { page = "1", limit = "8" } = req.query;
+
+    const category = req.query.category;
+
+    const list = await Market.findAll(
+      {
+        category,
+      },
+      {
+        page,
+        limit,
+        sort: {
+          createdAt: -1,
+        },
+        populate: {
+          path: "author",
+          select: ["_id", "name", "imageUrl"],
+        },
+      }
+    );
+
+    try {
+      return res.json(list);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).send("Error");
+    }
+  },
+
   // 게시글 생성
   createMarket: async (req, res) => {
     console.log("게시글 작성");
