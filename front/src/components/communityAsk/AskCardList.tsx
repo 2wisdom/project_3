@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import ShowCard from "../card/ShowCard";
+import AskCard from "../card/AskCard";
 import CardListStyle from "../../styles/showOffPage/CardList.module.css";
 // import * as showCardList from "../../store/CommunityShowCard";
 // import * as showCardStore from "../../store/CommunityShowCard";
 import Avatar from "@mui/material/Avatar";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
 import imageSample from "../../../../back/public/images/leavesGetMoreYards.png";
-import ShowCardDetail from "@/pages/ShowCardDetail";
-interface showCard {
+import AskCardDetail from "@/pages/AskCardDetail";
+interface askCard {
   // map: any;
   author: {
     _id: string;
@@ -27,22 +27,23 @@ interface showCard {
   createdAt: string;
   updatedAt?: string;
 }
-const CardList = ({ showCardData }: { showCardData: showCard[] }) => {
+const AskCardList = ({ askCardData }: { askCardData: askCard[] }) => {
+  // console.log("askCardData-askCardList", askCardData);
   return (
     <div className={CardListStyle.cardList}>
       <div className={CardListStyle.cardListInner}>
         {/* showCardData?.slice(0, visible).map((item: showCard) */}
-        {showCardData &&
-          showCardData?.map((item: showCard) => {
+        {askCardData &&
+          askCardData?.map((item: askCard) => {
             return (
-              <ShowCard
-                postId={item._id}
+              <AskCard
+                askId={item._id}
                 image={item.imageUrl}
                 title={item.title}
                 userImage={item.author?.imageUrl}
                 userName={item.author?.name}
                 date={item.createdAt}
-              ></ShowCard>
+              ></AskCard>
             );
           })}
       </div>
@@ -50,4 +51,4 @@ const CardList = ({ showCardData }: { showCardData: showCard[] }) => {
   );
 };
 
-export default CardList;
+export default AskCardList;

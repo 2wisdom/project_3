@@ -40,6 +40,10 @@
   /* margin-right: 4rem; */
   margin-top: 2rem;
 }
+.grayBtn:hover {
+  background-color: #ffda7b;
+  color: #000000;
+}
 .yellowBtn {
   cursor: pointer;
   width: 150px;

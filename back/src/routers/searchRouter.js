@@ -8,7 +8,7 @@ const searchRouter = express.Router();
 
 // 자랑하기 게시글 검색
 searchRouter.get(
-  "/posts?option?question?page",
+  "/posts?:option?:question?:page",
   postController.getPostsByQuestionController
 );
 

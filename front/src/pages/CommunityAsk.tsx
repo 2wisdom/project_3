@@ -2,12 +2,12 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import Search from "../components/search/Search";
 import Show from "../styles/showOffPage/ShowPage.module.css";
-import ShowCardList from "../components/communityShow/CardList";
+import AskCardList from "../components/communityAsk/AskCardList";
 import * as showCardStore from "../store/CommunityShowCard";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../api/Api";
-interface showCard {
+interface askCard {
   // map: any;
   author: {
     _id: string;
@@ -26,67 +26,64 @@ interface showCard {
   createdAt: string;
   updatedAt?: string;
 }
-
-const CommuityShow = () => {
+const CommunityAsk = () => {
   const navigate = useNavigate();
-  const [showCardData, setShowCardData] = useState<showCard[]>([]);
+  const [askCardData, setAskCardData] = useState<askCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
-  const key = "posts";
-  console.log("key", key);
+  const key = "asks";
   const apiGetShowCardData = async () => {
-    await Api.get("posts", null)
+    await Api.get("asks", null)
       .then((res) => {
-        setShowCardData(res.data.docs);
+        setAskCardData(res.data.docs);
         setHasNextPage(res.data.hasNextPage);
         setPage(res.data.page);
       })
       .catch((err) => {
-        console.log("posts실패!", err);
+        console.log("asks실패!", err);
       });
   };
   useEffect(() => {
     apiGetShowCardData();
   }, []);
-
+  console.log("askCardData", askCardData);
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    Api.get(`posts?page=${page + 1}&limit=8`, null).then((res) => {
-      setShowCardData([...showCardData, ...res.data.docs]);
+    Api.get(`asks?page=${page + 1}&limit=8`, null).then((res) => {
+      setAskCardData([...askCardData, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(res.data.page);
     });
   };
-
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
         <div className={Show.buttonContainer}>
           <div className={Show.buttonInner}>
+            <button className={Show.yellowBtn}>질문하기</button>
             <button
               className={Show.grayBtn}
               onClick={() => {
-                navigate("/communityAsk");
+                navigate("/communityShowOff");
               }}
             >
-              질문하기
+              자랑하기
             </button>
-            <button className={Show.yellowBtn}>자랑하기</button>
           </div>
         </div>
         <div className={Show.rightInner}>
           <div className={Show.titleSearchInner}>
-            <h2 className={Show.title}>내가 찍은 사진을 자랑해보세요</h2>
-            <Search key={key} setShowCardData={setShowCardData}></Search>
+            <h2 className={Show.title}>궁금한 내용들을 물어보세요</h2>
+            {/* <Search key={key} setAskCardData={setAskCardData}></Search> */}
           </div>
           <div className={Show.cardInner}>
-            {showCardData && (
-              <ShowCardList showCardData={showCardData}></ShowCardList>
+            {askCardData && (
+              <AskCardList askCardData={askCardData}></AskCardList>
             )}
           </div>
           <div className={Show.footer}>
             <div className={Show.moreBtnInner}>
-              {showCardData && hasNextPage ? (
+              {askCardData && hasNextPage ? (
                 <button className={Show.moreBtn} onClick={moreBtnHandler}>
                   더보기
                 </button>
@@ -97,7 +94,7 @@ const CommuityShow = () => {
                 className={Show.writeBtnOutline}
                 sx={{ fontSize: 30 }}
                 onClick={() => {
-                  navigate("/createShowCard");
+                  navigate("/createAskCard");
                 }}
               ></EditIcon>
             </div>
@@ -108,4 +105,4 @@ const CommuityShow = () => {
   );
 };
 
-export default CommuityShow;
+export default CommunityAsk;

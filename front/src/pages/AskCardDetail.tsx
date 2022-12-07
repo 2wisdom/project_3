@@ -15,7 +15,7 @@ interface DetailData {
   contents: string;
 }
 
-const ShowCardDetail = () => {
+const AskCardDetail = () => {
   const navigate = useNavigate();
   let { id } = useParams();
   // let realId = parseInt(id as string);
@@ -31,7 +31,7 @@ const ShowCardDetail = () => {
   const createDate = DetailData.date.split("T");
   useEffect(() => {
     if (id) {
-      Api.get(`posts/${id}`, null)
+      Api.get(`asks/${id}`, null)
         .then((res) => {
           setDetailData({
             title: res.data?.title,
@@ -58,7 +58,6 @@ const ShowCardDetail = () => {
         });
     }
   }, []);
-
   return (
     <div className={Detail.container}>
       <div className={Detail.title}>{DetailData.title}</div>
@@ -88,7 +87,7 @@ const ShowCardDetail = () => {
       <button
         className={Detail.btn}
         onClick={() => {
-          navigate("/communityShowOff");
+          navigate("/communityAsk");
         }}
       >
         목록
@@ -98,4 +97,4 @@ const ShowCardDetail = () => {
   );
 };
 
-export default ShowCardDetail;
+export default AskCardDetail;

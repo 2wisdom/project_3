@@ -4,7 +4,7 @@ import LoginBtn from "./buttons/LoginBtn";
 import Nav from "../styles/Nav.module.css";
 import useUserStore from "../store/Login";
 import * as Api from "../api/Api";
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle } from "react-icons/fa";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ const NavBar = () => {
             <li
               className={Nav.navItem}
               onClick={() => {
-                navigate("/communityShowOff");
+                navigate("/communityAsk");
               }}
             >
               커뮤니티
@@ -71,10 +71,15 @@ const NavBar = () => {
           >
             <LoginBtn isLogin={isLogin}></LoginBtn>
           </div>
-          {isLogin &&
-          <div className={Nav.userIconBox}>
-            <FaUserCircle size="3.5rem" color="#3278E4" onClick={() => navigate("/myPage")}/>
-          </div>}
+          {isLogin && (
+            <div className={Nav.userIconBox}>
+              <FaUserCircle
+                size="3.5rem"
+                color="#3278E4"
+                onClick={() => navigate("/myPage")}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>

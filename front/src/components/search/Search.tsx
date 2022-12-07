@@ -63,7 +63,7 @@ const Search = ({
         null
       ).then((res) => {
         setShowCardData(res.data.docs);
-        console.log("search-data", res.data.docs);
+        console.log("search-data", res.data);
       });
     }
   }, [searchInput]);
