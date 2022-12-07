@@ -134,7 +134,7 @@ const userAuthController = {
         throw new Error("회원 정보 불러오기 실패");
 
       if (currentUserPosts.posts) {
-        return res.status(200).send("게시물 없음");
+        return res.status(404).send("게시물 없음");
       }
 
       res.status(200).send(currentUserPosts);
@@ -157,7 +157,7 @@ const userAuthController = {
         throw new Error("회원 정보 불러오기 실패");
 
       if (currentUserMarkets.posts) {
-        return res.status(200).send("게시물 없음");
+        return res.status(404).send("게시물 없음");
       }
 
       res.status(200).send(currentUserMarkets);
@@ -177,7 +177,7 @@ const userAuthController = {
         throw new Error("회원 정보 불러오기 실패");
 
       if (currentUserAsks.posts) {
-        return res.status(200).send("게시물 없음");
+        return res.status(404).send("게시물 없음");
       }
 
       res.status(200).send(currentUserAsks);
@@ -186,15 +186,39 @@ const userAuthController = {
     }
   },
 
+  // 마이페이지 작성 코멘트 조회
+  getUserComments: async (req, res, next) => {
+    const { userId } = req.query;
+    const { page } = req.query;
+    try {
+      const currentUserComments = await userAuthService.userComments(
+        userId,
+        page
+      );
+
+      if (currentUserComments.errorMessage)
+        throw new Error("회원 정보 불러오기 실패");
+
+      if (currentUserComments.posts) {
+        return res.status(404).send("게시물 없음");
+      }
+
+      res.status(200).send(currentUserComments);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   // 유저 정보 수정
   putUser: async (req, res, next) => {
     const { userId } = req.params;
+    const newPassword = req.body.newPassword ?? null;
     const password = req.body.password ?? null;
     const imageUrl = req.file?.path ?? null;
 
     try {
       // 변경할 정보를 toUpdate에 초기화
-      const toUpdate = { password, imageUrl };
+      const toUpdate = { newPassword, imageUrl, password };
 
       // 서비스 파일에서 updateUser 함수 실행
       const updatedUser = await userAuthService.updateUserInfo({

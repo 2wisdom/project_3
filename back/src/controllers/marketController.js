@@ -80,7 +80,6 @@ const marketController = {
     }
 
     try {
-      let result = null;
       market._id = marketId;
       result = await Market.update(market);
 
@@ -130,7 +129,7 @@ const marketController = {
       if (searchedMarkets.errorMessage) throw new Error("게시물 조회 실패");
 
       if (searchedMarkets.markets) {
-        return res.status(200).send("게시물 없음");
+        return res.status(404).send("게시물 없음");
       }
 
       res.status(200).send(searchedMarkets);
