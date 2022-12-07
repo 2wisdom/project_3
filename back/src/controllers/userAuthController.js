@@ -53,6 +53,7 @@ const userAuthController = {
       // 중복되는 이메일이 있는 경우
       if (isEmailExist.email) {
         if (isEmailExist.errorMessage) throw new Error("유저조회 실패");
+        writeLog("info", email, req, "이미 가입된 이메일");
         res.status(409).json("duplicated email");
         return;
       }
@@ -60,6 +61,7 @@ const userAuthController = {
       // 중복되는 이메일이 없는 경우
       if (!isEmailExist.email) {
         if (isEmailExist.errorMessage) throw new Error("유저조회 실패");
+        writeLog("info", email, req, "사용 가능한 이메일");
         res.status(200).json("OK");
       }
     } catch (error) {
@@ -78,6 +80,7 @@ const userAuthController = {
       // 중복되는 닉네임이 있는 경우
       if (isNameExist.name) {
         if (isNameExist.errorMessage) throw new Error("유저조회 실패");
+        writeLog("info", name, req, "이미 가입된 닉네임");
         res.status(409).json("duplicated name");
         return;
       }
@@ -85,6 +88,7 @@ const userAuthController = {
       // 중복되는 닉네임이 없는 경우
       if (!isNameExist.name) {
         if (isNameExist.errorMessage) throw new Error("유저조회 실패");
+        writeLog("info", name, req, "사용 가능한 닉네임");
         res.status(200).json("OK");
       }
     } catch (error) {
@@ -132,6 +136,7 @@ const userAuthController = {
       if (currentUserInfoWithoutPassword.errorMessage)
         throw new Error("회원 정보 불러오기 실패");
 
+      writeLog("info", user_Id, req, "유저 조회 성공");
       res.status(200).send(currentUserInfoWithoutPassword);
     } catch (error) {
       next(error);
@@ -157,6 +162,7 @@ const userAuthController = {
         return res.status(404).send("게시물 없음");
       }
 
+      writeLog("info", userId, req, "자랑하기 작성글 조회 성공");
       res.status(200).send(currentUserPosts);
     } catch (error) {
       next(error);
@@ -182,6 +188,7 @@ const userAuthController = {
         return res.status(404).send("게시물 없음");
       }
 
+      writeLog("info", userId, req, "마켓 작성글 조회 성공");
       res.status(200).send(currentUserMarkets);
     } catch (error) {
       next(error);
@@ -207,6 +214,7 @@ const userAuthController = {
         return res.status(404).send("게시물 없음");
       }
 
+      writeLog("info", userId, req, "질문하기 작성글 조회 성공");
       res.status(200).send(currentUserAsks);
     } catch (error) {
       next(error);
@@ -230,6 +238,7 @@ const userAuthController = {
         return res.status(404).send("게시물 없음");
       }
 
+      writeLog("info", userId, req, "작성 코멘트 조회 성공");
       res.status(200).send(currentUserComments);
     } catch (error) {
       next(error);
@@ -263,10 +272,11 @@ const userAuthController = {
       // 서비스에서 에러가 있다면 에러 통보
       if (updatedUser.errorMessage) throw new Error("회원 정보 불러오기 실패");
 
+      writeLog("info", userId, req, "유저 정보 수정 성공");
       res.status(200).json(updatedUserWithoutPassword);
     } catch (error) {
       if (imageUrl) {
-        await deleteUserImage(imageUrl);
+        await wrapper(deleteUserImage, imageUrl);
       }
 
       next(error);
@@ -303,6 +313,7 @@ const userAuthController = {
           imageUrl: updatedUser.imageUrl,
         };
 
+        writeLog("info", userId, req, "기본 이미지로 변경 성공");
         return res.status(200).json(updatedUserWithoutPassword);
       }
       res.status(400).json("이미 기본 이미지입니다");
@@ -318,10 +329,11 @@ const userAuthController = {
       const deletedUser = await wrapper(userAuthService.deleteUserInfo, userId);
       const deletedToken = await tokenService.deleteTokenInfo(userId);
       if (!deletedUser.errorMessage && deletedUser.imageUrl) {
-        await deleteUserImage(deletedUser.imageUrl);
+        await wrapper(deleteUserImage, deletedUser.imageUrl);
       }
       if (deletedUser.errorMessage) throw new Error("회원 정보 삭제 실패");
 
+      writeLog("info", userId, req, "유저 정보 삭제 성공");
       res.status(200).json("회원 정보 삭제 성공");
     } catch (error) {
       next(error);

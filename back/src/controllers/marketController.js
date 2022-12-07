@@ -1,6 +1,7 @@
 const express = require("express");
 const Market = require("../db/models/Market");
 const { marketService } = require("../services/marketService");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const marketController = {
   // 전체 게시글 조회

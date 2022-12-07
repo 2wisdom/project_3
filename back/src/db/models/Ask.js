@@ -95,12 +95,16 @@ const Ask = {
 
   //  검색 단어와 일치하는 게시물을 조회
   getAsksByQuestion: async (options, page) => {
-    const Asks = await AskModel.find({ $or: options })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
-      .limit(process.env.PAGE_LIMIT_COUNT)
-      .lean();
-    return Asks;
+    try {
+      const Asks = await AskModel.find({ $or: options })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .lean();
+      return Asks;
+    } catch (error) {
+      return error;
+    }
   },
 };
 

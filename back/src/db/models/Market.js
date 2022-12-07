@@ -95,12 +95,16 @@ const Market = {
 
   // 검색 단어와 일치하는 게시물을 조회
   getMarketsByQuestion: async (options, page) => {
-    const Markets = await MarketModel.find({ $or: options })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
-      .limit(process.env.PAGE_LIMIT_COUNT)
-      .lean();
-    return Markets;
+    try {
+      const Markets = await MarketModel.find({ $or: options })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .lean();
+      return Markets;
+    } catch (error) {
+      return error;
+    }
   },
 };
 

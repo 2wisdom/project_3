@@ -1,4 +1,5 @@
 const Market = require("../db/models/Market");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const marketService = {
   getMarketsByQuestionService: async (option, question, page) => {
@@ -17,7 +18,11 @@ const marketService = {
       } else {
         throw new Error("검색 옵션이 없습니다.");
       }
-      const searchedMarkets = await Market.getMarketsByQuestion(options, page);
+      const searchedMarkets = await wrapper(
+        Market.getMarketsByQuestion,
+        options,
+        page
+      );
 
       if (searchedMarkets.length === 0) {
         searchedMarkets.markets = "게시물 없음";
