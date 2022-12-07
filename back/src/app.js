@@ -9,6 +9,7 @@ const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const { userAuthRouter } = require("./routers/userAuthRouter");
 const { tokenRouter } = require("./routers/tokenRouter");
 const { searchRouter } = require("./routers/searchRouter");
+const { lensRouter } = require("./routers/lensRouter");
 const postRouter = require("./routers/postRouter");
 const askRouter = require("./routers/askRouter");
 const marketRouter = require("./routers/marketRouter");
