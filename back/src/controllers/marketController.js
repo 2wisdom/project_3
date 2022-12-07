@@ -118,11 +118,10 @@ const marketController = {
 
   // 게시물 검색
   getMarketsByQuestionController: async (req, res, next) => {
+    const { option } = req.query;
+    const { question } = req.query;
+    const { page } = req.query;
     try {
-      const { option } = req.query;
-      const { question } = req.query;
-      const { page } = req.query;
-
       const searchedMarkets = await wrapper(
         marketService.getMarketsByQuestionService,
         option,

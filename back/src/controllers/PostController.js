@@ -119,11 +119,10 @@ const postController = {
 
   // 게시물 검색
   getPostsByQuestionController: async (req, res, next) => {
+    const { option } = req.query;
+    const { question } = req.query;
+    const { page } = req.query;
     try {
-      const { option } = req.query;
-      const { question } = req.query;
-      const { page } = req.query;
-
       const searchedPosts = await wrapper(
         postService.getPostsByQuestionService,
         option,

@@ -119,11 +119,10 @@ const askController = {
 
   // 게시물 검색
   getAsksByQuestionController: async (req, res, next) => {
+    const { option } = req.query;
+    const { question } = req.query;
+    const { page } = req.query;
     try {
-      const { option } = req.query;
-      const { question } = req.query;
-      const { page } = req.query;
-
       const searchedAsks = await wrapper(
         askService.getAsksByQuestionService,
         option,

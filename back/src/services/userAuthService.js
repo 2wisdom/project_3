@@ -297,7 +297,7 @@ const userAuthService = {
   updateUserInfo: async ({ userId, toUpdate }) => {
     try {
       let user = await wrapper(User.findById, userId);
-
+      console.log(user);
       const oldPassword = user.password;
       const oldImageUrl = user.imageUrl;
 
