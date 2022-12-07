@@ -1,6 +1,8 @@
 const express = require("express");
+
 const Ask = require("../db/models/Ask");
 const { askService } = require("../services/askService");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const askController = {
   // 전체 게시글 조회
@@ -121,7 +123,8 @@ const askController = {
       const { question } = req.query;
       const { page } = req.query;
 
-      const searchedAsks = await askService.getAsksByQuestionService(
+      const searchedAsks = await wrapper(
+        askService.getAsksByQuestionService,
         option,
         question,
         page
@@ -129,7 +132,7 @@ const askController = {
       if (searchedAsks.errorMessage) throw new Error("게시물 조회 실패");
 
       if (searchedAsks.asks) {
-        return res.status(200).send("게시물 없음");
+        return res.status(404).send("게시물 없음");
       }
 
       res.status(200).send(searchedAsks);

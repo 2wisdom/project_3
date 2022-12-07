@@ -15,7 +15,6 @@ interface DetailData {
   contents: string;
 }
 
-// }const ShowCardDetail = ({ postId }: { postId: string }) => {
 const ShowCardDetail = () => {
   const navigate = useNavigate();
   let { id } = useParams();
@@ -34,7 +33,6 @@ const ShowCardDetail = () => {
     if (id) {
       Api.get(`posts/${id}`, null)
         .then((res) => {
-          console.log("res.data", res.data);
           setDetailData({
             title: res.data?.title,
             userImg: res.data?.author?.imageUrl,
@@ -43,15 +41,24 @@ const ShowCardDetail = () => {
             imageUrl: res.data?.imageUrl,
             contents: res.data?.contents,
           });
-          console.log("detailRes.data", res.data);
         })
         .catch((err) => {
           console.log("err", err);
         });
     }
   }, []);
+  useEffect(() => {
+    if (id) {
+      Api.get(`comments/${id}`, null)
+        .then((res) => {
+          console.log(`res.data-comments`, res);
+        })
+        .catch((err) => {
+          console.log("err-comments", err);
+        });
+    }
+  }, []);
 
-  console.log();
   return (
     <div className={Detail.container}>
       <div className={Detail.title}>{DetailData.title}</div>

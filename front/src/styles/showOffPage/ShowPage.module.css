@@ -40,6 +40,10 @@
   /* margin-right: 4rem; */
   margin-top: 2rem;
 }
+.grayBtn:hover {
+  background-color: #ffda7b;
+  color: #000000;
+}
 .yellowBtn {
   cursor: pointer;
   width: 150px;
@@ -93,6 +97,9 @@
 }
 /* moreBtn */
 .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
   display: flex;
   /* justify-content: center; */
@@ -113,7 +120,7 @@
   font-size: 13px;
   padding: 12px 20px;
   text-decoration: none;
-  margin-left: 6rem;
+  margin-left: 15rem;
   /* justify-content: center; */
 }
 .moreBtn:hover {
@@ -136,6 +143,7 @@
   border: 2px solid #000000;
   border-radius: 3rem;
   padding: 1rem;
+  margin-right: 3rem;
   /* justify-content: end; */
 }
 .writeBtnOutline:active {

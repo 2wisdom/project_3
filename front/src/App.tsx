@@ -7,11 +7,14 @@ import Main from "./pages/MainPage";
 import MyPage from "./pages/myPage";
 import useUserStore from "./store/Login";
 import * as Api from "./api/Api";
-import CommuityShow from "./pages/CommunityShow";
+import CommunityShow from "./pages/CommunityShow";
 import CreateShowCard from "./pages/CreateShowCard";
 import ShowCardDetail from "./pages/ShowCardDetail";
 import Market from "./pages/Market";
 import UserEditCard from "./components/myPage/UserPost/UserEditCard";
+import CommunityAsk from "./pages/CommunityAsk";
+import AskCardDetail from "./pages/AskCardDetail";
+import CreateAskCard from "./pages/CreateAskCard";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.setUser);
@@ -44,13 +47,19 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/myPage/*" element={<MyPage />} />
+          <Route path="/market" element={<Market />} />
 
-          <Route path="/communityShowOff" element={<CommuityShow />} />
+
+          
           {/* <Route path="/search-plant" element={<Search />} />
                     <Route path="/community" element={<Community />} /> */}
-          <Route path="/market" element={<Market />} />
-          <Route path="/createShowCard" element={<CreateShowCard />}></Route>
+          <Route path="/communityAsk" element={<CommunityAsk />} />
+          <Route path="/askCardDetail/:id" element={<AskCardDetail />}></Route>
+          <Route path="/createAskCard" element={<CreateAskCard />}></Route>
 
+
+          <Route path="/communityShowOff" element={<CommunityShow />} />
+          <Route path="/createShowCard" element={<CreateShowCard />}></Route>
           <Route
             path="/showCardDetail/:id"
             element={<ShowCardDetail />}

@@ -1,5 +1,6 @@
 const { validationSchema } = require("./validationSchema");
 const { deleteUserImage } = require("../middlewares/deleteImage");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const errorMessage = "요청한 데이터 형식이 올바르지 않습니다.";
 
@@ -33,19 +34,17 @@ const userValidation = {
 
   ValidatePutUser: async (req, res, next) => {
     try {
-      console.log(`벨리데이션 확인1: `, req.body, req.file);
       await validationSchema.putUserSchema.validateAsync(req.body);
     } catch (error) {
       const imageUrl = req.file?.path ?? null;
 
       if (imageUrl) {
-        await deleteUserImage(imageUrl);
+        await wrapper(deleteUserImage, imageUrl);
       }
 
       errorFunction(res, error);
       return res.status(400).json({ errorMessage: errorMessage });
     }
-    console.log(`벨리데이션 확인2: `, req.body);
     next();
   },
 };
