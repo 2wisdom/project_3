@@ -3,6 +3,7 @@ const express = require("express");
 const Post = require("../db/models/Post");
 const { postService } = require("../services/postService");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
+const { writeLog } = require("../middlewares/writeLog");
 
 const postController = {
   // 전체 게시글 조회
@@ -135,6 +136,9 @@ const postController = {
         return res.status(404).send("게시물 없음");
       }
 
+      console.log(searchedPosts);
+
+      writeLog("info", question, req, "자랑하기 검색 성공");
       res.status(200).send(searchedPosts);
     } catch (error) {
       next(error);

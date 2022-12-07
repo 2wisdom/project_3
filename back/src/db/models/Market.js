@@ -107,6 +107,18 @@ const Market = {
       return error;
     }
   },
+
+  getMarketsByQuestionCount: async (options) => {
+    try {
+      const MarketsCount = await MarketModel.countDocuments({
+        $or: options,
+      }).lean();
+
+      return MarketsCount;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 module.exports = Market;

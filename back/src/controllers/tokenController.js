@@ -5,6 +5,7 @@ const jwt_decode = require("jwt-decode");
 const { tokenService } = require("../services/tokenService");
 const { Token } = require("../db/models/Token");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
+const { writeLog } = require("../middlewares/writeLog");
 
 const tokenController = {
   // 엑세스 토큰 재발급

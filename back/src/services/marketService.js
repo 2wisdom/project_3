@@ -18,6 +18,9 @@ const marketService = {
       } else {
         throw new Error("검색 옵션이 없습니다.");
       }
+
+      const userMarketsResponse = {};
+
       const searchedMarkets = await wrapper(
         Market.getMarketsByQuestion,
         options,
@@ -29,9 +32,17 @@ const marketService = {
         return searchedMarkets;
       }
 
-      searchedMarkets.errorMessage = null;
+      const searchedMarketsCount = await wrapper(
+        Market.getMarketsByQuestionCount,
+        options
+      );
 
-      return searchedMarkets;
+      userMarketsResponse.totalPage = searchedMarketsCount;
+      userMarketsResponse.searchedMarkets = searchedMarkets;
+
+      userMarketsResponse.errorMessage = null;
+
+      return userMarketsResponse;
     } catch (error) {
       return error;
     }

@@ -107,6 +107,18 @@ const Post = {
       return error;
     }
   },
+
+  getPostsByQuestionCount: async (options) => {
+    try {
+      const PostsCount = await PostModel.countDocuments({
+        $or: options,
+      }).lean();
+
+      return PostsCount;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 module.exports = Post;

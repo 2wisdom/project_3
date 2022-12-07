@@ -2,6 +2,7 @@ const express = require("express");
 const Market = require("../db/models/Market");
 const { marketService } = require("../services/marketService");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
+const { writeLog } = require("../middlewares/writeLog");
 
 const marketController = {
   // 전체 게시글 조회
@@ -135,6 +136,7 @@ const marketController = {
         return res.status(404).send("게시물 없음");
       }
 
+      writeLog("info", question, req, "마켓 검색 성공");
       res.status(200).send(searchedMarkets);
     } catch (error) {
       next(error);

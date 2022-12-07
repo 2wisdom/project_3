@@ -107,6 +107,18 @@ const Ask = {
       return error;
     }
   },
+
+  getAsksByQuestionCount: async (options) => {
+    try {
+      const AsksCount = await AskModel.countDocuments({
+        $or: options,
+      }).lean();
+
+      return AsksCount;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 module.exports = Ask;
