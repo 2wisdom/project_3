@@ -38,6 +38,7 @@ const Search = ({
   const debounceValue = useDebounce(searchInput);
   const [showCards, setShowCards] = useState<showCard[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
+  const isLastPage = page >= totalPage;
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setSearchInput(e.target.value);
   };
