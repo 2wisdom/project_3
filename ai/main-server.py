@@ -71,12 +71,15 @@ async def get_prediction(req_img):
 # 백엔드로부터 요청 이미지 URL을 받음
 @app.post("/predict", name="이미지 URL 받기")
 async def predict(req_img: Data):
-    print("hello world", req_img)
+
+    imgUrl = "'" + f"{req_img.imageUrl}" + "'"
+
+    print("hello world", imgUrl)
     # url = "http://localhost:5000/back"
     # img = "public/images/leavesGetMoreYards.png"
     # req_img = os.path.join(url, img)
     # req_img = "../data/sample/1.jpg"
-    name, probability = await get_prediction(req_img.imageUrl)
+    name, probability = await get_prediction(imgUrl)
     return JSONResponse({"plantName": name, "predictionRate": probability})
 
 
