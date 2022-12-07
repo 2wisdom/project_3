@@ -67,7 +67,7 @@ const Search = ({
       )
         .then((res) => {
           setShowCardData(res.data);
-          // console.log("search-data", res.data);
+          console.log("search-data", res);
         })
         .catch((err) => {
           console.log("getSearchCards Err", err);

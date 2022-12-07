@@ -2,10 +2,8 @@ import React, { RefObject, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Create from "../styles/showOffPage/CreateShowCard.module.css";
 import blankImg from "../../assets/community/blankImg.png";
-import ShowCard from "@/components/card/ShowCard";
 import * as Api from "../api/Api";
 import axios from "axios";
-import { response } from "express";
 
 interface ShowCardData {
   title: string;

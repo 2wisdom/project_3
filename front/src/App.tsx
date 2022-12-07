@@ -14,6 +14,7 @@ import UserEditCard from "./components/myPage/UserPost/UserEditCard";
 import CommunityAsk from "./pages/CommunityAsk";
 import AskCardDetail from "./pages/AskCardDetail";
 import CreateAskCard from "./pages/CreateAskCard";
+import FindPlant from "./pages/FindPlant";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.setUser);
@@ -46,7 +47,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/myPage/*" element={<MyPage />} />
-
+          <Route path="/findPlant" element={<FindPlant />} />
           <Route path="/communityAsk" element={<CommunityAsk />} />
           <Route path="/askCardDetail/:id" element={<AskCardDetail />}></Route>
           <Route path="/createAskCard" element={<CreateAskCard />}></Route>

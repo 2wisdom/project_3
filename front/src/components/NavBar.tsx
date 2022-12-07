@@ -54,7 +54,14 @@ const NavBar = () => {
             >
               잎게뭐야 소개
             </li>
-            <li className={Nav.navItem}>식물 찾기</li>
+            <li
+              className={Nav.navItem}
+              onClick={() => {
+                navigate("/findPlant");
+              }}
+            >
+              식물 찾기
+            </li>
             <li
               className={Nav.navItem}
               onClick={() => {
