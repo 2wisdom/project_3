@@ -55,11 +55,17 @@ const EditUserInfo = () => {
 
     if (isDeleteProfileImg === true) {
       try {
-        await Api.put(`users/defaultimage${user.userId}`, {});
-      } catch (err) {
-        alert("프로필사진 삭제 중 오류가 발생하였습니다. 재시도해주세요");
+        const res = await Api.put(`users/defaultimage/${user.userId}`, {});
+        setUser(res.data);
+      } catch (err: any) {
+        if (err.respone.data === "이미 기본 이미지입니다") {
+          alert("이미 기본 이미지입니다")
+        } else {
+          alert("프로필사진 삭제 중 오류가 발생하였습니다. 재시도해주세요");
+        }
       }
     }
+
     let formData = new FormData();
     if (newPassword.password !== "" || saveProfileImg != null) {
       if (newPassword.password !== "") {
@@ -75,7 +81,6 @@ const EditUserInfo = () => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       };
-
       //수정된 이미지, password api요청보내기
       try {
         const res = await axios.put(
@@ -88,16 +93,17 @@ const EditUserInfo = () => {
           setUser(res.data);
         }
       } catch (err: any) {
-        if (err.response.data === "비밀번호가 일치하지 않습니다."){
-          alert("기존 비밀번호가 일치하지 않습니다. 다시 확인해주세요.")
-        }else{
+        if (err.response.data === "비밀번호가 일치하지 않습니다.") {
+          alert("기존 비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+        } else {
           console.log("유저 수정 에러", err);
-        alert("유저정보 수정 중 오류가 발생했습니다. 재시도해주세요. ");
+          alert("유저정보 수정 중 오류가 발생했습니다. 재시도해주세요. ");
         }
       }
     }
   };
-
+  console.log(user.userId)
+  console.log(user.imageUrl)
   return (
     <>
       <UserInfo

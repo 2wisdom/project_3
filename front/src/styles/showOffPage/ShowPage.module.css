@@ -150,3 +150,31 @@
   position: relative;
   top: 1px;
 }
+
+.titleNavInner {
+  margin-left: auto;
+  width: 100%;
+  height: 10vh;
+  /* margin: auto; */
+  /* background-color: aliceblue; */
+  display: flex;
+}
+
+.navContainer {
+  display: flex;
+  padding: 2rem 5rem;
+  /* line-height: 7vh; */
+}
+
+.navItem {
+  font-family: "Jua", sans-serif;
+  font-size: 1.8rem;
+  cursor: pointer;
+  margin: 0 2rem;
+}
+
+.clickedNav {
+  color: #0c884f;
+  text-decoration-color: #0c884f;
+  text-underline-position: below;
+}

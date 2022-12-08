@@ -8,19 +8,7 @@ import Stack from "@mui/material/Stack";
 import { SquareBtn, white, black } from "../../../styles/buttons/BasicBtn";
 import * as Api from "../../../api/Api";
 import { props } from "./UserPostCards";
-
-// interface props {
-//   key: string;
-//   _id: string;
-//   image: string;
-//   title: string;
-//   userImage: string;
-//   userName: string;
-//   date: string;
-//   page: number;
-//   showCards: showCard[];
-//   setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
-// }
+import { TopNavStore, pageStore } from "@/store/MyPage";
 
 const UserPostCard = ({
   key,
@@ -29,31 +17,39 @@ const UserPostCard = ({
   title,
   userName,
   date,
-  page,
   contents,
   showCards,
   setShowCards,
+  price,
+  // marketCategory,
 }: props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
+  const { pickedTopNav } = TopNavStore();
+  const { page } = pageStore();
+  const isMarketTap = pickedTopNav.name === "식물마켓";
 
   const deleteCard = async () => {
     if (confirm("정말 삭제하시겠습니까?")) {
       try {
-        const res = await Api.delete("posts", `${_id}`);
+        const res = await Api.delete(`${pickedTopNav.apiAddress}`, `${_id}`);
         if (res.status == 200) {
           //페이지 재정렬
           for (let i = 1; i <= page; i++) {
             try {
               const res = await Api.get(
                 "users",
-                `posts?userId=${user.userId}&page=${i}`
+                `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${i}`
               );
               if (i == 1) {
-                setShowCards([...res.data.userPosts]);
+                isMarketTap
+                  ? setShowCards([...res.data.userMarkets])
+                  : setShowCards([...res.data.userPosts]);
               } else {
-                setShowCards([...showCards, ...res.data.userPosts]);
+                isMarketTap
+                  ? setShowCards([...showCards, ...res.data.userPosts])
+                  : setShowCards([...showCards, ...res.data.userPosts]);
               }
             } catch (err) {
               console.log("더보기 에러: ", err);
@@ -95,9 +91,12 @@ const UserPostCard = ({
 
             <h5 className={Card.userName}>{userName}</h5>
           </div>
-          <div className={Card.data}>{createDate[0]}</div>
+
+          <div className={Card.data}>
+            {pickedTopNav.name !== "식물마켓" ? createDate[0] : `${price}원`}
+          </div>
         </div>
-        <Stack direction="row" alignItems="center" spacing={2}>
+        <Stack direction="row" alignItems="center" spacing={2} ml={5}>
           <SquareBtn theme={white} type="button" onClick={deleteCard}>
             삭제
           </SquareBtn>
@@ -106,7 +105,15 @@ const UserPostCard = ({
             type="button"
             onClick={() =>
               navigate(`/editCard/${_id}`, {
-                state: { title, contents, imageUrl, _id:`${_id}`  },
+                state: {
+                  title,
+                  contents,
+                  imageUrl,
+                  price,
+                  _id: `${_id}`,
+                  category: `${pickedTopNav.apiAddress}`,
+                  marketCategory: "씨앗",
+                },
               })
             }
           >

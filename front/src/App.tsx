@@ -10,6 +10,7 @@ import * as Api from "./api/Api";
 import CommunityShow from "./pages/CommunityShow";
 import CreateShowCard from "./pages/CreateShowCard";
 import ShowCardDetail from "./pages/ShowCardDetail";
+import Market from "./pages/Market";
 import UserEditCard from "./components/myPage/UserPost/UserEditCard";
 import CommunityAsk from "./pages/CommunityAsk";
 import AskCardDetail from "./pages/AskCardDetail";
@@ -46,10 +47,16 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/myPage/*" element={<MyPage />} />
+          <Route path="/market" element={<Market />} />
 
+
+          
+          {/* <Route path="/search-plant" element={<Search />} />
+                    <Route path="/community" element={<Community />} /> */}
           <Route path="/communityAsk" element={<CommunityAsk />} />
           <Route path="/askCardDetail/:id" element={<AskCardDetail />}></Route>
           <Route path="/createAskCard" element={<CreateAskCard />}></Route>
+
 
           <Route path="/communityShowOff" element={<CommunityShow />} />
           <Route path="/createShowCard" element={<CreateShowCard />}></Route>

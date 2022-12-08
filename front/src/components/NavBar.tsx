@@ -63,7 +63,10 @@ const NavBar = () => {
             >
               커뮤니티
             </li>
-            <li className={Nav.navItem}>식물마켓</li>
+            <li className={Nav.navItem}
+            onClick={() => {
+              navigate("/market");
+            }}>식물마켓</li>
           </ul>
           <div
             className={Nav.loginBtn}
