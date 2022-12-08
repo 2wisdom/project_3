@@ -115,7 +115,7 @@ const UserCard = ({
           <M.Tag>이메일</M.Tag>
           <M.TagValue>{user.email}</M.TagValue>
         </M.ContentBox>
-        <SquareBtn theme={red} onClick={signOut}>
+        <SquareBtn type="button" theme={red} onClick={signOut}>
           회원탈퇴
         </SquareBtn>
       </M.InputContainer>

@@ -125,7 +125,7 @@ const EditUserInfo = () => {
         <RoundBtn theme={white} type="button" onClick={() => resetPage()}>
           취소
         </RoundBtn>
-        <RoundBtn theme={violet} type="button" onClick={userUpload}>
+        <RoundBtn theme={violet} type="submit" onClick={userUpload}>
           적용
         </RoundBtn>
       </ContentBox>
