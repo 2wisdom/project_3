@@ -151,7 +151,7 @@ const Market = () => {
                   className={Show.writeBtnOutline}
                   sx={{ fontSize: 30 }}
                   onClick={() => {
-                    navigate("/createShowCard");
+                    navigate("/createMarketCard");
                   }}
                 ></EditIcon>
               </div>
