@@ -118,6 +118,7 @@ const Market = {
     }
   },
 
+  // 검색 단어와 일치하는 게시물 개수 조회
   getMarketsByQuestionCount: async (options) => {
     try {
       const MarketsCount = await MarketModel.countDocuments({

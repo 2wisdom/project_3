@@ -12,14 +12,15 @@ const lensController = {
     const imageUrl = req.file?.path ?? null;
     try {
       data = { imageUrl: imageUrl };
-
+      console.log(data);
       const result = await axios.post(serverUrl, data, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-
-      await wrapper(deleteUserImage, imageUrl);
+      if (result) {
+        await wrapper(deleteUserImage, imageUrl);
+      }
 
       writeLog("info", userId, req, "이미지 예측 성공");
       res.status(200).json(result.data);

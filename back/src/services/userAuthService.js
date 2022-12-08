@@ -8,7 +8,7 @@ const { deleteUserImage } = require("../middlewares/deleteImage");
 const Post = require("../db/models/Post");
 const Market = require("../db/models/Market");
 const Ask = require("../db/models/Ask");
-const Comment = require("../db/schemas/commnet");
+const { Comment } = require("../db/models/Comment");
 
 // .env 에서 암호화 난이도 가져오기
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
