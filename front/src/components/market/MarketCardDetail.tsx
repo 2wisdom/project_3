@@ -15,11 +15,11 @@ interface DetailData {
   contents: string;
 }
 
-const AskCardDetail = () => {
+const MarketCardDetail = () => {
   const navigate = useNavigate();
-  let { id } = useParams();
-  // let realId = parseInt(id as string);
-  // console.log("realId", realId);
+  const { params } = useParams();
+  const _id = params?.split("/")[1];
+  console.log(_id);
   const [DetailData, setDetailData] = useState<DetailData>({
     title: "",
     userImg: "",
@@ -29,35 +29,31 @@ const AskCardDetail = () => {
     contents: "",
   });
   const createDate = DetailData.date.split("T");
-  useEffect(() => {
-    if (id) {
-      Api.get(`asks/${id}`, null)
-        .then((res) => {
-          setDetailData({
-            title: res.data?.title,
-            userImg: res.data?.author?.imageUrl,
-            userName: res.data?.author?.name,
-            date: res.data?.createdAt,
-            imageUrl: res.data?.imageUrl,
-            contents: res.data?.contents,
-          });
-        })
-        .catch((err) => {
-          console.log("err", err);
-        });
+
+  const getCardData = async () => {
+    try {
+      const res = await Api.get(markets, _id);
+    } catch (err) {
+      console.log(err);
     }
-  }, []);
+  };
   useEffect(() => {
-    if (id) {
-      Api.get(`comments/${id}`, null)
-        .then((res) => {
-          console.log(`res.data-comments`, res);
-        })
-        .catch((err) => {
-          console.log("err-comments", err);
-        });
-    }
-  }, []);
+    getCardData();
+  }, [_id]);
+
+  console.log(res);
+
+  // useEffect(() => {
+  //   if (id) {
+  //     Api.get(`comments/${id}`, null)
+  //       .then((res) => {
+  //         console.log(`res.data-comments`, res);
+  //       })
+  //       .catch((err) => {
+  //         console.log("err-comments", err);
+  //       });
+  //   }
+  // }, []);
   return (
     <div className={Detail.container}>
       <div className={Detail.title}>{DetailData.title}</div>
@@ -70,7 +66,6 @@ const AskCardDetail = () => {
         <div className={Detail.userName}>{DetailData.userName}</div>
         <div className={Detail.date}>{createDate[0]}</div>
       </div>
-
 
       <img
         className={Detail.image}
@@ -95,4 +90,4 @@ const AskCardDetail = () => {
   );
 };
 
-export default AskCardDetail;
+export default MarketCardDetail;

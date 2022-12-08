@@ -11,6 +11,7 @@ interface ShowCardData {
   contents: string;
   imageUrl: string;
   price?: number;
+  category?: string;
 }
 
 const UserEditCard = () => {
@@ -30,17 +31,13 @@ const UserEditCard = () => {
     contents,
     imageUrl,
     price,
+    category
   });
 
-  const categoryList = [
-    { name: "구근/뿌리묘/모종", apiAddress: "a" },
-    { name: "모종(산내들농장)", apiAddress: "a" },
-    { name: "씨앗", apiAddress: "d" },
-    { name: "기타", apiAddress: "d" },
-  ];
+  const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
   
   const OriginallySelectedCategory = categoryList.filter(
-    (category) => category.name == marketCategory
+    (category) => category == marketCategory
   )[0];
 
   const [MarketCategory, setMarketCategory] = useState(

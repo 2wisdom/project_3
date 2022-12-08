@@ -25,9 +25,8 @@ const showCard = ({
   date,
   contents,
   price,
-  category
-}: // marketCategory,
-props) => {
+  category,
+}: props) => {
   const navigate = useNavigate();
 
   return (
@@ -59,7 +58,9 @@ props) => {
 
             <h5 className={Card.userName}>{authorName}</h5>
           </div>
-          <div className={Card.price}>{`${price.toLocaleString('ko-KR')} 원`}</div>
+          <div className={Card.price}>{`${price.toLocaleString(
+            "ko-KR"
+          )} 원`}</div>
         </div>
       </div>
     </>

@@ -101,9 +101,6 @@ const Market = () => {
                           ? setPickedCategory(null)
                           : setPickedCategory(category);
                       }}
-                      // `form-control ${!isValid ? 'invalid' : '' }`
-                      // {...pickedCategory.name === category.name && ClassName= {Show.clickedNav}}
-                      // {pickedNav===this.value && (primary)}
                     >
                       {category}
                     </li>
