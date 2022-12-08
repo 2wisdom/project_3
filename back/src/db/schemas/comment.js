@@ -19,15 +19,11 @@ const CommentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // // 대댓글 구현 시 부모 댓글이 무엇인지
-    // responseTo: {
-    //   type: String,
-    //   ref: "Comment",
-    // },
-    // isDeleted: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+    // 비밀댓글
+    isSecret: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
