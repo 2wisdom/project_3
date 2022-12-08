@@ -10,18 +10,18 @@ const errorFunction = (res, error) => {
 };
 
 const userValidation = {
+  // 회원가입
   ValidatePostAddUser: async (req, res, next) => {
     try {
-      // 검사시작
       await validationSchema.postAddUserSchema.validateAsync(req.body);
     } catch (error) {
-      // 유효성 검사 에러
       errorFunction(res, error);
       return res.status(400).json({ errorMessage: errorMessage });
     }
     next();
   },
 
+  // 로그인
   ValidatePostLogin: async (req, res, next) => {
     try {
       await validationSchema.postLoginSchema.validateAsync(req.body);
@@ -32,6 +32,7 @@ const userValidation = {
     next();
   },
 
+  // 유저 정보 수정
   ValidatePutUser: async (req, res, next) => {
     try {
       await validationSchema.putUserSchema.validateAsync(req.body);
@@ -49,4 +50,18 @@ const userValidation = {
   },
 };
 
+const searchValidation = {
+  // 게시판 검색
+  ValidateGetSearch: async (req, res, next) => {
+    try {
+      await validationSchema.getSearchSchema.validateAsync(req.query);
+    } catch (error) {
+      errorFunction(res, error);
+      return res.status(400).json({ errorMessage: errorMessage });
+    }
+    next();
+  },
+};
+
 exports.userValidation = userValidation;
+exports.searchValidation = searchValidation;

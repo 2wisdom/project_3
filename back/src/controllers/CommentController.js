@@ -1,5 +1,5 @@
 const express = require("express");
-const Comment = require("../db/schemas/commnet");
+const Comment = require("../db/schemas/comment");
 
 const commentController = {
   // 댓글 조회

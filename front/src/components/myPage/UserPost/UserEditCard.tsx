@@ -4,25 +4,48 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as Api from "../../../api/Api";
 import Create from "../../../styles/showOffPage/CreateShowCard.module.css";
 import axios from "axios";
+import SplitButton from "../../buttons/SplitBtn";
 
 interface ShowCardData {
   title: string;
   contents: string;
   imageUrl: string;
+  price?: number;
 }
+
 const UserEditCard = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const title = location.state.title;
   const contents = location.state.contents;
   const imageUrl = location.state.imageUrl;
+  const category = location.state.category;
+  const price = location.state.price;
   const _id: string = location.state._id;
-
+  const marketCategory = location.state.marketCategory;
+  const isMarketTap = category == "markets";
+  console.log(category);
   const [ShowCardData, setShowCardData] = useState<ShowCardData>({
     title,
     contents,
     imageUrl,
+    price,
   });
+
+  const categoryList = [
+    { name: "구근/뿌리묘/모종", apiAddress: "a" },
+    { name: "모종(산내들농장)", apiAddress: "a" },
+    { name: "씨앗", apiAddress: "d" },
+    { name: "기타", apiAddress: "d" },
+  ];
+  
+  const OriginallySelectedCategory = categoryList.filter(
+    (category) => category.name == marketCategory
+  )[0];
+
+  const [MarketCategory, setMarketCategory] = useState(
+    OriginallySelectedCategory
+  );
 
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
@@ -57,7 +80,7 @@ const UserEditCard = () => {
   ) => {
     e.preventDefault();
     try {
-      const res = await Api.put(`posts/${_id}`, ShowCardData);
+      const res = await Api.put(`${category}/${_id}`, ShowCardData);
       if (res.status === 200 || res.status === 201) {
         navigate(`/showCardDetail/${_id}`);
       }
@@ -70,6 +93,14 @@ const UserEditCard = () => {
   return (
     <form>
       <div className={Create.container}>
+        {isMarketTap && (
+          <div className={Create.marketCategoryContainer}>
+            <SplitButton
+              categoryList={categoryList}
+              setMarketCategory={setMarketCategory}
+            />
+          </div>
+        )}
         <div className={Create.Inner}>
           <input
             value={ShowCardData.title}
@@ -108,6 +139,22 @@ const UserEditCard = () => {
               ref={fileInput}
             ></input>
           </div>
+          {isMarketTap &&
+          <div className={Create.priceContainer}>
+            <input
+              type="number"
+              step="100"
+              value={ShowCardData.price}
+              className={Create.priceInput}
+              placeholder="가격을 입력하세요"
+              onChange={(e) =>
+                setShowCardData((prev) => ({
+                  ...prev,
+                  price: Number(e.target.value),
+                }))
+              }
+            /> 원
+          </div>}
           <textarea
             className={Create.content}
             ref={contentRef}

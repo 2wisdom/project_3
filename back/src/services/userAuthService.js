@@ -8,7 +8,7 @@ const { deleteUserImage } = require("../middlewares/deleteImage");
 const Post = require("../db/models/Post");
 const Market = require("../db/models/Market");
 const Ask = require("../db/models/Ask");
-const Comment = require("../db/schemas/commnet");
+const { Comment } = require("../db/models/Comment");
 
 // .env 에서 암호화 난이도 가져오기
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
@@ -297,13 +297,13 @@ const userAuthService = {
   updateUserInfo: async ({ userId, toUpdate }) => {
     try {
       let user = await wrapper(User.findById, userId);
-      console.log(user);
+
       const oldPassword = user.password;
       const oldImageUrl = user.imageUrl;
 
       // 비밀번호와 이미지 업데이트
       if (toUpdate.newPassword && toUpdate.imageUrl) {
-        if (user.password !== toUpdate.password)
+        if (oldPassword !== toUpdate.password)
           throw new Error("비밀번호가 일치하지 않습니다.");
 
         const fieldToUpdate = {};

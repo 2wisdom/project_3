@@ -7,7 +7,6 @@ const { deleteUserImage } = require("../middlewares/deleteImage");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 async function loginRequired(req, res, next) {
-  console.log(`로긴리콰드 확인:`, req.params);
   // request 헤더로부터 authorization bearer 토큰을 받음. authorization: 'Bearer 토큰'
   const userToken = req.headers["authorization"]?.split(" ")[1] ?? "null";
 

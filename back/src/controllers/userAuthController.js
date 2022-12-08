@@ -242,10 +242,11 @@ const userAuthController = {
   // 유저 정보 수정
   putUser: async (req, res, next) => {
     const { userId } = req.params;
-    console.log(`유저 컨트롤 확인:`, userId);
+
     const newPassword = req.body.newPassword ?? null;
     const password = req.body.password ?? null;
     const imageUrl = req.file?.path ?? null;
+
     try {
       // if (!newPassword && !imageUrl) {
       //   throw new Error("수정할 정보를 입력해주세요");

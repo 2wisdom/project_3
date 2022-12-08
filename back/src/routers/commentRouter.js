@@ -1,5 +1,5 @@
 const express = require("express");
-const Comment = require("../db/schemas/commnet");
+const Comment = require("../db/schemas/comment");
 const commentRouter = express.Router();
 const { loginRequired } = require("../middlewares/login_required");
 const { commentController } = require("../controllers/commentController");

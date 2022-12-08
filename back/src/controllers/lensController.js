@@ -1,6 +1,6 @@
-const express = require("express");
 const axios = require("axios");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
+const { writeLog } = require("../middlewares/writeLog");
 
 const { deleteUserImage } = require("../middlewares/deleteImage");
 
@@ -18,10 +18,12 @@ const lensController = {
           "Content-Type": "application/json",
         },
       });
+      if (result) {
+        await wrapper(deleteUserImage, imageUrl);
+      }
 
-      await wrapper(deleteUserImage, imageUrl);
+      writeLog("info", imageUrl, req, "이미지 예측 성공");
 
-      writeLog("info", userId, req, "이미지 예측 성공");
       res.status(200).json(result.data);
     } catch (error) {
       return error;

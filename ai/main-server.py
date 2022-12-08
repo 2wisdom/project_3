@@ -74,12 +74,13 @@ def get_prediction(req_img):
 # 백엔드로부터 요청 이미지 URL을 받음
 @app.post("/predict", name="이미지 URL 받기")
 async def predict(req_img: Data):
-    # print("hello world", req_img)
+    BASE_DIR = os.path.abspath("../back")
     imgURL = os.path.join(req_img.imageUrl)
-    print(os.path.join(PUBLIC_PATH, imgURL))
-    name, probability = get_prediction(os.path.join(PUBLIC_PATH, imgURL))
+    print(os.path.join(BASE_DIR, imgURL))
+    name, probability = get_prediction(os.path.join(BASE_DIR, imgURL))
 
     return JSONResponse({"plantName": name, "predictionRate": probability})
+
 
 
 if __name__ == '__main__':

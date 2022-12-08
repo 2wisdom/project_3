@@ -97,3 +97,21 @@
   position: relative;
   top: 1px;
 }
+
+.priceContainer {
+  text-align: end;
+  margin-right: 25%;
+  font-size: 17px;
+}
+.priceInput {
+  margin: 1.5rem 0;
+  width: 10rem;
+  height: 2rem;
+  border: 2px solid #cbc9c9;
+  border-radius: 5px;
+}
+
+.marketCategoryContainer {
+  margin-left: 20%;
+  display: block;
+}

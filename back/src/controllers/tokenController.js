@@ -88,7 +88,7 @@ const tokenController = {
         accessTokenUserId
       );
 
-      writeLog("info", userId, req, "토큰 삭제 성공");
+      writeLog("info", accessTokenUserId, req, "토큰 삭제 성공");
       res.status(200).json(deletedToken);
     } catch (error) {
       next(error);
