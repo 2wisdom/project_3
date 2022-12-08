@@ -11,17 +11,20 @@ const marketController = {
 
     const { page = "1", limit = "8" } = req.query;
 
-    const list = await Market.findAll({
-      page,
-      limit,
-      sort: {
-        createdAt: -1,
-      },
-      populate: {
-        path: "author",
-        select: ["_id", "name", "imageUrl"],
-      },
-    });
+    const list = await Market.findAll(
+      {},
+      {
+        page,
+        limit,
+        sort: {
+          createdAt: -1,
+        },
+        populate: {
+          path: "author",
+          select: ["_id", "name", "imageUrl"],
+        },
+      }
+    );
 
     try {
       return res.json(list);
