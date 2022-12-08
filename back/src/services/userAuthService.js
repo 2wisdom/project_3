@@ -297,13 +297,13 @@ const userAuthService = {
   updateUserInfo: async ({ userId, toUpdate }) => {
     try {
       let user = await wrapper(User.findById, userId);
-      console.log(user);
+
       const oldPassword = user.password;
       const oldImageUrl = user.imageUrl;
 
       // 비밀번호와 이미지 업데이트
       if (toUpdate.newPassword && toUpdate.imageUrl) {
-        if (user.password !== toUpdate.password)
+        if (oldPassword !== toUpdate.password)
           throw new Error("비밀번호가 일치하지 않습니다.");
 
         const fieldToUpdate = {};

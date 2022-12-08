@@ -86,7 +86,7 @@ const User = {
     try {
       const filter = { _id: userId };
       const update = {
-        [fieldToUpdate.password]: newValue.newPassword,
+        [fieldToUpdate.password]: newValue.password,
         [fieldToUpdate.imageUrl]: newValue.imageUrl,
       };
 
