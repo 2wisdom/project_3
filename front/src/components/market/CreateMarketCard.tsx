@@ -1,52 +1,37 @@
 import React, { RefObject, useEffect, useRef, useState } from "react";
-import UserCard from "../EditUserInfo/UserCard";
-import { useLocation, useNavigate } from "react-router-dom";
-import * as Api from "../../../api/Api";
-import Create from "../../../styles/showOffPage/CreateShowCard.module.css";
+import { useNavigate } from "react-router-dom";
+import * as Api from "../../api/Api";
+import Create from "../../styles/showOffPage/CreateShowCard.module.css";
 import axios from "axios";
-import SplitButton from "../../buttons/SplitBtn";
+import SplitButton from "../buttons/SplitBtn";
 
 interface ShowCardData {
+  category: string;
   title: string;
+  price: number | undefined;
   contents: string;
   imageUrl: string;
-  price?: number;
-  category?: string;
 }
 
-const UserEditCard = () => {
-  const location = useLocation();
+const CreateMarketCard = () => {
   const navigate = useNavigate();
-  const title = location.state.title;
-  const contents = location.state.contents;
-  const imageUrl = location.state.imageUrl;
-  const category = location.state.category;
-  const price = location.state.price;
-  const _id: string = location.state._id;
-  const marketCategory = location.state.marketCategory;
-  const isMarketTap = category == "markets";
-  console.log(category);
   const [ShowCardData, setShowCardData] = useState<ShowCardData>({
-    title,
-    contents,
-    imageUrl,
-    price,
-    category
+    category: "구근/뿌리묘/모종",
+    title: "",
+    price: undefined,
+    contents: "",
+    imageUrl: "",
   });
-
-  const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
-  
-  const OriginallySelectedCategory = categoryList.filter(
-    (category) => category == marketCategory
-  )[0];
-
-  const [MarketCategory, setMarketCategory] = useState(
-    OriginallySelectedCategory
-  );
+  const categoryList = [
+    "구근/뿌리묘/모종",
+    "모종(산내들농장)",
+    "씨앗",
+    "기타",
+  ];
 
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
-
+  console.log(ShowCardData)
   const onChangeImage = async (e: any) => {
     e.preventDefault();
     const formData = new FormData();
@@ -68,7 +53,7 @@ const UserEditCard = () => {
       }));
     } catch (err) {
       console.log("imageErr", err);
-      alert("이미지 수정 중 오류가 발생했습니다. 다시 시도해주세요");
+      alert("이미지 업로드 중 오류가 발생했습니다. 다시 시도해주세요");
     }
   };
 
@@ -77,27 +62,26 @@ const UserEditCard = () => {
   ) => {
     e.preventDefault();
     try {
-      const res = await Api.put(`${category}/${_id}`, ShowCardData);
-      if (res.status === 200 || res.status === 201) {
-        navigate(`/showCardDetail/${_id}`);
+      const res = await Api.post(`markets`, ShowCardData);
+      if (res.status === 200 || 201) {
+        alert("마켓 업로드 성공");
+        navigate(`/marketCardDetail/${res.data.newMarket._id}`);
       }
     } catch (err) {
       console.log("err : ", err);
-      alert("게시물 수정 도중 오류가 발생했습니다. 다시 시도해주세요");
+      alert("게시물 저장 중 오류가 발생했습니다. 다시 시도해주세요");
     }
   };
 
   return (
     <form>
       <div className={Create.container}>
-        {isMarketTap && (
-          <div className={Create.marketCategoryContainer}>
-            <SplitButton
-              categoryList={categoryList}
-              setMarketCategory={setMarketCategory}
-            />
-          </div>
-        )}
+        <div className={Create.marketCategoryContainer}>
+          <SplitButton
+            categoryList={categoryList}
+            setShowCardData={setShowCardData}
+          />
+        </div>
         <div className={Create.Inner}>
           <input
             value={ShowCardData.title}
@@ -136,7 +120,6 @@ const UserEditCard = () => {
               ref={fileInput}
             ></input>
           </div>
-          {isMarketTap &&
           <div className={Create.priceContainer}>
             <input
               type="number"
@@ -150,8 +133,9 @@ const UserEditCard = () => {
                   price: Number(e.target.value),
                 }))
               }
-            /> 원
-          </div>}
+            />{" "}
+            원
+          </div>
           <textarea
             className={Create.content}
             ref={contentRef}
@@ -169,7 +153,7 @@ const UserEditCard = () => {
               type="button"
               className={Create.cancelBtn}
               onClick={() => {
-                navigate("/myPage/userPost");
+                navigate("/market");
               }}
             >
               취소
@@ -188,4 +172,4 @@ const UserEditCard = () => {
   );
 };
 
-export default UserEditCard;
+export default CreateMarketCard;
