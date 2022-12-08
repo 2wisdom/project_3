@@ -3,6 +3,7 @@ const express = require("express");
 const Post = require("../db/models/Post");
 const { postService } = require("../services/postService");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
+const { writeLog } = require("../middlewares/writeLog");
 
 const postController = {
   // 전체 게시글 조회
@@ -118,11 +119,10 @@ const postController = {
 
   // 게시물 검색
   getPostsByQuestionController: async (req, res, next) => {
+    const { option } = req.query;
+    const { question } = req.query;
+    const { page } = req.query;
     try {
-      const { option } = req.query;
-      const { question } = req.query;
-      const { page } = req.query;
-
       const searchedPosts = await wrapper(
         postService.getPostsByQuestionService,
         option,
@@ -135,6 +135,9 @@ const postController = {
         return res.status(404).send("게시물 없음");
       }
 
+      console.log(searchedPosts);
+
+      writeLog("info", question, req, "자랑하기 검색 성공");
       res.status(200).send(searchedPosts);
     } catch (error) {
       next(error);

@@ -14,13 +14,13 @@ searchRouter.get(
 
 // 마켓 게시글 검색
 searchRouter.get(
-  "/markets?option?question?page",
+  "/markets?:option?:question?:page",
   marketController.getMarketsByQuestionController
 );
 
-// 마켓 게시글 검색
+// 질문하기 게시글 검색
 searchRouter.get(
-  "/asks?option?question?page",
+  "/asks?:option?:question?:page",
   askController.getAsksByQuestionController
 );
 

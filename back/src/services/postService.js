@@ -1,4 +1,5 @@
 const Post = require("../db/models/Post");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
 
 const postService = {
   getPostsByQuestionService: async (option, question, page) => {
@@ -18,6 +19,8 @@ const postService = {
         throw new Error("검색 옵션이 없습니다.");
       }
 
+      const userPostsResponse = {};
+
       const searchedPosts = await wrapper(
         Post.getPostsByQuestion,
         options,
@@ -29,9 +32,17 @@ const postService = {
         return searchedPosts;
       }
 
-      searchedPosts.errorMessage = null;
+      const searchedPostsCount = await wrapper(
+        Post.getPostsByQuestionCount,
+        options
+      );
 
-      return searchedPosts;
+      userPostsResponse.totalPage = searchedPostsCount;
+      userPostsResponse.searchedPosts = searchedPosts;
+
+      userPostsResponse.errorMessage = null;
+
+      return userPostsResponse;
     } catch (error) {
       return error;
     }

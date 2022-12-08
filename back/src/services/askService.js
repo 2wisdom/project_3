@@ -18,6 +18,9 @@ const askService = {
       } else {
         throw new Error("검색 옵션이 없습니다.");
       }
+
+      const userPostsResponse = {};
+
       const searchedAsks = await wrapper(Ask.getAsksByQuestion, options, page);
 
       if (searchedAsks.length === 0) {
@@ -25,9 +28,17 @@ const askService = {
         return searchedAsks;
       }
 
-      searchedAsks.errorMessage = null;
+      const searchedAsksCount = await wrapper(
+        Ask.getAsksByQuestionCount,
+        options
+      );
 
-      return searchedAsks;
+      userPostsResponse.totalPage = searchedAsksCount;
+      userPostsResponse.searchedAsks = searchedAsks;
+
+      userPostsResponse.errorMessage = null;
+
+      return userPostsResponse;
     } catch (error) {
       return error;
     }

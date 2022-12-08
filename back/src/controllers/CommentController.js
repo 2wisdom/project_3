@@ -37,8 +37,15 @@ const commentController = {
   },
 
   // 댓글 삭제
-  deleteComment: (req, res) => {
+  deleteComment: async (req, res) => {
     console.log("댓글 삭제");
+
+    const { commentId } = req.params;
+
+    Comment.findByIdAndDelete(commentId).exec((err) => {
+      if (err) return res.json({ success: false, err });
+      res.status(200).json({ success: true });
+    });
   },
 };
 

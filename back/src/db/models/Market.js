@@ -4,8 +4,8 @@ const Market = {
   /**
    * 전체 포스트를 조회한다
    */
-  findAll: (params) => {
-    return MarketModel.paginate({}, params);
+  findAll: (category, params) => {
+    return MarketModel.paginate(category, params);
   },
 
   /**
@@ -36,6 +36,16 @@ const Market = {
 
     return MarketModel.findOne({ _id: id });
   },
+
+  // /**
+  //  * 카테고리별 포스트 상세정보를 조회한다
+  //  */
+  // getMarketByCategory: (category) => {
+  //   if(!category) {
+  //     throw new Error({ message: "category is required"})
+  //   }
+
+  // }
 
   /**
    * 포스트를 수정한다
@@ -100,8 +110,21 @@ const Market = {
         .sort({ createdAt: -1 })
         .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
         .limit(process.env.PAGE_LIMIT_COUNT)
+        .populate({ path: "author", select: ["_id", "name", "imageUrl"] })
         .lean();
       return Markets;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getMarketsByQuestionCount: async (options) => {
+    try {
+      const MarketsCount = await MarketModel.countDocuments({
+        $or: options,
+      }).lean();
+
+      return MarketsCount;
     } catch (error) {
       return error;
     }

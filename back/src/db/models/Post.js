@@ -100,8 +100,21 @@ const Post = {
         .sort({ createdAt: -1 })
         .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
         .limit(process.env.PAGE_LIMIT_COUNT)
+        .populate({ path: "author", select: ["_id", "name", "imageUrl"] })
         .lean();
       return Posts;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getPostsByQuestionCount: async (options) => {
+    try {
+      const PostsCount = await PostModel.countDocuments({
+        $or: options,
+      }).lean();
+
+      return PostsCount;
     } catch (error) {
       return error;
     }

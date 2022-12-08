@@ -14,16 +14,20 @@ const CommentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // reply to
-    responseTo: {
-      type: String,
-      ref: "User",
-    },
     // 댓글 내용
     content: {
       type: String,
       required: true,
     },
+    // // 대댓글 구현 시 부모 댓글이 무엇인지
+    // responseTo: {
+    //   type: String,
+    //   ref: "Comment",
+    // },
+    // isDeleted: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
   { timestamps: true }
 );

@@ -249,7 +249,7 @@ const userAuthService = {
       const totalPage = Math.ceil(userAsksCount / process.env.PAGE_LIMIT_COUNT);
 
       userAsksResponse.totalPage = totalPage;
-      userAsksResponse.userMarkets = userAsks;
+      userAsksResponse.userAsks = userAsks;
 
       userAsksResponse.errorMessage = null;
 
@@ -261,32 +261,43 @@ const userAuthService = {
 
   // 마이페이지 코멘트
   userComments: async (userId, page) => {
-    const userComments = await Comment.findUserAllComments(userId, page);
-    const userCommentsCount = await Comment.findUserAllCommentsCount(userId);
-    const userCommentsResponse = {};
+    try {
+      const userComments = await wrapper(
+        Comment.findUserAllComments,
+        userId,
+        page
+      );
+      const userCommentsCount = await wrapper(
+        Comment.findUserAllCommentsCount,
+        userId
+      );
+      const userCommentsResponse = {};
 
-    if (userComments.length === 0) {
-      userComments.posts = "게시물 없음";
-      return userComments;
+      if (userComments.length === 0) {
+        userComments.posts = "게시물 없음";
+        return userComments;
+      }
+
+      const totalPage = Math.ceil(
+        userCommentsCount / process.env.PAGE_LIMIT_COUNT
+      );
+
+      userCommentsResponse.totalPage = totalPage;
+      userCommentsResponse.userMarkets = userComments;
+
+      userCommentsResponse.errorMessage = null;
+
+      return userCommentsResponse;
+    } catch (error) {
+      return error;
     }
-
-    const totalPage = Math.ceil(
-      userCommentsCount / process.env.PAGE_LIMIT_COUNT
-    );
-
-    userCommentsResponse.totalPage = totalPage;
-    userCommentsResponse.userMarkets = userComments;
-
-    userCommentsResponse.errorMessage = null;
-
-    return userCommentsResponse;
   },
 
   // 유저 정보 업데이트
   updateUserInfo: async ({ userId, toUpdate }) => {
     try {
       let user = await wrapper(User.findById, userId);
-
+      console.log(user);
       const oldPassword = user.password;
       const oldImageUrl = user.imageUrl;
 

@@ -100,8 +100,21 @@ const Ask = {
         .sort({ createdAt: -1 })
         .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
         .limit(process.env.PAGE_LIMIT_COUNT)
+        .populate({ path: "author", select: ["_id", "name", "imageUrl"] })
         .lean();
       return Asks;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getAsksByQuestionCount: async (options) => {
+    try {
+      const AsksCount = await AskModel.countDocuments({
+        $or: options,
+      }).lean();
+
+      return AsksCount;
     } catch (error) {
       return error;
     }

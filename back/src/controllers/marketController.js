@@ -2,6 +2,7 @@ const express = require("express");
 const Market = require("../db/models/Market");
 const { marketService } = require("../services/marketService");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
+const { writeLog } = require("../middlewares/writeLog");
 
 const marketController = {
   // 전체 게시글 조회
@@ -43,6 +44,39 @@ const marketController = {
     try {
       const copyMarket = { ...market.toJSON() };
       return res.json(copyMarket);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).send("Error");
+    }
+  },
+
+  // 카테고리별 게시물 조회
+  getMarketByCategory: async (req, res, next) => {
+    console.log("카테고리별 게시물 조회");
+
+    const { page = "1", limit = "8" } = req.query;
+
+    const category = req.query.category;
+
+    const list = await Market.findAll(
+      {
+        category,
+      },
+      {
+        page,
+        limit,
+        sort: {
+          createdAt: -1,
+        },
+        populate: {
+          path: "author",
+          select: ["_id", "name", "imageUrl"],
+        },
+      }
+    );
+
+    try {
+      return res.json(list);
     } catch (err) {
       console.log(err);
       return res.status(400).send("Error");
@@ -117,11 +151,10 @@ const marketController = {
 
   // 게시물 검색
   getMarketsByQuestionController: async (req, res, next) => {
+    const { option } = req.query;
+    const { question } = req.query;
+    const { page } = req.query;
     try {
-      const { option } = req.query;
-      const { question } = req.query;
-      const { page } = req.query;
-
       const searchedMarkets = await wrapper(
         marketService.getMarketsByQuestionService,
         option,
@@ -135,6 +168,7 @@ const marketController = {
         return res.status(404).send("게시물 없음");
       }
 
+      writeLog("info", question, req, "마켓 검색 성공");
       res.status(200).send(searchedMarkets);
     } catch (error) {
       next(error);
