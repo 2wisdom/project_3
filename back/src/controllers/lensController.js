@@ -1,6 +1,6 @@
-const express = require("express");
 const axios = require("axios");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
+const { writeLog } = require("../middlewares/writeLog");
 
 const { deleteUserImage } = require("../middlewares/deleteImage");
 
@@ -12,7 +12,7 @@ const lensController = {
     const imageUrl = req.file?.path ?? null;
     try {
       data = { imageUrl: imageUrl };
-      console.log(data);
+
       const result = await axios.post(serverUrl, data, {
         headers: {
           "Content-Type": "application/json",
@@ -22,7 +22,8 @@ const lensController = {
         await wrapper(deleteUserImage, imageUrl);
       }
 
-      writeLog("info", userId, req, "이미지 예측 성공");
+      writeLog("info", imageUrl, req, "이미지 예측 성공");
+
       res.status(200).json(result.data);
     } catch (error) {
       return error;
