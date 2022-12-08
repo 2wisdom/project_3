@@ -78,7 +78,7 @@ const EditUserInfo = () => {
       //수정된 이미지, password api요청보내기
       try {
         const res = await axios.put(
-          `http://${window.location.hostname}:5000/users/defaultimage${user.userId}`,
+          `http://${window.location.hostname}:5000/users/${user.userId}`,
           formData,
           config
         );

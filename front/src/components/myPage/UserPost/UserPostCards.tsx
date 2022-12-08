@@ -46,26 +46,25 @@ const UserPostCards = () => {
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = page == totalPage;
   const isMarketTap = pickedTopNav.name === "식물마켓";
-  console.log(pickedTopNav);
-
+  console.log(showCards);
   const apiGetShowCardData = async () => {
     try {
       const res = await Api.get(
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page}`
       );
-      if (res.data == "게시물 없음") {
-        setShowCards([]);
+
+      if (isMarketTap) {
+        setShowCards(res.data.userMarkets);
       } else {
-        if (isMarketTap) {
-          setShowCards(res.data.userMarkets);
-        } else {
-          setShowCards(res.data.userPosts);
-        }
-        setTotalPage(res.data.totalPage);
+        setShowCards(res.data.userPosts);
       }
-    } catch (err) {
-      console.log(err);
+      setTotalPage(res.data.totalPage);
+    } catch (err: any) {
+      if (err.response.status === 404) {
+        setShowCards([]);
+        console.log("여기");
+      }
     }
   };
   // console.log(showCards[0].price);
@@ -98,24 +97,25 @@ const UserPostCards = () => {
         <div className={Show.cardInner}>
           <div className={CardListStyle.cardList}>
             <div className={CardListStyle.cardListInner}>
-              {showCards.map((showcard) => {
-                return (
-                  <ShowCard
-                    key={showcard._id}
-                    _id={showcard._id}
-                    imageUrl={showcard.imageUrl}
-                    title={showcard.title}
-                    userName={user.name}
-                    userImage={user.imageUrl}
-                    date={showcard.createdAt}
-                    contents={showcard.contents}
-                    showCards={showCards}
-                    setShowCards={setShowCards}
-                    price={showcard.price}
-                    // marketCategory= {showcard.price};
-                  />
-                );
-              })}
+              {showCards &&
+                showCards.map((showcard) => {
+                  return (
+                    <ShowCard
+                      key={showcard._id}
+                      _id={showcard._id}
+                      imageUrl={showcard.imageUrl}
+                      title={showcard.title}
+                      userName={user.name}
+                      userImage={user.imageUrl}
+                      date={showcard.createdAt}
+                      contents={showcard.contents}
+                      showCards={showCards}
+                      setShowCards={setShowCards}
+                      price={showcard.price}
+                      // marketCategory= {showcard.price};
+                    />
+                  );
+                })}
             </div>
             <div className={Show.footer}>
               <div className={Show.moreBtnInner}>
