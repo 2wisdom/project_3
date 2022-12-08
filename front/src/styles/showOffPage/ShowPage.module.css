@@ -167,14 +167,21 @@
 }
 
 .navItem {
-  font-family: "Jua", sans-serif;
+  font-family: 'NanumGothic';
   font-size: 1.8rem;
+  font-weight: 800;
   cursor: pointer;
   margin: 0 2rem;
+  color: #919191;
+}
+
+.navItem:hover {
+  color: #0c884f;
 }
 
 .clickedNav {
   color: #0c884f;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
   text-decoration-color: #0c884f;
-  text-underline-position: below;
 }
