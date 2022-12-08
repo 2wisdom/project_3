@@ -30,7 +30,7 @@ export const NavBox = styled.div`
   margin: 5rem 0 0 0;
 `;
 
-export const NavBtn = styled.button`
+export const NavBtn = styled.button<{isPicked: boolean}>`
   width: 15rem;
   height: 5rem;
   font-weight: 800;
@@ -43,8 +43,8 @@ export const NavBtn = styled.button`
   margin-left: 1rem;
   cursor: pointer;
   // background-color: #eaebfc;
-  background-color: #d8d8d8;
-  color: white;
+  background-color: ${(props) => (props.isPicked ? "#EAEBFC" : "#D8D8D8")};
+  color: ${(props) => (props.isPicked ? "black" : "white")};
 `;
 
 //  ${(props) =>
@@ -74,13 +74,21 @@ export const Title = styled.div`
   margin-right: 5rem;
 }`;
 
-export const topNav = styled.button`
+export const topNav = styled.button<{isPicked: boolean}>`
+  font: NanumGothic;
   font-size: 1.5rem;
+  font-weight: 700;
   margin: 2rem 3rem 0 0;
   border: none;
+  color: ${(props) => (props.isPicked ? "#6F77FD" : "#919191")};
+  text-decoration: ${(props) => props.isPicked && "underline solid #6F77FD"};
+  text-underline-offset: ${(props) => props.isPicked && "0.5rem"};
   background-color: white;
   cursor: pointer;
-  `;
+  &:hover {
+    color: #6f77fd;
+  }
+`;
 
 export const UserContainer = styled.div`
   display: flex;

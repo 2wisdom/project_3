@@ -3,7 +3,6 @@ import Card from "../../styles/showOffPage/ShowCard.module.css";
 import Avatar from "@mui/material/Avatar";
 
 interface props {
-  key: string;
   contents: string;
   imageUrl: string;
   title: string;
@@ -16,7 +15,6 @@ interface props {
 }
 
 const showCard = ({
-  key,
   _id,
   imageUrl,
   title,

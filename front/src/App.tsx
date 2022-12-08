@@ -13,7 +13,8 @@ import ShowCardDetail from "./pages/ShowCardDetail";
 import Market from "./pages/Market";
 import CreateMarketCard from "./components/market/CreateMarketCard";
 import MarketCardDetail from "./components/market/MarketCardDetail";
-import UserEditCard from "./components/myPage/UserPost/UserEditCard";
+import UserCommunityEditCard from "./components/myPage/UserPost/UserCommunityEditCard";
+import UserMarketEditCard from "./components/myPage/UserPost/UserMarketEditCard";
 import CommunityAsk from "./pages/CommunityAsk";
 import AskCardDetail from "./pages/AskCardDetail";
 import CreateAskCard from "./pages/CreateAskCard";
@@ -50,6 +51,8 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/myPage/*" element={<MyPage />} />
           <Route path="/market" element={<Market />} />
+          <Route path="/market/editcard/:id" element={<UserMarketEditCard />} />
+          <Route path="/community/editcard/:id" element={<UserCommunityEditCard />} />
           <Route path="/createMarketCard" element={<CreateMarketCard />} />
           <Route path="/marketCardDetail/:id" element={<MarketCardDetail />} />
 
@@ -65,7 +68,7 @@ const App = () => {
             path="/showCardDetail/:id"
             element={<ShowCardDetail />}
           ></Route>
-          <Route path="/editCard/:id" element={<UserEditCard />}></Route>
+          {/* <Route path="/editCard/:id" element={<UserCommunityEditCard />}></Route> */}
 
           {/* <Route component={NotFound} /> */}
         </Routes>
