@@ -104,6 +104,8 @@
   display: flex;
   /* justify-content: center; */
   margin-top: 2rem;
+  /* background-color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.2); */
 }
 .moreBtnInner {
   /* width: 80%; */

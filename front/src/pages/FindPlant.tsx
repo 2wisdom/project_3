@@ -1,45 +1,57 @@
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Create from "../styles/showOffPage/CreateShowCard.module.css";
-import blankImg from "../../assets/community/blankImg.png";
-import ShowCard from "@/components/card/ShowCard";
+import Find from "../styles/findPlant/FindPlant.module.css";
+import uploadImg from "../../assets/findPlant/upload.png";
 import * as Api from "../api/Api";
 import axios from "axios";
-interface ShowCardData {
+interface FindPlantData {
   imageFile: string;
   previewURL: string;
 }
 const FindPlant = () => {
   const navigate = useNavigate();
   const formData = new FormData();
-  const [plantImage, setPlantImage] = useState<ShowCardData>({
+  const [plantImage, setPlantImage] = useState<FindPlantData>({
     imageFile: "",
-    previewURL: blankImg,
+    previewURL: uploadImg,
   });
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const onChangeImage = async (e: any) => {
+  const onChangeImage: React.ChangeEventHandler<HTMLInputElement> = async (
+    e
+  ) => {
     e.preventDefault();
-    formData.append("image", e.target.files[0] as any);
-    try {
-      const res = await axios({
-        method: "post",
-        url: "http://localhost:5000/lens",
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      const result = res.data.url;
-      setPlantImage((prev) => ({
-        ...prev,
-        imageFile: result,
-      }));
-    } catch (err) {
-      console.log("imageErr", err);
-      alert(" 오류가 발생했습니다. 다시 시도해주세요");
-    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        if (e.target != null) {
+          // setPlantImage({
+          //   imageFile: e.target.files[0],
+          //   previewURL: reader.result,
+          // })
+        }
+      }
+    };
+    // formData.append("image", e.target.files[0] as any);
+    // try {
+    //   const res = await axios({
+    //     method: "post",
+    //     url: "http://localhost:5000/lens",
+    //     data: formData,
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    //     },
+    //   });
+    //   const result = res.data.url;
+    //   setPlantImage((prev) => ({
+    //     ...prev,
+    //     imageFile: result,
+    //   }));
+    // } catch (err) {
+    //   console.log("imageErr", err);
+    //   alert(" 오류가 발생했습니다. 다시 시도해주세요");
+    // }
   };
   //   formData.append("image", plantImage.imageFile);
 
@@ -65,17 +77,17 @@ const FindPlant = () => {
   };
   return (
     <form>
-      <div className={Create.container}>
-        <div className={Create.Inner}>
-          <div>식물찾기</div>
-          <div className={Create.imgInner}>
+      <div className={Find.container}>
+        <div className={Find.Inner}>
+          <p className={Find.title}>식물찾기</p>
+          <div className={Find.imgInner}>
             <form
-              name="showCardImage"
+              name="findPlant"
               encType="multipart/form-data"
               accept-charset="UTF-8"
             >
               <img
-                className={Create.Img}
+                className={Find.Img}
                 src={plantImage.previewURL}
                 onClick={() => {
                   if (fileInput.current != null) {
@@ -88,7 +100,7 @@ const FindPlant = () => {
               type="file"
               style={{ opacity: "0" }}
               accept="image/jpg, image/png, image/jpeg"
-              name="explain"
+              name="findPlant"
               multiple
               onChange={onChangeImage}
               ref={fileInput}
@@ -97,10 +109,10 @@ const FindPlant = () => {
 
           <button
             type="button"
-            className={Create.checkBtn}
+            className={Find.checkBtn}
             onClick={handleSubmit}
           >
-            확인
+            식물찾기
           </button>
         </div>
       </div>
