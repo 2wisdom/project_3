@@ -17,9 +17,8 @@ interface DetailData {
 
 const MarketCardDetail = () => {
   const navigate = useNavigate();
-  const { params } = useParams();
-  const _id = params?.split("/")[1];
-  console.log(_id);
+  const { id } = useParams();
+  console.log(id);
   const [DetailData, setDetailData] = useState<DetailData>({
     title: "",
     userImg: "",
@@ -32,16 +31,15 @@ const MarketCardDetail = () => {
 
   const getCardData = async () => {
     try {
-      const res = await Api.get(markets, _id);
+      const res = await Api.get("markets", id);
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
     getCardData();
-  }, [_id]);
-
-  console.log(res);
+  }, [id]);
 
   // useEffect(() => {
   //   if (id) {
