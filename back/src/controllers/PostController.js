@@ -135,8 +135,6 @@ const postController = {
         return res.status(404).send("게시물 없음");
       }
 
-      console.log(searchedPosts);
-
       writeLog("info", question, req, "자랑하기 검색 성공");
       res.status(200).send(searchedPosts);
     } catch (error) {
