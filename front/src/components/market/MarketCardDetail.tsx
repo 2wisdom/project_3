@@ -4,6 +4,7 @@ import * as Api from "../../api/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import imageError from "../../../assets/error/imageError.jpg";
+import SplitBtn from "../buttons/SplitBtn";
 
 interface Author {
   imageUrl: string;
@@ -19,6 +20,7 @@ interface DetailData {
   imageUrl: string;
   title: string;
   price: number;
+  isSoldOut: boolean;
 }
 
 const MarketCardDetail = () => {
@@ -32,22 +34,49 @@ const MarketCardDetail = () => {
     imageUrl: "",
     title: "",
     price: 0,
+    isSoldOut: false
   });
+  const [seletedCategoryIndex, setSeletedCategoryIndex] = useState(0);
   const createDate = DetailData.createdAt.split("T");
 
   const getCardData = async () => {
     try {
-      const res = await Api.get("markets", id);
+      const res = await Api.get("markets", id as string);
       setDetailData(res.data);
     } catch (err) {
       console.log(err);
     }
   };
+
+  // const changeToSold = () => {
+  //   try{
+  //     const res = Api.
+
+  //응답이 잘왔다. DetailData의 isSoldOut True로.
+
+  //   }
+  // }
+
   useEffect(() => {
     getCardData();
   }, [id]);
 
-  console.log(DetailData);
+  useEffect(() => {
+    if (seletedCategoryIndex === 1) {
+      if (
+        confirm(
+          "판매완료로 바꾸시겠습니까? 판매완료처리 후 되돌리실 수 없습니다."
+        )
+      ) {
+        // changeToSold();
+      } else {
+        setSeletedCategoryIndex(0);
+      }
+    }
+  }, [seletedCategoryIndex]);
+
+  console.log(seletedCategoryIndex);
+  const categoryList = ["판매중", "판매완료"];
 
   // useEffect(() => {
   //   if (id) {
@@ -74,18 +103,32 @@ const MarketCardDetail = () => {
         />
         <div className={Detail.userName}>{DetailData.author.name}</div>
         <div className={Detail.date}>{createDate[0]}</div>
-        <div className={Detail.price}> {DetailData.price.toLocaleString("ko-KR")} 원</div>
+        <div className={Detail.price}>
+          {DetailData.price.toLocaleString("ko-KR")} 원
+        </div>
       </div>
-
-      <img
-        className={Detail.image}
-        src={DetailData.imageUrl}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null; // prevents looping
-          currentTarget.src = imageError;
-        }}
-      />
-
+      {!Detail.isSoldOut && (
+        <div className={Detail.soldOutBtnBox}>
+          <SplitBtn
+            seletedCategoryIndex={seletedCategoryIndex}
+            setSeletedCategoryIndex={setSeletedCategoryIndex}
+            categoryList={categoryList}
+          />
+        </div>
+      )}
+      <div className={Detail.imageWrap}>
+        <img
+          className={
+            Detail.isSoldOut ? `${Detail.image} ${Detail.soldOutImage}` : Detail.image
+          }
+          src={DetailData.imageUrl}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = imageError;
+          }}
+        />
+        {Detail.isSoldOut && <p className={Detail.soldOutText}>품 절</p>}
+      </div>
       <p className={Detail.contents}>{DetailData.contents}</p>
       <button
         className={Detail.btn}

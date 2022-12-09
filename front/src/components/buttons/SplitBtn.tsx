@@ -19,34 +19,27 @@ interface ShowCardData {
 
 interface props {
   categoryList: string[];
-  setShowCardData: React.Dispatch<React.SetStateAction<ShowCardData>>;
-  originallySelectedIndex: number | null;
+  // setShowCardData: React.Dispatch<React.SetStateAction<ShowCardData>>;
+  // originallySelectedIndex: number | null;
+  seletedCategoryIndex: number;
+  setSeletedCategoryIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function SplitButton({
   categoryList,
-  setShowCardData,
-  originallySelectedIndex,
+  seletedCategoryIndex,
+  setSeletedCategoryIndex,
 }: props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-
-  const [selectedIndex, setSelectedIndex] =
-    originallySelectedIndex === null
-      ? React.useState(0)
-      : React.useState(originallySelectedIndex);
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number,
     category: string
   ) => {
-    setSelectedIndex(index);
+    setSeletedCategoryIndex(index);
     setOpen(false);
-    setShowCardData((prev) => ({
-      ...prev,
-      category: category,
-    }));
   };
 
   const handleToggle = () => {
@@ -67,7 +60,7 @@ export default function SplitButton({
   return (
     <React.Fragment>
       <ButtonGroup variant="outlined" ref={anchorRef} aria-label="split button">
-        <Button>{categoryList[selectedIndex]}</Button>
+        <Button>{categoryList[seletedCategoryIndex]}</Button>
         <Button
           size="small"
           aria-controls={open ? "split-button-menu" : undefined}
@@ -103,7 +96,7 @@ export default function SplitButton({
                   {categoryList.map((category, index) => (
                     <MenuItem
                       key={category}
-                      selected={index === selectedIndex}
+                      selected={index === seletedCategoryIndex}
                       onClick={(event) =>
                         handleMenuItemClick(event, index, category)
                       }

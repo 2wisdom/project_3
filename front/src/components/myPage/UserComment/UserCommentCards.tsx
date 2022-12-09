@@ -6,7 +6,7 @@ import useUserStore from "../../../store/Login";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../../../api/Api";
-import UserPostCard from "./UserPostCard";
+import UserCommentCard from "./UserCommentCard";
 import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 import { TopNavStore, pageStore } from "@/store/MyPage";
@@ -34,11 +34,10 @@ export interface props {
   contents: string;
   price: number;
   category: string;
-  showCards: showCard[];
-  setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
+//   isSoldOut: string;
 }
 
-const UserPostCards = () => {
+const UserCommentCards = () => {
   const user = useUserStore((state) => state.user);
   const { page, increasePage, resetPage } = pageStore();
   const { pickedTopNav } = TopNavStore();
@@ -106,7 +105,7 @@ const UserPostCards = () => {
               {showCards &&
                 showCards.map((showcard) => {
                   return (
-                    <UserPostCard
+                    <UserCommentCard
                       key={showcard._id}
                       _id={showcard._id}
                       imageUrl={showcard.imageUrl}
@@ -115,8 +114,6 @@ const UserPostCards = () => {
                       userImage={user.imageUrl}
                       date={showcard.createdAt}
                       contents={showcard.contents}
-                      showCards={showCards}
-                      setShowCards={setShowCards}
                       price={showcard.price}
                       category= {showcard.category}
                     />
@@ -138,4 +135,4 @@ const UserPostCards = () => {
     </div>
   );
 };
-export default UserPostCards;
+export default UserCommentCards;

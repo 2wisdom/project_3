@@ -53,3 +53,23 @@
   padding-right: 2.3rem;
   color:  #0C884F;
 }
+
+.imageWrap {
+  position: relative;
+}
+
+.soldOutImage {
+  filter: brightness(50%);
+}
+
+.soldOutText {
+  position: absolute;
+  top: 15%;
+  left: 25%;
+  font-family: "NanumGothic";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 5rem;
+  line-height: 5rem;
+  color: white;
+}

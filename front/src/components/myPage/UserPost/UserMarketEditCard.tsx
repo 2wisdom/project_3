@@ -28,12 +28,21 @@ const UserEditCard = () => {
     price,
     category,
   });
-
+  console.log(ShowCardData)
   const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
   const findCategoryIndex = categoryList.indexOf(category);
+  const [seletedCategoryIndex, setSeletedCategoryIndex] =
+    useState(findCategoryIndex);
 
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
+  
+  useEffect(() => {
+    setShowCardData((prev) => ({
+      ...prev,
+      category: categoryList[seletedCategoryIndex],
+    }));
+  }, [seletedCategoryIndex]);
 
   const onChangeImage = async (e: any) => {
     e.preventDefault();
@@ -80,9 +89,9 @@ const UserEditCard = () => {
       <div className={Create.container}>
         <div className={Create.marketCategoryContainer}>
           <SplitButton
+            seletedCategoryIndex={seletedCategoryIndex}
+            setSeletedCategoryIndex={setSeletedCategoryIndex}
             categoryList={categoryList}
-            setShowCardData={setShowCardData}
-            originallySelectedIndex={findCategoryIndex}
           />
         </div>
         <div className={Create.Inner}>

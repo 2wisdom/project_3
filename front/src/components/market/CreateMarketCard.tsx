@@ -22,16 +22,13 @@ const CreateMarketCard = () => {
     contents: "",
     imageUrl: "",
   });
-  const categoryList = [
-    "구근/뿌리묘/모종",
-    "모종(산내들농장)",
-    "씨앗",
-    "기타",
-  ];
+  const [seletedCategoryIndex, setSeletedCategoryIndex] = useState(0);
+
+  const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
 
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
-  console.log(ShowCardData)
+  console.log(ShowCardData);
   const onChangeImage = async (e: any) => {
     e.preventDefault();
     const formData = new FormData();
@@ -57,6 +54,13 @@ const CreateMarketCard = () => {
     }
   };
 
+  useEffect(() => {
+    setShowCardData((prev) => ({
+      ...prev,
+      category: categoryList[seletedCategoryIndex],
+    }));
+  }, [seletedCategoryIndex]);
+
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
@@ -78,9 +82,11 @@ const CreateMarketCard = () => {
       <div className={Create.container}>
         <div className={Create.marketCategoryContainer}>
           <SplitButton
+            seletedCategoryIndex={seletedCategoryIndex}
+            setSeletedCategoryIndex={setSeletedCategoryIndex}
             categoryList={categoryList}
-            setShowCardData={setShowCardData}
-            originallySelectedIndex={null}
+            // setShowCardData={setShowCardData}
+            // originallySelectedIndex={null}
           />
         </div>
         <div className={Create.Inner}>
