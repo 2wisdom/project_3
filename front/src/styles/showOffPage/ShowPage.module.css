@@ -16,7 +16,7 @@
 .buttonContainer {
   display: flex;
   flex-direction: column;
-  width: 6%;
+  width: 184px;
   height: 80vh;
   margin-right: 4rem;
 
