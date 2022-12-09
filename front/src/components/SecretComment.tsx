@@ -1,10 +1,10 @@
 import Cmt from "../styles/Comment.module.css";
 import Avatar from "@mui/material/Avatar";
 
-interface props{
+interface Props{
   createdAt: string
 }
-const Comment = ({createdAt}:props) => {
+const Comment = ({createdAt}:Props) => {
   const date = createdAt.split("T");
   const time = date[1].slice(0,5)
 

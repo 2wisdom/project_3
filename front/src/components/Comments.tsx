@@ -12,33 +12,33 @@ import * as Api from "../api/Api";
 import useUserStore from "@/store/Login";
 import { CommentsDisabledTwoTone } from "@mui/icons-material";
 
-interface writer {
+interface Writer {
   name: string;
   _id: string;
   imageUrl: string;
 }
 
-interface comment {
+interface Comment {
   content: string;
   createdAt: string;
   isSecret: boolean;
-  writer: writer;
+  writer: Writer;
   writingId: string;
   _id: string;
 }
 
-interface props {
+interface Props {
   authorName: string;
   id: string | undefined;
 }
-const Comments = ({ authorName, id }: props) => {
+const Comments = ({ authorName, id }: Props) => {
   const { user } = useUserStore();
   const isPostAuthor = user.name === authorName;
   // const isCommentWriter =
   const [isClickSecret, setIsClickSecret] = useState(false);
   const [content, setContent] = useState("");
   const [isSecret, setIsSecret] = useState(false);
-  const [commentList, setCommentList] = useState<comment[]>([]);
+  const [commentList, setCommentList] = useState<Comment[]>([]);
   
   //처음 댓글 불러오기
   useEffect(() => {

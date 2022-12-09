@@ -3,7 +3,7 @@ import Card from "../../styles/showOffPage/ShowCard.module.css";
 import Avatar from "@mui/material/Avatar";
 import imageError from "../../../assets/error/imageError.jpg";
 
-interface props {
+interface Props {
   contents: string;
   imageUrl: string;
   title: string;
@@ -27,7 +27,7 @@ const showCard = ({
   price,
   category,
   isSoldOut,
-}: props) => {
+}: Props) => {
   const navigate = useNavigate();
 
   return (

@@ -8,7 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
 import imageSample from "../../../../back/public/images/leavesGetMoreYards.png";
 import ShowCardDetail from "@/pages/ShowCardDetail";
-interface showCard {
+interface ShowCard {
   // map: any;
   author: {
     _id: string;
@@ -27,7 +27,7 @@ interface showCard {
   createdAt: string;
   updatedAt?: string;
 }
-const CardList = ({ showCardData }: { showCardData: showCard[] }) => {
+const CardList = ({ showCardData }: { showCardData: ShowCard[] }) => {
   // console.log("showCardData-cardList", showCardData);
   return (
     <div className={CardListStyle.cardList}>
@@ -35,7 +35,7 @@ const CardList = ({ showCardData }: { showCardData: showCard[] }) => {
         {/* showCardData?.slice(0, visible).map((item: showCard) */}
 
         {showCardData &&
-          showCardData?.map((item: showCard) => {
+          showCardData?.map((item: ShowCard) => {
             return (
               <ShowCard
                 postId={item._id}

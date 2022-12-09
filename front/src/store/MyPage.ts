@@ -1,16 +1,16 @@
 import create from "zustand";
 
-interface navInfo {
+interface NavInfo {
   name: string;
   apiAddress: string;
 }
 
-interface topNavState {
-  pickedTopNav: navInfo;
-  setPickedTopNav: (pickedTopNav: navInfo) => void;
+interface TopNavState {
+  pickedTopNav: NavInfo;
+  setPickedTopNav: (pickedTopNav: NavInfo) => void;
 }
 
-export const TopNavStore = create<topNavState>((set) => ({
+export const TopNavStore = create<TopNavState>((set) => ({
   pickedTopNav: { name: "질문하기", apiAddress: "asks" },
   setPickedTopNav: (newPickedTopNav) => {
     set((state) => ({ pickedTopNav: newPickedTopNav }));
@@ -29,13 +29,13 @@ export const TopNavStore = create<topNavState>((set) => ({
 //   },
 // }));
 
-interface page {
+interface Page {
   page: number;
   increasePage: () => void;
   resetPage: () => void;
 }
 
-export const pageStore = create<page>((set) => ({
+export const pageStore = create<Page>((set) => ({
   page: 1,
   increasePage: () => set((state) => ({ page: state.page + 1 })),
   resetPage: () => set({ page: 1 })

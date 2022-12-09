@@ -8,7 +8,7 @@ import * as Api from "../../../api/Api";
 // import { props } from "./UserPostCards";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 
-interface showCard {
+interface ShowCard {
   author: string;
   contents: string;
   createdAt: string;
@@ -21,7 +21,7 @@ interface showCard {
   isSoldOut: boolean;
 }
 
-interface props {
+interface Props {
   _id: string;
   imageUrl: string;
   title: string;
@@ -29,8 +29,8 @@ interface props {
   userName: string;
   date: string;
   contents: string;
-  showCards: showCard[];
-  setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
+  showCards: ShowCard[];
+  setShowCards: React.Dispatch<React.SetStateAction<ShowCard[]>>;
 }
 
 const UserPostCard = ({
@@ -42,7 +42,7 @@ const UserPostCard = ({
   contents,
   showCards,
   setShowCards,
-}: props) => {
+}: Props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");

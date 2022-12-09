@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import useDebounce from "@/useDebounce";
 import * as Api from "../api/Api";
-interface askCard {
+interface AskCard {
   // map: any;
   author: {
     _id: string;
@@ -31,14 +31,14 @@ interface askCard {
 }
 const CommunityAsk = () => {
   const navigate = useNavigate();
-  const [askCardData, setAskCardData] = useState<askCard[]>([]);
+  const [askCardData, setAskCardData] = useState<AskCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
 
   //검색
   const [searchInput, setSearchInput] = useState<string>("");
   const debounceValue = useDebounce(searchInput);
-  const [searchData, setSearchData] = useState<askCard[]>([]);
+  const [searchData, setSearchData] = useState<AskCard[]>([]);
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [searchPage, setSearchPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);

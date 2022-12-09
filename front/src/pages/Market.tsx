@@ -9,14 +9,14 @@ import ShowCard from "../components/market/showCard";
 import CardListStyle from "../styles/showOffPage/CardList.module.css";
 import showCard from "../components/market/showCard";
 import useDebounce from "@/useDebounce";
-interface author {
+interface Author {
   imageUrl: string;
   name: string;
   _id: string;
 }
 
-interface showCard {
-  author: author;
+interface ShowCard {
+  author: Author;
   contents: string;
   createdAt: string;
   imageUrl: string;
@@ -33,7 +33,7 @@ interface showCard {
 const Market = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const [showCards, setShowCards] = useState<showCard[]>([]);
+  const [showCards, setShowCards] = useState<ShowCard[]>([]);
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
   const [pickedCategory, setPickedCategory] = useState<string | null>(null);
   const isShowAll = pickedCategory === null;
@@ -41,7 +41,7 @@ const Market = () => {
 
   const [searchInput, setSearchInput] = useState<string>("");
   const debounceValue = useDebounce(searchInput);
-  const [searchData, setSearchData] = useState<showCard[]>([]);
+  const [searchData, setSearchData] = useState<ShowCard[]>([]);
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [searchPage, setSearchPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);

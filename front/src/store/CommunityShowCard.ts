@@ -67,7 +67,7 @@ export interface ShowCardType {
 //     ];
 //   };
 // }
-export interface showCardTest {
+export interface ShowCardTest {
   map: any;
 
   author: {
@@ -88,10 +88,10 @@ export interface showCardTest {
   updatedAt?: string;
 }
 
-export interface showCardList {
-  item: showCardTest[];
-  docs: showCardTest[];
-  showCardData: [showCardTest];
+export interface ShowCardList {
+  item: ShowCardTest[];
+  docs: ShowCardTest[];
+  showCardData: [ShowCardTest];
   hasPrevPage: boolean;
   limit: number;
   nextPage: number;

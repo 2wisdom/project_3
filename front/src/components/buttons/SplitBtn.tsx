@@ -9,18 +9,8 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 
-interface ShowCardData {
-  category: string;
-  title: string;
-  price: number | undefined;
-  contents: string;
-  imageUrl: string;
-}
-
-interface props {
+interface Props {
   categoryList: string[];
-  // setShowCardData: React.Dispatch<React.SetStateAction<ShowCardData>>;
-  // originallySelectedIndex: number | null;
   seletedCategoryIndex: number;
   setSeletedCategoryIndex: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -29,7 +19,7 @@ export default function SplitButton({
   categoryList,
   seletedCategoryIndex,
   setSeletedCategoryIndex,
-}: props) {
+}: Props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
 

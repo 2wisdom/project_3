@@ -9,7 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import useDebounce from "@/useDebounce";
 
 import * as Api from "../api/Api";
-interface showCard {
+interface ShowCard {
   // map: any;
   author: {
     _id: string;
@@ -33,13 +33,13 @@ interface showCard {
 
 const CommuityShow = () => {
   const navigate = useNavigate();
-  const [showCardData, setShowCardData] = useState<showCard[]>([]);
+  const [showCardData, setShowCardData] = useState<ShowCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
 
   const [searchInput, setSearchInput] = useState<string>("");
   const debounceValue = useDebounce(searchInput);
-  const [searchData, setSearchData] = useState<showCard[]>([]);
+  const [searchData, setSearchData] = useState<ShowCard[]>([]);
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [searchPage, setSearchPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);

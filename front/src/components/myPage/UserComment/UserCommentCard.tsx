@@ -7,7 +7,7 @@ import useUserStore from "../../../store/Login";
 import Stack from "@mui/material/Stack";
 import { SquareBtn, white, black } from "../../buttons/BasicBtn";
 import * as Api from "../../../api/Api";
-import { props } from "./UserCommentCards";
+import { Props } from "./UserCommentCards";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 
 const UserPostCard = ({
@@ -20,7 +20,7 @@ const UserPostCard = ({
   price,
   category,
 }: // isSoldOut
-props) => {
+Props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");

@@ -8,7 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
 import imageSample from "../../../../back/public/images/leavesGetMoreYards.png";
 import AskCardDetail from "@/pages/AskCardDetail";
-interface askCard {
+interface AskCard {
   // map: any;
   author: {
     _id: string;
@@ -29,7 +29,7 @@ interface askCard {
   errorMessage: string;
   totalPage: string;
 }
-const AskCardList = ({ askCardData }: { askCardData: askCard[] }) => {
+const AskCardList = ({ askCardData }: { askCardData: AskCard[] }) => {
   // console.log("askCardData-askCardList", askCardData);
   return (
     <div className={CardListStyle.cardList}>

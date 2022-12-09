@@ -1,17 +1,17 @@
 import Cmt from "../styles/Comment.module.css";
 import Avatar from "@mui/material/Avatar";
 
-interface writer {
+interface Writer {
   name: string;
   _id: string;
   imageUrl: string;
 }
 
-interface props {
+interface Props {
   content: string;
   createdAt: string;
   isSecret: boolean;
-  writer: writer;
+  writer: Writer;
   writingId: string;
   post_id: string;
 }
@@ -23,7 +23,7 @@ const Comment = ({
   writer,
   writingId,
   post_id,
-}: props) => {
+}: Props) => {
   const date = createdAt.split("T");
   const time = date[1].slice(0,5)
 

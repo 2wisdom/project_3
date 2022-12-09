@@ -11,7 +11,7 @@ import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 
-export interface showCard {
+export interface ShowCard {
   author: string;
   contents: string;
   createdAt: string;
@@ -23,7 +23,7 @@ export interface showCard {
   category: string;
 }
 
-export interface props {
+export interface Props {
   key: string;
   _id: string;
   imageUrl: string;
@@ -41,7 +41,7 @@ const UserCommentCards = () => {
   const user = useUserStore((state) => state.user);
   const { page, increasePage, resetPage } = pageStore();
   const { pickedTopNav } = TopNavStore();
-  const [showCards, setShowCards] = useState<showCard[]>([]);
+  const [showCards, setShowCards] = useState<ShowCard[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = page == totalPage;
   const isAsksTap = pickedTopNav.name === "질문하기";
