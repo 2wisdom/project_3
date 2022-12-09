@@ -60,18 +60,8 @@ const Market = {
     if (!id) {
       throw new Error({ message: "id is required" });
     }
-
-    const session = await mongoose.startSession();
-    const result = await session.withTransaction(async () => {
-      console.log("=== start transaction ===");
-      await Comment.deleteAllByWritingId(id).session(session);
-
-      return MarketModel.findByIdAndDelete(id);
-    });
-
-    await session.endSession();
-
-    return result;
+    await Comment.deleteAllByWritingId(id);
+    return MarketModel.findByIdAndDelete(id);
   },
 
   // userId와 일치하는 게시글 데이터를 조회
