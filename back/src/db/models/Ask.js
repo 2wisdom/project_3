@@ -1,4 +1,7 @@
 const AskModel = require("../schemas/ask");
+const { Comment } = require("./Comment");
+const { db } = require("../../db");
+const { default: mongoose } = require("mongoose");
 
 const Ask = {
   /**
@@ -57,12 +60,21 @@ const Ask = {
   /**
    * 포스트를 삭제한다
    */
-  delete: (id) => {
+  delete: async (id) => {
     if (!id) {
       throw new Error({ message: "id is required" });
     }
 
-    return AskModel.findByIdAndDelete(id);
+    const session = await mongoose.startSession();
+    const result = await session.withTransaction(async () => {
+      console.log("=== start transaction ===");
+      await Comment.deleteAllByWritingId(id).session(session);
+      return AskModel.findByIdAndDelete(id);
+    });
+
+    await session.endSession();
+
+    return result;
   },
 
   // userId와 일치하는 게시글 데이터를 조회

@@ -26,6 +26,14 @@ const Comment = {
       return error;
     }
   },
+
+  deleteAllByWritingId: (writingId) => {
+    try {
+      return CommentModel.deleteMany({
+        writingId,
+      });
+    } catch (e) {}
+  },
 };
 
 exports.Comment = Comment;
