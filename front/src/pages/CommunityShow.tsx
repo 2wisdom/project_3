@@ -131,12 +131,11 @@ const CommuityShow = () => {
         </div>
         <div className={Show.rightInner}>
           <div className={Show.titleSearchInner}>
-            <h2 className={Show.title}>내가 찍은 사진을 자랑해보세요</h2>(
+            <h2 className={Show.title}>내가 찍은 사진을 자랑해보세요</h2>
             <Search
               searchInput={searchInput}
               setSearchInput={setSearchInput}
             ></Search>
-            )
           </div>
           <div className={Show.cardInner}>
             {isSearch ? (

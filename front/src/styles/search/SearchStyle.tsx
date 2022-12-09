@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   padding-top: 2rem;
-  padding-right: 5rem;
+  padding-right: 15rem;
 `;
 
 export const Input = styled.input`

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Info1 from "../styles/infoPage/InfoPage.module.css";
 import NavBar from "@/components/NavBar";
+import { useNavigate } from "react-router-dom";
 // import Fade from 'react-reveal/Fade';
 import Reveal from "react-reveal/Reveal";
 // import Info from './InfoPageMain';
@@ -24,6 +25,7 @@ import {
 } from "react-scroll-motion";
 import { Animation } from "react-scroll-motion";
 const MainPage = () => {
+  const navigate = useNavigate();
   const [text, setText] = useState(null);
   const hello = !!text;
   const hell2 = !text;
@@ -58,7 +60,13 @@ const MainPage = () => {
                 <p className={Info1.subTitle}>
                   내가 보고 있는 식물을 바로 찾고 싶다면?
                 </p>
-                <button type="button" className={Info1.yellowBtn}>
+                <button
+                  type="button"
+                  className={Info1.yellowBtn}
+                  onClick={() => {
+                    navigate("/findPlant");
+                  }}
+                >
                   식물찾기
                 </button>
               </div>
@@ -72,7 +80,13 @@ const MainPage = () => {
                 <p className={Info1.subTitle2}>
                   내가 찍은 사진을 자랑하고 싶다면?
                 </p>
-                <button type="button" className={Info1.yellowBtn3}>
+                <button
+                  type="button"
+                  className={Info1.yellowBtn3}
+                  onClick={() => {
+                    navigate("/communityShowOff");
+                  }}
+                >
                   자랑하기
                 </button>
               </div>
@@ -86,7 +100,13 @@ const MainPage = () => {
               <div className={Info1.subImage3}></div>
               <div className={Info1.subRight}>
                 <p className={Info1.subTitle}>식물에 대해 궁금한게 있다면?</p>
-                <button type="button" className={Info1.yellowBtn}>
+                <button
+                  type="button"
+                  className={Info1.yellowBtn}
+                  onClick={() => {
+                    navigate("/communityAsk");
+                  }}
+                >
                   질문하기
                 </button>
               </div>
@@ -101,7 +121,13 @@ const MainPage = () => {
                   <p className={Info1.sub4Title}>
                     내가 본 식물을 바로 구매하고 싶다면?
                   </p>
-                  <button type="button" className={Info1.yellowBtn}>
+                  <button
+                    type="button"
+                    className={Info1.yellowBtn}
+                    onClick={() => {
+                      navigate("/market");
+                    }}
+                  >
                     식물마켓
                   </button>
                 </div>

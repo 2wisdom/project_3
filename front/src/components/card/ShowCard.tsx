@@ -35,7 +35,7 @@ const ShowCard = ({
 }) => {
   const navigate = useNavigate();
   const createDate = date?.split("T");
-
+  console.log("userImage", userImage);
   return (
     <div className={Card.inner}>
       <img
@@ -59,7 +59,7 @@ const ShowCard = ({
           {/* <img className={Card.userImage}></img> */}
           <Avatar
             alt="Remy Sharp"
-            src={userImage}
+            src={`http://${window.location.hostname}:5000/${userImage}`}
             sx={{ width: 24, height: 24 }}
             onClick={() => navigate(`/showCardDetail/${postId}`)}
           />

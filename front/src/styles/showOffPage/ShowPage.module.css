@@ -5,7 +5,7 @@
 }
 .Inner {
   display: flex;
-  width: 98%;
+  width: 100%;
   /* height: 60vh; */
   height: 90vh;
   margin: auto;
@@ -18,7 +18,8 @@
   flex-direction: column;
   width: 184px;
   height: 80vh;
-  margin-right: 4rem;
+  margin-right: 3rem;
+  margin-left: 4rem;
 
   /* background-color: aqua; */
 }
@@ -71,11 +72,8 @@
 }
 /* title & search */
 .titleSearchInner {
-  margin-left: auto;
   width: 100%;
   height: 10vh;
-  /* margin: auto; */
-  /* background-color: aliceblue; */
   display: flex;
   justify-content: space-between;
 }
@@ -85,7 +83,6 @@
   font-weight: 300;
   font-size: 3rem;
   padding-bottom: 8rem;
-  padding-left: 4rem;
 }
 
 /* card */
@@ -93,7 +90,6 @@
   margin-left: auto;
   width: 100%;
   height: 70vh;
-  /* background-color: blue; */
 }
 /* moreBtn */
 .footer {
@@ -102,14 +98,9 @@
   left: 0;
   width: 100%;
   display: flex;
-  /* justify-content: center; */
   margin-top: 2rem;
-  /* background-color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.2); */
 }
 .moreBtnInner {
-  /* width: 80%; */
-  /* margin-right: 10rem; */
   margin: auto;
 }
 
@@ -146,7 +137,6 @@
   border-radius: 3rem;
   padding: 1rem;
   margin-right: 3rem;
-  /* justify-content: end; */
 }
 .writeBtnOutline:active {
   position: relative;
@@ -157,19 +147,16 @@
   margin-left: auto;
   width: 100%;
   height: 10vh;
-  /* margin: auto; */
-  /* background-color: aliceblue; */
   display: flex;
 }
 
 .navContainer {
   display: flex;
   padding: 2rem 5rem;
-  /* line-height: 7vh; */
 }
 
 .navItem {
-  font-family: 'NanumGothic';
+  font-family: "NanumGothic";
   font-size: 1.8rem;
   font-weight: 800;
   cursor: pointer;

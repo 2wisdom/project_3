@@ -3,7 +3,7 @@
   height: 100%;
   /* background-color: bisque; */
   /* margin: auto; */
-  margin-right: 2rem;
+  margin-right: 5rem;
   margin-bottom: 6rem;
   cursor: pointer;
   transition: 0.3s;
@@ -46,12 +46,12 @@
 }
 
 .price {
-  font-family: 'NanumGothic';
+  font-family: "NanumGothic";
   font-size: 1.5rem;
   font-weight: 800;
   padding-top: 0.5rem;
   padding-right: 2.3rem;
-  color:  #0C884F;
+  color: #0c884f;
 }
 
 .imageWrap {
