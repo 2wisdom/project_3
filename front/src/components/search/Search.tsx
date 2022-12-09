@@ -23,22 +23,24 @@ interface showCard {
   contents: string;
   createdAt: string;
   updatedAt?: string;
+  errorMessage: string;
+  totalPage: string;
 }
 
 const Search = ({
-  key,
-  setShowCardData,
+  setSearchInput,
+  searchInput,
 }: {
-  key: string;
-  setShowCardData: Dispatch<SetStateAction<showCard[]>>;
+  setSearchInput: Dispatch<SetStateAction<string>>;
+  searchInput: string;
 }) => {
   // console.log("key-search", key);
-  const [searchInput, setSearchInput] = useState<string>("");
-  const [page, setPage] = useState<number>(1);
-  const debounceValue = useDebounce(searchInput);
-  const [showCards, setShowCards] = useState<showCard[]>([]);
-  const [totalPage, setTotalPage] = useState<number>(1);
-  const isLastPage = page >= totalPage;
+  // const [searchInput, setSearchInput] = useState<string>("");
+  // const [page, setPage] = useState<number>(1);
+  // const debounceValue = useDebounce(searchInput);
+  // const [showCards, setShowCards] = useState<showCard[]>([]);
+  // const [totalPage, setTotalPage] = useState<number>(1);
+  // const isLastPage = page >= totalPage;
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setSearchInput(e.target.value);
   };
@@ -59,22 +61,22 @@ const Search = ({
   //     }, [searchInput]);
   //   }
   // };
-  useEffect(() => {
-    const getSearchCards = async () => {
-      return await Api.get(
-        `search/posts?option=all&question=${debounceValue}&page=${page}`,
-        null
-      )
-        .then((res) => {
-          setShowCardData(res.data);
-          console.log("search-data", res);
-        })
-        .catch((err) => {
-          console.log("getSearchCards Err", err);
-        });
-    };
-    if (debounceValue) getSearchCards();
-  }, [debounceValue]);
+  // useEffect(() => {
+  //   const getSearchCards = async () => {
+  //     return await Api.get(
+  //       `search/posts?option=all&question=${debounceValue}&page=${page}`,
+  //       null
+  //     )
+  //       .then((res) => {
+  //         setShowCardData(res.data.searchedPosts);
+  //         console.log("res.data.searchedPosts", res.data);
+  //       })
+  //       .catch((err) => {
+  //         console.log("getSearchCards Err", err);
+  //       });
+  //   };
+  //   if (debounceValue) getSearchCards();
+  // }, [debounceValue]);
   // console.log()
   return (
     <>

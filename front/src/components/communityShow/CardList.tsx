@@ -28,10 +28,12 @@ interface showCard {
   updatedAt?: string;
 }
 const CardList = ({ showCardData }: { showCardData: showCard[] }) => {
+  // console.log("showCardData-cardList", showCardData);
   return (
     <div className={CardListStyle.cardList}>
       <div className={CardListStyle.cardListInner}>
         {/* showCardData?.slice(0, visible).map((item: showCard) */}
+
         {showCardData &&
           showCardData?.map((item: showCard) => {
             return (
