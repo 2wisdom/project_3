@@ -32,13 +32,23 @@ marketRouter.post("/", [loginRequired], marketController.createMarket);
 
 /**
  * 게시글 수정
- * PUT /markets/::marketId
+ * PUT /markets/:marketId
  */
 marketRouter.put("/:marketId", [loginRequired], marketController.updateMarket);
 
 /**
+ * 판매 완료
+ * PUT /markets/soldOut/:marketId
+ */
+marketRouter.put(
+  "/:marketId/soldOut",
+  [loginRequired],
+  marketController.soldOutMarket
+);
+
+/**
  * 게시글 삭제
- * DELETE /markets/::marketId
+ * DELETE /markets/:marketId
  */
 marketRouter.delete(
   "/:marketId",
