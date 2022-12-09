@@ -16,7 +16,7 @@
 .buttonContainer {
   display: flex;
   flex-direction: column;
-  width: 6%;
+  width: 184px;
   height: 80vh;
   margin-right: 4rem;
 
@@ -104,6 +104,8 @@
   display: flex;
   /* justify-content: center; */
   margin-top: 2rem;
+  /* background-color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.2); */
 }
 .moreBtnInner {
   /* width: 80%; */

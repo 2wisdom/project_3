@@ -14,6 +14,7 @@ html {
   position: sticky;
   top: 0;
   z-index: 1;
+  background-color: #ffffff;
 }
 ul {
   list-style: none;

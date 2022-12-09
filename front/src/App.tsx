@@ -18,6 +18,7 @@ import UserMarketEditCard from "./components/myPage/UserPost/UserMarketEditCard"
 import CommunityAsk from "./pages/CommunityAsk";
 import AskCardDetail from "./pages/AskCardDetail";
 import CreateAskCard from "./pages/CreateAskCard";
+import FindPlant from "./pages/FindPlant";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.setUser);
@@ -50,14 +51,18 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/myPage/*" element={<MyPage />} />
+
           <Route path="/market" element={<Market />} />
           <Route path="/market/editcard/:id" element={<UserMarketEditCard />} />
-          <Route path="/community/editcard/:id" element={<UserCommunityEditCard />} />
+          <Route
+            path="/community/editcard/:id"
+            element={<UserCommunityEditCard />}
+          />
           <Route path="/createMarketCard" element={<CreateMarketCard />} />
           <Route path="/marketCardDetail/:id" element={<MarketCardDetail />} />
 
-          {/* <Route path="/search-plant" element={<Search />} />
-                    <Route path="/community" element={<Community />} /> */}
+          <Route path="/findPlant" element={<FindPlant />} />
+
           <Route path="/communityAsk" element={<CommunityAsk />} />
           <Route path="/askCardDetail/:id" element={<AskCardDetail />}></Route>
           <Route path="/createAskCard" element={<CreateAskCard />}></Route>
