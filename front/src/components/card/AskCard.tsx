@@ -52,8 +52,7 @@ const AskCard = ({
         <div className={Card.userInner}>
           {/* <img className={Card.userImage}></img> */}
           <Avatar
-            alt="Remy Sharp"
-            src={userImage}
+            src={`http://${window.location.hostname}:5000/${userImage}`}
             sx={{ width: 24, height: 24 }}
             onClick={() => navigate(`/askCardDetail/${askId}`)}
           />
