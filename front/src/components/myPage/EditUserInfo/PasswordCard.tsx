@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import * as R from "../../../styles/RegisterPage/Register.styled";
 import * as M from "../../../styles/MyPage/MyPage.styled";
-import { SquareBtn, black } from "../../../styles/buttons/BasicBtn";
+import { SquareBtn, black } from "../../buttons/BasicBtn";
 
 interface Props {
   setIsEditingPassword: React.Dispatch<React.SetStateAction<boolean>>;

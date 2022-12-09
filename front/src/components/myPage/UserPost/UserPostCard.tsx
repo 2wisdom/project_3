@@ -3,7 +3,7 @@ import Card from "../../../styles/showOffPage/ShowCard.module.css";
 import Avatar from "@mui/material/Avatar";
 import useUserStore from "../../../store/Login";
 import Stack from "@mui/material/Stack";
-import { SquareBtn, white, black } from "../../../styles/buttons/BasicBtn";
+import { SquareBtn, white, black } from "../../buttons/BasicBtn";
 import * as Api from "../../../api/Api";
 // import { props } from "./UserPostCards";
 import { TopNavStore, pageStore } from "@/store/MyPage";

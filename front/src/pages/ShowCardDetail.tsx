@@ -6,6 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import imageError from "../../assets/error/imageError.jpg";
 import { CheckBox } from "@mui/icons-material";
+import Comments from "../components/Comments";
 
 interface DetailData {
   title: string;
@@ -48,17 +49,17 @@ const ShowCardDetail = () => {
         });
     }
   }, []);
-  useEffect(() => {
-    if (id) {
-      Api.get(`comments/${id}`, null)
-        .then((res) => {
-          console.log(`res.data-comments`, res);
-        })
-        .catch((err) => {
-          console.log("err-comments", err);
-        });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (id) {
+  //     Api.get(`comments/${id}`, null)
+  //       .then((res) => {
+  //         console.log(`res.data-comments`, res);
+  //       })
+  //       .catch((err) => {
+  //         console.log("err-comments", err);
+  //       });
+  //   }
+  // }, []);
 
   return (
     <div className={Detail.container}>
@@ -94,12 +95,17 @@ const ShowCardDetail = () => {
       >
         목록
       </button>
+      
       <div className={Detail.comment}>
         <input type="checkBox"></input>
         {/* <p>비공개</p>
         <textarea></textarea>
         <button>댓글 작성</button> */}
       </div>
+
+      <Comments authorName={DetailData.userName} id={id} />
+      {/* <hr></hr> */}
+
     </div>
   );
 };

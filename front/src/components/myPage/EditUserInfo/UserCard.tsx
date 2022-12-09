@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import useUserStore from "@/store/Login";
 import * as M from "../../../styles/MyPage/MyPage.styled";
 import axios from "axios";
-import { SquareBtn, red, white, black } from "../../../styles/buttons/BasicBtn";
+import { SquareBtn, red, white, black } from "../../buttons/BasicBtn";
 import { ConfirmationNumber } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../../api/Api";

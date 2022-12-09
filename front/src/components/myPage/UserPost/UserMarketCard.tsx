@@ -3,7 +3,7 @@ import Card from "../../../styles/showOffPage/ShowCard.module.css";
 import Avatar from "@mui/material/Avatar";
 import useUserStore from "../../../store/Login";
 import Stack from "@mui/material/Stack";
-import { SquareBtn, white, black } from "../../../styles/buttons/BasicBtn";
+import { SquareBtn, white, black } from "../../buttons/BasicBtn";
 import * as Api from "../../../api/Api";
 import { props } from "./UserPostCards";
 import { TopNavStore, pageStore } from "@/store/MyPage";
@@ -82,9 +82,9 @@ const UserPostCard = ({
 
             <h5 className={Card.userName}>{userName}</h5>
           </div>
-          <div className={Card.price}>{price && `${price.toLocaleString(
-            "ko-KR"
-          )} 원`}</div>
+          <div className={Card.price}>
+            {price && `${price.toLocaleString("ko-KR")} 원`}
+          </div>
         </div>
         <Stack direction="row" alignItems="center" spacing={2} ml={5}>
           <SquareBtn theme={white} type="button" onClick={deleteCard}>

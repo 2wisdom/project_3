@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.15",
+    "@mui/joy": "^5.0.0-alpha.57",
     "@mui/material": "^5.10.15",
     "@types/styled-components": "^5.1.26",
     "axios": "^1.1.3",
