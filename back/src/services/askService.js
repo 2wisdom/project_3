@@ -33,7 +33,11 @@ const askService = {
         options
       );
 
-      userPostsResponse.totalPage = searchedAsksCount;
+      const totalPage = Math.ceil(
+        searchedAsksCount / process.env.PAGE_LIMIT_COUNT
+      );
+
+      userPostsResponse.totalPage = totalPage;
       userPostsResponse.searchedAsks = searchedAsks;
 
       userPostsResponse.errorMessage = null;

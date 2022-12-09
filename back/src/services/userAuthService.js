@@ -267,6 +267,15 @@ const userAuthService = {
         userId,
         page
       );
+
+      // const userIdResult = userComments.map((userComment) => {
+      //   return userComment.writingId;
+      // });
+
+      // const result = userIdResult.filter(
+      //   (v, i) => userIdResult.indexOf(v) === i
+      // );
+
       const userCommentsCount = await wrapper(
         Comment.findUserAllCommentsCount,
         userId
