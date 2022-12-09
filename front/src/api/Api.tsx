@@ -80,36 +80,36 @@ axios.interceptors.response.use(
     return res;
   },
   async (error: AxiosError) => {
-    if (
-      error.request.status === 403 &&
-      error!.response!.data == "access token expired"
-    ) {
-      const originalConfig = error.config;
-      // https://github.com/axios/axios/issues/5143 문제해결
-      originalConfig!.headers = { ...originalConfig!.headers };
-      try {
-        const res = await get("token", null);
-        console.log("res: ", res);
-        if (res.status === 201) {
-          const accessToken = res.data.accessToken;
-          localStorage.setItem("accessToken", accessToken);
-          //새토큰으로 헤더 교체, null값이 아님을 알림: !
-          originalConfig!.headers!.Authorization = `Bearer ${accessToken}`;
-          return axios(originalConfig!);
+    if (error.request.status === 403) {
+      if (!error.response)
+        return alert("예상치못한 토큰 오류가 발생했습니다. 재로그인해주세요.");
+      if (error!.response!.data == "access token expired") {
+        //토큰 재발행 요청
+        const originalConfig = error.config!;
+        originalConfig.headers = { ...originalConfig.headers };
+        try {
+          const res = await get("token", null);
+          console.log("res: ", res);
+          if (res.status === 201) {
+            const accessToken = res.data.accessToken;
+            localStorage.setItem("accessToken", accessToken);
+            //새토큰으로 헤더 교체, null값이 아님을 알림: !
+            originalConfig!.headers!.Authorization = `Bearer ${accessToken}`;
+            return axios(originalConfig!);
+          }
+        } catch (err: any) {
+          //여기엔 뭘 작성해야할까요?
         }
-      } catch (err: any) {
-        //여기엔 뭘 작성해야할까요?
+        if (error!.response!.data == "refresh token이 만료 되었습니다.") {
+          console.log("리프레쉬토큰 만료", error);
+          alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+          localStorage.clear();
+          return Promise.resolve(error);
+        }
       }
-    } else if (
-      error.request.status === 403 &&
-      error!.response!.data == "refresh token이 만료 되었습니다."
-    ) 
-    // {
-    //   // console.log("리프레쉬토큰 만료", error)
-    //   alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
-    //   localStorage.clear();
-    //   return Promise.resolve(error);
-    // }
-    return Promise.reject(error);
+      return Promise.reject(error);
+    }
   }
 );
+
+// https://github.com/axios/axios/issues/5143 문제해결
