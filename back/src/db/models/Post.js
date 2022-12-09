@@ -95,6 +95,7 @@ const Post = {
 
   // 검색 단어와 일치하는 게시물을 조회
   getPostsByQuestion: async (options, page) => {
+    console.log(options, page);
     try {
       const Posts = await PostModel.find({ $or: options })
         .sort({ createdAt: -1 })
@@ -113,7 +114,6 @@ const Post = {
       const PostsCount = await PostModel.countDocuments({
         $or: options,
       }).lean();
-
       return PostsCount;
     } catch (error) {
       return error;

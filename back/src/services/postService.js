@@ -36,8 +36,11 @@ const postService = {
         Post.getPostsByQuestionCount,
         options
       );
+      const totalPage = Math.ceil(
+        searchedPostsCount / process.env.PAGE_LIMIT_COUNT
+      );
 
-      userPostsResponse.totalPage = searchedPostsCount;
+      userPostsResponse.totalPage = totalPage;
       userPostsResponse.searchedPosts = searchedPosts;
 
       userPostsResponse.errorMessage = null;
