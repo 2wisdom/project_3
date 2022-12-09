@@ -82,7 +82,7 @@ const UserPostCard = ({
 
             <h5 className={Card.userName}>{userName}</h5>
           </div>
-          <div className={Card.price}>{`${price.toLocaleString(
+          <div className={Card.price}>{price && `${price.toLocaleString(
             "ko-KR"
           )} 원`}</div>
         </div>

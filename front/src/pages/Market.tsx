@@ -24,7 +24,7 @@ interface showCard {
   price: number;
   _id: string;
   category: string;
-  // isSoldOut: boolean;
+  isSoldOut: boolean;
 }
 
 const Market = () => {
@@ -123,7 +123,7 @@ const Market = () => {
                         contents={showcard.contents}
                         price={showcard.price}
                         category={showcard.category}
-                        // isSoldOut={true}
+                        isSoldOut={showcard.isSoldOut}
                       />
                     );
                   })}

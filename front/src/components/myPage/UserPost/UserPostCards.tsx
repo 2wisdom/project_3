@@ -1,15 +1,11 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Show from "../../../styles/showOffPage/ShowPage.module.css";
-import ShowCardList from "../../communityShow/CardList";
 import useUserStore from "../../../store/Login";
-import { useNavigate } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../../../api/Api";
 import UserPostCard from "./UserPostCard";
 import UserMarketCard from "./UserMarketCard";
 import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
-import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 
 export interface showCard {
@@ -22,6 +18,7 @@ export interface showCard {
   price: number;
   _id: string;
   category: string;
+  isSoldOut: boolean;
 }
 
 export interface props {
@@ -37,6 +34,7 @@ export interface props {
   category: string;
   showCards: showCard[];
   setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
+  isSoldOut: boolean;
 }
 
 const UserPostCards = () => {
@@ -56,12 +54,6 @@ const UserPostCards = () => {
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page}`
       );
-
-      if (isMarketTap) {
-        setShowCards(res.data.userMarkets);
-      } else {
-        setShowCards(res.data.userPosts);
-      }
       isAsksTap && setShowCards(res.data.userAsks);
       isPostsTap && setShowCards(res.data.userPosts);
       isMarketTap && setShowCards(res.data.userMarkets);
@@ -116,8 +108,6 @@ const UserPostCards = () => {
                         contents={showcard.contents}
                         showCards={showCards}
                         setShowCards={setShowCards}
-                        price={showcard.price}
-                        category={showcard.category}
                       />:
                       <UserMarketCard
                         key={showcard._id}
@@ -132,6 +122,7 @@ const UserPostCards = () => {
                         setShowCards={setShowCards}
                         price={showcard.price}
                         category={showcard.category}
+                        isSoldOut={showcard.isSoldOut}
                       />
                     );
                   })}
