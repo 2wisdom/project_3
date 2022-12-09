@@ -1,0 +1,38 @@
+.container {
+  margin: 0px;
+  padding: 0px;
+  margin-top: 5rem;
+}
+
+.inputBox {
+  margin: auto;
+  text-align: left;
+}
+
+.footer {
+  width: 100%;
+  height: 15rem;
+  font-family: "NanumGothic";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2rem;
+  color: #919191;
+  margin: 3rem 0;
+}
+
+.userInner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #D9D9D9;
+}
+.userName {
+  margin-left: 2rem;
+}
+.btn {
+  background-color: white;
+  border: none;
+  width: 15rem;
+  cursor: pointer;
+}

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import imageError from "../../assets/error/imageError.jpg";
+import Comments from "../components/Comments";
 
 interface DetailData {
   title: string;
@@ -47,17 +48,17 @@ const ShowCardDetail = () => {
         });
     }
   }, []);
-  useEffect(() => {
-    if (id) {
-      Api.get(`comments/${id}`, null)
-        .then((res) => {
-          console.log(`res.data-comments`, res);
-        })
-        .catch((err) => {
-          console.log("err-comments", err);
-        });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (id) {
+  //     Api.get(`comments/${id}`, null)
+  //       .then((res) => {
+  //         console.log(`res.data-comments`, res);
+  //       })
+  //       .catch((err) => {
+  //         console.log("err-comments", err);
+  //       });
+  //   }
+  // }, []);
 
   return (
     <div className={Detail.container}>
@@ -93,6 +94,7 @@ const ShowCardDetail = () => {
       >
         목록
       </button>
+      <Comments authorName={DetailData.userName} id={id} />
       {/* <hr></hr> */}
     </div>
   );

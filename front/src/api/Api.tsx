@@ -4,16 +4,11 @@ const backendPortNumber = "5000";
 
 const serverUrl = "http://localhost:" + backendPortNumber + "/";
 
-async function get(endpoint: string, params: string | null) {
-  if (params === null) {
+async function get(endpoint: string, params?: string | null ) {
     console.log(`GET 요청 ${serverUrl + endpoint}`);
-    return axios.get(serverUrl + endpoint, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    });
-  } else {
-    return axios.get(serverUrl + endpoint + "/" + params, {
+    return axios.get(
+      params ? serverUrl + endpoint + "/" + params : serverUrl + endpoint,
+      {
       // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +16,7 @@ async function get(endpoint: string, params: string | null) {
       },
     });
   }
-}
+
 
 async function post(endpoint: string, data: any, isFile?: boolean) {
   const bodyData = !isFile? JSON.stringify(data): data;
@@ -83,7 +78,7 @@ axios.interceptors.response.use(
         const originalConfig = error.config!;
         originalConfig.headers = { ...originalConfig.headers };
         try {
-          const res = await get("token", null);
+          const res = await get("token");
           console.log("res: ", res);
           if (res.status === 201) {
             const accessToken = res.data.accessToken;
