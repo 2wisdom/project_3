@@ -4,6 +4,12 @@ const Ask = require("../db/models/Ask");
 const { askService } = require("../services/askService");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
 const { writeLog } = require("../middlewares/writeLog");
+const fs = require("fs");
+const path = require("path");
+
+const Comment = require("../db/schemas/comment");
+const logger = require("../config/logger");
+const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
 
 const askController = {
   // 전체 게시글 조회
@@ -94,7 +100,7 @@ const askController = {
   },
 
   // 게시글 삭제
-  deleteAsk: async (req, res) => {
+  deleteAsk: async (req, res, next) => {
     console.log("게시글 삭제");
     const { askId } = req.params;
 
@@ -105,7 +111,19 @@ const askController = {
       });
     }
 
-    await Ask.delete(askId);
+    try {
+      await Ask.delete(askId);
+    } catch (e) {
+      next(e);
+    }
+
+    // 파일 삭제
+    try {
+      const imageUrl = getAsk.imageUrl;
+      wisXFileCleanerFromUrl(new URL(imageUrl));
+    } catch (e) {
+      console.log(e);
+    }
 
     try {
       return res.json({

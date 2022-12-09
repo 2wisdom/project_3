@@ -44,10 +44,6 @@ const Market = {
    * 포스트를 수정한다
    */
   update: (market) => {
-    // if (!market._id) {
-    //   throw Error(JSON.stringify({ message: "market._id is required" }, null, 2));
-    // }
-
     return MarketModel.findByIdAndUpdate(
       market._id,
       {

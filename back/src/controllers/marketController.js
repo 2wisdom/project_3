@@ -4,6 +4,13 @@ const { marketService } = require("../services/marketService");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
 const { writeLog } = require("../middlewares/writeLog");
 
+const fs = require("fs");
+const path = require("path");
+
+const Comment = require("../db/schemas/comment");
+const logger = require("../config/logger");
+const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
+
 const marketController = {
   // 전체 게시글 조회
   getAllMarkets: async (req, res) => {
@@ -124,7 +131,7 @@ const marketController = {
   },
 
   // 게시글 삭제
-  deleteMarket: async (req, res) => {
+  deleteMarket: async (req, res, next) => {
     console.log("게시글 삭제");
     const { marketId } = req.params;
 
@@ -134,8 +141,19 @@ const marketController = {
         message: "삭제 권한이 없습니다.",
       });
     }
+    try {
+      await Market.delete(marketId);
+    } catch (e) {
+      next(e);
+    }
 
-    await Market.delete(marketId);
+    // 파일 삭제
+    try {
+      const imageUrl = getMarket.imageUrl;
+      wisXFileCleanerFromUrl(new URL(imageUrl));
+    } catch (e) {
+      console.log(e);
+    }
 
     try {
       return res.json({

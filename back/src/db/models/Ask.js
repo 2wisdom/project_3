@@ -44,10 +44,6 @@ const Ask = {
    * 포스트를 수정한다
    */
   update: (ask) => {
-    // if (!ask._id) {
-    //   throw Error(JSON.stringify({ message: "ask._id is required" }, null, 2));
-    // }
-
     return AskModel.findByIdAndUpdate(
       ask._id,
       {
