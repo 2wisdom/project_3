@@ -52,10 +52,8 @@ const UserCard = ({
     if (confirm("잎게뭐야를 정말 탈퇴하시겠습니까?")) {
       try {
         const res = await Api.delete("users", `${user.userId}`);
-        if (res.status === 200) {
-          alert("정상적으로 회원탈퇴 처리되었습니다.");
-          localStorage.clear();
-        }
+        alert("정상적으로 회원탈퇴 처리되었습니다.");
+        localStorage.clear();
       } catch (err) {
         console.log("회원탈퇴에러", err);
         alert("회원탈퇴중 오류가 발생했습니다. 다시 시도해주세요.");
