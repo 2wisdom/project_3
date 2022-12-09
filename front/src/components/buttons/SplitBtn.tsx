@@ -16,25 +16,36 @@ interface ShowCardData {
   contents: string;
   imageUrl: string;
 }
+
 interface props {
   categoryList: string[];
   setShowCardData: React.Dispatch<React.SetStateAction<ShowCardData>>;
+  originallySelectedIndex: number | null;
 }
 
-export default function SplitButton({ categoryList, setShowCardData }: props) {
+export default function SplitButton({
+  categoryList,
+  setShowCardData,
+  originallySelectedIndex,
+}: props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  const [selectedIndex, setSelectedIndex] =
+    originallySelectedIndex === null
+      ? React.useState(0)
+      : React.useState(originallySelectedIndex);
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    index: number
+    index: number,
+    category: string
   ) => {
     setSelectedIndex(index);
     setOpen(false);
     setShowCardData((prev) => ({
       ...prev,
-      category: categoryList[index],
+      category: category,
     }));
   };
 
@@ -56,9 +67,7 @@ export default function SplitButton({ categoryList, setShowCardData }: props) {
   return (
     <React.Fragment>
       <ButtonGroup variant="outlined" ref={anchorRef} aria-label="split button">
-        <Button>
-          {categoryList[selectedIndex]}
-        </Button>
+        <Button>{categoryList[selectedIndex]}</Button>
         <Button
           size="small"
           aria-controls={open ? "split-button-menu" : undefined}
@@ -95,7 +104,9 @@ export default function SplitButton({ categoryList, setShowCardData }: props) {
                     <MenuItem
                       key={category}
                       selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      onClick={(event) =>
+                        handleMenuItemClick(event, index, category)
+                      }
                     >
                       {category}
                     </MenuItem>

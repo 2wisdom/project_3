@@ -20,7 +20,7 @@ export interface showCard {
   imageUrl: string;
   price: number;
   _id: string;
-  // marketCategory: string;
+  category: string;
 }
 
 export interface props {
@@ -33,7 +33,7 @@ export interface props {
   date: string;
   contents: string;
   price: number;
-  // marketCategory: string;
+  category: string;
   showCards: showCard[];
   setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
 }
@@ -45,6 +45,8 @@ const UserPostCards = () => {
   const [showCards, setShowCards] = useState<showCard[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = page == totalPage;
+  const isAsksTap = pickedTopNav.name === "질문하기";
+  const isPostsTap = pickedTopNav.name === "자랑하기";
   const isMarketTap = pickedTopNav.name === "식물마켓";
   console.log(showCards);
   const apiGetShowCardData = async () => {
@@ -59,6 +61,9 @@ const UserPostCards = () => {
       } else {
         setShowCards(res.data.userPosts);
       }
+      isAsksTap && setShowCards(res.data.userAsks);
+      isPostsTap && setShowCards(res.data.userPosts);
+      isMarketTap && setShowCards(res.data.userMarkets);
       setTotalPage(res.data.totalPage);
     } catch (err: any) {
       if (err.response.status === 404) {
@@ -67,7 +72,7 @@ const UserPostCards = () => {
       }
     }
   };
-  // console.log(showCards[0].price);
+
   useEffect(() => {
     apiGetShowCardData();
   }, [pickedTopNav]);
@@ -82,9 +87,10 @@ const UserPostCards = () => {
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page + 1}`
       );
-      isMarketTap
-        ? setShowCards([...showCards, ...res.data.userMarkets])
-        : setShowCards([...showCards, ...res.data.userPosts]);
+      isAsksTap && setShowCards([...showCards, ...res.data.userAsks])
+      isPostsTap && setShowCards([...showCards, ...res.data.userPosts])
+      isMarketTap && setShowCards([...showCards, ...res.data.userMarkets])
+        
       increasePage();
     } catch (err) {
       console.log("더보기 에러: ", err);
@@ -112,7 +118,7 @@ const UserPostCards = () => {
                       showCards={showCards}
                       setShowCards={setShowCards}
                       price={showcard.price}
-                      // marketCategory= {showcard.price};
+                      category= {showcard.category}
                     />
                   );
                 })}

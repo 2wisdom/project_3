@@ -1,9 +1,10 @@
 import React, { RefObject, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import * as Api from "../../api/Api";
-import Create from "../../styles/showOffPage/CreateShowCard.module.css";
+import UserCard from "../EditUserInfo/UserCard";
+import { useLocation, useNavigate } from "react-router-dom";
+import * as Api from "../../../api/Api";
+import Create from "../../../styles/showOffPage/CreateShowCard.module.css";
 import axios from "axios";
-import SplitButton from "../buttons/SplitBtn";
+import SplitButton from "../../buttons/SplitBtn";
 
 interface ShowCardData {
   category: string;
@@ -13,25 +14,27 @@ interface ShowCardData {
   imageUrl: string;
 }
 
-const CreateMarketCard = () => {
+const UserEditCard = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { title, contents, imageUrl, price, _id, pickedMyPageNav, category } =
+    location.state;
+  const isMarketTap = pickedMyPageNav == "markets";
+
   const [ShowCardData, setShowCardData] = useState<ShowCardData>({
-    category: "구근/뿌리묘/모종",
-    title: "",
-    price: undefined,
-    contents: "",
-    imageUrl: "",
+    title,
+    contents,
+    imageUrl,
+    price,
+    category,
   });
-  const categoryList = [
-    "구근/뿌리묘/모종",
-    "모종(산내들농장)",
-    "씨앗",
-    "기타",
-  ];
+
+  const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
+  const findCategoryIndex = categoryList.indexOf(category);
 
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
-  console.log(ShowCardData)
+
   const onChangeImage = async (e: any) => {
     e.preventDefault();
     const formData = new FormData();
@@ -53,7 +56,7 @@ const CreateMarketCard = () => {
       }));
     } catch (err) {
       console.log("imageErr", err);
-      alert("이미지 업로드 중 오류가 발생했습니다. 다시 시도해주세요");
+      alert("이미지 수정 중 오류가 발생했습니다. 다시 시도해주세요");
     }
   };
 
@@ -62,14 +65,13 @@ const CreateMarketCard = () => {
   ) => {
     e.preventDefault();
     try {
-      const res = await Api.post(`markets`, ShowCardData);
-      if (res.status === 200 || 201) {
-        alert("마켓 업로드 성공");
-        navigate(`/marketCardDetail/${res.data.newMarket._id}`);
+      const res = await Api.put(`markets/${_id}`, ShowCardData);
+      if (res.status === 200 || res.status === 201) {
+        navigate(`/marketCardDetail/${_id}`);
       }
     } catch (err) {
       console.log("err : ", err);
-      alert("게시물 저장 중 오류가 발생했습니다. 다시 시도해주세요");
+      alert("게시물 수정 도중 오류가 발생했습니다. 다시 시도해주세요");
     }
   };
 
@@ -80,7 +82,7 @@ const CreateMarketCard = () => {
           <SplitButton
             categoryList={categoryList}
             setShowCardData={setShowCardData}
-            originallySelectedIndex={null}
+            originallySelectedIndex={findCategoryIndex}
           />
         </div>
         <div className={Create.Inner}>
@@ -121,22 +123,24 @@ const CreateMarketCard = () => {
               ref={fileInput}
             ></input>
           </div>
-          <div className={Create.priceContainer}>
-            <input
-              type="number"
-              step="100"
-              value={ShowCardData.price}
-              className={Create.priceInput}
-              placeholder="가격을 입력하세요"
-              onChange={(e) =>
-                setShowCardData((prev) => ({
-                  ...prev,
-                  price: Number(e.target.value),
-                }))
-              }
-            />{" "}
-            원
-          </div>
+          {isMarketTap && (
+            <div className={Create.priceContainer}>
+              <input
+                type="number"
+                step="100"
+                value={ShowCardData.price}
+                className={Create.priceInput}
+                placeholder="가격을 입력하세요"
+                onChange={(e) =>
+                  setShowCardData((prev) => ({
+                    ...prev,
+                    price: Number(e.target.value),
+                  }))
+                }
+              />{" "}
+              원
+            </div>
+          )}
           <textarea
             className={Create.content}
             ref={contentRef}
@@ -154,7 +158,7 @@ const CreateMarketCard = () => {
               type="button"
               className={Create.cancelBtn}
               onClick={() => {
-                navigate("/market");
+                navigate("/myPage/userPost");
               }}
             >
               취소
@@ -173,4 +177,4 @@ const CreateMarketCard = () => {
   );
 };
 
-export default CreateMarketCard;
+export default UserEditCard;

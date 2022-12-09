@@ -3,36 +3,42 @@ import Detail from "../../styles/showOffPage/ShowCardDetail.module.css";
 import * as Api from "../../api/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
 import imageError from "../../../assets/error/imageError.jpg";
 
-interface DetailData {
-  title: string;
-  userImg: string;
-  userName: string;
-  date: string;
+interface Author {
   imageUrl: string;
+  name: string;
+  _id: string;
+}
+
+interface DetailData {
+  author: Author;
+  category: string;
   contents: string;
+  createdAt: string;
+  imageUrl: string;
+  title: string;
+  price: number;
 }
 
 const MarketCardDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
   const [DetailData, setDetailData] = useState<DetailData>({
-    title: "",
-    userImg: "",
-    userName: "",
-    date: "",
-    imageUrl: "",
+    author: { imageUrl: "", name: "", _id: "" },
+    category: "",
     contents: "",
+    createdAt: "",
+    imageUrl: "",
+    title: "",
+    price: 0,
   });
-  const createDate = DetailData.date.split("T");
+  const createDate = DetailData.createdAt.split("T");
 
   const getCardData = async () => {
     try {
       const res = await Api.get("markets", id);
-      console.log(res);
+      setDetailData(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -40,6 +46,8 @@ const MarketCardDetail = () => {
   useEffect(() => {
     getCardData();
   }, [id]);
+
+  console.log(DetailData);
 
   // useEffect(() => {
   //   if (id) {
@@ -52,17 +60,21 @@ const MarketCardDetail = () => {
   //       });
   //   }
   // }, []);
+
   return (
     <div className={Detail.container}>
-      <div className={Detail.title}>{DetailData.title}</div>
+      <div className={Detail.title}>
+        [{DetailData.category}] {DetailData.title}
+      </div>
       <div className={Detail.userInner}>
         <Avatar
           alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
+          src={`http://${window.location.hostname}:5000/${DetailData.author.imageUrl}`}
           sx={{ width: 24, height: 24 }}
         />
-        <div className={Detail.userName}>{DetailData.userName}</div>
+        <div className={Detail.userName}>{DetailData.author.name}</div>
         <div className={Detail.date}>{createDate[0]}</div>
+        <div className={Detail.price}> {DetailData.price.toLocaleString("ko-KR")} 원</div>
       </div>
 
       <img
@@ -83,7 +95,6 @@ const MarketCardDetail = () => {
       >
         목록
       </button>
-      {/* <hr></hr> */}
     </div>
   );
 };

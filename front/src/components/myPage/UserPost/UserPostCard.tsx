@@ -11,7 +11,6 @@ import { props } from "./UserPostCards";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 
 const UserPostCard = ({
-  key,
   _id,
   imageUrl,
   title,
@@ -21,13 +20,15 @@ const UserPostCard = ({
   showCards,
   setShowCards,
   price,
-  // marketCategory,
+  category,
 }: props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const createDate = date.split("T");
   const { pickedTopNav } = TopNavStore();
   const { page } = pageStore();
+  const isAsksTap = pickedTopNav.name === "질문하기";
+  const isPostsTap = pickedTopNav.name === "자랑하기";
   const isMarketTap = pickedTopNav.name === "식물마켓";
 
   const deleteCard = async () => {
@@ -35,7 +36,7 @@ const UserPostCard = ({
       try {
         const res = await Api.delete(`${pickedTopNav.apiAddress}`, `${_id}`);
         if (res.status == 200) {
-          //페이지 재정렬
+          //삭제 후 페이지 재정렬
           for (let i = 1; i <= page; i++) {
             try {
               const res = await Api.get(
@@ -43,13 +44,15 @@ const UserPostCard = ({
                 `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${i}`
               );
               if (i == 1) {
-                isMarketTap
-                  ? setShowCards([...res.data.userMarkets])
-                  : setShowCards([...res.data.userPosts]);
+                isAsksTap && setShowCards(res.data.userAsks);
+                isPostsTap && setShowCards(res.data.userPosts);
+                isMarketTap && setShowCards(res.data.userMarkets);
               } else {
-                isMarketTap
-                  ? setShowCards([...showCards, ...res.data.userPosts])
-                  : setShowCards([...showCards, ...res.data.userPosts]);
+                isAsksTap && setShowCards([...showCards, ...res.data.userAsks]);
+                isPostsTap &&
+                  setShowCards([...showCards, ...res.data.userPosts]);
+                isMarketTap &&
+                  setShowCards([...showCards, ...res.data.userMarkets]);
               }
             } catch (err) {
               console.log("더보기 에러: ", err);
@@ -75,14 +78,13 @@ const UserPostCard = ({
           className={Card.title}
           onClick={() => navigate(`/showCardDetail/${_id}`)}
         >
-          {title}
+          {isMarketTap ? `[${category}] ${title}` : `${title}`}
         </h3>
         <div
           className={Card.footer}
           onClick={() => navigate(`/showCardDetail/${_id}`)}
         >
           <div className={Card.userInner}>
-            {/* <img className={Card.userImage}></img> */}
             <Avatar
               alt="Remy Sharp"
               src={`http://${window.location.hostname}:5000/${user.imageUrl}`}
@@ -91,7 +93,6 @@ const UserPostCard = ({
 
             <h5 className={Card.userName}>{userName}</h5>
           </div>
-
           <div className={Card.data}>
             {pickedTopNav.name !== "식물마켓" ? createDate[0] : `${price}원`}
           </div>
@@ -104,17 +105,28 @@ const UserPostCard = ({
             theme={black}
             type="button"
             onClick={() =>
-              navigate(`/editCard/${_id}`, {
-                state: {
-                  title,
-                  contents,
-                  imageUrl,
-                  price,
-                  _id: `${_id}`,
-                  category: `${pickedTopNav.apiAddress}`,
-                  marketCategory: "씨앗",
-                },
-              })
+              isMarketTap
+                ? navigate(`/market/editcard/${_id}`, {
+                    state: {
+                      title,
+                      contents,
+                      imageUrl,
+                      price,
+                      _id: `${_id}`,
+                      pickedMyPageNav: `${pickedTopNav.apiAddress}`,
+                      category,
+                    },
+                  })
+                : navigate(`/community/editcard/${_id}`, {
+                    state: {
+                      title,
+                      contents,
+                      imageUrl,
+                      _id: `${_id}`,
+                      pickedMyPageNav: `${pickedTopNav.apiAddress}`,
+                      category,
+                    },
+                  })
             }
           >
             수정

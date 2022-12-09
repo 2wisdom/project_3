@@ -31,7 +31,7 @@ const Market = () => {
   const [page, setPage] = useState<number>(1);
   const [showCards, setShowCards] = useState<showCard[]>([]);
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
-  const [pickedCategory, setPickedCategory] = useState<string | null>("씨앗");
+  const [pickedCategory, setPickedCategory] = useState<string | null>(null);
   const isShowAll = pickedCategory === null;
   const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
   const apiGetShowCardData = async () => {
@@ -48,9 +48,6 @@ const Market = () => {
       setPage(page + 1);
     } catch (err) {
       console.log(err);
-      // if (res.data == "게시물 없음") {
-      //   setShowCards([]);
-      // }
     }
   };
   console.log(showCards)
@@ -140,8 +137,6 @@ const Market = () => {
                       </button>
                     )}
                   </div>
-                </div>
-              </div>
               <div className={Show.writeBtnInner}>
                 <EditIcon
                   className={Show.writeBtnOutline}
@@ -150,6 +145,8 @@ const Market = () => {
                     navigate("/createMarketCard");
                   }}
                 ></EditIcon>
+                </div>
+              </div>
               </div>
             </div>
           </div>
