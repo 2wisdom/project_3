@@ -4,12 +4,16 @@ const Ask = require("../db/models/Ask");
 const { askService } = require("../services/askService");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
 const { writeLog } = require("../middlewares/writeLog");
+const fs = require("fs");
+const path = require("path");
+
+const Comment = require("../db/schemas/comment");
+const logger = require("../config/logger");
+const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
 
 const askController = {
   // 전체 게시글 조회
   getAllAsks: async (req, res) => {
-    console.log("전체 게시글 조회");
-
     const { page = "1", limit = "8" } = req.query;
 
     const list = await Ask.findAll({
@@ -25,17 +29,16 @@ const askController = {
     });
 
     try {
+      logger.info("전체 게시글 조회");
       return res.json(list);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },
 
   // 특정 게시글 조회
   getAskById: async (req, res, next) => {
-    console.log("특정 게시글 조회");
-
     const { askId } = req.params;
 
     const ask = await Ask.get(askId).populate([
@@ -44,75 +47,89 @@ const askController = {
 
     try {
       const copyAsk = { ...ask.toJSON() };
+      logger.info("특정 게시글 조회");
       return res.json(copyAsk);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },
 
   // 게시글 생성
   createAsk: async (req, res) => {
-    console.log("게시글 작성");
     const ask = req.body;
     ask.author = req.currentUserId;
 
     try {
       const newAsk = await Ask.create(ask);
+      logger.info("게시글 작성");
       return res.json({
         newAsk,
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },
 
   // 게시글 수정
   updateAsk: async (req, res, next) => {
-    console.log("게시글 수정");
     const ask = req.body;
     const { askId } = req.params;
 
     const getAsk = await Ask.get(askId);
 
-    if (getAsk.author !== req.currentUserId) {
-      return res.status(401).json({
-        message: "수정 권한이 없습니다.",
-      });
-    }
-
     try {
-      ask._id = askId;
-      result = await Ask.update(ask);
+      if (getAsk.author !== req.currentUserId) {
+        return res.status(401).json({
+          message: "수정 권한이 없습니다.",
+        });
+      }
 
+      ask._id = askId;
+      let result = await Ask.update(ask);
+
+      logger.info("게시글 수정");
       return res.json(result);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },
 
   // 게시글 삭제
-  deleteAsk: async (req, res) => {
-    console.log("게시글 삭제");
+  deleteAsk: async (req, res, next) => {
     const { askId } = req.params;
 
     const getAsk = await Ask.get(askId);
-    if (getAsk.author !== req.currentUserId) {
-      return res.status(401).json({
-        message: "삭제 권한이 없습니다.",
-      });
-    }
-
-    await Ask.delete(askId);
 
     try {
+      if (getAsk.author !== req.currentUserId) {
+        return res.status(401).json({
+          message: "삭제 권한이 없습니다.",
+        });
+      }
+
+      await Ask.delete(askId);
+    } catch (err) {
+      next(err);
+    }
+
+    // 파일 삭제
+    try {
+      const imageUrl = getAsk.imageUrl;
+      wisXFileCleanerFromUrl(new URL(imageUrl));
+    } catch (err) {
+      logger.error(err);
+    }
+
+    try {
+      logger.info("게시글 삭제");
       return res.json({
         id: askId,
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },

@@ -2,6 +2,7 @@ const CommentModel = require("../schemas/comment");
 const PostModel = require("../schemas/post");
 const MarketModel = require("../schemas/market");
 const AskModel = require("../schemas/ask");
+const logger = require("../../config/logger");
 
 // // 고유 아이디 키 이름인 _id를 commentId로 교체
 // const responseInfo = (commentInfo) => {
@@ -44,7 +45,9 @@ const Comment = {
       return CommentModel.deleteMany({
         writingId,
       });
-    } catch (e) {}
+    } catch (err) {
+      logger.error(err);
+    }
   },
 };
 

@@ -4,11 +4,16 @@ const { marketService } = require("../services/marketService");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
 const { writeLog } = require("../middlewares/writeLog");
 
+const fs = require("fs");
+const path = require("path");
+
+const Comment = require("../db/schemas/comment");
+const logger = require("../config/logger");
+const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
+
 const marketController = {
   // 전체 게시글 조회
   getAllMarkets: async (req, res) => {
-    console.log("전체 게시글 조회");
-
     const { page = "1", limit = "8", category } = req.query;
 
     const query = {};
@@ -29,17 +34,16 @@ const marketController = {
     });
 
     try {
+      logger.info("전체 게시글 조회");
       return res.json(list);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },
 
   // 특정 게시글 조회
   getMarketById: async (req, res, next) => {
-    console.log("특정 게시글 조회");
-
     const { marketId } = req.params;
 
     const market = await Market.get(marketId).populate([
@@ -48,101 +52,114 @@ const marketController = {
 
     try {
       const copyMarket = { ...market.toJSON() };
+      logger.info("특정 게시글 조회");
       return res.json(copyMarket);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },
 
   // 게시글 생성
   createMarket: async (req, res) => {
-    console.log("게시글 작성");
     const market = req.body;
     market.author = req.currentUserId;
 
     try {
       const newMarket = await Market.create(market);
+      logger.info("게시글 생성");
       return res.json({
         newMarket,
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },
 
   // 게시글 수정
   updateMarket: async (req, res, next) => {
-    console.log("게시글 수정");
     const market = req.body;
     const { marketId } = req.params;
 
     const getMarket = await Market.get(marketId);
 
-    if (getMarket.author !== req.currentUserId) {
-      return res.status(401).json({
-        message: "수정 권한이 없습니다.",
-      });
-    }
-
     try {
+      if (getMarket.author !== req.currentUserId) {
+        return res.status(401).json({
+          message: "수정 권한이 없습니다.",
+        });
+      }
+
       market._id = marketId;
       result = await Market.update(market);
 
+      logger.info("게시글 수정");
       return res.json(result);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },
 
   // 판매 완료
   soldOutMarket: async (req, res) => {
-    console.log("판매 완료");
-
     const market = req.body;
     const { marketId } = req.params;
 
     const getMarket = await Market.get(marketId);
 
-    if (getMarket.author !== req.currentUserId) {
-      return res.status(401).json({
-        message: "수정 권한이 없습니다.",
-      });
-    }
-
     try {
+      if (getMarket.author !== req.currentUserId) {
+        return res.status(401).json({
+          message: "수정 권한이 없습니다.",
+        });
+      }
+
       market._id = marketId;
       result = await Market.update(market);
 
+      logger.info("판매 완료!");
       return res.json(result);
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },
 
   // 게시글 삭제
-  deleteMarket: async (req, res) => {
-    console.log("게시글 삭제");
+  deleteMarket: async (req, res, next) => {
     const { marketId } = req.params;
 
     const getMarket = await Market.get(marketId);
-    if (getMarket.author !== req.currentUserId) {
-      return res.status(401).json({
-        message: "삭제 권한이 없습니다.",
-      });
-    }
-
-    await Market.delete(marketId);
 
     try {
+      if (getMarket.author !== req.currentUserId) {
+        return res.status(401).json({
+          message: "삭제 권한이 없습니다.",
+        });
+      }
+
+      await Market.delete(marketId);
+    } catch (err) {
+      next(err);
+    }
+
+    // 파일 삭제
+    try {
+      const imageUrl = getMarket.imageUrl;
+      wisXFileCleanerFromUrl(new URL(imageUrl));
+    } catch (err) {
+      logger.error(err);
+    }
+
+    try {
+      logger.info("게시글 삭제");
       return res.json({
         id: marketId,
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },

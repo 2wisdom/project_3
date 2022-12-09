@@ -1,12 +1,11 @@
 const express = require("express");
 const Image = require("../db/schemas/image");
+const logger = require("../config/logger");
 const os = require("os");
 
 // 이미지 업로드
 const imageController = {
   uploadImage: async (req, res) => {
-    console.log("이미지 업로드");
-
     if (!req.headers["content-type"].startsWith("multipart/form-data")) {
       throw Error({ message: "Content-Type once multipart/form-data" });
     }
@@ -29,11 +28,12 @@ const imageController = {
     const resolveUrl = `${url}/${path}`;
 
     try {
+      logger.info("이미지 업로드");
       return res.json({
         url: resolveUrl,
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).send("Error");
     }
   },

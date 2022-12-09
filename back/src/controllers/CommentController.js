@@ -1,10 +1,10 @@
 const express = require("express");
 const Comment = require("../db/schemas/comment");
+const logger = require("../config/logger");
 
 const commentController = {
   // 댓글 조회
   getComments: (req, res) => {
-    console.log("댓글 조회");
     const { writingId } = req.params;
 
     Comment.find({ writingId })
@@ -12,12 +12,12 @@ const commentController = {
       .exec((err, comments) => {
         if (err) return res.status(400).send(err);
         res.status(200).json({ success: true, comments });
+        logger.info("댓글 조회");
       });
   },
 
   // 댓글 생성
   createComment: (req, res) => {
-    console.log("댓글 생성");
     const comment = new Comment(req.body);
     const { writingId } = req.params;
 
@@ -32,19 +32,19 @@ const commentController = {
         .exec((err, result) => {
           if (err) return res.json({ success: false, err });
           res.status(200).json({ success: true, result });
+          logger.info("댓글 생성");
         });
     });
   },
 
   // 댓글 삭제
   deleteComment: async (req, res) => {
-    console.log("댓글 삭제");
-
     const { commentId } = req.params;
 
     Comment.findByIdAndDelete(commentId).exec((err) => {
       if (err) return res.json({ success: false, err });
       res.status(200).json({ success: true });
+      logger.info("댓글 삭제");
     });
   },
 };
