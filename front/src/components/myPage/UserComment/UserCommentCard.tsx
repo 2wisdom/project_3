@@ -1,37 +1,14 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as CommunityCardInterface from "../../../store/CommunityShowCard";
 import Card from "../../../styles/showOffPage/ShowCard.module.css";
 import Avatar from "@mui/material/Avatar";
 import useUserStore from "../../../store/Login";
 import Stack from "@mui/material/Stack";
 import { SquareBtn, white, black } from "../../../styles/buttons/BasicBtn";
 import * as Api from "../../../api/Api";
-// import { props } from "./UserPostCards";
+import { props } from "./UserCommentCards";
 import { TopNavStore, pageStore } from "@/store/MyPage";
-
-interface showCard {
-  author: string;
-  contents: string;
-  createdAt: string;
-  title: string;
-  updatedAt?: string;
-  imageUrl: string;
-  price: number;
-  _id: string;
-  category: string;
-  isSoldOut: boolean;
-}
-
-interface props {
-  _id: string;
-  imageUrl: string;
-  title: string;
-  userImage: string;
-  userName: string;
-  date: string;
-  contents: string;
-  showCards: showCard[];
-  setShowCards: React.Dispatch<React.SetStateAction<showCard[]>>;
-}
 
 const UserPostCard = ({
   _id,
@@ -40,8 +17,9 @@ const UserPostCard = ({
   userName,
   date,
   contents,
-  showCards,
-  setShowCards,
+  price,
+  category,
+  // isSoldOut
 }: props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
@@ -49,6 +27,8 @@ const UserPostCard = ({
   const { pickedTopNav } = TopNavStore();
   const { page } = pageStore();
   const isAsksTap = pickedTopNav.name === "질문하기";
+  const isPostsTap = pickedTopNav.name === "자랑하기";
+  const isMarketTap = pickedTopNav.name === "식물마켓";
 
   const deleteCard = async () => {
     if (confirm("정말 삭제하시겠습니까?")) {
@@ -63,13 +43,15 @@ const UserPostCard = ({
                 `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${i}`
               );
               if (i == 1) {
-                isAsksTap
-                  ? setShowCards(res.data.userAsks)
-                  : setShowCards(res.data.userPosts);
+                isAsksTap && setShowCards(res.data.userAsks);
+                isPostsTap && setShowCards(res.data.userPosts);
+                isMarketTap && setShowCards(res.data.userMarkets);
               } else {
-                isAsksTap
-                  ? setShowCards([...showCards, ...res.data.userAsks])
-                  : setShowCards([...showCards, ...res.data.userPosts]);
+                isAsksTap && setShowCards([...showCards, ...res.data.userAsks]);
+                isPostsTap &&
+                  setShowCards([...showCards, ...res.data.userPosts]);
+                isMarketTap &&
+                  setShowCards([...showCards, ...res.data.userMarkets]);
               }
             } catch (err) {
               console.log("더보기 에러: ", err);
@@ -89,29 +71,17 @@ const UserPostCard = ({
           className={Card.Image}
           src={`${imageUrl}`}
           style={{ width: 267, height: 200 }}
-          onClick={() =>
-            navigate(
-              isAsksTap ? `/askCardDetail/${_id}` : `/showCardDetail/${_id}`
-            )
-          }
+          onClick={() => navigate(`/showCardDetail/${_id}`)}
         />
         <h3
           className={Card.title}
-          onClick={() =>
-            navigate(
-              isAsksTap ? `/askCardDetail/${_id}` : `/showCardDetail/${_id}`
-            )
-          }
+          onClick={() => navigate(`/showCardDetail/${_id}`)}
         >
-          {title}
+          {isMarketTap ? `[${category}] ${title}` : `${title}`}
         </h3>
         <div
           className={Card.footer}
-          onClick={() =>
-            navigate(
-              isAsksTap ? `/askCardDetail/${_id}` : `/showCardDetail/${_id}`
-            )
-          }
+          onClick={() => navigate(`/showCardDetail/${_id}`)}
         >
           <div className={Card.userInner}>
             <Avatar
@@ -119,9 +89,12 @@ const UserPostCard = ({
               src={`http://${window.location.hostname}:5000/${user.imageUrl}`}
               sx={{ width: 24, height: 24 }}
             />
+
             <h5 className={Card.userName}>{userName}</h5>
           </div>
-          <div className={Card.data}>{createDate[0]}</div>
+          <div className={Card.data}>
+            {pickedTopNav.name !== "식물마켓" ? createDate[0] : `${price}원`}
+          </div>
         </div>
         <Stack direction="row" alignItems="center" spacing={2} ml={5}>
           <SquareBtn theme={white} type="button" onClick={deleteCard}>
@@ -131,15 +104,28 @@ const UserPostCard = ({
             theme={black}
             type="button"
             onClick={() =>
-              navigate(`/community/editcard/${_id}`, {
-                state: {
-                  title,
-                  contents,
-                  imageUrl,
-                  _id: `${_id}`,
-                  pickedMyPageNav: `${pickedTopNav.apiAddress}`,
-                },
-              })
+              isMarketTap
+                ? navigate(`/market/editcard/${_id}`, {
+                    state: {
+                      title,
+                      contents,
+                      imageUrl,
+                      price,
+                      _id: `${_id}`,
+                      pickedMyPageNav: `${pickedTopNav.apiAddress}`,
+                      category,
+                    },
+                  })
+                : navigate(`/community/editcard/${_id}`, {
+                    state: {
+                      title,
+                      contents,
+                      imageUrl,
+                      _id: `${_id}`,
+                      pickedMyPageNav: `${pickedTopNav.apiAddress}`,
+                      category,
+                    },
+                  })
             }
           >
             수정

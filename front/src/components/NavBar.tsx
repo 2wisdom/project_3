@@ -14,7 +14,7 @@ const NavBar = () => {
   const logout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
     try {
-      const res = await Api.delete("token", null);
+      const res = await Api.delete("token");
       if (res.status === 200) {
         alert("로그아웃 되었습니다.");
         localStorage.clear();

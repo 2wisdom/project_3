@@ -2,6 +2,7 @@ import React, { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import EditUserInfo from "../components/myPage/EditUserInfo/EditUserInfo";
 import UserPostCards from "../components/myPage/UserPost/UserPostCards";
+import UserCommentCards from "../components/myPage/UserComment/UserCommentCards";
 import useUserStore from "@/store/Login";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 import * as M from "../styles/MyPage/MyPage.styled";
@@ -39,7 +40,6 @@ const MyPage = () => {
             return (
               <M.topNav
                 isPicked={pickedTopNav.name === nav.name}
-                // theme={pickedTopNav.name === nav.name && M.theme}
                 type="button"
                 name={nav.name}
                 value={nav.name}
@@ -64,7 +64,6 @@ const MyPage = () => {
                 value={nav.name}
                 name={nav.name}
                 key={nav.name}
-                // theme={pickedNav===nav.name && M.theme}
                 onClick={(e) => {
                   navigate(nav.address);
                   setPickedNav((e.target as HTMLButtonElement).value);
@@ -81,7 +80,7 @@ const MyPage = () => {
           <Routes>
             <Route path="" element={<EditUserInfo />} />
             <Route path="userPost" element={<UserPostCards />} />
-            {/* <Route path="userComment/" element={UserComment} /> */}
+            <Route path="userComment/" element={UserCommentCards} />
           </Routes>
         </M.MainContainer>
       </M.MyPageContainer>
