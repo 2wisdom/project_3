@@ -36,6 +36,10 @@ const MarketSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isSoldOut: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

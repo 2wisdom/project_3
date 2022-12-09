@@ -128,6 +128,32 @@ const marketController = {
     }
   },
 
+  // 판매 완료
+  soldOutMarket: async (req, res) => {
+    console.log("판매 완료");
+
+    const market = req.body;
+    const { marketId } = req.params;
+
+    const getMarket = await Market.get(marketId);
+
+    if (getMarket.author !== req.currentUserId) {
+      return res.status(401).json({
+        message: "수정 권한이 없습니다.",
+      });
+    }
+
+    try {
+      market._id = marketId;
+      result = await Market.update(market);
+
+      return res.json(result);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).send("Error");
+    }
+  },
+
   // 게시글 삭제
   deleteMarket: async (req, res) => {
     console.log("게시글 삭제");
