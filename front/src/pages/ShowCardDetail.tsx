@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import imageError from "../../assets/error/imageError.jpg";
+import { CheckBox } from "@mui/icons-material";
 
 interface DetailData {
   title: string;
@@ -93,7 +94,12 @@ const ShowCardDetail = () => {
       >
         목록
       </button>
-      {/* <hr></hr> */}
+      <div className={Detail.comment}>
+        <input type="checkBox"></input>
+        {/* <p>비공개</p>
+        <textarea></textarea>
+        <button>댓글 작성</button> */}
+      </div>
     </div>
   );
 };

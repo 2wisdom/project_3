@@ -7,6 +7,7 @@ import * as showCardStore from "../store/CommunityShowCard";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import useDebounce from "@/useDebounce";
+
 import * as Api from "../api/Api";
 interface showCard {
   // map: any;
@@ -73,9 +74,7 @@ const CommuityShow = () => {
   useEffect(() => {
     const getSearchCards = async () => {
       return await Api.get(
-        `search/posts?option=all&question=${debounceValue}&page=${
-          searchPage + 2
-        }`,
+        `search/posts?option=all&question=${debounceValue}&page=${searchPage}`,
         null
       )
         .then((res) => {
@@ -149,14 +148,14 @@ const CommuityShow = () => {
           <div className={Show.footer}>
             <div className={Show.moreBtnInner}>
               {isSearch ? (
-                !isLastPage && (
+                isLastPage ? (
                   <button
                     className={Show.moreBtn}
                     onClick={searchMoreBtnHandler}
                   >
                     더보기
                   </button>
-                )
+                ) : null
               ) : showCardData && hasNextPage ? (
                 <button className={Show.moreBtn} onClick={moreBtnHandler}>
                   더보기

@@ -87,11 +87,12 @@ const UserPostCards = () => {
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page + 1}`
       );
-      isAsksTap && setShowCards([...showCards, ...res.data.userAsks])
-      isPostsTap && setShowCards([...showCards, ...res.data.userPosts])
-      isMarketTap && setShowCards([...showCards, ...res.data.userMarkets])
-        
+      isAsksTap && setShowCards([...showCards, ...res.data.userAsks]);
+      isPostsTap && setShowCards([...showCards, ...res.data.userPosts]);
+      isMarketTap && setShowCards([...showCards, ...res.data.userMarkets]);
+
       increasePage();
+      console.log("res", res);
     } catch (err) {
       console.log("더보기 에러: ", err);
     }
@@ -118,7 +119,7 @@ const UserPostCards = () => {
                       showCards={showCards}
                       setShowCards={setShowCards}
                       price={showcard.price}
-                      category= {showcard.category}
+                      category={showcard.category}
                     />
                   );
                 })}

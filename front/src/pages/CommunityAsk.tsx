@@ -6,6 +6,7 @@ import AskCardList from "../components/communityAsk/AskCardList";
 import * as showCardStore from "../store/CommunityShowCard";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
+import useDebounce from "@/useDebounce";
 import * as Api from "../api/Api";
 interface askCard {
   // map: any;
@@ -25,13 +26,23 @@ interface askCard {
   contents: string;
   createdAt: string;
   updatedAt?: string;
+  errorMessage: string;
+  totalPage: string;
 }
 const CommunityAsk = () => {
   const navigate = useNavigate();
   const [askCardData, setAskCardData] = useState<askCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
-  const key = "asks";
+
+  //검색
+  const [searchInput, setSearchInput] = useState<string>("");
+  const debounceValue = useDebounce(searchInput);
+  const [searchData, setSearchData] = useState<askCard[]>([]);
+  const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [searchPage, setSearchPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const isLastPage = searchPage >= totalPage;
   const apiGetShowCardData = async () => {
     await Api.get("asks", null)
       .then((res) => {
@@ -55,6 +66,49 @@ const CommunityAsk = () => {
       setPage(res.data.page);
     });
   };
+
+  //검색구현함수
+  useEffect(() => {
+    const getSearchCards = async () => {
+      return await Api.get(
+        `search/asks?option=all&question=${debounceValue}&page=${searchPage}`,
+        null
+      )
+        .then((res) => {
+          setSearchData(res.data.searchedAsks);
+          setTotalPage(res.data.totalPage);
+          console.log("res.data.searchedPosts-ask", res.data);
+          setIsSearch(true);
+          setSearchPage(searchPage + 1);
+        })
+        .catch((err) => {
+          console.log("getSearchCards Err", err);
+        });
+    };
+    if (debounceValue) {
+      getSearchCards();
+    } else if (!debounceValue) {
+      setIsSearch(false);
+      setSearchPage(1);
+    }
+  }, [debounceValue]);
+
+  const searchMoreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ) => {
+    e.preventDefault();
+    Api.get(
+      `search/asks?option=all&question=${debounceValue}&page=${searchPage}`,
+      null
+    ).then((res) => {
+      setSearchData([...askCardData, ...res.data.searchedAsks]);
+      setSearchPage(searchPage + 1);
+    });
+    if (!debounceValue) {
+      setIsSearch(false);
+      setSearchPage(1);
+    }
+  };
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
@@ -74,21 +128,48 @@ const CommunityAsk = () => {
         <div className={Show.rightInner}>
           <div className={Show.titleSearchInner}>
             <h2 className={Show.title}>궁금한 내용들을 물어보세요</h2>
-            {/* <Search key={key} setAskCardData={setAskCardData}></Search> */}
+            <Search
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
+            ></Search>
           </div>
           <div className={Show.cardInner}>
-            {askCardData && (
+            {isSearch ? (
+              <AskCardList askCardData={searchData}></AskCardList>
+            ) : (
               <AskCardList askCardData={askCardData}></AskCardList>
             )}
           </div>
           <div className={Show.footer}>
+            <div className={Show.moreBtnInner}>
+              {isSearch ? (
+                isLastPage ? (
+                  <button
+                    className={Show.moreBtn}
+                    onClick={searchMoreBtnHandler}
+                  >
+                    더보기
+                  </button>
+                ) : null
+              ) : askCardData && hasNextPage ? (
+                <button className={Show.moreBtn} onClick={moreBtnHandler}>
+                  더보기
+                </button>
+              ) : null}
+              {/* {showCardData && hasNextPage ? (
+                <button className={Show.moreBtn} onClick={moreBtnHandler}>
+                  더보기
+                </button>
+              ) : null} */}
+            </div>
+            {/* <div className={Show.footer}>
             <div className={Show.moreBtnInner}>
               {askCardData && hasNextPage ? (
                 <button className={Show.moreBtn} onClick={moreBtnHandler}>
                   더보기
                 </button>
               ) : null}
-            </div>
+            </div> */}
             <div className={Show.writeBtnInner}>
               <EditIcon
                 className={Show.writeBtnOutline}

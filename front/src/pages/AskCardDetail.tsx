@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import imageError from "../../assets/error/imageError.jpg";
+import { CheckBox } from "@mui/icons-material";
 
 interface DetailData {
   title: string;
@@ -58,6 +59,7 @@ const AskCardDetail = () => {
         });
     }
   }, []);
+
   return (
     <div className={Detail.container}>
       <div className={Detail.title}>{DetailData.title}</div>

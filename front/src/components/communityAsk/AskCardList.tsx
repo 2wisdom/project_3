@@ -26,6 +26,8 @@ interface askCard {
   contents: string;
   createdAt: string;
   updatedAt?: string;
+  errorMessage: string;
+  totalPage: string;
 }
 const AskCardList = ({ askCardData }: { askCardData: askCard[] }) => {
   // console.log("askCardData-askCardList", askCardData);
