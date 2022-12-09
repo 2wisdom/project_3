@@ -3,6 +3,7 @@ const CommentModel = require("../schemas/comment");
 const Comment = {
   findUserAllComments: async (userId, page) => {
     try {
+      console.log(userId);
       const findUserAllComments = await CommentModel.find({ writer: userId })
 
         .sort({ createdAt: -1 })
@@ -22,8 +23,9 @@ const Comment = {
 
   findUserAllCommentsCount: async (userId) => {
     try {
+      console.log(userId);
       const allUserCommentsCount = await CommentModel.countDocuments({
-        author: userId,
+        writer: userId,
       }).lean();
 
       return allUserCommentsCount;
