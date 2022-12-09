@@ -137,8 +137,6 @@ const Market = () => {
                       </button>
                     )}
                   </div>
-                </div>
-              </div>
               <div className={Show.writeBtnInner}>
                 <EditIcon
                   className={Show.writeBtnOutline}
@@ -147,6 +145,8 @@ const Market = () => {
                     navigate("/createMarketCard");
                   }}
                 ></EditIcon>
+                </div>
+              </div>
               </div>
             </div>
           </div>
