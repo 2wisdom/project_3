@@ -1,0 +1,127 @@
+.container {
+  margin: 0px;
+  padding: 0px;
+  margin-top: 5rem;
+}
+.Inner {
+  display: flex;
+  width: 100%;
+  /* height: 60vh; */
+  height: 90vh;
+  margin-left: 25rem;
+  /* text-align : center;
+      align-items : center; */
+}
+.rightInner {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 80vh;
+}
+/* title & search */
+.titleSearchInner {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: "Jua", sans-serif;
+  font-weight: 300;
+  font-size: 3rem;
+  padding-bottom: 8rem;
+}
+.search {
+  margin-bottom: 3rem;
+}
+/* card */
+.cardInner {
+  margin-left: auto;
+  width: 100%;
+  height: 70vh;
+}
+/* moreBtn */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  margin-top: 2rem;
+}
+.moreBtnInner {
+  margin: auto;
+}
+
+.moreBtn {
+  background-color: #ffffff;
+  border-radius: 28px;
+  border: 2px solid #000000;
+  cursor: pointer;
+  color: #000000;
+  font-size: 13px;
+  padding: 12px 20px;
+  text-decoration: none;
+  margin-left: 15rem;
+  /* justify-content: center; */
+}
+.moreBtn:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+.moreBtn:active {
+  position: relative;
+  top: 1px;
+}
+
+.writeBtnInner {
+  /* width: 20%; */
+  /* text-align: end; */
+  /* align-items: flex-end; */
+}
+
+.writeBtnOutline {
+  cursor: pointer;
+  border: 2px solid #000000;
+  border-radius: 3rem;
+  padding: 1rem;
+  margin-right: 3rem;
+}
+.writeBtnOutline:active {
+  position: relative;
+  top: 1px;
+}
+
+.titleNavInner {
+  margin-left: auto;
+  width: 100%;
+  height: 10vh;
+  display: flex;
+}
+
+.navContainer {
+  display: flex;
+  padding: 2rem 5rem;
+  margin-right: 45rem;
+}
+
+.navItem {
+  font-family: "NanumGothic";
+  font-size: 1.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  margin: 0 2rem;
+  color: #919191;
+}
+
+.navItem:hover {
+  color: #0c884f;
+}
+
+.clickedNav {
+  color: #0c884f;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  text-decoration-color: #0c884f;
+}

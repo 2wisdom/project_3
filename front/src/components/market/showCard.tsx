@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
 import Avatar from "@mui/material/Avatar";
+import imageError from "../../../assets/error/imageError.jpg";
 
 interface props {
   contents: string;
@@ -37,6 +38,10 @@ const showCard = ({
             className={
               isSoldOut ? `${Card.Image} ${Card.soldOutImage}` : Card.Image
             }
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src = imageError;
+            }}
             src={`${imageUrl}`}
             style={{ width: 267, height: 200 }}
             onClick={() => navigate(`/marketCardDetail/${_id}`)}

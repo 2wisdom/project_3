@@ -44,9 +44,6 @@ const CommuityShow = () => {
   const [searchPage, setSearchPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = searchPage >= totalPage;
-  console.log("searchInput", searchInput);
-  const key = "posts";
-  console.log("key", key);
   const apiGetShowCardData = async () => {
     await Api.get("posts", null)
       .then((res) => {
