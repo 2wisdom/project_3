@@ -24,6 +24,11 @@ const CommentSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    // Post, Ask, Market
+    postType: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
