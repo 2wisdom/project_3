@@ -59,28 +59,21 @@ async function put(endpoint: string, data: any) {
 
 // 아래 함수명에 관해, delete 단어는 자바스크립트의 reserved 단어이기에,
 // 여기서는 우선 delete 대신 del로 쓰고 아래 export 시에 delete로 alias 함.
-async function del(endpoint: string, params: string ) {
-    console.log(`DELETE 요청 ${serverUrl + endpoint + "/" + params}`);
-    return axios.delete(serverUrl + endpoint + "/" + params, {
+async function del(endpoint: string, params?: string) {
+  console.log(`DELETE 요청 ${serverUrl + endpoint + "/" + params}`);
+  return axios.delete(
+    params ? serverUrl + endpoint + "/" + params : serverUrl + endpoint,
+    {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    });
+    }
+  );
 }
 
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,
 // A.get, A.post 로 쓸 수 있음.
 export { get, post, put, del as delete };
-
-// https://github.com/axios/axios
-// export interface AxiosError<T> extends Error {
-//   config: AxiosRequestConfig;
-//   code?: string;
-//   request?: any;
-//   response?: AxiosResponse<T>;
-//   isAxiosError: boolean;
-//   toJSON: () => object;
-// }
 
 axios.interceptors.response.use(
   (res) => {
@@ -110,12 +103,13 @@ axios.interceptors.response.use(
     } else if (
       error.request.status === 403 &&
       error!.response!.data == "refresh token이 만료 되었습니다."
-    ) {
-      // console.log("리프레쉬토큰 만료", error)
-      alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
-      localStorage.clear();
-      return Promise.resolve(error);
-    }
+    ) 
+    // {
+    //   // console.log("리프레쉬토큰 만료", error)
+    //   alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+    //   localStorage.clear();
+    //   return Promise.resolve(error);
+    // }
     return Promise.reject(error);
   }
 );

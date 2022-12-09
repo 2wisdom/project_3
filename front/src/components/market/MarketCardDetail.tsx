@@ -73,7 +73,7 @@ const MarketCardDetail = () => {
     if (seletedCategoryIndex === 1) {
       if (
         confirm(
-          "판매완료로 바꾸시겠습니까? 판매완료처리 후 되돌리실 수 없습니다."
+          "판매완료 후 되돌리실 수 없습니다.\n판매완료로 바꾸시겠습니까? "
         )
       ) {
         changeToSold();
