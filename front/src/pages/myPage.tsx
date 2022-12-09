@@ -9,11 +9,10 @@ import * as M from "../styles/MyPage/MyPage.styled";
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const { setPickedTopNav } = TopNavStore();
+  const { pickedTopNav, setPickedTopNav } = TopNavStore();
   // const { pickedNav, setPickedNav } = NavStore();
   const { resetPage } = pageStore();
   const [pickedNav, setPickedNav] = useState("개인정보수정");
-  // const [pickedTopNav, setPickedTopNav] = useState("질문하기");
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
@@ -30,7 +29,7 @@ const MyPage = () => {
   ];
   const para = window.location.pathname.split("/");
   const isInfoTap = para[2] === undefined;
-
+  console.log(pickedNav)
   return (
     <M.MainContent>
       <M.TitleContainer>
@@ -39,14 +38,16 @@ const MyPage = () => {
           topNavList.map((nav) => {
             return (
               <M.topNav
+                isPicked={pickedTopNav.name === nav.name}
+                // theme={pickedTopNav.name === nav.name && M.theme}
                 type="button"
+                name={nav.name}
                 value={nav.name}
                 key={nav.name}
                 onClick={(e) => {
                   setPickedTopNav(nav);
                   resetPage();
                 }}
-                // {pickedNav===this.value && (primary)}
               >
                 {nav.name}
               </M.topNav>
@@ -58,10 +59,12 @@ const MyPage = () => {
           {navList.map((nav) => {
             return (
               <M.NavBtn
+                isPicked={pickedNav === nav.name}
                 type="button"
                 value={nav.name}
+                name={nav.name}
                 key={nav.name}
-                // {pickedNav===this.value && (primary)}
+                // theme={pickedNav===nav.name && M.theme}
                 onClick={(e) => {
                   navigate(nav.address);
                   setPickedNav((e.target as HTMLButtonElement).value);

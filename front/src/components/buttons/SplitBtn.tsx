@@ -9,35 +9,44 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 
-interface categoryList {
-  name: string;
-  apiAddress: string;
+interface ShowCardData {
+  category: string;
+  title: string;
+  price: number | undefined;
+  contents: string;
+  imageUrl: string;
 }
 
 interface props {
-  categoryList: categoryList[];
-  setMarketCategory: React.Dispatch<React.SetStateAction<categoryList>>;
+  categoryList: string[];
+  setShowCardData: React.Dispatch<React.SetStateAction<ShowCardData>>;
+  originallySelectedIndex: number | null;
 }
 
 export default function SplitButton({
   categoryList,
-  setMarketCategory,
+  setShowCardData,
+  originallySelectedIndex,
 }: props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
 
-  const handleClick = () => {
-    console.info(`You clicked ${categoryList[selectedIndex]}`);
-  };
+  const [selectedIndex, setSelectedIndex] =
+    originallySelectedIndex === null
+      ? React.useState(0)
+      : React.useState(originallySelectedIndex);
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    index: number
+    index: number,
+    category: string
   ) => {
     setSelectedIndex(index);
     setOpen(false);
-    setMarketCategory(categoryList[index]);
+    setShowCardData((prev) => ({
+      ...prev,
+      category: category,
+    }));
   };
 
   const handleToggle = () => {
@@ -58,9 +67,7 @@ export default function SplitButton({
   return (
     <React.Fragment>
       <ButtonGroup variant="outlined" ref={anchorRef} aria-label="split button">
-        <Button onClick={handleClick}>
-          {categoryList[selectedIndex].name}
-        </Button>
+        <Button>{categoryList[selectedIndex]}</Button>
         <Button
           size="small"
           aria-controls={open ? "split-button-menu" : undefined}
@@ -95,11 +102,13 @@ export default function SplitButton({
                 <MenuList id="split-button-menu" autoFocusItem>
                   {categoryList.map((category, index) => (
                     <MenuItem
-                      key={category.name}
+                      key={category}
                       selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      onClick={(event) =>
+                        handleMenuItemClick(event, index, category)
+                      }
                     >
-                      {category.name}
+                      {category}
                     </MenuItem>
                   ))}
                 </MenuList>

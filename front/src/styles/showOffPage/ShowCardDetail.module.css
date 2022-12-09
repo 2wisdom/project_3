@@ -95,3 +95,13 @@
   position: relative;
   top: 1px;
 }
+
+.price {
+  font-family: "NanumGothic";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 3rem;;
+  line-height: 36px;
+  color: #0C884F;
+  margin-left: 50rem;
+}

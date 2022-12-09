@@ -59,22 +59,13 @@ async function put(endpoint: string, data: any) {
 
 // 아래 함수명에 관해, delete 단어는 자바스크립트의 reserved 단어이기에,
 // 여기서는 우선 delete 대신 del로 쓰고 아래 export 시에 delete로 alias 함.
-async function del(endpoint: string, params: string | null) {
-  if (params == null) {
-    console.log(`DELETE 요청 ${serverUrl + endpoint}`);
-    return axios.delete(serverUrl + endpoint, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    });
-  } else {
+async function del(endpoint: string, params: string ) {
     console.log(`DELETE 요청 ${serverUrl + endpoint + "/" + params}`);
     return axios.delete(serverUrl + endpoint + "/" + params, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
-  }
 }
 
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,

@@ -11,10 +11,14 @@ import CommunityShow from "./pages/CommunityShow";
 import CreateShowCard from "./pages/CreateShowCard";
 import ShowCardDetail from "./pages/ShowCardDetail";
 import Market from "./pages/Market";
-import UserEditCard from "./components/myPage/UserPost/UserEditCard";
+import CreateMarketCard from "./components/market/CreateMarketCard";
+import MarketCardDetail from "./components/market/MarketCardDetail";
+import UserCommunityEditCard from "./components/myPage/UserPost/UserCommunityEditCard";
+import UserMarketEditCard from "./components/myPage/UserPost/UserMarketEditCard";
 import CommunityAsk from "./pages/CommunityAsk";
 import AskCardDetail from "./pages/AskCardDetail";
 import CreateAskCard from "./pages/CreateAskCard";
+import FindPlant from "./pages/FindPlant";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.setUser);
@@ -47,16 +51,21 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/myPage/*" element={<MyPage />} />
+
           <Route path="/market" element={<Market />} />
+          <Route path="/market/editcard/:id" element={<UserMarketEditCard />} />
+          <Route
+            path="/community/editcard/:id"
+            element={<UserCommunityEditCard />}
+          />
+          <Route path="/createMarketCard" element={<CreateMarketCard />} />
+          <Route path="/marketCardDetail/:id" element={<MarketCardDetail />} />
 
+          <Route path="/findPlant" element={<FindPlant />} />
 
-          
-          {/* <Route path="/search-plant" element={<Search />} />
-                    <Route path="/community" element={<Community />} /> */}
           <Route path="/communityAsk" element={<CommunityAsk />} />
           <Route path="/askCardDetail/:id" element={<AskCardDetail />}></Route>
           <Route path="/createAskCard" element={<CreateAskCard />}></Route>
-
 
           <Route path="/communityShowOff" element={<CommunityShow />} />
           <Route path="/createShowCard" element={<CreateShowCard />}></Route>
@@ -64,7 +73,7 @@ const App = () => {
             path="/showCardDetail/:id"
             element={<ShowCardDetail />}
           ></Route>
-          <Route path="/editCard/:id" element={<UserEditCard />}></Route>
+          {/* <Route path="/editCard/:id" element={<UserCommunityEditCard />}></Route> */}
 
           {/* <Route component={NotFound} /> */}
         </Routes>

@@ -16,7 +16,7 @@
 .buttonContainer {
   display: flex;
   flex-direction: column;
-  width: 6%;
+  width: 184px;
   height: 80vh;
   margin-right: 4rem;
 
@@ -104,6 +104,8 @@
   display: flex;
   /* justify-content: center; */
   margin-top: 2rem;
+  /* background-color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.2); */
 }
 .moreBtnInner {
   /* width: 80%; */
@@ -167,14 +169,21 @@
 }
 
 .navItem {
-  font-family: "Jua", sans-serif;
+  font-family: 'NanumGothic';
   font-size: 1.8rem;
+  font-weight: 800;
   cursor: pointer;
   margin: 0 2rem;
+  color: #919191;
+}
+
+.navItem:hover {
+  color: #0c884f;
 }
 
 .clickedNav {
   color: #0c884f;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
   text-decoration-color: #0c884f;
-  text-underline-position: below;
 }

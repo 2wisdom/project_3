@@ -57,6 +57,7 @@ const EditUserInfo = () => {
       try {
         const res = await Api.put(`users/defaultimage/${user.userId}`, {});
         setUser(res.data);
+        alert("성공1")
       } catch (err: any) {
         if (err.respone.data === "이미 기본 이미지입니다") {
           alert("이미 기본 이미지입니다")
@@ -90,6 +91,7 @@ const EditUserInfo = () => {
         );
         if (res.status === 200) {
           console.log("유저 정보 수정 성공");
+          alert("성공2")
           setUser(res.data);
         }
       } catch (err: any) {
@@ -125,7 +127,7 @@ const EditUserInfo = () => {
         <RoundBtn theme={white} type="button" onClick={() => resetPage()}>
           취소
         </RoundBtn>
-        <RoundBtn theme={violet} type="button" onClick={userUpload}>
+        <RoundBtn theme={violet} type="submit" onClick={userUpload}>
           적용
         </RoundBtn>
       </ContentBox>
