@@ -100,8 +100,65 @@
   font-family: "NanumGothic";
   font-style: normal;
   font-weight: 800;
-  font-size: 3rem;;
+  font-size: 3rem;
   line-height: 36px;
-  color: #0C884F;
+  color: #0c884f;
   margin-left: 50rem;
+}
+
+.soldOutBtnBox {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 5rem;
+}
+
+.soldOutBtn {
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #0c884f;
+  border-radius: 0.6em;
+  color: #0c884f;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  padding: 1.2em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  margin: 3rem;
+  size: 10rem;
+  /* border: */
+  /* transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  &:hover {
+    
+    box-shadow: 0 0 40px 40px $red inset;
+  } */
+}
+
+.imageWrap {
+  position: relative;
+}
+
+.soldOutImage {
+  filter: brightness(50%);
+}
+
+.soldOutText {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate( -50%, -50%);
+  font-family: "NanumGothic";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 5rem;
+  line-height: 5rem;
+  color: white;
 }

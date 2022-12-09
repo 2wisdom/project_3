@@ -11,7 +11,9 @@ interface User {
 type StateProps = {
     user: User
     setUser: (user: User) => void;
+    // setUserClear: () => void;
 }
+
 
 const useUserStore = create<StateProps>((set) => ({
     user: {
@@ -26,6 +28,11 @@ const useUserStore = create<StateProps>((set) => ({
             ...state,
             user
         }))
+    // setUserClear: () => set({user : {email: "",
+    // name: "",
+    // userId: "",
+    // imageUrl: "",
+    // accessToken: ""}})
 }));
 
 export default useUserStore;

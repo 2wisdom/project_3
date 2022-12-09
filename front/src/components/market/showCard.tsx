@@ -12,6 +12,7 @@ interface props {
   price: number;
   _id: string;
   category: string;
+  isSoldOut: boolean;
 }
 
 const showCard = ({
@@ -24,18 +25,24 @@ const showCard = ({
   contents,
   price,
   category,
+  isSoldOut,
 }: props) => {
   const navigate = useNavigate();
 
   return (
     <>
       <div className={Card.inner}>
-        <img
-          className={Card.Image}
-          src={`${imageUrl}`}
-          style={{ width: 267, height: 200 }}
-          onClick={() => navigate(`/marketCardDetail/${_id}`)}
-        />
+        <div className={Card.imageWrap}>
+          <img
+            className={
+              isSoldOut ? `${Card.Image} ${Card.soldOutImage}` : Card.Image
+            }
+            src={`${imageUrl}`}
+            style={{ width: 267, height: 200 }}
+            onClick={() => navigate(`/marketCardDetail/${_id}`)}
+          />
+          {isSoldOut && <p className={Card.soldOutText}>품 절</p>}
+        </div>
         <h3
           className={Card.title}
           onClick={() => navigate(`/marketCardDetail/${_id}`)}
