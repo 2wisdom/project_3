@@ -4,6 +4,12 @@ const Post = require("../db/models/Post");
 const { postService } = require("../services/postService");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
 const { writeLog } = require("../middlewares/writeLog");
+const fs = require("fs");
+const path = require("path");
+
+const Comment = require("../db/schemas/comment");
+const logger = require("../config/logger");
+const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
 
 const postController = {
   // 전체 게시글 조회
@@ -94,7 +100,7 @@ const postController = {
   },
 
   // 게시글 삭제
-  deletePost: async (req, res) => {
+  deletePost: async (req, res, next) => {
     console.log("게시글 삭제");
     const { postId } = req.params;
 
@@ -105,7 +111,19 @@ const postController = {
       });
     }
 
-    await Post.delete(postId);
+    try {
+      await Post.delete(postId);
+    } catch (e) {
+      next(e);
+    }
+
+    // 파일 삭제
+    try {
+      const imageUrl = getPost.imageUrl;
+      wisXFileCleanerFromUrl(new URL(imageUrl));
+    } catch (e) {
+      console.log(e);
+    }
 
     try {
       return res.json({
