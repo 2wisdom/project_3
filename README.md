@@ -6,7 +6,7 @@
 
 ---
 
-이미지로 식물 예측이 가능한 온라인 커뮤니티 웹 사이트 제작
+이미지로 식물 예측이 가능한 온라인 커뮤니티 웹 사이트입니다.
 
 <br>
 
@@ -14,9 +14,60 @@
 
 ---
 
-1. 식물 이미지 검색
-2. 커뮤니티 게시글 및 댓글 작성
-3. 식물 관련 상품 거래
+1. 식물 이미지를 import 하여 식물 이름을 예측율(%)과 함께 얻을 수 있습니다.
+2. 이용자 간의 소통을 위한 질문 게시판과 자랑 게시판을 제공합니다.
+3. 식물 관련 상품 거래를 위한 판매 게시판을 제공합니다.
+
+<br>
+
+## 사용 방법
+
+---
+
+```
+cd front
+yarn
+yarn dev
+```
+
+```
+cd back
+npm i
+npm start
+```
+
+```
+cd ai
+pip install --upgrade pip
+pip3 install python==3.7.6
+pip3 install fastapi
+pip3 install "uvicorn[standard]"
+pip3 install pydantic
+pip3 install pandas
+pip3 install pillow
+pip3 install torch torchvision torchaudio
+uvicorn main-server:app --reload
+```
+
+<br>
+
+## 개발 기간
+
+---
+
+2022년 11월 14일 ~ 2022년 12월 16일
+
+<br>
+
+## 팀 소개
+
+---
+
+- 이지혜
+- 김성우: https://github.com/working-zima
+- 박은정
+- 이홍준
+- 조하은
 
 <br>
 
@@ -30,3 +81,21 @@
 | <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black"/>                       | <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white"/>     | <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white"/> |
 | <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=flat-square&logo=styledcomponents&logoColor=white"/> | <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>       | <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/>       |
 | <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white"/>                          | <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white"/>       | <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white"/>       |
+
+<br>
+
+## 외부 리소스
+
+---
+
+### pl@ntNet Lab
+
+https://lab.plantnet.org/seafile/d/01ab6658dad6447c95ae/files/?p=%2Fresnet18_weights_best_acc.tar
+
+<br>
+
+## 기타
+
+---
+
+자세한 사항은 각 폴더별 README 를 참고해주세요.
