@@ -37,7 +37,11 @@ const marketService = {
         options
       );
 
-      userMarketsResponse.totalPage = searchedMarketsCount;
+      const totalPage = Math.ceil(
+        searchedMarketsCount / process.env.PAGE_LIMIT_COUNT
+      );
+
+      userMarketsResponse.totalPage = totalPage;
       userMarketsResponse.searchedMarkets = searchedMarkets;
 
       userMarketsResponse.errorMessage = null;
