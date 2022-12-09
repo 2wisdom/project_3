@@ -272,9 +272,9 @@ const userAuthService = {
       //   return userComment.writingId;
       // });
 
-      // const result = userIdResult.filter(
-      //   (v, i) => userIdResult.indexOf(v) === i
-      // );
+      // const result = Array.from(new Set(userIdResult));
+
+      // console.log(result);
 
       const userCommentsCount = await wrapper(
         Comment.findUserAllCommentsCount,
