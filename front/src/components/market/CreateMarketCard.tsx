@@ -34,15 +34,7 @@ const CreateMarketCard = () => {
     const formData = new FormData();
     formData.append("image", e.target.files[0] as any);
     try {
-      const res = await axios({
-        method: "post",
-        url: "http://localhost:5000/images/image-upload",
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      const res = await Api.post('images/image-upload', formData , true);
       const result = res.data.url;
       setShowCardData((prev) => ({
         ...prev,
@@ -85,8 +77,6 @@ const CreateMarketCard = () => {
             seletedCategoryIndex={seletedCategoryIndex}
             setSeletedCategoryIndex={setSeletedCategoryIndex}
             categoryList={categoryList}
-            // setShowCardData={setShowCardData}
-            // originallySelectedIndex={null}
           />
         </div>
         <div className={Create.Inner}>
