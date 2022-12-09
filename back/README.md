@@ -1,8 +1,8 @@
 # 잎게모야 Back End READ ME
 
----
-
 ## 파일구조
+
+---
 
 📦back  
 ┣ 📂logs  
@@ -71,9 +71,11 @@
 ┣ 📜package.json  
 ┗ 📜yarn.lock
 
----
+<br>
 
-## .env 파일
+## 환경 변수
+
+---
 
 - 배포시 'production', 개발시 'dev'
 
@@ -117,4 +119,22 @@ ACCESS_EXPIRES_IN=''
 REFRESH_EXPIRES_IN=''
 ```
 
----
+- 유저 기본 이미지 이름
+
+```
+DEFAULT_IMAGE_NAME="leavesGetMoreYards.png"
+```
+
+- 유저 기본 이미지 URL
+
+```
+DEFAULT_IMAGE_URL="public/images/leavesGetMoreYards.png"
+```
+
+- 페이지 당 게시물 개수
+
+```
+PAGE_LIMIT_COUNT=8
+```
+
+<br>
