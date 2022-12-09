@@ -96,25 +96,6 @@ const UserPostCards = () => {
         <div className={Show.cardInner}>
           <div className={CardListStyle.cardList}>
             <div className={CardListStyle.cardListInner}>
-              {showCards &&
-                showCards.map((showcard) => {
-                  return (
-                    <ShowCard
-                      key={showcard._id}
-                      _id={showcard._id}
-                      imageUrl={showcard.imageUrl}
-                      title={showcard.title}
-                      userName={user.name}
-                      userImage={user.imageUrl}
-                      date={showcard.createdAt}
-                      contents={showcard.contents}
-                      showCards={showCards}
-                      setShowCards={setShowCards}
-                      price={showcard.price}
-                      category={showcard.category}
-                    />
-                  );
-                })}
               {showCards.map((showcard) => {
                 return !isMarketTap ? (
                   <UserPostCard
