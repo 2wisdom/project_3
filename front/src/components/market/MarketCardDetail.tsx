@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import imageError from "../../../assets/error/imageError.jpg";
 import SplitBtn from "../buttons/SplitBtn";
+import UserCard from "../myPage/EditUserInfo/UserCard";
+import useUserStore from "@/store/Login";
 
 interface Author {
   imageUrl: string;
@@ -26,6 +28,7 @@ interface DetailData {
 const MarketCardDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const user = useUserStore((state) => state.user);
   const [DetailData, setDetailData] = useState<DetailData>({
     author: { imageUrl: "", name: "", _id: "" },
     category: "",
@@ -38,7 +41,7 @@ const MarketCardDetail = () => {
   });
   const [seletedCategoryIndex, setSeletedCategoryIndex] = useState(0);
   const createDate = DetailData.createdAt.split("T");
-
+  const isAuthor= DetailData.author.name === user.name
   const getCardData = async () => {
     try {
       const res = await Api.get("markets", id as string);
@@ -107,7 +110,7 @@ const MarketCardDetail = () => {
           {DetailData.price.toLocaleString("ko-KR")} 원
         </div>
       </div>
-      {!Detail.isSoldOut && (
+      {isAuthor &&!Detail.isSoldOut && (
         <div className={Detail.soldOutBtnBox}>
           <SplitBtn
             seletedCategoryIndex={seletedCategoryIndex}

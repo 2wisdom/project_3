@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../../../api/Api";
 import UserPostCard from "./UserPostCard";
+import UserMarketCard from "./UserMarketCard";
 import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 import { TopNavStore, pageStore } from "@/store/MyPage";
@@ -68,7 +69,6 @@ const UserPostCards = () => {
     } catch (err: any) {
       if (err.response.status === 404) {
         setShowCards([]);
-        console.log("여기");
       }
     }
   };
@@ -87,10 +87,10 @@ const UserPostCards = () => {
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page + 1}`
       );
-      isAsksTap && setShowCards([...showCards, ...res.data.userAsks])
-      isPostsTap && setShowCards([...showCards, ...res.data.userPosts])
-      isMarketTap && setShowCards([...showCards, ...res.data.userMarkets])
-        
+      isAsksTap && setShowCards([...showCards, ...res.data.userAsks]);
+      isPostsTap && setShowCards([...showCards, ...res.data.userPosts]);
+      isMarketTap && setShowCards([...showCards, ...res.data.userMarkets]);
+
       increasePage();
     } catch (err) {
       console.log("더보기 에러: ", err);
@@ -103,25 +103,38 @@ const UserPostCards = () => {
         <div className={Show.cardInner}>
           <div className={CardListStyle.cardList}>
             <div className={CardListStyle.cardListInner}>
-              {showCards &&
-                showCards.map((showcard) => {
-                  return (
-                    <UserPostCard
-                      key={showcard._id}
-                      _id={showcard._id}
-                      imageUrl={showcard.imageUrl}
-                      title={showcard.title}
-                      userName={user.name}
-                      userImage={user.imageUrl}
-                      date={showcard.createdAt}
-                      contents={showcard.contents}
-                      showCards={showCards}
-                      setShowCards={setShowCards}
-                      price={showcard.price}
-                      category= {showcard.category}
-                    />
-                  );
-                })}
+              {showCards.map((showcard) => {
+                    return ( !isMarketTap ? 
+                      <UserPostCard
+                        key={showcard._id}
+                        _id={showcard._id}
+                        imageUrl={showcard.imageUrl}
+                        title={showcard.title}
+                        userName={user.name}
+                        userImage={user.imageUrl}
+                        date={showcard.createdAt}
+                        contents={showcard.contents}
+                        showCards={showCards}
+                        setShowCards={setShowCards}
+                        price={showcard.price}
+                        category={showcard.category}
+                      />:
+                      <UserMarketCard
+                        key={showcard._id}
+                        _id={showcard._id}
+                        imageUrl={showcard.imageUrl}
+                        title={showcard.title}
+                        userName={user.name}
+                        userImage={user.imageUrl}
+                        date={showcard.createdAt}
+                        contents={showcard.contents}
+                        showCards={showCards}
+                        setShowCards={setShowCards}
+                        price={showcard.price}
+                        category={showcard.category}
+                      />
+                    );
+                  })}
             </div>
             <div className={Show.footer}>
               <div className={Show.moreBtnInner}>

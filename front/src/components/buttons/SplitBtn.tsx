@@ -35,8 +35,7 @@ export default function SplitButton({
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    index: number,
-    category: string
+    index: number
   ) => {
     setSeletedCategoryIndex(index);
     setOpen(false);
@@ -60,7 +59,14 @@ export default function SplitButton({
   return (
     <React.Fragment>
       <ButtonGroup variant="outlined" ref={anchorRef} aria-label="split button">
-        <Button>{categoryList[seletedCategoryIndex]}</Button>
+        <Button
+          size="large"
+          style={{
+            fontSize: "1.2rem",
+          }}
+        >
+          {categoryList[seletedCategoryIndex]}
+        </Button>
         <Button
           size="small"
           aria-controls={open ? "split-button-menu" : undefined}
@@ -95,11 +101,12 @@ export default function SplitButton({
                 <MenuList id="split-button-menu" autoFocusItem>
                   {categoryList.map((category, index) => (
                     <MenuItem
+                      style={{
+                        fontSize: "1.2rem",
+                      }}
                       key={category}
                       selected={index === seletedCategoryIndex}
-                      onClick={(event) =>
-                        handleMenuItemClick(event, index, category)
-                      }
+                      onClick={(event) => handleMenuItemClick(event, index)}
                     >
                       {category}
                     </MenuItem>
