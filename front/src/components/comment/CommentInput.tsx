@@ -4,7 +4,7 @@ import Box from "@mui/joy/Box";
 import Checkbox from "@mui/joy/Checkbox";
 import Textarea from "@mui/joy/Textarea";
 import * as Api from "../../api/Api";
-import Cmt from "../styles/Comment.module.css";
+import Cmt from "../../styles/Comment.module.css";
 
 interface writer {
   name: string;
@@ -42,7 +42,7 @@ const CommentInput = ({
         isSecret,
       });
       //새 대댓글도 보여주기
-      if (res.status === 200 || 201) {
+      if (res.status === 200 ||res.status === 201) {
         setOpenCommentBox(false);
         //textArea clear, 체크박스 reset
         try {

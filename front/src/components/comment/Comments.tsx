@@ -3,7 +3,7 @@ import { RoundBtn, black } from "../buttons/BasicBtn";
 import Box from "@mui/joy/Box";
 import Checkbox from "@mui/joy/Checkbox";
 import Textarea from "@mui/joy/Textarea";
-import Cmt from "../styles/Comment.module.css";
+import Cmt from "../../styles/Comment.module.css";
 import Comment from "./Comment";
 import * as Api from "../../api/Api";
 import useUserStore from "@/store/Login";
@@ -38,7 +38,7 @@ const Comments = ({ authorName, id }: props) => {
     if (id) {
       Api.get(`comments/${id}`)
         .then((res) => {
-          setCommentList(res.data.comments);
+          setCommentList(res.data.comments.reverse());
           console.log(`res.data-comments`, res);
         })
         .catch((err) => {
@@ -59,7 +59,7 @@ const Comments = ({ authorName, id }: props) => {
         //textArea clear, 체크박스 reset
         try {
           const res = await Api.get(`comments/${id}`);
-          setCommentList(res.data.comments);
+          setCommentList(res.data.comments.reverse());
         } catch (err) {
           console.log("댓글저장 후 다시 불러오기 에러", err);
         }
@@ -118,7 +118,7 @@ const Comments = ({ authorName, id }: props) => {
             댓글작성
           </RoundBtn>
         </div>
-        {commentList.reverse().map((comment) => {
+        {commentList.map((comment) => {
           return (
             <Comment
               key={comment._id}

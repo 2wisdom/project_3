@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Cmt from "../styles/Comment.module.css";
+import Cmt from "../../styles/Comment.module.css";
 import Avatar from "@mui/material/Avatar";
 import useUserStore from "@/store/Login";
 import NestedComment from "./NestedComment";

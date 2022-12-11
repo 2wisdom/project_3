@@ -1,4 +1,4 @@
-import Cmt from "../styles/Comment.module.css";
+import Cmt from "../../styles/Comment.module.css";
 import useUserStore from "@/store/Login";
 import Avatar from "@mui/material/Avatar";
 
