@@ -29,24 +29,22 @@ const FindPlant = () => {
   ) => {
     e.preventDefault();
     console.log("click");
-
-    axios({
-      method: "post",
-      url: "http://localhost:5000/lens",
-      data: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((err) => {
-        console.log("imageErr", err);
+    try {
+      let res = await axios({
+        method: "post",
+        url: "http://localhost:5000/lens",
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
       });
+      console.log("res-test", res);
+    } catch (err) {
+      console.log("imageErr", err);
+    }
   };
-  // console.log("preview", previewImage);
+  // http://localhost:5000/images/image-upload
   return (
     <div className={Find.container}>
       <div className={Find.Inner}>
