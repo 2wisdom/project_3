@@ -34,7 +34,7 @@ export interface Props {
   contents: string;
   price: number;
   category: string;
-//   isSoldOut: string;
+  //   isSoldOut: string;
 }
 
 const UserCommentCards = () => {
@@ -86,10 +86,10 @@ const UserCommentCards = () => {
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page + 1}`
       );
-      isAsksTap && setShowCards([...showCards, ...res.data.userAsks])
-      isPostsTap && setShowCards([...showCards, ...res.data.userPosts])
-      isMarketTap && setShowCards([...showCards, ...res.data.userMarkets])
-        
+      isAsksTap && setShowCards([...showCards, ...res.data.userAsks]);
+      isPostsTap && setShowCards([...showCards, ...res.data.userPosts]);
+      isMarketTap && setShowCards([...showCards, ...res.data.userMarkets]);
+
       increasePage();
     } catch (err) {
       console.log("더보기 에러: ", err);
@@ -115,7 +115,7 @@ const UserCommentCards = () => {
                       date={showcard.createdAt}
                       contents={showcard.contents}
                       price={showcard.price}
-                      category= {showcard.category}
+                      category={showcard.category}
                     />
                   );
                 })}
