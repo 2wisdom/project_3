@@ -5,7 +5,7 @@ const tokenService = {
   deleteTokenInfo: async (userId) => {
     try {
       // models의 delete 함수 실행
-      let deletedTokenInfo = await wrapper(Token.deleteByUserId, userId);
+      const deletedTokenInfo = await wrapper(Token.deleteByUserId, userId);
 
       deletedTokenInfo.errorMessage = null;
 

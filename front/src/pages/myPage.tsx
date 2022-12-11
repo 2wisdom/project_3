@@ -30,7 +30,7 @@ const MyPage = () => {
   ];
   const para = window.location.pathname.split("/");
   const isInfoTap = para[2] === undefined;
-  console.log(pickedNav)
+  console.log(pickedNav);
   return (
     <M.MainContent>
       <M.TitleContainer>
@@ -80,7 +80,7 @@ const MyPage = () => {
           <Routes>
             <Route path="" element={<EditUserInfo />} />
             <Route path="userPost" element={<UserPostCards />} />
-            <Route path="userComment/" element={UserCommentCards} />
+            <Route path="userComment/" element={<UserCommentCards />} />
           </Routes>
         </M.MainContainer>
       </M.MyPageContainer>

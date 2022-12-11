@@ -22,7 +22,6 @@ const userAuthService = {
       const userEmail = await wrapper(User.findByEmail, newUser.email);
 
       if (userEmail) throw new Error("중복된 아이디입니다.");
-      //질문 트라이 캐치? 에러? 중복된 아이디가 안나옴
 
       // 비밀번호 암호화
       // const hashedPassword = await bcrypt.hash(newUser.password, SALT_ROUND);

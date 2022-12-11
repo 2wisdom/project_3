@@ -9,57 +9,16 @@
 ┣ 📂node_modules  
 ┣ 📂public  
 ┃ ┗ 📂images  
-┃ ┃ ┗ 📜leavesGetMoreYards.png  
 ┣ 📂src  
 ┃ ┣ 📂config  
-┃ ┃ ┗ 📜logger.js  
 ┃ ┣ 📂controllers  
-┃ ┃ ┣ 📜CommentController.js  
-┃ ┃ ┣ 📜PostController.js  
-┃ ┃ ┣ 📜askController.js  
-┃ ┃ ┣ 📜imageController.js  
-┃ ┃ ┣ 📜marketController.js  
-┃ ┃ ┣ 📜tokenController.js  
-┃ ┃ ┗ 📜userAuthController.js  
 ┃ ┣ 📂db  
 ┃ ┃ ┣ 📂models  
-┃ ┃ ┃ ┣ 📜Ask.js  
-┃ ┃ ┃ ┣ 📜Market.js  
-┃ ┃ ┃ ┣ 📜Post.js  
-┃ ┃ ┃ ┣ 📜Token.js  
-┃ ┃ ┃ ┗ 📜User.js  
 ┃ ┃ ┣ 📂schemas  
-┃ ┃ ┃ ┣ 📜ask.js  
-┃ ┃ ┃ ┣ 📜comment.js  
-┃ ┃ ┃ ┣ 📜image.js  
-┃ ┃ ┃ ┣ 📜market.js  
-┃ ┃ ┃ ┣ 📜post.js  
-┃ ┃ ┃ ┣ 📜token.js  
-┃ ┃ ┃ ┗ 📜user.js  
 ┃ ┃ ┗ 📜index.js  
 ┃ ┣ 📂middlewares  
-┃ ┃ ┣ 📜authMiddleware.js  
-┃ ┃ ┣ 📜deleteImage.js  
-┃ ┃ ┣ 📜errorMiddleware.js  
-┃ ┃ ┣ 📜login_required.js  
-┃ ┃ ┣ 📜uploadFile.js  
-┃ ┃ ┣ 📜validation.js  
-┃ ┃ ┗ 📜validationSchema.js  
 ┃ ┣ 📂routers  
-┃ ┃ ┣ 📜AskRouter.js  
-┃ ┃ ┣ 📜PostRouter.js  
-┃ ┃ ┣ 📜commentRouter.js  
-┃ ┃ ┣ 📜imageRouter.js  
-┃ ┃ ┣ 📜marketRouter.js  
-┃ ┃ ┣ 📜searchRouter.js  
-┃ ┃ ┣ 📜tokenRouter.js  
-┃ ┃ ┗ 📜userAuthRouter.js  
 ┃ ┣ 📂services  
-┃ ┃ ┣ 📜askService.js  
-┃ ┃ ┣ 📜marketService.js  
-┃ ┃ ┣ 📜postService.js  
-┃ ┃ ┣ 📜tokenService.js  
-┃ ┃ ┗ 📜userAuthService.js  
 ┃ ┣ 📜.DS_Store  
 ┃ ┗ 📜app.js  
 ┣ 📜.DS_Store  

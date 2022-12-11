@@ -4,7 +4,7 @@ const { writeLog } = require("../middlewares/writeLog");
 
 const { deleteUserImage } = require("../middlewares/deleteImage");
 
-const AiPortNumber = "8000";
+const AiPortNumber = process.env.AI_SERVER_PORT;
 const serverUrl = "http://localhost:" + AiPortNumber + "/predict";
 
 const lensController = {
