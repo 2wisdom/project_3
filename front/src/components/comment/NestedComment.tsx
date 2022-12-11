@@ -27,6 +27,7 @@ const NestedComment = ({
   parentComment_id,
   post_id,
 }: Props) => {
+  const {user} = useUserStore();
   const date = createdAt.split("T");
   const time = date[1].slice(0, 5);
   const CanSeeComment = !isSecret || isPostAuthor || writer.name === user.name;
