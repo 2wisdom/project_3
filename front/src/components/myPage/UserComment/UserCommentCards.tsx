@@ -11,17 +11,6 @@ import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 
-import styled from "styled-components";
-import {
-  UserCommentCardContainer,
-  UserCommentCardListItem,
-  UserCommentCardDiv,
-  UserCommentCardContent,
-  UserCommentCardPostTitle,
-  UserCommentCardDate,
-  UserCommentCardImage,
-} from "./UserCommentCardUI";
-
 export interface ShowCard {
   author: string;
   contents: string;
@@ -108,23 +97,42 @@ const UserCommentCards = () => {
   };
 
   return (
-    <>
-      <UserCommentCardContainer>
-        <UserCommentCardListItem>
-          <UserCommentCardDiv>
-            <UserCommentCardContent>
-              안녕하세요. 만나서 반갑습니다. 혹시 한국말 할줄 아시나요?(코멘트
-              내용)
-            </UserCommentCardContent>
-            <UserCommentCardPostTitle>
-              "I am Groot, and we are Groot(게시글 제목)" 에 남긴 댓글
-            </UserCommentCardPostTitle>
-            <UserCommentCardDate>2022. 12. 25(작성 날짜)</UserCommentCardDate>
-          </UserCommentCardDiv>
-          <UserCommentCardImage>게시물 이미지</UserCommentCardImage>
-        </UserCommentCardListItem>
-      </UserCommentCardContainer>
-    </>
+    <div className={Show.container}>
+      <div className={Show.Inner}>
+        <div className={Show.cardInner}>
+          <div className={CardListStyle.cardList}>
+            <div className={CardListStyle.cardListInner}>
+              {showCards &&
+                showCards.map((showcard) => {
+                  return (
+                    <UserCommentCard
+                      key={showcard._id}
+                      _id={showcard._id}
+                      imageUrl={showcard.imageUrl}
+                      title={showcard.title}
+                      userName={user.name}
+                      userImage={user.imageUrl}
+                      date={showcard.createdAt}
+                      contents={showcard.contents}
+                      price={showcard.price}
+                      category={showcard.category}
+                    />
+                  );
+                })}
+            </div>
+            <div className={Show.footer}>
+              <div className={Show.moreBtnInner}>
+                {!isLastPage && showCards.length != 0 && (
+                  <button className={Show.moreBtn} onClick={loadMoreCards}>
+                    더보기
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 export default UserCommentCards;
