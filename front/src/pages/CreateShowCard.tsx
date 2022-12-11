@@ -79,12 +79,6 @@ const CreateShowCard = () => {
       }));
     }
   };
-  // console.log("image", showCardImage.imageFileName);
-  // console.log(" image_file.File", showCardImage.image_file.name);
-  // console.log("preview_URL", showCardImage.preview_URL);
-
-  // formData.append("title", title);
-  // formData.append("contents", content);
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e: any
