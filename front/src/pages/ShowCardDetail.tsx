@@ -6,7 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import imageError from "../../assets/error/imageError.jpg";
 import { CheckBox } from "@mui/icons-material";
-import Comments from "../components/Comments";
+import Comments from "../components/comment/Comments";
 
 interface DetailData {
   title: string;
