@@ -8,7 +8,9 @@ interface FindPlantData {
   imageFile: string;
   previewURL: string;
 }
+
 const FindPlant = () => {
+  const [lensImage, setLensImage] = useState<File | any>(null);
   const navigate = useNavigate();
   const formData = new FormData();
   const [plantImage, setPlantImage] = useState<File | null>(null);
@@ -19,9 +21,11 @@ const FindPlant = () => {
   };
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
+    setLensImage(e.target.files[0]);
     formData.append("image", e.target.files[0]);
     setPlantImage(e.target.files[0]);
     console.log("e.target.files[0]", e.target.files[0]);
+    console.log(`확인확인확인확인:`, formData.get("image"));
   };
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
@@ -29,7 +33,11 @@ const FindPlant = () => {
   ) => {
     e.preventDefault();
     console.log("click");
+
     try {
+      console.log("lensImage: ", lensImage);
+      formData.append("image", lensImage);
+      console.log(`확인확인:`, formData.get("image"));
       let res = await axios({
         method: "post",
         url: "http://localhost:5000/lens",
@@ -39,7 +47,7 @@ const FindPlant = () => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-      console.log("res-test", res);
+      console.log("res-test", res.data);
     } catch (err) {
       console.log("imageErr", err);
     }
