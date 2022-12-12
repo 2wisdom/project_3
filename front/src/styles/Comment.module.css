@@ -7,6 +7,10 @@
 .inputBox {
   margin: auto;
   text-align: left;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .inputBoxInner {
@@ -28,14 +32,41 @@
   padding-bottom: 2rem;
 }
 
+.textArea {
+  height: 10rem;
+  width: 100%;
+  border: 2px solid #f5f5f5;
+  border-radius: 20px;
+  margin: 1rem 0;
+  font-size: 2rem;
+}
+
+.commentSubmitBtnContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.commentSubmitBtn {
+  width: 8rem;
+  height: 3rem;
+  background: #000000;
+  border-radius: 20px;
+  color: white;
+  font-family: "NanumGothic";
+  font-weight: 700;
+}
+
 .userInner {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+
 .userName {
   margin-left: 2rem;
 }
+
 .btn {
   background-color: white;
   border: none;
@@ -53,16 +84,12 @@
   margin-left: 5rem;
   padding-top: 2rem;
   width: 100%;
-  color:black;
+  color: black;
   height: 12rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-
-/* .nestedCommentInputBox:last-child {
-  align-items: flex-end;
-} */
 
 .toggleBtn {
   background: #eaebfc;
@@ -73,18 +100,23 @@
   color: #6f77fd;
 }
 
-.nestedCmtBox{
+.nestedCmtBox {
   display: flex;
   flex-direction: row;
 }
 
-.nestedCommentInput{
+.nestedCommentInput {
   margin-left: 2rem;
-  border:none;
-    border-bottom: 1px solid black;
-  width: 100%
+  border: none;
+  border-bottom: 1px solid black;
+  width: 100%;
 }
 
-.nestedCmtBtnBox{
+.nestedCmtBtnBox {
   align-items: flex-end;
+}
+
+.secretBtn {
+  font-weight: 400;
+  font-size: 1.5rem;
 }

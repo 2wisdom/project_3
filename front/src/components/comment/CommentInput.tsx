@@ -44,6 +44,7 @@ const CommentInput = ({
     setIsSecret(false);
     setContent("");
   }
+  
   const commentPost = async () => {
     try {
       const res = await Api.post(`comments/${comment_id}`, {
