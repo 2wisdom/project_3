@@ -95,7 +95,7 @@ const AskCardDetail = () => {
       >
         목록
       </button>
-      <Comments authorName={DetailData.userName} id={id} postType={"Ask"}/>
+      <Comments authorName={DetailData.userName} id={id} postType={"As"}/>
     </div>
   );
 };

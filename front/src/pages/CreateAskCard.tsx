@@ -71,7 +71,7 @@ const CreateAskCard = () => {
     }
   };
   const handleSetValue = () => {
-    if (contentRef.current != null) {
+    if (contentRef.current !== null) {
       const text = contentRef.current.value;
       setContent(text);
       setAskCardData((prev) => ({
@@ -121,7 +121,7 @@ const CreateAskCard = () => {
                 className={Create.Img}
                 src={askCardImage.previewURL}
                 onClick={() => {
-                  if (fileInput.current != null) {
+                  if (fileInput.current !== null) {
                     fileInput.current.click();
                   }
                 }}

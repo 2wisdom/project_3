@@ -5,9 +5,8 @@ import MarketStyle from "../styles/market/Market.module.css";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../api/Api";
-import ShowCard from "../components/market/showCard";
+import MarketCard from "../components/market/MarketCard";
 import CardListStyle from "../styles/showOffPage/CardList.module.css";
-import showCard from "../components/market/showCard";
 import useDebounce from "@/useDebounce";
 interface Author {
   imageUrl: string;
@@ -169,7 +168,7 @@ const Market = () => {
                 <div className={CardListStyle.cardListInner}>
                   {isSearch
                     ? searchData.map((showcard) => (
-                        <ShowCard
+                        <MarketCard
                           key={showcard._id}
                           _id={showcard._id}
                           imageUrl={showcard.imageUrl}
@@ -184,7 +183,7 @@ const Market = () => {
                         />
                       ))
                     : showCards.map((showcard) => (
-                        <ShowCard
+                        <MarketCard
                           key={showcard._id}
                           _id={showcard._id}
                           imageUrl={showcard.imageUrl}

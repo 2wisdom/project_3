@@ -39,7 +39,7 @@ const NestedComment = ({
         {CanSeeComment && (
           <Avatar
             className={Cmt.Avatar}
-            alt="Remy Sharp"
+            alt="user profile image"
             src={`http://${window.location.hostname}:5000/${writer.imageUrl}`}
             sx={{ width: 24, height: 24 }}
           />

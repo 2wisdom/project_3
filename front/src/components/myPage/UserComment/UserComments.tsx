@@ -32,7 +32,7 @@ const UserCommentCards = () => {
   const { pickedTopNav } = TopNavStore();
   const [comments, setComments] = useState<Commnet[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
-  const isLastPage = page == totalPage;
+  const isLastPage = page ===totalPage;
   const isAsksTap = pickedTopNav.name === "질문하기";
   const isPostsTap = pickedTopNav.name === "자랑하기";
   const isMarketTap = pickedTopNav.name === "식물마켓";
@@ -93,7 +93,7 @@ const UserCommentCards = () => {
           );
         })}
       </div>
-      {!isLastPage && comments.length != 0 && (
+      {!isLastPage && comments.length !== 0 && (
         <button className={Show.moreBtn} onClick={loadMoreCards}>
           더보기
         </button>

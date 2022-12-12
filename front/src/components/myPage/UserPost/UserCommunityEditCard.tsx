@@ -56,7 +56,7 @@ const UserEditCard = () => {
     e.preventDefault();
     try {
       const res = await Api.put(`${pickedMyPageNav}/${_id}`, ShowCardData);
-      if (res.status === 200 || 201) {
+      if (res.status === 200 || res.status ===201) {
         isShowOffTap
           ? navigate(`/showCardDetail/${_id}`)
           : navigate(`/askCardDetail/${_id}`);
@@ -92,7 +92,7 @@ const UserEditCard = () => {
                 className={Create.Img}
                 src={ShowCardData.imageUrl}
                 onClick={() => {
-                  if (fileInput.current != null) {
+                  if (fileInput.current !== null) {
                     fileInput.current.click();
                   }
                 }}

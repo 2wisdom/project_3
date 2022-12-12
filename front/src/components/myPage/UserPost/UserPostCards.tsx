@@ -7,7 +7,7 @@ import UserPostCard from "./UserPostCard";
 import UserMarketCard from "./UserMarketCard";
 import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { TopNavStore, pageStore } from "@/store/MyPage";
-import ShowCard from "../../market/showCard";
+import ShowCard from "../../market/MarketCard";
 export interface ShowCard {
   author: string;
   contents: string;
@@ -43,7 +43,7 @@ const UserPostCards = () => {
   const { pickedTopNav } = TopNavStore();
   const [showCards, setShowCards] = useState<ShowCard[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
-  const isLastPage = page == totalPage;
+  const isLastPage = page === totalPage;
   const isAsksTap = pickedTopNav.name === "질문하기";
   const isPostsTap = pickedTopNav.name === "자랑하기";
   const isMarketTap = pickedTopNav.name === "식물마켓";
@@ -131,7 +131,7 @@ const UserPostCards = () => {
             </div>
             <div className={Show.footer}>
               <div className={Show.moreBtnInner}>
-                {!isLastPage && showCards.length != 0 && (
+                {!isLastPage && showCards.length !== 0 && (
                   <button className={Show.moreBtn} onClick={loadMoreCards}>
                     더보기
                   </button>

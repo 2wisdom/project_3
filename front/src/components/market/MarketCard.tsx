@@ -16,7 +16,7 @@ interface Props {
   isSoldOut: boolean;
 }
 
-const showCard = ({
+const MarketCard = ({
   _id,
   imageUrl,
   title,
@@ -59,9 +59,8 @@ const showCard = ({
           onClick={() => navigate(`/marketCardDetail/${_id}`)}
         >
           <div className={Card.userInner}>
-            {/* <img className={Card.userImage}></img> */}
             <Avatar
-              alt="Remy Sharp"
+              alt="user profile image"
               src={`http://${window.location.hostname}:5000/${authorImageUrl}`}
               sx={{ width: 24, height: 24 }}
             />
@@ -77,4 +76,4 @@ const showCard = ({
   );
 };
 
-export default showCard;
+export default MarketCard;

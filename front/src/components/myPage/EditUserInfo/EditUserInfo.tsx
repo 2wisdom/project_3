@@ -67,12 +67,12 @@ const EditUserInfo = () => {
       }
     }
 
-    if (newPassword.password !== "" || saveProfileImg != null) {
+    if (newPassword.password !== "" || saveProfileImg !== null) {
       let formData = new FormData();
       formData.append("password", newPassword.password);
       formData.append("newPassword", newPassword.newPassword);
       //사진변경을 한다면 변경된 데이터 넣기
-      if (saveProfileImg != null) {
+      if (saveProfileImg !== null) {
         formData.append("image", saveProfileImg);
       }
       //수정된 이미지, password api요청보내기

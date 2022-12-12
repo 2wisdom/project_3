@@ -5,7 +5,7 @@ import Create from "../../styles/showOffPage/CreateShowCard.module.css";
 import axios from "axios";
 import SplitButton from "../buttons/SplitBtn";
 
-interface ShowCardData {
+interface MarketCardData {
   category: string;
   title: string;
   price: number | undefined;
@@ -15,7 +15,7 @@ interface ShowCardData {
 
 const CreateMarketCard = () => {
   const navigate = useNavigate();
-  const [ShowCardData, setShowCardData] = useState<ShowCardData>({
+  const [marketCardData, setMarketCardData] = useState<MarketCardData>({
     category: "구근/뿌리묘/모종",
     title: "",
     price: undefined,
@@ -23,20 +23,21 @@ const CreateMarketCard = () => {
     imageUrl: "",
   });
   const [seletedCategoryIndex, setSeletedCategoryIndex] = useState(0);
+  const SUCCESS_STATUS = [200, 201]
 
   const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
 
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
-  console.log(ShowCardData);
-  const onChangeImage = async (e: any) => {
+
+  const onChangeImage: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("image", e.target.files[0] as any);
+    formData.append("image", e.target.files![0]);
     try {
       const res = await Api.post('images/image-upload', formData , true);
       const result = res.data.url;
-      setShowCardData((prev) => ({
+      setMarketCardData((prev) => ({
         ...prev,
         imageUrl: result,
       }));
@@ -47,7 +48,7 @@ const CreateMarketCard = () => {
   };
 
   useEffect(() => {
-    setShowCardData((prev) => ({
+    setMarketCardData((prev) => ({
       ...prev,
       category: categoryList[seletedCategoryIndex],
     }));
@@ -58,8 +59,8 @@ const CreateMarketCard = () => {
   ) => {
     e.preventDefault();
     try {
-      const res = await Api.post(`markets`, ShowCardData);
-      if (res.status === 200 || 201) {
+      const res = await Api.post(`markets`, marketCardData);
+      if (SUCCESS_STATUS.includes(res.status)) {
         alert("마켓 업로드 성공");
         navigate(`/marketCardDetail/${res.data.newMarket._id}`);
       }
@@ -81,10 +82,10 @@ const CreateMarketCard = () => {
         </div>
         <div className={Create.Inner}>
           <input
-            value={ShowCardData.title}
+            value={marketCardData.title}
             className={Create.title}
             onChange={(e) =>
-              setShowCardData((prev) => ({
+              setMarketCardData((prev) => ({
                 ...prev,
                 title: e.target.value,
               }))
@@ -99,9 +100,9 @@ const CreateMarketCard = () => {
             >
               <img
                 className={Create.Img}
-                src={ShowCardData.imageUrl}
+                src={marketCardData.imageUrl}
                 onClick={() => {
-                  if (fileInput.current != null) {
+                  if (fileInput.current !== null) {
                     fileInput.current.click();
                   }
                 }}
@@ -121,11 +122,11 @@ const CreateMarketCard = () => {
             <input
               type="number"
               step="100"
-              value={ShowCardData.price}
+              value={marketCardData.price}
               className={Create.priceInput}
               placeholder="가격을 입력하세요"
               onChange={(e) =>
-                setShowCardData((prev) => ({
+                setMarketCardData((prev) => ({
                   ...prev,
                   price: Number(e.target.value),
                 }))
@@ -136,9 +137,9 @@ const CreateMarketCard = () => {
           <textarea
             className={Create.content}
             ref={contentRef}
-            value={ShowCardData.contents}
+            value={marketCardData.contents}
             onChange={(e) =>
-              setShowCardData((prev) => ({
+              setMarketCardData((prev) => ({
                 ...prev,
                 contents: e.target.value,
               }))

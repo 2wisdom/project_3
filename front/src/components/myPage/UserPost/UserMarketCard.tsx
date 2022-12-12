@@ -75,7 +75,7 @@ const UserPostCard = ({
         >
           <div className={Card.userInner}>
             <Avatar
-              alt="Remy Sharp"
+              alt="user profile image"
               src={`http://${window.location.hostname}:5000/${user.imageUrl}`}
               sx={{ width: 24, height: 24 }}
             />
