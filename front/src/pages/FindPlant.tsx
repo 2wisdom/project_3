@@ -22,7 +22,7 @@ const FindPlant = () => {
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setLensImage(e.target.files[0]);
-    formData.append("image", e.target.files[0]);
+
     setPlantImage(e.target.files[0]);
     console.log("e.target.files[0]", e.target.files[0]);
     console.log(`확인확인확인확인:`, formData.get("image"));
@@ -32,19 +32,21 @@ const FindPlant = () => {
     e
   ) => {
     e.preventDefault();
+
     console.log("click");
 
     try {
       console.log("lensImage: ", lensImage);
       formData.append("image", lensImage);
+      console.log("formdata -try 안에", formData.get("image"));
       console.log(`확인확인:`, formData.get("image"));
+
       let res = await axios({
         method: "post",
         url: "http://localhost:5000/lens",
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
       console.log("res-test", res.data);
@@ -52,6 +54,7 @@ const FindPlant = () => {
       console.log("imageErr", err);
     }
   };
+  console.log("formdata", formData.get("image"));
   // http://localhost:5000/images/image-upload
   // http://localhost:5000/lens
   return (
