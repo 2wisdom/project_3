@@ -95,14 +95,6 @@ const ShowCardDetail = () => {
       >
         목록
       </button>
-
-      <div className={Detail.comment}>
-        <input type="checkBox"></input>
-        {/* <p>비공개</p>
-        <textarea></textarea>
-        <button>댓글 작성</button> */}
-      </div>
-
       <Comments authorName={DetailData.userName} id={id} />
       {/* <hr></hr> */}
     </div>

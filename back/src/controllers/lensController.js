@@ -9,6 +9,7 @@ const serverUrl = "http://localhost:" + AiPortNumber + "/predict";
 
 const lensController = {
   postSendImage: async (req, res, next) => {
+    console.log("req", req.file);
     const imageUrl = req.file?.path ?? null;
     try {
       data = { imageUrl: imageUrl };
