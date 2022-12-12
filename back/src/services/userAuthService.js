@@ -293,7 +293,7 @@ const userAuthService = {
       );
 
       userCommentsResponse.totalPage = totalPage;
-      userCommentsResponse.userMarkets = userComments;
+      userCommentsResponse.userComments = userComments;
 
       userCommentsResponse.errorMessage = null;
 
