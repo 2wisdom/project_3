@@ -26,8 +26,10 @@ interface Comment {
 interface Props {
   authorName: string;
   id: string | undefined;
+  postType: string;
 }
-const Comments = ({ authorName, id }: Props) => {
+
+const Comments = ({ authorName, id, postType }: Props) => {
   const { user } = useUserStore();
   const [content, setContent] = useState("");
   const [isSecret, setIsSecret] = useState(false);
@@ -48,75 +50,59 @@ const Comments = ({ authorName, id }: Props) => {
   }, []);
   console.log(content, isSecret);
 
+  const resetInputBox = () => {
+    setIsSecret(false);
+    setContent("");
+  };
+
   const commentPost = async () => {
-    try {
-      const res = await Api.post(`comments/${id}`, {
-        content,
-        isSecret,
-      });
-      //새댓글도 보여주기
-      if (res.status === 200 || 201) {
-        //textArea clear, 체크박스 reset
-        try {
-          const res = await Api.get(`comments/${id}`);
-          setCommentList(res.data.comments.reverse());
-        } catch (err) {
-          console.log("댓글저장 후 다시 불러오기 에러", err);
+    if (content === "") {
+      alert("댓글을 입력해주세요");
+    } else {
+      try {
+        const res = await Api.post(`comments/${id}`, {
+          content,
+          isSecret,
+          postType,
+        });
+        //새댓글도 보여주기
+        if (res.status === 200 || res.status === 201) {
+          resetInputBox();
+          try {
+            const res = await Api.get(`comments/${id}`);
+            setCommentList(res.data.comments.reverse());
+          } catch (err) {
+            console.log("댓글저장 후 다시 불러오기 에러", err);
+          }
         }
+      } catch (err) {
+        console.log("댓글저장에러", err);
       }
-    } catch (err) {
-      console.log("댓글저장에러", err);
     }
   };
   console.log(commentList);
-  // return (
-  //     <Box
-  //       sx={{
-  //         py: 2,
-  //         display: 'flex',
-  //         flexDirection: 'column',
-  //         gap: 2,
-  //         alignItems: 'center',
-  //         flexWrap: 'wrap',
-  //       }}
-  //     >
-  //       <form
-  //         onSubmit={(event) => {
-  //           event.preventDefault();
-  //         }}
-  //       >
-  //         <Textarea
-  //           placeholder="Try to submit with no text!"
-  //           required
-  //           sx={{ mb: 1 }}
-  //         //   disabled =
-  //         />
-  //         <Button type="submit">Submit</Button>
-  //       </form>
-  //     </Box>
-  //   );
+
   return (
     <div className={Cmt.container}>
       <div className={Cmt.inputBox}>
-        <Box>
-          <Checkbox
-            label="비공개"
-            size="lg"
-            onChange={() => setIsSecret(!isSecret)}
-          />
-        </Box>
-        <Textarea
-          placeholder="댓글을 입력하세요"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          minRows={2}
-          maxRows={4}
-        />
-        {/* <textarea /> */}
         <div>
-          <RoundBtn theme={black} onClick={commentPost}>
+          <label className={Cmt.secretBtn}>
+            <input type="checkbox" />
+            비공개
+          </label>
+        </div>
+        <div>
+          <textarea
+            className={Cmt.textArea}
+            placeholder="댓글을 입력하세요"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
+        </div>
+        <div className={Cmt.commentSubmitBtnContainer}>
+          <button className={Cmt.commentSubmitBtn} onClick={commentPost}>
             댓글작성
-          </RoundBtn>
+          </button>
         </div>
         {commentList.map((comment) => {
           return (
@@ -129,6 +115,7 @@ const Comments = ({ authorName, id }: Props) => {
               writer={comment.writer}
               writingId={comment.writingId}
               comment_id={comment._id}
+              postType={postType}
             />
           );
         })}

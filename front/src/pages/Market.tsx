@@ -51,10 +51,7 @@ const Market = () => {
     try {
       const res = isShowAll
         ? await Api.get("markets?page=1&limit=8", null)
-        : await Api.get(
-            "markets",
-            `categorys?page=1&limit=8&category=${pickedCategory}`
-          );
+        : await Api.get(`markets?page=1&limit=8&category=${pickedCategory}`);
 
       setShowCards(res.data.docs);
       setHasNextPage(res.data.hasNextPage);
@@ -76,10 +73,8 @@ const Market = () => {
     try {
       const res = isShowAll
         ? await Api.get(`markets?page=${page}&limit=8`, null)
-        : await Api.get(
-            "markets",
-            `categorys?page=${page}&limit=8&category=${pickedCategory}`
-          );
+        : await Api.get(`markets?page=1&limit=8&category=${pickedCategory}`);
+
       setShowCards([...showCards, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(page + 1);

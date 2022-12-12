@@ -95,8 +95,7 @@ const ShowCardDetail = () => {
       >
         목록
       </button>
-      <Comments authorName={DetailData.userName} id={id} />
-      {/* <hr></hr> */}
+      <Comments authorName={DetailData.userName} id={id} postType={"Post"}/>
     </div>
   );
 };
