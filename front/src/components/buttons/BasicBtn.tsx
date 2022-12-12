@@ -24,11 +24,11 @@ export const violet = {
 
 export const SquareBtn = styled.button`
   color: ${(props) => props.theme.fg};
-  border: 1px solid ${(props) => props.theme.fg};
   background: ${(props) => props.theme.bg};
+  border: 1px solid black;
   width: 8rem;
   font-size: 1.2rem;
-  margin: 1em 0;
+  margin: 1rem 0;
   padding: 0.25em 1em;
   height: 3rem;
   font-weight: bold;

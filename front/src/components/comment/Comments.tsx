@@ -48,13 +48,14 @@ const Comments = ({ authorName, id, postType }: Props) => {
         });
     }
   }, []);
-  console.log(content, isSecret);
 
+  //inputArea 비우기
   const resetInputBox = () => {
     setIsSecret(false);
     setContent("");
   };
 
+  //댓글 작성
   const commentPost = async () => {
     if (content === "") {
       alert("댓글을 입력해주세요");
@@ -80,29 +81,30 @@ const Comments = ({ authorName, id, postType }: Props) => {
       }
     }
   };
-  console.log(commentList);
 
   return (
     <div className={Cmt.container}>
-      <div className={Cmt.inputBox}>
-        <div>
-          <label className={Cmt.secretBtn}>
-            <input type="checkbox" />
-            비공개
-          </label>
-        </div>
-        <div>
-          <textarea
-            className={Cmt.textArea}
-            placeholder="댓글을 입력하세요"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          ></textarea>
-        </div>
-        <div className={Cmt.commentSubmitBtnContainer}>
-          <button className={Cmt.commentSubmitBtn} onClick={commentPost}>
-            댓글작성
-          </button>
+      <div className={Cmt.commentsContainer}>
+        <div className={Cmt.inputBox}>
+          <div>
+            <label className={Cmt.secretBtn}>
+              <input type="checkbox" />
+              비공개
+            </label>
+          </div>
+          <div>
+            <textarea
+              className={Cmt.textArea}
+              placeholder="댓글을 입력하세요"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            ></textarea>
+          </div>
+          <div className={Cmt.commentSubmitBtnContainer}>
+            <button className={Cmt.commentSubmitBtn} onClick={commentPost}>
+              댓글작성
+            </button>
+          </div>
         </div>
         {commentList.map((comment) => {
           return (
@@ -119,6 +121,7 @@ const Comments = ({ authorName, id, postType }: Props) => {
             />
           );
         })}
+        <div />
       </div>
     </div>
   );
