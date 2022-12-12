@@ -20,6 +20,7 @@ const lensController = {
         },
       });
       if (result) {
+        console.log("result.data", result.data);
         await wrapper(deleteUserImage, imageUrl);
       }
 

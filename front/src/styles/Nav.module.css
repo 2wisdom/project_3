@@ -40,7 +40,7 @@ ul {
 .navItemInner {
   display: flex;
   margin: auto;
-  padding-left: 15rem;
+  /* padding-left: 15rem; */
 }
 .navItem {
   font-family: "Jua", sans-serif;
