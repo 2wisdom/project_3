@@ -4,10 +4,16 @@
   margin-top: 5rem;
 }
 
-.inputBox {
+.commentsContainer{
+  width: 100%;
   margin: auto;
   text-align: left;
-  height: 30rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBox {
+  height: 20rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,7 +32,7 @@
   font-size: 2rem;
   line-height: 2rem;
   color: #919191;
-  margin: 3rem 0;
+  margin: 2rem 0;
   display: block;
   border-bottom: 1px solid #d9d9d9;
   padding-bottom: 2rem;
@@ -119,4 +125,19 @@
 .secretBtn {
   font-weight: 400;
   font-size: 1.5rem;
+}
+
+.Cmt{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 4;
+}
+
+.Cmt:first-child{
+  line-height: 4rem;
+}
+
+.CmtBtn:first-child{
+  margin-right: 2rem;
 }
