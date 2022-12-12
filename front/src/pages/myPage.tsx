@@ -2,7 +2,7 @@ import React, { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import EditUserInfo from "../components/myPage/EditUserInfo/EditUserInfo";
 import UserPostCards from "../components/myPage/UserPost/UserPostCards";
-import UserCommentCards from "../components/myPage/UserComment/UserCommentCards";
+import UserCommentCards from "../components/myPage/UserComment/UserComments";
 import useUserStore from "@/store/Login";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 import * as M from "../styles/MyPage/MyPage.styled";
