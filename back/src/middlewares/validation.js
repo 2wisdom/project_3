@@ -48,6 +48,28 @@ const userValidation = {
     }
     next();
   },
+
+  // 이메일 중복 검사
+  ValidateGetCheckEmail: async (req, res, next) => {
+    try {
+      await validationSchema.getCheckEmail.validateAsync(req.params);
+    } catch (error) {
+      errorFunction(res, error);
+      return res.status(400).json({ errorMessage: errorMessage });
+    }
+    next();
+  },
+
+  // 닉네임 중복 검사
+  ValidateGetCheckName: async (req, res, next) => {
+    try {
+      await validationSchema.getCheckName.validateAsync(req.params);
+    } catch (error) {
+      errorFunction(res, error);
+      return res.status(400).json({ errorMessage: errorMessage });
+    }
+    next();
+  },
 };
 
 const searchValidation = {

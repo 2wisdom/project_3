@@ -41,7 +41,7 @@ const userAuthController = {
   // 이메일 중복 조회
   getCheckEmail: async (req, res, next) => {
     const { email } = req.params;
-
+    console.log(`에러 확인: `, req.params);
     try {
       // 중복되는 이메일이 있으면 데이터, 중복되는 이메일이 없으면 undefined
       const isEmailExist = await wrapper(
@@ -52,7 +52,7 @@ const userAuthController = {
       // 중복되는 이메일이 있는 경우
       if (isEmailExist.email) {
         if (isEmailExist.errorMessage) throw new Error("유저조회 실패");
-        writeLog("info", email, req, "이미 가입된 이메일");
+        writeLog("info", null, req, "이미 가입된 이메일");
         res.status(409).json("duplicated email");
         return;
       }
@@ -60,7 +60,7 @@ const userAuthController = {
       // 중복되는 이메일이 없는 경우
       if (!isEmailExist.email) {
         if (isEmailExist.errorMessage) throw new Error("유저조회 실패");
-        writeLog("info", email, req, "사용 가능한 이메일");
+        writeLog("info", null, req, "사용 가능한 이메일");
         res.status(200).json("OK");
       }
     } catch (error) {
@@ -78,7 +78,7 @@ const userAuthController = {
       // 중복되는 닉네임이 있는 경우
       if (isNameExist.name) {
         if (isNameExist.errorMessage) throw new Error("유저조회 실패");
-        writeLog("info", name, req, "이미 가입된 닉네임");
+        writeLog("info", null, req, "이미 가입된 닉네임");
         res.status(409).json("duplicated name");
         return;
       }
@@ -86,7 +86,7 @@ const userAuthController = {
       // 중복되는 닉네임이 없는 경우
       if (!isNameExist.name) {
         if (isNameExist.errorMessage) throw new Error("유저조회 실패");
-        writeLog("info", name, req, "사용 가능한 닉네임");
+        writeLog("info", null, req, "사용 가능한 닉네임");
         res.status(200).json("OK");
       }
     } catch (error) {
@@ -250,10 +250,6 @@ const userAuthController = {
     const imageUrl = req.file?.path ?? null;
 
     try {
-      // if (!newPassword && !imageUrl) {
-      //   throw new Error("수정할 정보를 입력해주세요");
-      // }
-
       // 변경할 정보를 toUpdate에 초기화
       const toUpdate = { newPassword, imageUrl, password };
 

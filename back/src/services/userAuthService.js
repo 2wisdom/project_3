@@ -98,8 +98,6 @@ const userAuthService = {
         currentPasswordHash
       );
 
-      console.log(`로그인 확인1:`, isPasswordcurrent);
-
       // 비밀번호 일치하지 않았을 경우 에러 처리
       if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
 
@@ -270,14 +268,6 @@ const userAuthService = {
         type
       );
 
-      // const userIdResult = userComments.map((userComment) => {
-      //   return userComment.writingId;
-      // });
-
-      // const result = Array.from(new Set(userIdResult));
-
-      // console.log(result);
-
       const userCommentsCount = await wrapper(
         Comment.findUserAllCommentsCount,
         userId,
@@ -341,15 +331,10 @@ const userAuthService = {
 
       // 비밀번호만 업데이트
       if (toUpdate.newPassword && !toUpdate.imageUrl) {
-        console.log("oldPassword 확인:", oldPassword);
-        console.log("toUpdate.password 확인:", toUpdate.password);
-
         const isPasswordSame = await bcrypt.compare(
           toUpdate.password,
           oldPassword
         );
-
-        console.log(`isPasswordSame확인:`, isPasswordSame);
 
         if (!isPasswordSame) throw new Error("비밀번호가 일치하지 않습니다.");
 

@@ -7,7 +7,7 @@ const writeLog = (type, merchantId, req, message) => {
   return type === "info"
     ? logger.info(
         `
-        [merchantId: ${merchantId}] 
+        [merchantId: ${merchantId ?? "사용자 식별 불가능"}] 
         [client IP: ${req.clientIp}] 
         [method: ${req.method}] 
         [API url: ${decodeURIComponent(req.originalUrl)}] 

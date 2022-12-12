@@ -38,10 +38,18 @@ userAuthRouter.get(
 );
 
 // 이메일 중복 조회
-userAuthRouter.get("/email/:email", userAuthController.getCheckEmail);
+userAuthRouter.get(
+  "/email/:email",
+  userValidation.ValidateGetCheckEmail,
+  userAuthController.getCheckEmail
+);
 
 // 닉네임 중복 조회
-userAuthRouter.get("/name/:name", userAuthController.getCheckName);
+userAuthRouter.get(
+  "/name/:name",
+  userValidation.ValidateGetCheckName,
+  userAuthController.getCheckName
+);
 
 // 유저 정보 수정, 업데이트
 userAuthRouter.put(

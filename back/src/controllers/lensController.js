@@ -9,9 +9,11 @@ const serverUrl = "http://localhost:" + AiPortNumber + "/predict";
 
 const lensController = {
   postSendImage: async (req, res, next) => {
-    console.log("req", req.file);
     const imageUrl = req.file?.path ?? null;
     try {
+      if (req.file === undefined) {
+        throw new Error("이미지를 첨부해주세요");
+      }
       data = { imageUrl: imageUrl };
 
       const result = await axios.post(serverUrl, data, {
@@ -23,11 +25,11 @@ const lensController = {
         await wrapper(deleteUserImage, imageUrl);
       }
 
-      writeLog("info", imageUrl, req, "이미지 예측 성공");
+      writeLog("info", null, req, "이미지 예측 성공");
 
       res.status(200).json(result.data);
     } catch (error) {
-      return error;
+      next(error);
     }
   },
 };
