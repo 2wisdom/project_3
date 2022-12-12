@@ -91,14 +91,14 @@ const userAuthService = {
 
       const { userId, name, imageUrl } = userInfo;
 
-      console.log(`로그인 확인1:`, userInfo.password);
-      console.log(`로그인 확인2:`, password);
       // 암호화된 비밀번호와 입력된 비밀번호 비교
       const currentPasswordHash = userInfo.password;
       const isPasswordcurrent = await bcrypt.compare(
         password,
         currentPasswordHash
       );
+
+      console.log(`로그인 확인1:`, isPasswordcurrent);
 
       // 비밀번호 일치하지 않았을 경우 에러 처리
       if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
@@ -382,7 +382,7 @@ const userAuthService = {
         fieldToUpdate.password = "password";
         fieldToUpdate.imageUrl = "imageUrl";
         // 입력 받은 비밀번호 암호화
-        newValue.password = await bcrypt.hash(oldPassword, SALT_ROUND);
+        newValue.password = oldPassword;
         // newValue.password = oldPassword;
         newValue.imageUrl = toUpdate.imageUrl;
 
