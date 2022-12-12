@@ -6,6 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import imageError from "../../assets/error/imageError.jpg";
 import { CheckBox } from "@mui/icons-material";
+import Comments from "../components/comment/Comments";
 
 interface DetailData {
   title: string;
@@ -94,7 +95,7 @@ const AskCardDetail = () => {
       >
         목록
       </button>
-      {/* <hr></hr> */}
+      <Comments authorName={DetailData.userName} id={id} postType={"Ask"}/>
     </div>
   );
 };

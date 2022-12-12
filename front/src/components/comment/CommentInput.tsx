@@ -25,12 +25,14 @@ interface props {
   comment_id: string;
   setNestedCommentList: React.Dispatch<React.SetStateAction<comment[]>>;
   setOpenCommentBox: React.Dispatch<React.SetStateAction<boolean>>;
+  postType:string
 }
 
 const CommentInput = ({
   comment_id,
   setNestedCommentList,
   setOpenCommentBox,
+  postType
 }: props) => {
   const [content, setContent] = useState("");
   const [isSecret, setIsSecret] = useState(false);
@@ -40,6 +42,7 @@ const CommentInput = ({
       const res = await Api.post(`comments/${comment_id}`, {
         content,
         isSecret,
+        postType
       });
       //새 대댓글도 보여주기
       if (res.status === 200 ||res.status === 201) {

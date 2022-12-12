@@ -26,8 +26,10 @@ interface Comment {
 interface Props {
   authorName: string;
   id: string | undefined;
+  postType: string;
 }
-const Comments = ({ authorName, id }: Props) => {
+
+const Comments = ({ authorName, id, postType }: Props) => {
   const { user } = useUserStore();
   const [content, setContent] = useState("");
   const [isSecret, setIsSecret] = useState(false);
@@ -53,9 +55,10 @@ const Comments = ({ authorName, id }: Props) => {
       const res = await Api.post(`comments/${id}`, {
         content,
         isSecret,
+        postType
       });
       //새댓글도 보여주기
-      if (res.status === 200 || 201) {
+      if (res.status === 200 || res.status ===201) {
         //textArea clear, 체크박스 reset
         try {
           const res = await Api.get(`comments/${id}`);
@@ -129,6 +132,7 @@ const Comments = ({ authorName, id }: Props) => {
               writer={comment.writer}
               writingId={comment.writingId}
               comment_id={comment._id}
+              postType={postType}
             />
           );
         })}

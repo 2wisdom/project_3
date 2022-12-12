@@ -29,6 +29,7 @@ interface props {
   writer: writer;
   writingId: string;
   comment_id: string;
+  postType: string;
 }
 
 const Comment = ({
@@ -39,6 +40,7 @@ const Comment = ({
   writer,
   writingId,
   comment_id,
+  postType
 }: props) => {
   const date = createdAt.split("T");
   const time = date[1].slice(0, 5);
@@ -110,6 +112,7 @@ const Comment = ({
             comment_id={comment_id}
             setNestedCommentList={setNestedCommentList}
             setOpenCommentBox={setOpenCommentBox}
+            postType={postType}
           />
         )}
       </div>

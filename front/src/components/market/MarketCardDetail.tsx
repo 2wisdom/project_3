@@ -8,6 +8,8 @@ import SplitBtn from "../buttons/SplitBtn";
 import UserCard from "../myPage/EditUserInfo/UserCard";
 import useUserStore from "@/store/Login";
 import { Preview } from "@mui/icons-material";
+import Comments from "../../components/comment/Comments";
+
 
 interface Author {
   imageUrl: string;
@@ -85,18 +87,6 @@ const MarketCardDetail = () => {
 
   console.log(seletedCategoryIndex);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     Api.get(`comments/${id}`, null)
-  //       .then((res) => {
-  //         console.log(`res.data-comments`, res);
-  //       })
-  //       .catch((err) => {
-  //         console.log("err-comments", err);
-  //       });
-  //   }
-  // }, []);
-
   return (
     <div className={Detail.container}>
       <div className={Detail.title}>
@@ -145,6 +135,7 @@ const MarketCardDetail = () => {
       >
         목록
       </button>
+      <Comments authorName={DetailData.author.name} id={id} postType={"Market"}/>
     </div>
   );
 };
