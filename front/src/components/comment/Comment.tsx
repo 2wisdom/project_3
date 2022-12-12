@@ -40,7 +40,7 @@ const Comment = ({
   writer,
   writingId,
   comment_id,
-  postType
+  postType,
 }: props) => {
   const date = createdAt.split("T");
   const time = date[1].slice(0, 5);
@@ -49,7 +49,8 @@ const Comment = ({
   const CanSeeComment = !isSecret || isPostAuthor || writer.name === user.name;
   const [openCommentBox, setOpenCommentBox] = useState(false);
   const [nestedCommentList, setNestedCommentList] = useState<comment[]>([]);
-
+  const [isShowNestedComment, setIsShowNestedComment] =
+    useState<boolean>(false);
   //처음 대댓글 불러오기
   useEffect(() => {
     if (comment_id) {
@@ -93,20 +94,29 @@ const Comment = ({
             답글등록
           </button>
         </div>
-        {nestedCommentList.map((nestedComment) => {
-          return (
-            <NestedComment
-              key={nestedComment._id}
-              isPostAuthor={isPostAuthor}
-              content={nestedComment.content}
-              createdAt={nestedComment.createdAt}
-              isSecret={nestedComment.isSecret}
-              writer={nestedComment.writer}
-              parentComment_id={comment_id}
-              post_id={nestedComment._id}
-            />
-          );
-        })}
+        <div>
+          <button
+            className={Cmt.toggleBtn}
+            onClick={() => setIsShowNestedComment(!isShowNestedComment)}
+          >
+            {isShowNestedComment? "▽" : "▷"} 답글 {nestedCommentList.length}개
+          </button>
+        </div>
+        {isShowNestedComment &&
+          nestedCommentList.map((nestedComment) => {
+            return (
+              <NestedComment
+                key={nestedComment._id}
+                isPostAuthor={isPostAuthor}
+                content={nestedComment.content}
+                createdAt={nestedComment.createdAt}
+                isSecret={nestedComment.isSecret}
+                writer={nestedComment.writer}
+                parentComment_id={comment_id}
+                post_id={nestedComment._id}
+              />
+            );
+          })}
         {openCommentBox && (
           <CommentInput
             comment_id={comment_id}

@@ -115,7 +115,6 @@ const Comments = ({ authorName, id, postType }: Props) => {
           minRows={2}
           maxRows={4}
         />
-        {/* <textarea /> */}
         <div>
           <RoundBtn theme={black} onClick={commentPost}>
             댓글작성
