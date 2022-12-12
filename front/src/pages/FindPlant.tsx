@@ -45,6 +45,7 @@ const FindPlant = () => {
     }
   };
   // http://localhost:5000/images/image-upload
+  // http://localhost:5000/lens
   return (
     <div className={Find.container}>
       <div className={Find.Inner}>
