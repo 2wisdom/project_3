@@ -33,7 +33,7 @@ userAuthRouter.get("/asks?:userId?:page", userAuthController.getUserAsks);
 
 // 유저 작성 코멘트 조회
 userAuthRouter.get(
-  "/comments?:userId?:page",
+  "/comments?:userId?:page?:type",
   userAuthController.getUserComments
 );
 

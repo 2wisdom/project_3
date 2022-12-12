@@ -261,12 +261,13 @@ const userAuthService = {
   },
 
   // 마이페이지 코멘트
-  userComments: async (userId, page) => {
+  userComments: async (userId, page, type) => {
     try {
       const userComments = await wrapper(
         Comment.findUserAllComments,
         userId,
-        page
+        page,
+        type
       );
 
       // const userIdResult = userComments.map((userComment) => {
@@ -279,7 +280,8 @@ const userAuthService = {
 
       const userCommentsCount = await wrapper(
         Comment.findUserAllCommentsCount,
-        userId
+        userId,
+        type
       );
       const userCommentsResponse = {};
 

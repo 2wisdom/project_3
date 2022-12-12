@@ -218,11 +218,13 @@ const userAuthController = {
   getUserComments: async (req, res, next) => {
     const { userId } = req.query;
     const { page } = req.query;
+    const { type } = req.query;
     try {
       const currentUserComments = await wrapper(
         userAuthService.userComments,
         userId,
-        page
+        page,
+        type
       );
 
       if (currentUserComments.errorMessage)
