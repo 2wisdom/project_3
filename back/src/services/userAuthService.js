@@ -23,11 +23,11 @@ const userAuthService = {
 
       if (userEmail) throw new Error("중복된 아이디입니다.");
 
-      // 비밀번호 암호화
-      // const hashedPassword = await bcrypt.hash(newUser.password, SALT_ROUND);
+      //비밀번호 암호화
+      const hashedPassword = await bcrypt.hash(newUser.password, SALT_ROUND);
 
-      // // 암호화된 비밀번호 newUser에 초기화
-      // newUser.password = hashedPassword;
+      // 암호화된 비밀번호 newUser에 초기화
+      newUser.password = hashedPassword;
 
       // 모델에 유저 데이터 입력
       const createdNewUser = await wrapper(User.create, newUser);
@@ -321,8 +321,8 @@ const userAuthService = {
         fieldToUpdate.imageUrl = "imageUrl";
 
         // 입력 받은 비밀번호 암호화
-        // newValue.password = await bcrypt.hash(toUpdate.newPassword, SALT_ROUND);
-        newValue.password = toUpdate.newPassword;
+        newValue.password = await bcrypt.hash(toUpdate.newPassword, SALT_ROUND);
+        // newValue.password = toUpdate.newPassword;
         newValue.imageUrl = toUpdate.imageUrl;
 
         // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
@@ -342,8 +342,8 @@ const userAuthService = {
         fieldToUpdate.imageUrl = "imageUrl";
 
         // 입력 받은 비밀번호 암호화
-        // newValue.password = await bcrypt.hash(toUpdate.newPassword, SALT_ROUND);
-        newValue.password = toUpdate.newPassword;
+        newValue.password = await bcrypt.hash(toUpdate.newPassword, SALT_ROUND);
+        // newValue.password = toUpdate.newPassword;
         newValue.imageUrl = user.imageUrl;
 
         // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
@@ -361,8 +361,8 @@ const userAuthService = {
         fieldToUpdate.password = "password";
         fieldToUpdate.imageUrl = "imageUrl";
         // 입력 받은 비밀번호 암호화
-        // newValue.password = await bcrypt.hash(user.password, SALT_ROUND);
-        newValue.password = oldPassword;
+        newValue.password = await bcrypt.hash(oldPassword, SALT_ROUND);
+        // newValue.password = oldPassword;
         newValue.imageUrl = toUpdate.imageUrl;
 
         // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
