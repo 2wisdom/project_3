@@ -5,13 +5,15 @@ const deleteUserImage = async (imageUrl) => {
   try {
     if (imageUrl !== process.env.DEFAULT_IMAGE_URL) {
       fs.unlink(path.join(__dirname, "..", "..", imageUrl), (err) => {
-        throw new Error("이미지 삭제 실패");
+        if (err) {
+          throw new Error("이미지 삭제 실패");
+        }
       });
     } else {
       return null;
     }
-  } catch (error) {
-    return error;
+  } catch (err) {
+    return err;
   }
 };
 
