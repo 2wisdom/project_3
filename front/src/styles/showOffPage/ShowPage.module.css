@@ -1,62 +1,64 @@
 .container {
-  margin: 0px;
+  margin: auto;
   padding: 0px;
   margin-top: 5rem;
 }
-.Inner {
+/* .Inner {
   display: flex;
-  width: 100%;
-  /* height: 60vh; */
+
+  height: 60vh;
   height: 90vh;
   margin: auto;
   /* text-align : center;
     align-items : center; */
-}
+
 /* button */
+/* 
 .buttonContainer {
   display: flex;
-  flex-direction: column;
-  width: 184px;
-  height: 80vh;
-  margin-right: 3rem;
-  margin-left: 4rem;
+  /* flex-direction: column; */
+/* width: 184px; */
+/* height: 80vh; */
+/* margin-right: 3rem; */
+/* margin-left: 4rem; */
 
-  /* background-color: aqua; */
-}
-.buttonInner {
-  margin-top: 8rem;
-}
+/* background-color: aqua; */
+/* } */
+/* .buttonInner {
+  margin-top: 8rem; 
+} */
 .grayBtn {
   cursor: pointer;
-  width: 150px;
-  height: 50px;
+  /* width: 150px;
+  height: 50px; */
   /* font-family: 'Jua', sans-serif; */
   font-family: "Nanum Gothic", sans-serif;
   font-weight: 800;
   font-size: 20px;
   border: none;
-  border-radius: 1rem;
-  color: #ffffff;
-  background-color: #bdbdbd;
+  /* border-radius: 1rem; */
+  color: #919191;
+  /* background-color: #bdbdbd; */
   /* margin-right: 4rem; */
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 .grayBtn:hover {
-  background-color: #ffda7b;
-  color: #000000;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  text-decoration-color: #ffda7b;
 }
 .yellowBtn {
   cursor: pointer;
-  width: 150px;
-  height: 50px;
+  /* width: 150px;
+  height: 50px; */
   /* font-family: 'Jua', sans-serif; */
   font-family: "Nanum Gothic", sans-serif;
   font-weight: 800;
   font-size: 20px;
-  border: none;
-  border-radius: 1rem;
-  color: #000000;
-  background-color: #ffda7b;
+  /* border: none;
+  border-radius: 1rem; */
+  color: #919191;
+  /* background-color: #ffda7b; */
   /* margin-right: 4rem; */
   margin-top: 2rem;
 }
@@ -65,15 +67,15 @@
   color: #000000;
 }
 .rightInner {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
+  width: 50%;
+
+  margin: auto;
   height: 80vh;
 }
 /* title & search */
 .titleSearchInner {
-  width: 100%;
-  height: 10vh;
+  /* width: 60%; */
+  /* height: 10vh; */
   display: flex;
   justify-content: space-between;
 }
@@ -81,8 +83,10 @@
 .title {
   font-family: "Jua", sans-serif;
   font-weight: 300;
-  font-size: 3rem;
-  padding-bottom: 8rem;
+  font-size: 2.5rem;
+  /* padding-bottom: 8rem; */
+  /* margin: auto; */
+  padding: 0;
 }
 
 /* card */

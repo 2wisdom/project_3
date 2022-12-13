@@ -111,58 +111,52 @@ const CommunityAsk = () => {
   };
   return (
     <div className={Show.container}>
-      <div className={Show.Inner}>
-        <div className={Show.buttonContainer}>
-          <div className={Show.buttonInner}>
-            <button className={Show.yellowBtn}>질문하기</button>
-            <button
-              className={Show.grayBtn}
-              onClick={() => {
-                navigate("/communityShowOff");
-              }}
-            >
-              자랑하기
-            </button>
-          </div>
+      <div className={Show.rightInner}>
+        <div className={Show.titleSearchInner}>
+          <h2 className={Show.title}>궁금한 내용들을 물어보세요</h2>
+          <Search
+            searchInput={searchInput}
+            setSearchInput={setSearchInput}
+          ></Search>
         </div>
-        <div className={Show.rightInner}>
-          <div className={Show.titleSearchInner}>
-            <h2 className={Show.title}>궁금한 내용들을 물어보세요</h2>
-            <Search
-              searchInput={searchInput}
-              setSearchInput={setSearchInput}
-            ></Search>
-          </div>
-          <div className={Show.cardInner}>
+        <div className={Show.buttonInner}>
+          <span className={Show.yellowBtn}>질문하기</span>
+          <span
+            className={Show.grayBtn}
+            onClick={() => {
+              navigate("/communityShowOff");
+            }}
+          >
+            자랑하기
+          </span>
+        </div>
+        <div className={Show.cardInner}>
+          {isSearch ? (
+            <AskCardList askCardData={searchData}></AskCardList>
+          ) : (
+            <AskCardList askCardData={askCardData}></AskCardList>
+          )}
+        </div>
+        <div className={Show.footer}>
+          <div className={Show.moreBtnInner}>
             {isSearch ? (
-              <AskCardList askCardData={searchData}></AskCardList>
-            ) : (
-              <AskCardList askCardData={askCardData}></AskCardList>
-            )}
-          </div>
-          <div className={Show.footer}>
-            <div className={Show.moreBtnInner}>
-              {isSearch ? (
-                isLastPage ? (
-                  <button
-                    className={Show.moreBtn}
-                    onClick={searchMoreBtnHandler}
-                  >
-                    더보기
-                  </button>
-                ) : null
-              ) : askCardData && hasNextPage ? (
-                <button className={Show.moreBtn} onClick={moreBtnHandler}>
+              isLastPage ? (
+                <button className={Show.moreBtn} onClick={searchMoreBtnHandler}>
                   더보기
                 </button>
-              ) : null}
-              {/* {showCardData && hasNextPage ? (
+              ) : null
+            ) : askCardData && hasNextPage ? (
+              <button className={Show.moreBtn} onClick={moreBtnHandler}>
+                더보기
+              </button>
+            ) : null}
+            {/* {showCardData && hasNextPage ? (
                 <button className={Show.moreBtn} onClick={moreBtnHandler}>
                   더보기
                 </button>
               ) : null} */}
-            </div>
-            {/* <div className={Show.footer}>
+          </div>
+          {/* <div className={Show.footer}>
             <div className={Show.moreBtnInner}>
               {askCardData && hasNextPage ? (
                 <button className={Show.moreBtn} onClick={moreBtnHandler}>
@@ -170,15 +164,14 @@ const CommunityAsk = () => {
                 </button>
               ) : null}
             </div> */}
-            <div className={Show.writeBtnInner}>
-              <EditIcon
-                className={Show.writeBtnOutline}
-                sx={{ fontSize: 30 }}
-                onClick={() => {
-                  navigate("/createAskCard");
-                }}
-              ></EditIcon>
-            </div>
+          <div className={Show.writeBtnInner}>
+            <EditIcon
+              className={Show.writeBtnOutline}
+              sx={{ fontSize: 30 }}
+              onClick={() => {
+                navigate("/createAskCard");
+              }}
+            ></EditIcon>
           </div>
         </div>
       </div>
