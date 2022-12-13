@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Search from "../components/search/Search";
-// import Show from "../styles/showOffPage/ShowPage.module.css";
 import MarketStyle from "../styles/market/Market.module.css";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
@@ -32,7 +31,7 @@ interface ShowCard {
 const Market = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const [showCards, setShowCards] = useState<ShowCard[]>([]);
+  const [marketCards, setMarketCards] = useState<ShowCard[]>([]);
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
   const [pickedCategory, setPickedCategory] = useState<string | null>(null);
   const isShowAll = pickedCategory === null;
@@ -44,22 +43,22 @@ const Market = () => {
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [searchPage, setSearchPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
-  const isLastPage = searchPage >= totalPage;
-
+  const isLastPage = searchPage === totalPage;
+  console.log(marketCards)
   const apiGetShowCardData = async () => {
     try {
       const res = isShowAll
-        ? await Api.get("markets?page=1&limit=8", null)
+        ? await Api.get("markets?page=1&limit=8")
         : await Api.get(`markets?page=1&limit=8&category=${pickedCategory}`);
 
-      setShowCards(res.data.docs);
+      setMarketCards(res.data.docs);
       setHasNextPage(res.data.hasNextPage);
       setPage(page + 1);
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(showCards);
+
   useEffect(() => {
     apiGetShowCardData();
   }, [pickedCategory]);
@@ -74,7 +73,7 @@ const Market = () => {
         ? await Api.get(`markets?page=${page}&limit=8`, null)
         : await Api.get(`markets?page=1&limit=8&category=${pickedCategory}`);
 
-      setShowCards([...showCards, ...res.data.docs]);
+      setMarketCards([...marketCards, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(page + 1);
     } catch (err) {
@@ -167,34 +166,34 @@ const Market = () => {
               <div className={CardListStyle.cardList}>
                 <div className={CardListStyle.cardListInner}>
                   {isSearch
-                    ? searchData.map((showcard) => (
+                    ? searchData.map((marketCard) => (
                         <MarketCard
-                          key={showcard._id}
-                          _id={showcard._id}
-                          imageUrl={showcard.imageUrl}
-                          title={showcard.title}
-                          authorName={showcard.author.name}
-                          authorImageUrl={showcard.author.imageUrl}
-                          date={showcard.createdAt}
-                          contents={showcard.contents}
-                          price={showcard.price}
-                          category={showcard.category}
-                          isSoldOut={showcard.isSoldOut}
+                          key={marketCard._id}
+                          _id={marketCard._id}
+                          imageUrl={marketCard.imageUrl}
+                          title={marketCard.title}
+                          authorName={marketCard.author.name}
+                          authorImageUrl={marketCard.author.imageUrl}
+                          date={marketCard.createdAt}
+                          contents={marketCard.contents}
+                          price={marketCard.price}
+                          category={marketCard.category}
+                          isSoldOut={marketCard.isSoldOut}
                         />
                       ))
-                    : showCards.map((showcard) => (
+                    : marketCards.map((marketCard) => (
                         <MarketCard
-                          key={showcard._id}
-                          _id={showcard._id}
-                          imageUrl={showcard.imageUrl}
-                          title={showcard.title}
-                          authorName={showcard.author.name}
-                          authorImageUrl={showcard.author.imageUrl}
-                          date={showcard.createdAt}
-                          contents={showcard.contents}
-                          price={showcard.price}
-                          category={showcard.category}
-                          isSoldOut={showcard.isSoldOut}
+                          key={marketCard._id}
+                          _id={marketCard._id}
+                          imageUrl={marketCard.imageUrl}
+                          title={marketCard.title}
+                          authorName={marketCard.author.name}
+                          authorImageUrl={marketCard.author.imageUrl}
+                          date={marketCard.createdAt}
+                          contents={marketCard.contents}
+                          price={marketCard.price}
+                          category={marketCard.category}
+                          isSoldOut={marketCard.isSoldOut}
                         />
                       ))}
                 </div>
@@ -209,7 +208,7 @@ const Market = () => {
                           더보기
                         </button>
                       ) : null
-                    ) : showCards && hasNextPage ? (
+                    ) : marketCards && hasNextPage ? (
                       <button
                         className={MarketStyle.moreBtn}
                         onClick={loadMoreCards}
