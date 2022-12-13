@@ -113,18 +113,16 @@ const CommuityShow = () => {
   return (
     <div className={Show.container}>
       <div className={Show.Inner}>
-        <div className={Show.buttonContainer}>
-          <div className={Show.buttonInner}>
-            <button
-              className={Show.grayBtn}
-              onClick={() => {
-                navigate("/communityAsk");
-              }}
-            >
-              질문하기
-            </button>
-            <button className={Show.yellowBtn}>자랑하기</button>
-          </div>
+        <div className={Show.buttonInner}>
+          <button
+            className={Show.grayBtn}
+            onClick={() => {
+              navigate("/communityAsk");
+            }}
+          >
+            질문하기
+          </button>
+          <button className={Show.yellowBtn}>자랑하기</button>
         </div>
         <div className={Show.rightInner}>
           <div className={Show.titleSearchInner}>

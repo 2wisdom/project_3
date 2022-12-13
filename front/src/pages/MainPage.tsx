@@ -137,7 +137,7 @@ const MainPage = () => {
               <div className={Info1.footerInner}>
                 <div className={Info1.footerTitle}></div>
                 <div className={Info1.copyRight}>
-                  Copyright 2022. 퀀카. All Rights Reserved.
+                  Copyright 2022. 잎게뭐야. All Rights Reserved.
                 </div>
               </div>
             </div>
