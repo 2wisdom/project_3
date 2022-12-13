@@ -19,6 +19,7 @@ import CommunityAsk from "./pages/CommunityAsk";
 import AskCardDetail from "./pages/AskCardDetail";
 import CreateAskCard from "./pages/CreateAskCard";
 import FindPlant from "./pages/FindPlant";
+import NotFound from "../NotFound";
 const App = () => {
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.setUser);
@@ -75,7 +76,7 @@ const App = () => {
           ></Route>
           {/* <Route path="/editCard/:id" element={<UserCommunityEditCard />}></Route> */}
 
-          {/* <Route component={NotFound} /> */}
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

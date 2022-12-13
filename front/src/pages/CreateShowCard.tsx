@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Create from "../styles/showOffPage/CreateShowCard.module.css";
 import blankImg from "../../assets/community/blankImg.png";
 import * as Api from "../api/Api";
+import uploadImg from "../../assets/findPlant/upload.png";
 import axios from "axios";
 
 interface ShowCardData {
@@ -21,7 +22,7 @@ const CreateShowCard = () => {
   const [title, setTitle] = useState("");
   const [showCardImage, setShowCardImage] = useState({
     imageFileUrl: "",
-    previewURL: blankImg,
+    previewURL: uploadImg,
   });
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");

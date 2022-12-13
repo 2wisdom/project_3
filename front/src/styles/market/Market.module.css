@@ -25,7 +25,7 @@
   font-size: 2.5rem;
   /* padding-bottom: 8rem; */
   /* margin: auto; */
-
+  margin-right: 3rem;
   padding: 0;
 }
 .itemInner {
@@ -93,7 +93,7 @@
 
 .moreBtn {
   grid-column: 1 / span 3;
-
+  margin: auto;
   background-color: #ffffff;
   border-radius: 28px;
   border: 2px solid #000000;
@@ -124,8 +124,7 @@
 }
 
 .writeBtnOutline {
-  /* margin-left: auto; */
-  margin-left: 5rem;
+  margin-left: auto;
   cursor: pointer;
   border: 2px solid #000000;
   border-radius: 3rem;
