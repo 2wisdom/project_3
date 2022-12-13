@@ -11,7 +11,7 @@ const PasswordEdit = ({ newPassword, setNewPassword }: IProps) => {
   const isPasswordSame = newPassword.newPassword === confirmPassword;
 
   return (
-    <M.PasswordContainer>
+    <M.PasswordContainer2>
       <R.PasswordContentBox>
         <R.Tag>기존 비밀번호</R.Tag>
         <R.Input
@@ -54,7 +54,7 @@ const PasswordEdit = ({ newPassword, setNewPassword }: IProps) => {
       {isInputStart(confirmPassword) && !isPasswordSame && (
         <R.NotifyNotValid>비밀번호가 일치하지 않습니다.</R.NotifyNotValid>
       )}
-    </M.PasswordContainer>
+    </M.PasswordContainer2>
   );
 };
 

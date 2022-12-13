@@ -9,7 +9,7 @@ export const MainContent = styled.div`
 export const RegisterContainer = styled.form`
   flex-direction: column;
   justify-content: center;
-  align-item: center;
+  align-items: center;
   text-align: center;
   font-family: "NanumGothic";
   font-style: normal;
@@ -81,13 +81,13 @@ export const ConfirmBtn = styled.button`
   border: 2px solid #3278e4;
   border-radius: 8px;
   outline: 0;
-  cursor: ${props => !props.disabled && "pointer"};
-  opacity: ${props => props.disabled && "0.6"};  
+  cursor: ${(props) => !props.disabled && "pointer"};
+  opacity: ${(props) => props.disabled && "0.6"};
 `;
 
 export const SubmitButton = styled.button`
-width: 40rem;
-height: 5.5rem;
+  width: 40rem;
+  height: 5.5rem;
   color: #ffffff;
   background: #000000;
   border-radius: 0.75rem;
@@ -96,22 +96,22 @@ height: 5.5rem;
   line-height: 2rem;
   margin: 0 auto;
   margin-top: 5%;
-  cursor: ${props => !props.disabled && "pointer"};
-  opacity: ${props => props.disabled && "0.6"};  
+  cursor: ${(props) => !props.disabled && "pointer"};
+  opacity: ${(props) => props.disabled && "0.6"};
 `;
 
 export const NotifyNotValid = styled.div`
   color: red;
   font-size: 1rem;
   height: 2rem;
-  `;
+`;
 
 export const NotifyValid = styled(NotifyNotValid)`
   color: green;
 `;
 
-  //   ${(props) =>
-  //         props.primary && //primary 가 존재할 경우
-  //         css`
-  //         border: red solid 0.15rem;
-  //         `}
+//   ${(props) =>
+//         props.primary && //primary 가 존재할 경우
+//         css`
+//         border: red solid 0.15rem;
+//         `}

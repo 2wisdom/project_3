@@ -21,7 +21,6 @@ export const violet = {
   bg: "#6F77FD",
 };
 
-
 export const SquareBtn = styled.button`
   color: ${(props) => props.theme.fg};
   background: ${(props) => props.theme.bg};
@@ -32,6 +31,23 @@ export const SquareBtn = styled.button`
   padding: 0.25em 1em;
   height: 3rem;
   font-weight: bold;
+  border-radius: 20px;
+  /* border: none; */
+  cursor: pointer;
+`;
+
+export const SquareBtn2 = styled.button`
+  color: ${(props) => props.theme.fg};
+  background: ${(props) => props.theme.bg};
+  border: 1px solid black;
+  width: 8rem;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  padding: 0.25em 1em;
+  height: 3rem;
+  font-weight: bold;
+  border-radius: 20px;
+  border: none;
   cursor: pointer;
 `;
 
