@@ -9,12 +9,12 @@ import SplitButton from "../../buttons/SplitBtn";
 interface ShowCardData {
   category: string;
   title: string;
-  price: number | undefined;
+  price?: number;
   contents: string;
   imageUrl: string;
 }
 
-const UserEditCard = () => {
+const MarketEditCard = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { title, contents, imageUrl, price, _id, pickedMyPageNav, category } =
@@ -116,7 +116,7 @@ const UserEditCard = () => {
                 className={Create.Img}
                 src={ShowCardData.imageUrl}
                 onClick={() => {
-                  if (fileInput.current != null) {
+                  if (fileInput.current !== null) {
                     fileInput.current.click();
                   }
                 }}
@@ -186,4 +186,4 @@ const UserEditCard = () => {
   );
 };
 
-export default UserEditCard;
+export default MarketEditCard;

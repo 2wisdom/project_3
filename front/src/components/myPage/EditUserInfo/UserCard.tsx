@@ -68,7 +68,7 @@ const UserCard = ({
           height="180"
           //이미지상태만들기
           src={
-            saveProfileImg == null
+            saveProfileImg === null
               ? `http://${window.location.hostname}:5000/${img}`
               : previewURL
           }

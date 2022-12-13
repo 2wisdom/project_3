@@ -32,7 +32,6 @@ const App = () => {
     } catch (err: any) {
       if (err.response.status === 400) {
         console.log("구경꾼이다");
-        // navigate("/");
       } else {
         console.log(err);
       }

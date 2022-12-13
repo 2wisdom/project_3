@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { RoundBtn, black, white } from "../buttons/BasicBtn";
-import Box from "@mui/joy/Box";
 import Checkbox from "@mui/joy/Checkbox";
-import Textarea from "@mui/joy/Textarea";
 import * as Api from "../../api/Api";
 import Cmt from "../../styles/Comment.module.css";
 import useUserStore from "@/store/Login";

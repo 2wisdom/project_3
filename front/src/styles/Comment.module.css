@@ -4,7 +4,7 @@
   margin-top: 5rem;
 }
 
-.commentsContainer{
+.commentsContainer {
   width: 100%;
   margin: auto;
   text-align: left;
@@ -47,7 +47,7 @@
   font-size: 2rem;
 }
 
-.commentSubmitBtnContainer{
+.commentSubmitBtnContainer {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -127,17 +127,50 @@
   font-size: 1.5rem;
 }
 
-.Cmt{
+.Cmt {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   height: 4;
 }
 
-.Cmt:first-child{
+.Cmt:first-child {
   line-height: 4rem;
 }
 
-.CmtBtn:first-child{
+.CmtBtn:first-child {
   margin-right: 2rem;
+}
+
+/* 마이페이지 코멘트 */
+.myPageContainer {
+  width: 90%;
+  height: 80vh;
+  align-items: center;
+}
+
+.buttonContainer{
+  text-align: center;
+}
+
+.myPageCommentContainer {
+  display: flex;
+  margin: 5rem;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 2rem;
+}
+
+.nameBox{
+  display: flex;
+  flex-direction: row;
+  line-height: 2rem;
+  text-align: center;
+  margin: 3rem auto;
+}
+
+.commentContainer{
+  height: 10rem;
+  margin: 3rem 0;
+  border-bottom: solid #D9D9D9 1px;
 }

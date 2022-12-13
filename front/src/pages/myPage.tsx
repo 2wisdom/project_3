@@ -2,7 +2,7 @@ import React, { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import EditUserInfo from "../components/myPage/EditUserInfo/EditUserInfo";
 import UserPostCards from "../components/myPage/UserPost/UserPostCards";
-import UserCommentCards from "../components/myPage/UserComment/UserCommentCards";
+import UserCommentCards from "../components/myPage/UserComment/UserComments";
 import useUserStore from "@/store/Login";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 import * as M from "../styles/MyPage/MyPage.styled";
@@ -16,7 +16,7 @@ const MyPage = () => {
   const [pickedNav, setPickedNav] = useState("개인정보수정");
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-
+  
   const navList = [
     { name: "개인정보수정", address: "" },
     { name: "작성한 글", address: "userPost" },
@@ -24,9 +24,9 @@ const MyPage = () => {
   ];
 
   const topNavList = [
-    { name: "질문하기", apiAddress: "asks" },
-    { name: "자랑하기", apiAddress: "posts" },
-    { name: "식물마켓", apiAddress: "markets" },
+    { name: "질문하기", apiAddress: "asks", commentAPi: "Ask"},
+    { name: "자랑하기", apiAddress: "posts", commentAPi: "Post" },
+    { name: "식물마켓", apiAddress: "markets", commentAPi: "Market" },
   ];
   const para = window.location.pathname.split("/");
   const isInfoTap = para[2] === undefined;
@@ -67,7 +67,7 @@ const MyPage = () => {
                 onClick={(e) => {
                   navigate(nav.address);
                   setPickedNav((e.target as HTMLButtonElement).value);
-                  setPickedTopNav({ name: "질문하기", apiAddress: "asks" });
+                  setPickedTopNav({ name: "질문하기", apiAddress: "asks", commentAPi: "Ask"});
                   resetPage();
                 }}
               >

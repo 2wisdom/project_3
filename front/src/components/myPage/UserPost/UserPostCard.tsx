@@ -54,7 +54,7 @@ const UserPostCard = ({
     if (confirm("정말 삭제하시겠습니까?")) {
       try {
         const res = await Api.delete(`${pickedTopNav.apiAddress}`, `${_id}`);
-        if (res.status == 200) {
+        if (res.status === 200) {
           //삭제 후 페이지 재정렬
           for (let i = 1; i <= page; i++) {
             try {
@@ -115,7 +115,7 @@ const UserPostCard = ({
         >
           <div className={Card.userInner}>
             <Avatar
-              alt="Remy Sharp"
+              alt="user profile image"
               src={`http://${window.location.hostname}:5000/${user.imageUrl}`}
               sx={{ width: 24, height: 24 }}
             />

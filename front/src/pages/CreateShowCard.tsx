@@ -70,7 +70,7 @@ const CreateShowCard = () => {
     }
   };
   const handleSetValue = () => {
-    if (contentRef.current != null) {
+    if (contentRef.current !== null) {
       const text = contentRef.current.value;
       setContent(text);
       setShowCardData((prev) => ({
@@ -122,7 +122,7 @@ const CreateShowCard = () => {
                 className={Create.Img}
                 src={showCardImage.previewURL}
                 onClick={() => {
-                  if (fileInput.current != null) {
+                  if (fileInput.current !== null) {
                     fileInput.current.click();
                   }
                 }}
