@@ -43,13 +43,13 @@ const NestedComment = ({
   const { user } = useUserStore();
   const date = createdAt.split("T");
   const time = date[1].slice(0, 5);
-  const CanSeeComment = !isSecret || isPostAuthor || writer.name === user.name;
-
+  const canDeleteComment = isPostAuthor || writer.name === user.name;
+  const canSeeComment = !isSecret || isPostAuthor || writer.name === user.name;
   //대댓글 삭제
   const deleteNestedComment = async () => {
     if (confirm("댓글을 정말 삭제하시겠습니까?")) {
       try {
-        console.log(nestedComment_id)
+        console.log(nestedComment_id);
         const res = await Api.delete("comments", nestedComment_id);
         alert("댓글이 삭제되었습니다.");
         //대댓글 재로드
@@ -69,7 +69,7 @@ const NestedComment = ({
   return (
     <div className={Cmt.nastedCommentBox}>
       <div className={Cmt.userInner}>
-        {CanSeeComment && (
+        {canSeeComment && (
           <Avatar
             className={Cmt.Avatar}
             alt="user profile image"
@@ -77,7 +77,7 @@ const NestedComment = ({
             sx={{ width: 24, height: 24 }}
           />
         )}
-        {CanSeeComment ? (
+        {canSeeComment ? (
           <h5 className={Cmt.userName}>
             {writer.name} | {date[0]} {time}
           </h5>
@@ -88,12 +88,18 @@ const NestedComment = ({
         )}
       </div>
       <div className={Cmt.Cmt}>
-        <div>{CanSeeComment ? content : "비밀댓글입니다."}</div>
-        <div className={Cmt.CmtBtn}>
-          <SquareBtn theme={black} type="button" onClick={deleteNestedComment}>
-            삭제
-          </SquareBtn>
-        </div>
+        <div>{canSeeComment ? content : "비밀댓글입니다."}</div>
+        {canDeleteComment && (
+          <div className={Cmt.CmtBtn}>
+            <SquareBtn
+              theme={black}
+              type="button"
+              onClick={deleteNestedComment}
+            >
+              삭제
+            </SquareBtn>
+          </div>
+        )}
       </div>
     </div>
   );
