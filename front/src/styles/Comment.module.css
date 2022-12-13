@@ -149,13 +149,16 @@
   align-items: center;
 }
 
+.buttonContainer{
+  text-align: center;
+}
+
 .myPageCommentContainer {
   display: flex;
   margin: 5rem;
   flex-direction: column;
   font-weight: 400;
   font-size: 2rem;
-  /* line-height: 1.5rem; */
 }
 
 .nameBox{

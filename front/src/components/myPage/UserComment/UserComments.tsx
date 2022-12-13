@@ -30,7 +30,7 @@ const UserCommentCards = () => {
   const { pickedTopNav } = TopNavStore();
   const [comments, setComments] = useState<Commnet[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
-  const isLastPage = page ===totalPage;
+  const isLastPage = page === totalPage;
 
   const apiGetShowCardData = async () => {
     try {
@@ -51,7 +51,7 @@ const UserCommentCards = () => {
     apiGetShowCardData();
   }, [pickedTopNav]);
 
-  const loadMoreCards: React.MouseEventHandler<HTMLButtonElement> = async (
+  const loadMoreComments: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
     e.preventDefault();
@@ -59,16 +59,16 @@ const UserCommentCards = () => {
     try {
       const res = await Api.get(
         "users",
-        `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page + 1}`
+        `comments?userId=${user.userId}&page=${page+1}&type=${pickedTopNav.commentAPi}`
       );
-      setComments([...comments, ...res.data.userMarkets]);
-
+      setComments([...comments, ...res.data.userComments]);
       increasePage();
     } catch (err) {
+      alert("더보기 에러가 발생했습니다. 다시 시도해주세요")
       console.log("더보기 에러: ", err);
     }
   };
-  
+
   return (
     <div className={Cmt.myPageContainer}>
       <div className={Cmt.myPageCommentContainer}>
@@ -84,11 +84,13 @@ const UserCommentCards = () => {
           );
         })}
       </div>
-      {!isLastPage && comments.length !== 0 && (
-        <button className={Show.moreBtn} onClick={loadMoreCards}>
-          더보기
-        </button>
-      )}
+      <div className={Cmt.buttonContainer}>
+        {!isLastPage && comments.length !== 0 && (
+          <button className={Show.moreBtn} onClick={loadMoreComments}>
+            더보기
+          </button>
+        )}
+      </div>
     </div>
   );
 };
