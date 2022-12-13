@@ -1,10 +1,12 @@
 .container {
+  padding-top: 5rem;
+  width: 50%;
   margin: auto;
-  padding: 0px;
-  margin-top: 5rem;
+  height: 80vh;
 }
 
 .inner {
+  margin-top: 5rem;
   width: 50%;
   margin: auto;
   height: 80vh;
@@ -78,16 +80,20 @@
 .footer {
   position: fixed;
   bottom: 10px;
-  left: 0;
-  width: 100%;
+  width: 910px;
+  /* margin: auto; */
   display: flex;
-  margin-top: 2rem;
+  /* grid: ". ."; */
+  justify-content: center;
+  /* gap: 5px; */
 }
-.moreBtnInner {
+/* .moreBtnInner {
   margin: auto;
-}
+} */
 
 .moreBtn {
+  grid-column: 1 / span 3;
+
   background-color: #ffffff;
   border-radius: 28px;
   border: 2px solid #000000;
@@ -96,6 +102,7 @@
   font-size: 13px;
   padding: 12px 20px;
   text-decoration: none;
+  /* margin-right: 4rem; */
   /* margin-left: 15rem; */
   /* justify-content: center; */
 }
@@ -112,14 +119,18 @@
   /* width: 20%; */
   /* text-align: end; */
   /* align-items: flex-end; */
+  /* padding-left: 5rem; */
+  /* margin-left: auto; */
 }
 
 .writeBtnOutline {
+  /* margin-left: auto; */
+  margin-left: 5rem;
   cursor: pointer;
   border: 2px solid #000000;
   border-radius: 3rem;
   padding: 1rem;
-  margin-right: 3rem;
+  /* margin-right: 3rem; */
 }
 .writeBtnOutline:active {
   position: relative;

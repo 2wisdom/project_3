@@ -125,116 +125,103 @@ const Market = () => {
     }
   };
   return (
-    <>
-      <div className={MarketStyle.container}>
-        <div className={MarketStyle.Inner}>
-          <div className={MarketStyle.rightInner}>
-            <div className={MarketStyle.titleNavInner}>
-              <h2 className={MarketStyle.title}>식물마켓</h2>
-              <ul className={MarketStyle.navContainer}>
-                {categoryList.map((category) => {
-                  return (
-                    <li
-                      className={
-                        pickedCategory === category
-                          ? `${MarketStyle.navItem} ${MarketStyle.clickedNav}`
-                          : MarketStyle.navItem
-                      }
-                      value={category}
-                      key={category}
-                      onClick={(e) => {
-                        setPage(1);
-                        setIsSearch(false);
-                        setSearchPage(1);
-                        pickedCategory === category
-                          ? setPickedCategory(null)
-                          : setPickedCategory(category);
-                      }}
-                    >
-                      {category}
-                    </li>
-                  );
-                })}
-              </ul>
-              <div className={MarketStyle.search}>
-                {" "}
-                <Search
-                  searchInput={searchInput}
-                  setSearchInput={setSearchInput}
-                />
-              </div>
+    <div className={MarketStyle.container}>
+      {/* <div className={MarketStyle.inner}> */}
+      <div className={MarketStyle.titleSearchInner}>
+        <h2 className={MarketStyle.title}>식물마켓</h2>
+        <ul className={MarketStyle.navContainer}>
+          {categoryList.map((category) => {
+            return (
+              <li
+                className={
+                  pickedCategory === category
+                    ? `${MarketStyle.navItem} ${MarketStyle.clickedNav}`
+                    : MarketStyle.navItem
+                }
+                value={category}
+                key={category}
+                onClick={(e) => {
+                  setPage(1);
+                  setIsSearch(false);
+                  setSearchPage(1);
+                  pickedCategory === category
+                    ? setPickedCategory(null)
+                    : setPickedCategory(category);
+                }}
+              >
+                {category}
+              </li>
+            );
+          })}
+        </ul>
+
+        <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+      </div>
+      <div className={MarketStyle.cardInner}>
+        <div className={CardListStyle.cardList}>
+          <div className={CardListStyle.cardListInner}>
+            {isSearch
+              ? searchData.map((showcard) => (
+                  <ShowCard
+                    key={showcard._id}
+                    _id={showcard._id}
+                    imageUrl={showcard.imageUrl}
+                    title={showcard.title}
+                    authorName={showcard.author.name}
+                    authorImageUrl={showcard.author.imageUrl}
+                    date={showcard.createdAt}
+                    contents={showcard.contents}
+                    price={showcard.price}
+                    category={showcard.category}
+                    isSoldOut={showcard.isSoldOut}
+                  />
+                ))
+              : showCards.map((showcard) => (
+                  <ShowCard
+                    key={showcard._id}
+                    _id={showcard._id}
+                    imageUrl={showcard.imageUrl}
+                    title={showcard.title}
+                    authorName={showcard.author.name}
+                    authorImageUrl={showcard.author.imageUrl}
+                    date={showcard.createdAt}
+                    contents={showcard.contents}
+                    price={showcard.price}
+                    category={showcard.category}
+                    isSoldOut={showcard.isSoldOut}
+                  />
+                ))}
+          </div>
+          <div className={MarketStyle.footer}>
+            <div className={MarketStyle.moreBtnInner}>
+              {isSearch ? (
+                isLastPage ? (
+                  <button
+                    className={MarketStyle.moreBtn}
+                    onClick={searchMoreBtnHandler}
+                  >
+                    더보기
+                  </button>
+                ) : null
+              ) : showCards && hasNextPage ? (
+                <button className={MarketStyle.moreBtn} onClick={loadMoreCards}>
+                  더보기
+                </button>
+              ) : null}
             </div>
-            <div className={MarketStyle.cardInner}>
-              <div className={CardListStyle.cardList}>
-                <div className={CardListStyle.cardListInner}>
-                  {isSearch
-                    ? searchData.map((showcard) => (
-                        <ShowCard
-                          key={showcard._id}
-                          _id={showcard._id}
-                          imageUrl={showcard.imageUrl}
-                          title={showcard.title}
-                          authorName={showcard.author.name}
-                          authorImageUrl={showcard.author.imageUrl}
-                          date={showcard.createdAt}
-                          contents={showcard.contents}
-                          price={showcard.price}
-                          category={showcard.category}
-                          isSoldOut={showcard.isSoldOut}
-                        />
-                      ))
-                    : showCards.map((showcard) => (
-                        <ShowCard
-                          key={showcard._id}
-                          _id={showcard._id}
-                          imageUrl={showcard.imageUrl}
-                          title={showcard.title}
-                          authorName={showcard.author.name}
-                          authorImageUrl={showcard.author.imageUrl}
-                          date={showcard.createdAt}
-                          contents={showcard.contents}
-                          price={showcard.price}
-                          category={showcard.category}
-                          isSoldOut={showcard.isSoldOut}
-                        />
-                      ))}
-                </div>
-                <div className={MarketStyle.footer}>
-                  <div className={MarketStyle.moreBtnInner}>
-                    {isSearch ? (
-                      isLastPage ? (
-                        <button
-                          className={MarketStyle.moreBtn}
-                          onClick={searchMoreBtnHandler}
-                        >
-                          더보기
-                        </button>
-                      ) : null
-                    ) : showCards && hasNextPage ? (
-                      <button
-                        className={MarketStyle.moreBtn}
-                        onClick={loadMoreCards}
-                      >
-                        더보기
-                      </button>
-                    ) : null}
-                  </div>
-                  <div className={MarketStyle.writeBtnInner}>
-                    <EditIcon
-                      className={MarketStyle.writeBtnOutline}
-                      sx={{ fontSize: 30 }}
-                      onClick={() => {
-                        navigate("/createMarketCard");
-                      }}
-                    ></EditIcon>
-                  </div>
-                </div>
-              </div>
+            <div className={MarketStyle.writeBtnInner}>
+              <EditIcon
+                className={MarketStyle.writeBtnOutline}
+                sx={{ fontSize: 30 }}
+                onClick={() => {
+                  navigate("/createMarketCard");
+                }}
+              ></EditIcon>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

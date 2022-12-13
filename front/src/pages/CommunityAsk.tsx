@@ -111,60 +111,59 @@ const CommunityAsk = () => {
   };
   return (
     <div className={Show.container}>
-      <div className={Show.inner}>
-        <div className={Show.titleSearchInner}>
-          <h2 className={Show.title}>궁금한 내용들을 물어보세요</h2>
-          <div className={Show.itemInner}>
-            <p className={Show.itemAsk}>질문하기</p>
-            <p
-              className={Show.itemShow}
-              onClick={() => {
-                navigate("/communityShowOff");
-              }}
-            >
-              자랑하기
-            </p>
-          </div>
-          <Search
-            searchInput={searchInput}
-            setSearchInput={setSearchInput}
-          ></Search>
+      {/* <div className={Show.inner}> */}
+      <div className={Show.titleSearchInner}>
+        <h2 className={Show.title}>궁금한 내용들을 물어보세요</h2>
+        <div className={Show.itemInner}>
+          <p className={Show.itemAsk}>질문하기</p>
+          <p
+            className={Show.itemShow}
+            onClick={() => {
+              navigate("/communityShowOff");
+            }}
+          >
+            자랑하기
+          </p>
         </div>
+        <Search
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+        ></Search>
+      </div>
 
-        <div className={Show.cardInner}>
-          {isSearch ? (
-            <AskCardList askCardData={searchData}></AskCardList>
-          ) : (
-            <AskCardList askCardData={askCardData}></AskCardList>
-          )}
-        </div>
-        <div className={Show.footer}>
-          <div className={Show.moreBtnInner}>
-            {isSearch ? (
-              isLastPage ? (
-                <button className={Show.moreBtn} onClick={searchMoreBtnHandler}>
-                  더보기
-                </button>
-              ) : null
-            ) : askCardData && hasNextPage ? (
-              <button className={Show.moreBtn} onClick={moreBtnHandler}>
-                더보기
-              </button>
-            ) : null}
-          </div>
-
-          <div className={Show.writeBtnInner}>
-            <EditIcon
-              className={Show.writeBtnOutline}
-              sx={{ fontSize: 30 }}
-              onClick={() => {
-                navigate("/createAskCard");
-              }}
-            ></EditIcon>
-          </div>
-        </div>
+      <div className={Show.cardInner}>
+        {isSearch ? (
+          <AskCardList askCardData={searchData}></AskCardList>
+        ) : (
+          <AskCardList askCardData={askCardData}></AskCardList>
+        )}
+      </div>
+      <div className={Show.footer}>
+        {/* <div className={Show.moreBtnInner}> */}
+        {isSearch ? (
+          isLastPage ? (
+            <button className={Show.moreBtn} onClick={searchMoreBtnHandler}>
+              더보기
+            </button>
+          ) : null
+        ) : askCardData && hasNextPage ? (
+          <button className={Show.moreBtn} onClick={moreBtnHandler}>
+            더보기
+          </button>
+        ) : null}
+        {/* <div className={Show.writeBtnInner}> */}
+        <EditIcon
+          className={Show.writeBtnOutline}
+          sx={{ fontSize: 30 }}
+          onClick={() => {
+            navigate("/createAskCard");
+          }}
+        ></EditIcon>
+        {/* </div> */}
       </div>
     </div>
+
+    // </div>
   );
 };
 
