@@ -26,6 +26,7 @@ const passwordWithNull = Joi.string()
   .regex(PasswordPattern)
   .allow(null, "");
 
+// 스키마
 const validationSchema = {
   // 회원가입 유효성 검사 스키마
   postAddUserSchema: Joi.object({
@@ -46,6 +47,7 @@ const validationSchema = {
     newPassword: passwordWithNull,
   }),
 
+  // 검색 스키마
   getSearchSchema: Joi.object({
     option: Joi.string()
       .regex(/^(all|contents|title)$/)
@@ -56,6 +58,16 @@ const validationSchema = {
     page: Joi.string()
       .regex(/^[0-9]$/)
       .required(),
+  }),
+
+  // 이메일 중복 검사 스키마
+  getCheckEmail: Joi.object({
+    email: email,
+  }),
+
+  // 닉네임 중복 검사 스키마
+  getCheckName: Joi.object({
+    name: name,
   }),
 };
 exports.validationSchema = validationSchema;

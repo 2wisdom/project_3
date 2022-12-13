@@ -91,15 +91,15 @@ const userAuthService = {
 
       const { userId, name, imageUrl } = userInfo;
 
-      // // 암호화된 비밀번호와 입력된 비밀번호 비교
-      // const currentPasswordHash = userInfo.password;
-      // const isPasswordcurrent = await bcrypt.compare(
-      //   password,
-      //   currentPasswordHash
-      // );
+      // 암호화된 비밀번호와 입력된 비밀번호 비교
+      const currentPasswordHash = userInfo.password;
+      const isPasswordcurrent = await bcrypt.compare(
+        password,
+        currentPasswordHash
+      );
 
       // 비밀번호 일치하지 않았을 경우 에러 처리
-      // if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
+      if (!isPasswordcurrent) throw new Error("비밀번호가 일치하지 않습니다.");
 
       // .env 에서 jwt 서명 받아옴
       const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
@@ -259,25 +259,19 @@ const userAuthService = {
   },
 
   // 마이페이지 코멘트
-  userComments: async (userId, page) => {
+  userComments: async (userId, page, type) => {
     try {
       const userComments = await wrapper(
         Comment.findUserAllComments,
         userId,
-        page
+        page,
+        type
       );
-
-      // const userIdResult = userComments.map((userComment) => {
-      //   return userComment.writingId;
-      // });
-
-      // const result = Array.from(new Set(userIdResult));
-
-      // console.log(result);
 
       const userCommentsCount = await wrapper(
         Comment.findUserAllCommentsCount,
-        userId
+        userId,
+        type
       );
       const userCommentsResponse = {};
 
@@ -291,7 +285,7 @@ const userAuthService = {
       );
 
       userCommentsResponse.totalPage = totalPage;
-      userCommentsResponse.userMarkets = userComments;
+      userCommentsResponse.userComments = userComments;
 
       userCommentsResponse.errorMessage = null;
 
@@ -304,10 +298,10 @@ const userAuthService = {
   // 유저 정보 업데이트
   updateUserInfo: async ({ userId, toUpdate }) => {
     try {
-      let user = await wrapper(User.findById, userId);
+      const userInfo = await wrapper(User.findById, userId);
 
-      const oldPassword = user.password;
-      const oldImageUrl = user.imageUrl;
+      const oldPassword = userInfo.password;
+      const oldImageUrl = userInfo.imageUrl;
 
       // 비밀번호와 이미지 업데이트
       if (toUpdate.newPassword && toUpdate.imageUrl) {
@@ -326,14 +320,23 @@ const userAuthService = {
         newValue.imageUrl = toUpdate.imageUrl;
 
         // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
-        user = await wrapper(User.update, { userId, fieldToUpdate, newValue });
+        const newUserInfo = await wrapper(User.update, {
+          userId,
+          fieldToUpdate,
+          newValue,
+        });
         await wrapper(deleteUserImage, oldImageUrl);
+        return newUserInfo;
       }
 
       // 비밀번호만 업데이트
       if (toUpdate.newPassword && !toUpdate.imageUrl) {
-        if (user.password !== toUpdate.password)
-          throw new Error("비밀번호가 일치하지 않습니다.");
+        const isPasswordSame = await bcrypt.compare(
+          toUpdate.password,
+          oldPassword
+        );
+
+        if (!isPasswordSame) throw new Error("비밀번호가 일치하지 않습니다.");
 
         const fieldToUpdate = {};
         const newValue = {};
@@ -344,13 +347,18 @@ const userAuthService = {
         // 입력 받은 비밀번호 암호화
         newValue.password = await bcrypt.hash(toUpdate.newPassword, SALT_ROUND);
         // newValue.password = toUpdate.newPassword;
-        newValue.imageUrl = user.imageUrl;
+        newValue.imageUrl = userInfo.imageUrl;
 
         // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
-        user = await wrapper(User.update, { userId, fieldToUpdate, newValue });
-        if (user.imageUrl === process.env.DEFAULT_IMAGE_NAME) {
-          user.imageUrl = process.env.DEFAULT_IMAGE_URL;
+        const newUserInfo = await wrapper(User.update, {
+          userId,
+          fieldToUpdate,
+          newValue,
+        });
+        if (newUserInfo.imageUrl === process.env.DEFAULT_IMAGE_NAME) {
+          newUserInfo.imageUrl = process.env.DEFAULT_IMAGE_URL;
         }
+        return newUserInfo;
       }
 
       // 이미지만 업데이트
@@ -361,17 +369,22 @@ const userAuthService = {
         fieldToUpdate.password = "password";
         fieldToUpdate.imageUrl = "imageUrl";
         // 입력 받은 비밀번호 암호화
-        newValue.password = await bcrypt.hash(oldPassword, SALT_ROUND);
+        newValue.password = oldPassword;
         // newValue.password = oldPassword;
         newValue.imageUrl = toUpdate.imageUrl;
 
         // userId 가 일치하는 다큐먼트의 field인 password를 newValue로 업데이트
-        user = await wrapper(User.update, { userId, fieldToUpdate, newValue });
+        const newUserInfo = await wrapper(User.update, {
+          userId,
+          fieldToUpdate,
+          newValue,
+        });
 
         await wrapper(deleteUserImage, oldImageUrl);
+        return newUserInfo;
       }
 
-      return user;
+      return newUserInfo;
     } catch (error) {
       return error;
     }

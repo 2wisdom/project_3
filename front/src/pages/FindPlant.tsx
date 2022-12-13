@@ -13,7 +13,10 @@ const FindPlant = () => {
   const [lensImage, setLensImage] = useState<File | any>(null);
   const navigate = useNavigate();
   const formData = new FormData();
+  const [isFind, setIsFind] = useState<boolean>(false);
   const [plantImage, setPlantImage] = useState<File | null>(null);
+  const [plantName, setPlantName] = useState<String>("");
+  const [predictionRate, setPredictionRate] = useState<String>("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
@@ -34,7 +37,7 @@ const FindPlant = () => {
     e.preventDefault();
 
     console.log("click");
-
+    setIsFind(true);
     try {
       console.log("lensImage: ", lensImage);
       formData.append("image", lensImage);
@@ -49,7 +52,10 @@ const FindPlant = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("res-test", res.data);
+      setPlantName(res.data.plantName);
+      setPredictionRate(res.data.predictionRate);
+      console.log("res.data.plantName", res.data.plantName);
+      console.log("res.data.predictionRate", res.data.predictionRate);
     } catch (err) {
       console.log("imageErr", err);
     }
@@ -87,6 +93,18 @@ const FindPlant = () => {
         <button type="submit" className={Find.checkBtn} onClick={handleSubmit}>
           식물찾기
         </button>
+        <div className={Find.resultInner}>
+          {isFind ? (
+            <p className={Find.result}>
+              <div className={Find.plantName}>
+                식물이름 : <p className={Find.fontColor}>{plantName}</p>
+              </div>
+              <div className={Find.predictionRate}>
+                예측률 : <p className={Find.fontColor}>{predictionRate}</p>
+              </div>
+            </p>
+          ) : null}
+        </div>
       </div>
     </div>
   );

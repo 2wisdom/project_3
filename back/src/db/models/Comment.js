@@ -14,9 +14,12 @@ const logger = require("../../config/logger");
 // };
 
 const Comment = {
-  findUserAllComments: async (writer, page) => {
+  findUserAllComments: async (writer, page, type) => {
     try {
-      const findUserAllComments = await CommentModel.find({ writer })
+      const findUserAllComments = await CommentModel.find({
+        writer: writer,
+        postType: type,
+      })
         .sort({ createdAt: -1 })
         .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
         .limit(process.env.PAGE_LIMIT_COUNT)
@@ -28,10 +31,11 @@ const Comment = {
     }
   },
 
-  findUserAllCommentsCount: async (writer) => {
+  findUserAllCommentsCount: async (writer, type) => {
     try {
       const allUserCommentsCount = await CommentModel.countDocuments({
-        writer,
+        writer: writer,
+        postType: type,
       }).lean();
 
       return allUserCommentsCount;

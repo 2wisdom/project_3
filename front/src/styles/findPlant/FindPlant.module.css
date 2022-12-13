@@ -15,6 +15,7 @@
   margin: auto;
   text-align: center;
 }
+
 /* title */
 .title {
   font-family: "Jua", sans-serif;
@@ -37,6 +38,7 @@
   height: 35rem;
   border-radius: 4rem;
 }
+
 /* content */
 .content {
   width: 50%;
@@ -54,6 +56,7 @@
   width: 90%;
   text-align: end;
 }
+
 /* checkBtn */
 .checkBtn {
   width: 200px;
@@ -65,7 +68,54 @@
   color: #ffffff;
   background-color: #0c884f;
 }
+
 .checkBtn:active {
   position: relative;
   top: 1px;
+}
+
+.resultInner {
+  padding-top: 3rem;
+  width: 98%;
+  text-align: center;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.result {
+  font-size: 2.5rem;
+  position: relative;
+  font-family: "Jua", sans-serif;
+  text-align: center;
+}
+
+.plantName {
+  display: flex;
+  font-family: "Jua", sans-serif;
+  word-spacing: 5px;
+  margin-bottom: 1rem;
+
+}
+
+.predictionRate {
+  display: flex;
+  font-family: "Jua", sans-serif;
+
+}
+
+/* .result:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background-color: #bfffa1;
+  z-index: -1;
+} */
+.fontColor {
+  color: #428365;
+  margin: 0px;
+  padding-left: 10px;
 }
