@@ -9,7 +9,10 @@ html {
 /* Hide scroll bar */
 
 .nav {
-  margin: 0;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+  display: flex;
   padding: 0;
   position: sticky;
   top: 0;
@@ -20,9 +23,8 @@ ul {
   list-style: none;
 }
 .navContainer {
-  margin-left: 3rem;
-  margin-right: 3rem;
   display: flex;
+  align-items: center;
 }
 
 /* logo styles */
@@ -39,13 +41,18 @@ ul {
 /* navItem */
 .navItemInner {
   display: flex;
-  margin: auto;
-  /* padding-left: 15rem; */
+  align-items: center;
+  padding-left: 0px;
+
+  padding-left: 20rem;
+  padding-right: 20rem;
+  align-content: space-between;
+
+  gap: 33px;
 }
 .navItem {
   font-family: "Jua", sans-serif;
   font-size: 1.8rem;
-  margin-right: 4rem;
   cursor: pointer;
 }
 

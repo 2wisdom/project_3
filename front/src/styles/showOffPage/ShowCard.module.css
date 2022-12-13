@@ -1,30 +1,31 @@
 .inner {
-  width: 30%;
+  /* width: 30%; */
   height: 100%;
   /* background-color: bisque; */
   /* margin: auto; */
-  margin-right: 5rem;
-  margin-bottom: 6rem;
+  /* margin-right: 5rem;
+  margin-bottom: 6rem; */
   cursor: pointer;
   transition: 0.3s;
 }
 .inner:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-.image {
-  width: 243px;
+img {
+  width: 240px;
   height: 170px;
+  border-radius: 1rem !important;
 }
 .title {
   font-size: 1.5rem;
+  padding-left: 1.5rem;
 }
 
 .footer {
   display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  /* padding-top: 2rem; */
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .userInner {
@@ -47,8 +48,9 @@
 .data {
   font-size: 1.5rem;
   font-weight: 400;
-  padding-top: 0.5rem;
-  padding-right: 2rem;
+  /* padding-top: 0.5rem;
+  padding-right: 2rem; */
+  margin-left: auto;
 }
 
 .price {

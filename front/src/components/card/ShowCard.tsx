@@ -41,6 +41,7 @@ const ShowCard = ({
       <img
         className={Card.image}
         src={`${image}`}
+        // style={{border-radius: 2}}
         onError={({ currentTarget }) => {
           currentTarget.onerror = null; // prevents looping
           currentTarget.src = imageError;
