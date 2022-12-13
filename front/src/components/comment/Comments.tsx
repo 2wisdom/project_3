@@ -1,8 +1,4 @@
 import { useState, useEffect } from "react";
-import { RoundBtn, black } from "../buttons/BasicBtn";
-import Box from "@mui/joy/Box";
-import Checkbox from "@mui/joy/Checkbox";
-import Textarea from "@mui/joy/Textarea";
 import Cmt from "../../styles/Comment.module.css";
 import Comment from "./Comment";
 import * as Api from "../../api/Api";
@@ -21,8 +17,6 @@ interface comment {
   writer: Writer;
   writingId: string;
   _id: string;
-  setCommentList: React.Dispatch<React.SetStateAction<comment[]>>;
-  id: string;
 }
 
 interface Props {
@@ -35,7 +29,7 @@ const Comments = ({ authorName, id, postType }: Props) => {
   const { user } = useUserStore();
   const [content, setContent] = useState("");
   const [isSecret, setIsSecret] = useState(false);
-  const [commentList, setCommentList] = useState<Comment[]>([]);
+  const [commentList, setCommentList] = useState<comment[]>([]);
 
   //처음 댓글 불러오기
   useEffect(() => {

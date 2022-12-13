@@ -51,11 +51,13 @@ const Comment = ({
   const time = date[1].slice(0, 5);
   const { user } = useUserStore();
   const isPostAuthor = user.name === postAuthorName;
-  const CanSeeComment = !isSecret || isPostAuthor || writer.name === user.name;
+  const canSeeComment = !isSecret || isPostAuthor || writer.name === user.name;
+  const canDeleteComment = isPostAuthor || writer.name === user.name;
   const [openCommentBox, setOpenCommentBox] = useState(false);
   const [nestedCommentList, setNestedCommentList] = useState<Comment[]>([]);
   const [isShowNestedComment, setIsShowNestedComment] =
     useState<boolean>(false);
+
   //처음 대댓글 불러오기
   useEffect(() => {
     if (comment_id) {
@@ -93,16 +95,18 @@ const Comment = ({
     <div className={Cmt.CommentBox}>
       <div className={Cmt.Inner}>
         <div className={Cmt.Cmt}>
-          <div>{CanSeeComment ? content : "비밀댓글입니다."}</div>
-          <div className={Cmt.CmtBtn}>
-            <SquareBtn theme={black} type="button" onClick={deleteComment}>
-              삭제
-            </SquareBtn>
-          </div>
+          <div>{canSeeComment ? content : "비밀댓글입니다."}</div>
+          {canDeleteComment && (
+            <div className={Cmt.CmtBtn}>
+              <SquareBtn theme={black} type="button" onClick={deleteComment}>
+                삭제
+              </SquareBtn>
+            </div>
+          )}
         </div>
 
         <div className={Cmt.userInner}>
-          {CanSeeComment && (
+          {canSeeComment && (
             <Avatar
               className={Cmt.Avatar}
               alt="user profile image"
@@ -110,7 +114,7 @@ const Comment = ({
               sx={{ width: 24, height: 24 }}
             />
           )}
-          {CanSeeComment ? (
+          {canSeeComment ? (
             <h5 className={Cmt.userName}>
               {writer.name} | {date[0]} {time}
             </h5>
