@@ -6,11 +6,10 @@ import useUserStore from "../../../store/Login";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../../../api/Api";
-import UserCommentCard from "./UserComment";
-import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 import Comment from "./UserComment";
+import Cmt from "../../../styles/Comment.module.css";
 
 export interface Commnet {
   _id: string;
@@ -22,7 +21,7 @@ export interface Commnet {
 export interface Props {
   _id: string;
   content: string;
-  date: string;
+  createdAt: string;
   writingId: string;
 }
 
@@ -41,11 +40,11 @@ const UserCommentCards = () => {
     try {
       const res = await Api.get(
         "users",
-        `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page}`
+        `comments?userId=${user.userId}&page=${page}&type=${pickedTopNav.commentAPi}`
       );
 
-      isAsksTap && setComments(res.data.userAsks);
-      isPostsTap && setComments(res.data.userPosts);
+      // isAsksTap && setComments(res.data.userAsks);
+      // isPostsTap && setComments(res.data.userPosts);
       isMarketTap && setComments(res.data.userMarkets);
       setTotalPage(res.data.totalPage);
     } catch (err: any) {
@@ -69,8 +68,8 @@ const UserCommentCards = () => {
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page + 1}`
       );
-      isAsksTap && setComments([...comments, ...res.data.userAsks]);
-      isPostsTap && setComments([...comments, ...res.data.userPosts]);
+      // isAsksTap && setComments([...comments, ...res.data.userAsks]);
+      // isPostsTap && setComments([...comments, ...res.data.userPosts]);
       isMarketTap && setComments([...comments, ...res.data.userMarkets]);
 
       increasePage();
@@ -87,7 +86,7 @@ const UserCommentCards = () => {
             <Comment
               _id={comment._id}
               content={comment.content}
-              date={comment.createdAt}
+              createdAt={comment.createdAt}
               writingId={comment.writingId}
             />
           );

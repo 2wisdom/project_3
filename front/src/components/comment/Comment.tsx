@@ -66,30 +66,32 @@ const Comment = ({
     }
   }, []);
 
-  const deleteComment = async() => {
-    if (confirm("댓글을 정말 삭제하시겠습니까?")){
-      try{
-        const res = Api.delete("comments", comment_id)
-        alert("댓글이 삭제되었습니다.") 
-    }catch(err){
-      alert("댓글 삭제도중 오류가 발생했습니다. 다시 시도해주세요.")
+  const deleteComment = async () => {
+    if (confirm("댓글을 정말 삭제하시겠습니까?")) {
+      try {
+        const res = Api.delete("comments", comment_id);
+        alert("댓글이 삭제되었습니다.");
+      } catch (err) {
+        alert("댓글 삭제도중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
     }
-    }
-  }
+  };
 
   return (
     <div className={Cmt.CommentBox}>
       <div className={Cmt.Inner}>
         <div className={Cmt.Cmt}>
-          <div>
-          {CanSeeComment ? content : "비밀댓글입니다."}
-          </div>
+          <div>{CanSeeComment ? content : "비밀댓글입니다."}</div>
           <div className={Cmt.CmtBtn}>
-            <SquareBtn theme={white} type="button" onClick={deleteComment}> 삭제 </SquareBtn>
-            <SquareBtn theme={black} type="button" > 수정 </SquareBtn>
+            <SquareBtn theme={white} type="button" onClick={deleteComment}>
+              삭제
+            </SquareBtn>
+            <SquareBtn theme={black} type="button">
+              수정
+            </SquareBtn>
           </div>
         </div>
-        
+
         <div className={Cmt.userInner}>
           {CanSeeComment && (
             <Avatar
@@ -120,7 +122,7 @@ const Comment = ({
             className={Cmt.toggleBtn}
             onClick={() => setIsShowNestedComment(!isShowNestedComment)}
           >
-            {isShowNestedComment? "▽" : "▷"} 답글 {nestedCommentList.length}개
+            {isShowNestedComment ? "▽" : "▷"} 답글 {nestedCommentList.length}개
           </button>
         </div>
         {isShowNestedComment &&

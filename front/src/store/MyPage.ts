@@ -3,6 +3,7 @@ import create from "zustand";
 interface NavInfo {
   name: string;
   apiAddress: string;
+  commentAPi: string;
 }
 
 interface TopNavState {
@@ -11,7 +12,7 @@ interface TopNavState {
 }
 
 export const TopNavStore = create<TopNavState>((set) => ({
-  pickedTopNav: { name: "질문하기", apiAddress: "asks" },
+  pickedTopNav: { name: "질문하기", apiAddress: "asks", commentAPi: "Ask"},
   setPickedTopNav: (newPickedTopNav) => {
     set((state) => ({ pickedTopNav: newPickedTopNav }));
   },
