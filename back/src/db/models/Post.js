@@ -118,6 +118,17 @@ const Post = {
       return error;
     }
   },
+
+  deleteByAuthor: async (userId) => {
+    try {
+      const deletedUserInfo = await PostModel.deleteMany({
+        author: userId,
+      });
+      return deletedUserInfo;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 module.exports = Post;
