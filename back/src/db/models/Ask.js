@@ -119,6 +119,17 @@ const Ask = {
       return error;
     }
   },
+
+  deleteByAuthor: async (userId) => {
+    try {
+      const deletedUserInfo = await AskModel.deleteMany({
+        author: userId,
+      });
+      return deletedUserInfo;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 module.exports = Ask;

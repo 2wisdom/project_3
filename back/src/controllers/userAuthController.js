@@ -5,6 +5,9 @@ const { userAuthService } = require("../services/userAuthService");
 const { deleteUserImage } = require("../middlewares/deleteImage");
 const { wrapper } = require("../middlewares/errorHandlingWrapper");
 const { writeLog } = require("../middlewares/writeLog");
+const Ask = require("../db/models/Ask");
+const Post = require("../db/models/Post");
+const Market = require("../db/models/Market");
 
 const userAuthController = {
   //회원가입
@@ -325,7 +328,10 @@ const userAuthController = {
     try {
       const deletedUser = await wrapper(userAuthService.deleteUserInfo, userId);
 
-      const deletedToken = await tokenService.deleteTokenInfo(userId);
+      const deletedToken = await wrapper(tokenService.deleteTokenInfo, userId);
+      const deletedAsk = await wrapper(Market.deleteByAuthor, userId);
+      const deletedMarket = await wrapper(Post.deleteByAuthor, userId);
+      const deletedPost = await wrapper(Ask.deleteByAuthor, userId);
 
       if (!deletedUser.errorMessage && deletedUser.imageUrl) {
         await wrapper(deleteUserImage, deletedUser.imageUrl);
