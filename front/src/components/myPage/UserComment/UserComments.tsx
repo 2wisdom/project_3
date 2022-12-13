@@ -1,9 +1,8 @@
-import * as React from "react";
 import { useEffect, useState } from "react";
+import { Navigate, useNavigation } from "react-router-dom";
 import Show from "../../../styles/showOffPage/ShowPage.module.css";
 import ShowCardList from "../../communityShow/CardList";
 import useUserStore from "../../../store/Login";
-import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import * as Api from "../../../api/Api";
 import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
@@ -32,9 +31,6 @@ const UserCommentCards = () => {
   const [comments, setComments] = useState<Commnet[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = page ===totalPage;
-  const isAsksTap = pickedTopNav.name === "질문하기";
-  const isPostsTap = pickedTopNav.name === "자랑하기";
-  const isMarketTap = pickedTopNav.name === "식물마켓";
 
   const apiGetShowCardData = async () => {
     try {
@@ -42,10 +38,7 @@ const UserCommentCards = () => {
         "users",
         `comments?userId=${user.userId}&page=${page}&type=${pickedTopNav.commentAPi}`
       );
-
-      // isAsksTap && setComments(res.data.userAsks);
-      // isPostsTap && setComments(res.data.userPosts);
-      isMarketTap && setComments(res.data.userMarkets);
+      setComments(res.data.userComments);
       setTotalPage(res.data.totalPage);
     } catch (err: any) {
       if (err.response.status === 404) {
@@ -68,22 +61,21 @@ const UserCommentCards = () => {
         "users",
         `${pickedTopNav.apiAddress}?userId=${user.userId}&page=${page + 1}`
       );
-      // isAsksTap && setComments([...comments, ...res.data.userAsks]);
-      // isPostsTap && setComments([...comments, ...res.data.userPosts]);
-      isMarketTap && setComments([...comments, ...res.data.userMarkets]);
+      setComments([...comments, ...res.data.userMarkets]);
 
       increasePage();
     } catch (err) {
       console.log("더보기 에러: ", err);
     }
   };
-
+  
   return (
-    <div className={Cmt.container}>
-      <div className={Cmt.commentsContainer}>
+    <div className={Cmt.myPageContainer}>
+      <div className={Cmt.myPageCommentContainer}>
         {comments.map((comment) => {
           return (
             <Comment
+              key={comment._id}
               _id={comment._id}
               content={comment.content}
               createdAt={comment.createdAt}
