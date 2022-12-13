@@ -14,18 +14,20 @@ interface Writer {
   imageUrl: string;
 }
 
-interface Comment {
+interface comment {
   content: string;
   createdAt: string;
   isSecret: boolean;
   writer: Writer;
   writingId: string;
   _id: string;
+  setCommentList: React.Dispatch<React.SetStateAction<comment[]>>;
+  id: string;
 }
 
 interface Props {
   authorName: string;
-  id: string | undefined;
+  id?: string
   postType: string;
 }
 
@@ -118,6 +120,8 @@ const Comments = ({ authorName, id, postType }: Props) => {
               writingId={comment.writingId}
               comment_id={comment._id}
               postType={postType}
+              setCommentList={setCommentList}
+              id={id}
             />
           );
         })}
