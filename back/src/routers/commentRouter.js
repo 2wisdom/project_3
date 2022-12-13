@@ -2,7 +2,7 @@ const express = require("express");
 const Comment = require("../db/schemas/comment");
 const commentRouter = express.Router();
 const { loginRequired } = require("../middlewares/login_required");
-const { commentController } = require("../controllers/commentController");
+const { commentController } = require("../controllers/CommentController");
 
 /**
  * 댓글 조회
