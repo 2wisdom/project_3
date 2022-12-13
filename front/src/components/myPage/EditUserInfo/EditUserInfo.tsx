@@ -6,6 +6,7 @@ import useUserStore from "@/store/Login";
 import axios from "axios";
 import { RoundBtn, white, violet } from "../../buttons/BasicBtn";
 import { ContentBox } from "@/styles/RegisterPage/Register.styled";
+import * as M from "../../../styles/MyPage/MyPage.styled";
 // import { Api } from "@mui/icons-material";
 import * as Api from "../../../api/Api";
 

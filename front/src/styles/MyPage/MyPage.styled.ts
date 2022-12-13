@@ -12,7 +12,7 @@ export const MainContent = styled.div`
 export const MyPageContainer = styled.form`
   display: flex;
   justify-content: left;
-  align-item: left;
+  align-items: left;
   text-align: left;
   font-family: "Nanum Gothic", sans-serif;
   font-style: normal;
@@ -30,7 +30,7 @@ export const NavBox = styled.div`
   margin: 5rem 0 0 0;
 `;
 
-export const NavBtn = styled.button<{isPicked: boolean}>`
+export const NavBtn = styled.button<{ isPicked: boolean }>`
   width: 15rem;
   height: 5rem;
   font-weight: 800;
@@ -72,9 +72,9 @@ export const TitleContainer = styled.div`
 
 export const Title = styled.div`
   margin-right: 5rem;
-}`;
+`;
 
-export const topNav = styled.button<{isPicked: boolean}>`
+export const topNav = styled.button<{ isPicked: boolean }>`
   font: NanumGothic;
   font-size: 1.5rem;
   font-weight: 700;
@@ -94,7 +94,7 @@ export const UserContainer = styled.div`
   display: flex;
   margin-left: 15rem;
   justify-content: left;
-  align-item: left;
+  align-items: left;
   flex-direction: row;
   border-bottom: 1px solid grey;
 `;
@@ -103,7 +103,7 @@ export const ImgContainer = styled.div`
   width: 30rem;
   height: 30rem;
   justify-content: center;
-  align-item: center;
+  align-items: center;
   text-align: center;
   background-color: yellow;
   // border-radius: 50%;
@@ -140,7 +140,7 @@ export const Tag = styled.div`
 `;
 
 export const PwTag = styled(Tag)`
-  margin-right: 55rem;
+  margin-right: 33rem;
 `;
 
 export const Input = styled.input`
@@ -174,6 +174,15 @@ export const TagValue = styled.div`
 //
 export const PasswordContainer = styled(UserContainer)`
   display: flex;
+  flex-direction: row;
+  text-align: center;
+  height: 25rem;
+  border: none;
+  margin-top: 3rem;
+`;
+
+export const PasswordContainer2 = styled(UserContainer)`
+  display: flex;
   flex-direction: column;
   text-align: center;
   height: 25rem;
@@ -181,9 +190,7 @@ export const PasswordContainer = styled(UserContainer)`
   margin-top: 3rem;
 `;
 
-export const PasswordContentBox = styled(ContentBox)`
-  padding-right: 20rem;
-`;
+export const PasswordContentBox = styled(ContentBox)``;
 
 export const FileBtn = styled.label`
   color: ${(props) => props.theme.fg};
@@ -197,4 +204,17 @@ export const FileBtn = styled.label`
   font-weight: bold;
   cursor: pointer;
   text-align: center;
+  border-radius: 20px;
+`;
+
+export const UserImage = styled.img`
+  border-radius: 20px;
+  max-width: 18rem;
+  background-size: cover;
+`;
+
+export const BlankSpace = styled.div`
+  display: block;
+  padding-left: 25rem;
+  height: 8rem;
 `;

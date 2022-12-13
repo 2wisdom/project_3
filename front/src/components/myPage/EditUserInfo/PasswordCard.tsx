@@ -8,18 +8,21 @@ interface Props {
 }
 const PasswordCard = ({ setIsEditingPassword }: Props) => {
   return (
-    <M.PasswordContainer>
-      <M.PasswordContentBox>
-        <M.PwTag>비밀번호</M.PwTag>
-        <SquareBtn
-          theme={black}
-          type="button"
-          onClick={() => setIsEditingPassword(true)}
-        >
-          수정
-        </SquareBtn>
-      </M.PasswordContentBox>
-    </M.PasswordContainer>
+    <>
+      <M.PasswordContainer>
+        <M.BlankSpace></M.BlankSpace>
+        <M.PasswordContentBox>
+          <M.PwTag>비밀번호</M.PwTag>
+          <SquareBtn
+            theme={black}
+            type="button"
+            onClick={() => setIsEditingPassword(true)}
+          >
+            수정
+          </SquareBtn>
+        </M.PasswordContentBox>
+      </M.PasswordContainer>
+    </>
   );
 };
 
