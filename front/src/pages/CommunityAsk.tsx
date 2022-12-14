@@ -90,9 +90,11 @@ const CommunityAsk = () => {
     } else if (!debounceValue) {
       setIsSearch(false);
       setSearchPage(1);
+      setTotalPage(1);
     }
   }, [debounceValue]);
-
+  console.log("totalPage", totalPage);
+  console.log("searchPage");
   const searchMoreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (
     e
   ) => {
@@ -107,6 +109,7 @@ const CommunityAsk = () => {
     if (!debounceValue) {
       setIsSearch(false);
       setSearchPage(1);
+      setTotalPage(1);
     }
   };
   return (
@@ -141,11 +144,11 @@ const CommunityAsk = () => {
       <div className={Show.footer}>
         {/* <div className={Show.moreBtnInner}> */}
         {isSearch ? (
-          isLastPage ? (
+          isLastPage ? null : (
             <button className={Show.moreBtn} onClick={searchMoreBtnHandler}>
               더보기
             </button>
-          ) : null
+          )
         ) : askCardData && hasNextPage ? (
           <button className={Show.moreBtn} onClick={moreBtnHandler}>
             더보기

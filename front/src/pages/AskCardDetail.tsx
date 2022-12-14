@@ -20,8 +20,6 @@ interface DetailData {
 const AskCardDetail = () => {
   const navigate = useNavigate();
   let { id } = useParams();
-  // let realId = parseInt(id as string);
-  // console.log("realId", realId);
   const [DetailData, setDetailData] = useState<DetailData>({
     title: "",
     userImg: "",
@@ -60,23 +58,19 @@ const AskCardDetail = () => {
         });
     }
   }, []);
-
   return (
     <div className={Detail.container}>
       <div className={Detail.title}>{DetailData.title}</div>
       <div className={Detail.userInner}>
         <Avatar
-          alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
+          alt="userImg"
+          src={`http://${window.location.hostname}:5000/${DetailData.userImg}`}
           sx={{ width: 24, height: 24 }}
         />
         <div className={Detail.userName}>{DetailData.userName}</div>
-        {/* <div className={Detail.line}></div> */}
+
         <div className={Detail.date}>{createDate[0]}</div>
       </div>
-
-      {/* <hr></hr> */}
-
       <img
         className={Detail.image}
         src={DetailData.imageUrl}
@@ -85,7 +79,6 @@ const AskCardDetail = () => {
           currentTarget.src = imageError;
         }}
       />
-
       <p className={Detail.contents}>{DetailData.contents}</p>
       <button
         className={Detail.btn}
@@ -95,7 +88,7 @@ const AskCardDetail = () => {
       >
         목록
       </button>
-      <Comments authorName={DetailData.userName} id={id} postType={"Ask"}/>
+      <Comments authorName={DetailData.userName} id={id} postType={"Ask"} />
     </div>
   );
 };

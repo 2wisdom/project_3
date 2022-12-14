@@ -139,13 +139,21 @@ const CommuityShow = () => {
       </div>
       <div className={Show.footer}>
         {isSearch ? (
-          isLastPage ? (
-            <button className={Show.moreBtn} onClick={searchMoreBtnHandler}>
+          isLastPage ? null : (
+            <button
+              type="button"
+              className={Show.moreBtn}
+              onClick={searchMoreBtnHandler}
+            >
               더보기
             </button>
-          ) : null
+          )
         ) : showCardData && hasNextPage ? (
-          <button className={Show.moreBtn} onClick={moreBtnHandler}>
+          <button
+            type="button"
+            className={Show.moreBtn}
+            onClick={moreBtnHandler}
+          >
             더보기
           </button>
         ) : null}
