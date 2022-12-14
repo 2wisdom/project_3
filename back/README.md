@@ -91,7 +91,7 @@ DEFAULT_IMAGE_URL="public/images/leavesGetMoreYards.png"
 - 페이지 당 게시물 개수
 
 ```
-PAGE_LIMIT_COUNT=8
+PAGE_LIMIT_COUNT=6
 ```
 
 - AI 서버 포트
