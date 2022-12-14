@@ -42,7 +42,7 @@ const CreateAskCard = () => {
             try {
               let res = axios({
                 method: "post",
-                url: "http://localhost:5000/images/image-upload",
+                url: "http://34.64.178.176:5000/images/image-upload",
                 data: formData,
                 headers: {
                   "Content-Type": "multipart/form-data",

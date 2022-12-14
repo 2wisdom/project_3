@@ -2,31 +2,31 @@ import axios, { AxiosError } from "axios";
 
 const backendPortNumber = "5000";
 
-const serverUrl = "http://localhost:" + backendPortNumber + "/";
+const serverUrl = "http://34.64.178.176:" + backendPortNumber + "/";
 
-async function get(endpoint: string, params?: string | null ) {
-    console.log(`GET 요청 ${serverUrl + endpoint}`);
-    return axios.get(
-      params ? serverUrl + endpoint + "/" + params : serverUrl + endpoint,
-      {
+async function get(endpoint: string, params?: string | null) {
+  console.log(`GET 요청 ${serverUrl + endpoint}`);
+  return axios.get(
+    params ? serverUrl + endpoint + "/" + params : serverUrl + endpoint,
+    {
       // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    });
-  }
-
+    }
+  );
+}
 
 async function post(endpoint: string, data: any, isFile?: boolean) {
-  const bodyData = !isFile? JSON.stringify(data): data;
+  const bodyData = !isFile ? JSON.stringify(data) : data;
   console.log("bodyData: ", bodyData);
   console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
   console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
 
   return axios.post(serverUrl + endpoint, bodyData, {
     headers: {
-      "Content-Type": !isFile? "application/json" : "multipart/form-data",
+      "Content-Type": !isFile ? "application/json" : "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   });
@@ -35,13 +35,13 @@ async function post(endpoint: string, data: any, isFile?: boolean) {
 async function put(endpoint: string, data: any, isFile?: boolean) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
-  const bodyData = !isFile? JSON.stringify(data): data;
+  const bodyData = !isFile ? JSON.stringify(data) : data;
   console.log(`%cPUT 요청: ${serverUrl + endpoint}`, "color: #059c4b;");
   console.log(`%cPUT 요청 데이터: ${bodyData}`, "color: #059c4b;");
 
   return axios.put(serverUrl + endpoint, bodyData, {
     headers: {
-      "Content-Type": !isFile? "application/json" : "multipart/form-data",
+      "Content-Type": !isFile ? "application/json" : "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   });
