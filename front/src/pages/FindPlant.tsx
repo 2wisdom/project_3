@@ -46,7 +46,7 @@ const FindPlant = () => {
 
       let res = await axios({
         method: "post",
-        url: "http://localhost:5000/lens",
+        url: "http://34.64.178.176:5000/lens",
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
