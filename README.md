@@ -63,7 +63,7 @@ uvicorn main-server:app --reload
 
 ---
 
-- 이지혜
+- 이지혜: https://github.com/2wisdom
 - 김성우: https://github.com/working-zima
 - 박은정
 - 이홍준
