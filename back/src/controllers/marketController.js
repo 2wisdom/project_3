@@ -14,7 +14,7 @@ const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
 const marketController = {
   // 전체 게시글 조회
   getAllMarkets: async (req, res) => {
-    const { page = "1", limit = "8", category } = req.query;
+    const { page = "1", limit = "6", category } = req.query;
 
     const query = {};
     if (!!category) {

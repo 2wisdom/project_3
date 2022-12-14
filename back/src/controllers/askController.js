@@ -14,7 +14,7 @@ const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
 const askController = {
   // 전체 게시글 조회
   getAllAsks: async (req, res) => {
-    const { page = "1", limit = "8" } = req.query;
+    const { page = "1", limit = "6" } = req.query;
 
     const list = await Ask.findAll({
       page,
