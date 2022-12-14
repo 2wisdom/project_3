@@ -1,51 +1,64 @@
 const express = require("express");
 const Comment = require("../db/schemas/comment");
+const { writeLog } = require("../middlewares/writeLog");
 const logger = require("../config/logger");
+const CommentModel = require("../db/models/Comment");
 
 const commentController = {
   // 댓글 조회
-  getComments: (req, res) => {
+  getComments: async (req, res, next) => {
     const { writingId } = req.params;
 
-    Comment.find({ writingId })
-      .populate([{ path: "writer", select: ["_id", "name", "imageUrl"] }])
-      .exec((err, comments) => {
-        if (err) return res.status(400).send(err);
-        res.status(200).json({ success: true, comments });
-        logger.info("댓글 조회");
-      });
+    const comment = await Comment.find({ writingId }).populate([
+      { path: "writer", select: ["_id", "name", "imageUrl"] },
+    ]);
+    try {
+      logger.info("댓글 조회");
+      return res.json(comment);
+    } catch (err) {
+      next(err);
+    }
   },
 
   // 댓글 생성
-  createComment: (req, res) => {
-    const comment = new Comment(req.body);
+  createComment: async (req, res, next) => {
     const { writingId } = req.params;
-
+    const comment = req.body;
     comment.writingId = writingId;
     comment.writer = req.currentUserId;
 
-    comment.save((err, comment) => {
-      if (err) return res.json({ success: false, err });
-
-      Comment.find({ _id: comment._id }) // 저장 후 id를 이용하여 바로 해당 writer정보를 찾는다.
-        .populate([{ path: "writer", select: ["_id", "name", "imageUrl"] }])
-        .exec((err, result) => {
-          if (err) return res.json({ success: false, err });
-          res.status(200).json({ success: true, result });
-          logger.info("댓글 생성");
-        });
-    });
+    try {
+      const newComment = await (
+        await Comment.create(comment)
+      ).populate([{ path: "writer", select: ["_id", "name", "imageUrl"] }]);
+      logger.info("댓글 생성");
+      return res.json({ newComment });
+    } catch (err) {
+      next(err);
+    }
   },
 
   // 댓글 삭제
-  deleteComment: async (req, res) => {
+  deleteComment: async (req, res, next) => {
     const { commentId } = req.params;
+    try {
+      const comment = await Comment.findById(commentId);
 
-    Comment.findByIdAndDelete(commentId).exec((err) => {
-      if (err) return res.json({ success: false, err });
-      res.status(200).json({ success: true });
+      if (comment == null) {
+        return res.status(404).json({ message: "댓글을 찾을 수 없습니다." });
+      } else if (comment.writer !== req.currentUserId) {
+        return res.status(401).json({
+          message: "삭제 권한이 없습니다.",
+        });
+      }
+
+      await Comment.findByIdAndDelete(commentId);
+
       logger.info("댓글 삭제");
-    });
+      return res.json({ commentId });
+    } catch (err) {
+      next(err);
+    }
   },
 };
 

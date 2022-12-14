@@ -13,7 +13,7 @@ const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
 
 const marketController = {
   // 전체 게시글 조회
-  getAllMarkets: async (req, res) => {
+  getAllMarkets: async (req, res, next) => {
     const { page = "1", limit = "6", category } = req.query;
 
     const query = {};
@@ -37,8 +37,7 @@ const marketController = {
       logger.info("전체 게시글 조회");
       return res.json(list);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -51,17 +50,19 @@ const marketController = {
     ]);
 
     try {
-      const copyMarket = { ...market.toJSON() };
+      if (market == null) {
+        return res.status(404).json({ message: "게시글을 찾을 수 없습니다." });
+      }
+
       logger.info("특정 게시글 조회");
-      return res.json(copyMarket);
+      return res.json(market);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
   // 게시글 생성
-  createMarket: async (req, res) => {
+  createMarket: async (req, res, next) => {
     const market = req.body;
     market.author = req.currentUserId;
 
@@ -72,8 +73,7 @@ const marketController = {
         newMarket,
       });
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -85,7 +85,11 @@ const marketController = {
     const getMarket = await Market.get(marketId);
 
     try {
-      if (getMarket.author !== req.currentUserId) {
+      if (getMarket == null) {
+        return res.status(404).json({
+          message: "게시글을 찾을 수 없습니다.",
+        });
+      } else if (getMarket.author !== req.currentUserId) {
         return res.status(401).json({
           message: "수정 권한이 없습니다.",
         });
@@ -97,8 +101,7 @@ const marketController = {
       logger.info("게시글 수정");
       return res.json(result);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -110,7 +113,11 @@ const marketController = {
     const getMarket = await Market.get(marketId);
 
     try {
-      if (getMarket.author !== req.currentUserId) {
+      if (getMarket == null) {
+        return res.status(404).json({
+          message: "게시글을 찾을 수 없습니다.",
+        });
+      } else if (getMarket.author !== req.currentUserId) {
         return res.status(401).json({
           message: "수정 권한이 없습니다.",
         });
@@ -122,8 +129,7 @@ const marketController = {
       logger.info("판매 완료!");
       return res.json(result);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -134,7 +140,9 @@ const marketController = {
     const getMarket = await Market.get(marketId);
 
     try {
-      if (getMarket.author !== req.currentUserId) {
+      if (getMarket == null) {
+        return res.status(404).json({ message: "게시글을 찾을 수 없습니다." });
+      } else if (getMarket.author !== req.currentUserId) {
         return res.status(401).json({
           message: "삭제 권한이 없습니다.",
         });
@@ -150,7 +158,7 @@ const marketController = {
       const imageUrl = getMarket.imageUrl;
       wisXFileCleanerFromUrl(new URL(imageUrl));
     } catch (err) {
-      logger.error(err);
+      next(err);
     }
 
     try {
@@ -159,8 +167,7 @@ const marketController = {
         id: marketId,
       });
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 

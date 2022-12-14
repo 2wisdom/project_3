@@ -13,7 +13,7 @@ const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
 
 const askController = {
   // 전체 게시글 조회
-  getAllAsks: async (req, res) => {
+  getAllAsks: async (req, res, next) => {
     const { page = "1", limit = "6" } = req.query;
 
     const list = await Ask.findAll({
@@ -32,8 +32,7 @@ const askController = {
       logger.info("전체 게시글 조회");
       return res.json(list);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -46,17 +45,19 @@ const askController = {
     ]);
 
     try {
-      const copyAsk = { ...ask.toJSON() };
+      if (ask == null) {
+        return res.status(404).json({ message: "게시글을 찾을 수 없습니다." });
+      }
+
       logger.info("특정 게시글 조회");
-      return res.json(copyAsk);
+      return res.json(ask);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
   // 게시글 생성
-  createAsk: async (req, res) => {
+  createAsk: async (req, res, next) => {
     const ask = req.body;
     ask.author = req.currentUserId;
 
@@ -67,8 +68,7 @@ const askController = {
         newAsk,
       });
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -80,7 +80,11 @@ const askController = {
     const getAsk = await Ask.get(askId);
 
     try {
-      if (getAsk.author !== req.currentUserId) {
+      if (getAsk == null) {
+        return res.status(404).json({
+          message: "게시글을 찾을 수 없습니다.",
+        });
+      } else if (getAsk.author !== req.currentUserId) {
         return res.status(401).json({
           message: "수정 권한이 없습니다.",
         });
@@ -92,8 +96,7 @@ const askController = {
       logger.info("게시글 수정");
       return res.json(result);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -104,7 +107,9 @@ const askController = {
     const getAsk = await Ask.get(askId);
 
     try {
-      if (getAsk.author !== req.currentUserId) {
+      if (getAsk == null) {
+        return res.status(404).json({ message: "게시글을 찾을 수 없습니다." });
+      } else if (getAsk.author !== req.currentUserId) {
         return res.status(401).json({
           message: "삭제 권한이 없습니다.",
         });
@@ -120,7 +125,7 @@ const askController = {
       const imageUrl = getAsk.imageUrl;
       wisXFileCleanerFromUrl(new URL(imageUrl));
     } catch (err) {
-      logger.error(err);
+      next(err);
     }
 
     try {
@@ -129,8 +134,7 @@ const askController = {
         id: askId,
       });
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 

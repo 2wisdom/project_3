@@ -13,7 +13,7 @@ const { wisXFileCleanerFromUrl } = require("../libs/wisXFileCleaner");
 
 const postController = {
   // 전체 게시글 조회
-  getAllPosts: async (req, res) => {
+  getAllPosts: async (req, res, next) => {
     const { page = "1", limit = "6" } = req.query;
 
     const list = await Post.findAll({
@@ -32,8 +32,7 @@ const postController = {
       logger.info("전체 게시글 조회");
       return res.json(list);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -46,17 +45,19 @@ const postController = {
     ]);
 
     try {
-      const copyPost = { ...post.toJSON() };
+      if (post == null) {
+        return res.status(404).json({ message: "게시글을 찾을 수 없습니다." });
+      }
+
       logger.info("특정 게시글 조회");
-      return res.json(copyPost);
+      return res.json(post);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
   // 게시글 생성
-  createPost: async (req, res) => {
+  createPost: async (req, res, next) => {
     const post = req.body;
     post.author = req.currentUserId;
 
@@ -67,8 +68,7 @@ const postController = {
         newPost,
       });
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -80,7 +80,11 @@ const postController = {
     const getPost = await Post.get(postId);
 
     try {
-      if (getPost.author !== req.currentUserId) {
+      if (getPost == null) {
+        return res.status(404).json({
+          message: "게시글을 찾을 수 없습니다.",
+        });
+      } else if (getPost.author !== req.currentUserId) {
         return res.status(401).json({
           message: "수정 권한이 없습니다.",
         });
@@ -92,8 +96,7 @@ const postController = {
       logger.info("게시글 수정");
       return res.json(result);
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
@@ -104,7 +107,9 @@ const postController = {
     const getPost = await Post.get(postId);
 
     try {
-      if (getPost.author !== req.currentUserId) {
+      if (getPost == null) {
+        return res.status(404).json({ message: "게시글을 찾을 수 없습니다." });
+      } else if (getPost.author !== req.currentUserId) {
         return res.status(401).json({
           message: "삭제 권한이 없습니다.",
         });
@@ -120,7 +125,7 @@ const postController = {
       const imageUrl = getPost.imageUrl;
       wisXFileCleanerFromUrl(new URL(imageUrl));
     } catch (err) {
-      logger.error(err);
+      next(err);
     }
 
     try {
@@ -129,8 +134,7 @@ const postController = {
         id: postId,
       });
     } catch (err) {
-      logger.error(err);
-      return res.status(400).send("Error");
+      next(err);
     }
   },
 
