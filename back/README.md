@@ -19,9 +19,7 @@
 ┃ ┣ 📂middlewares  
 ┃ ┣ 📂routers  
 ┃ ┣ 📂services  
-┃ ┣ 📜.DS_Store  
 ┃ ┗ 📜app.js  
-┣ 📜.DS_Store  
 ┣ 📜.env  
 ┣ 📜.gitignore  
 ┣ 📜README.md  
@@ -94,6 +92,12 @@ DEFAULT_IMAGE_URL="public/images/leavesGetMoreYards.png"
 
 ```
 PAGE_LIMIT_COUNT=8
+```
+
+- AI 서버 포트
+
+```
+AI_SERVER_PORT=8000
 ```
 
 <br>
