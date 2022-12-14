@@ -23,7 +23,6 @@ module.exports = merge(common, {
       },
       {
         test: /\.(png|jpg)$/i,
-        loader: "file-loader",
         type: "asset/resource",
       },
     ],
