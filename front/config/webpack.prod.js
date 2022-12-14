@@ -21,6 +21,11 @@ module.exports = merge(common, {
         test: /\.(sa|sc|c)ss$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
+      {
+        test: /\.(png|jpg)$/i,
+        loader: "file-loader",
+        type: "asset/resource",
+      },
     ],
   },
   plugins: [new MiniCssExtractPlugin()],
@@ -46,10 +51,4 @@ module.exports = merge(common, {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
-  loaders: [
-    {
-      test: /\.(gif|svg|jpg|png)$/,
-      loader: "file-loader",
-    },
-  ],
 });
