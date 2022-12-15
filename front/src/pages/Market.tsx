@@ -7,6 +7,8 @@ import * as Api from "../api/Api";
 import MarketCard from "../components/market/MarketCard";
 import CardListStyle from "../styles/showOffPage/CardList.module.css";
 import useDebounce from "@/useDebounce";
+import useUserStore from "../store/Login";
+
 interface Author {
   imageUrl: string;
   name: string;
@@ -30,6 +32,7 @@ interface ShowCard {
 
 const Market = () => {
   const navigate = useNavigate();
+  const {LoginToHavePermission} = useUserStore();
   const [page, setPage] = useState<number>(1);
   const [marketCards, setMarketCards] = useState<ShowCard[]>([]);
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
@@ -213,6 +216,7 @@ const Market = () => {
                 className={MarketStyle.writeBtnOutline}
                 sx={{ fontSize: 30 }}
                 onClick={() => {
+                  LoginToHavePermission()
                   navigate("/createMarketCard");
                 }}
               ></EditIcon>

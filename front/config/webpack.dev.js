@@ -36,7 +36,6 @@ module.exports = merge(common, {
           },
           "sass-loader",
         ],
-        // use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },
