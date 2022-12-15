@@ -36,13 +36,13 @@ const CommentInput = ({
   const [content, setContent] = useState("");
   const [isSecret, setIsSecret] = useState(false);
   const { user } = useUserStore();
-  
+
   const resetInputBox = () => {
     setOpenCommentBox(false);
     setIsSecret(false);
     setContent("");
-  }
-  
+  };
+
   const commentPost = async () => {
     try {
       const res = await Api.post(`comments/${comment_id}`, {
@@ -77,14 +77,17 @@ const CommentInput = ({
       <div className={Cmt.nestedCmtBox}>
         <div>{user.name}</div>
         <input
+          maxLength={599}
           className={Cmt.nestedCommentInput}
           placeholder="답글 추가..."
-          onChange={(e)=>setContent(e.target.value)}
+          onChange={(e) => setContent(e.target.value)}
         ></input>
       </div>
-      <div className={Cmt.nestedCmtBtnBox} >
-        <RoundBtn theme={white} type="button" onClick={resetInputBox}>취소</RoundBtn>
-        <RoundBtn theme={black} type="button"onClick={commentPost}>
+      <div className={Cmt.nestedCmtBtnBox}>
+        <RoundBtn theme={white} type="button" onClick={resetInputBox}>
+          취소
+        </RoundBtn>
+        <RoundBtn theme={black} type="button" onClick={commentPost}>
           답글
         </RoundBtn>
       </div>
