@@ -35,7 +35,7 @@ const Market = () => {
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
   const [pickedCategory, setPickedCategory] = useState<string | null>(null);
   const isShowAll = pickedCategory === null;
-  const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
+  const categoryList = ["구근/뿌리묘/모종", "다육식물", "씨앗", "기타"];
 
   const [searchInput, setSearchInput] = useState<string>("");
   const debounceValue = useDebounce(searchInput);
