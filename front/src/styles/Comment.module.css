@@ -176,3 +176,8 @@
   margin: 3rem 0;
   border-bottom: solid #d9d9d9 1px;
 }
+
+.commentNothing{
+  margin-left: 5rem;
+  width: 30rem;
+}

@@ -20,3 +20,9 @@
 .text {
   width: 30rem;
 }
+
+.postNothing{
+  margin-left: 5rem;
+  margin-top: 5rem;
+  width: 30rem;
+}

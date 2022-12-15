@@ -90,7 +90,7 @@ const UserCommentCards = () => {
         })}
       </div>
       {isNothing && (
-        <div className={Cmt.myPageCommentContainer}>
+        <div className={Cmt.commentNothing}>
           <h2>작성한 댓글이 없습니다.</h2>
         </div>
       )}

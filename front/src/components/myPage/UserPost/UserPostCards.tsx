@@ -48,7 +48,6 @@ const UserPostCards = () => {
   const isPostsTap = pickedTopNav.name === "자랑하기";
   const isMarketTap = pickedTopNav.name === "식물마켓";
   const [isNothing, setIsNothing] = useState<boolean>(false);
-  console.log(showCards);
 
   const apiGetShowCardData = async () => {
     try {
@@ -62,11 +61,10 @@ const UserPostCards = () => {
       setTotalPage(res.data.totalPage);
       setIsNothing(false);
     } catch (err: any) {
-      setShowCards([]);
-      setIsNothing(true);
-      // if (err.status === 404) {
-
-      // }
+      if (err.response.status === 404) {
+        setShowCards([]);
+        setIsNothing(true);
+      }
     }
   };
 
@@ -135,7 +133,7 @@ const UserPostCards = () => {
               })}
             </div>
             {isNothing && (
-              <div className={CardListStyle.text}>
+              <div className={CardListStyle.postNothing}>
                 <h2>작성한 게시글이 없습니다.</h2>
               </div>
             )}
