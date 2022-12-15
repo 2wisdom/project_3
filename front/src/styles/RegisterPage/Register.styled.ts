@@ -35,6 +35,8 @@ export const ContentBox = styled.div`
   align-items: center;
   height: 7rem;
   justify-content: center;
+  width: 15rem;
+  padding: 0 10rem 0 15rem;
 `;
 
 export const PasswordContentBox = styled(ContentBox)`

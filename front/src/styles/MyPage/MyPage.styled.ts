@@ -57,7 +57,8 @@ export const NavBtn = styled.button<{ isPicked: boolean }>`
 export const MainContainer = styled.form`
   flex-direction: column;
   display: flex;
-  width: 80%;
+  /* width: 80%; */
+  width: 0;
   height: 80vh;
 `;
 

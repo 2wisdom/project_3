@@ -65,7 +65,7 @@ const UserPostCards = () => {
       setShowCards([]);
       setIsNothing(true);
       // if (err.status === 404) {
-        
+
       // }
     }
   };
@@ -135,7 +135,7 @@ const UserPostCards = () => {
               })}
             </div>
             {isNothing && (
-              <div className={CardListStyle.cardListInner}>
+              <div className={CardListStyle.text}>
                 <h2>작성한 게시글이 없습니다.</h2>
               </div>
             )}
