@@ -8,6 +8,7 @@ import UserMarketCard from "./UserMarketCard";
 import CardListStyle from "../../../styles/showOffPage/CardList.module.css";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 import ShowCard from "../../market/MarketCard";
+
 export interface ShowCard {
   author: string;
   contents: string;

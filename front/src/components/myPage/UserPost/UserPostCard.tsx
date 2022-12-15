@@ -5,7 +5,6 @@ import useUserStore from "../../../store/Login";
 import Stack from "@mui/material/Stack";
 import { SquareBtn, white, black } from "../../buttons/BasicBtn";
 import * as Api from "../../../api/Api";
-// import { props } from "./UserPostCards";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 
 interface ShowCard {

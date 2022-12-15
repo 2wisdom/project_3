@@ -109,9 +109,3 @@ export const NotifyNotValid = styled.div`
 export const NotifyValid = styled(NotifyNotValid)`
   color: green;
 `;
-
-//   ${(props) =>
-//         props.primary && //primary 가 존재할 경우
-//         css`
-//         border: red solid 0.15rem;
-//         `}

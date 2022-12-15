@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { RoundBtn, black, white } from "../buttons/BasicBtn";
 import Checkbox from "@mui/joy/Checkbox";
 import * as Api from "../../api/Api";

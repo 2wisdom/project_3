@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../api/Api";
 import Create from "../../styles/showOffPage/CreateShowCard.module.css";
