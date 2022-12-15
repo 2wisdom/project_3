@@ -12,7 +12,7 @@ const MarketSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      maxLength: 10,
+      maxLength: 20,
       required: true,
     },
     contents: {
