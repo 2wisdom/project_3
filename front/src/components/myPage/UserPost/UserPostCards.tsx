@@ -47,7 +47,9 @@ const UserPostCards = () => {
   const isAsksTap = pickedTopNav.name === "질문하기";
   const isPostsTap = pickedTopNav.name === "자랑하기";
   const isMarketTap = pickedTopNav.name === "식물마켓";
+  const [isNothing, setIsNothing] = useState<boolean>(false);
   console.log(showCards);
+
   const apiGetShowCardData = async () => {
     try {
       const res = await Api.get(
@@ -58,10 +60,13 @@ const UserPostCards = () => {
       isPostsTap && setShowCards(res.data.userPosts);
       isMarketTap && setShowCards(res.data.userMarkets);
       setTotalPage(res.data.totalPage);
+      setIsNothing(false);
     } catch (err: any) {
-      if (err.response.status === 404) {
-        setShowCards([]);
-      }
+      setShowCards([]);
+      setIsNothing(true);
+      // if (err.status === 404) {
+        
+      // }
     }
   };
 
@@ -129,6 +134,11 @@ const UserPostCards = () => {
                 );
               })}
             </div>
+            {isNothing && (
+              <div className={CardListStyle.cardListInner}>
+                <h2>작성한 게시글이 없습니다.</h2>
+              </div>
+            )}
             <div className={Show.footer}>
               <div className={Show.moreBtnInner}>
                 {!isLastPage && showCards.length !== 0 && (

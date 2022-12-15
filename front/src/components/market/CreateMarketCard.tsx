@@ -25,7 +25,7 @@ const CreateMarketCard = () => {
   const [seletedCategoryIndex, setSeletedCategoryIndex] = useState(0);
   const SUCCESS_STATUS = [200, 201];
 
-  const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
+  const categoryList = ["구근/뿌리묘/모종", "다육식물", "씨앗", "기타"];
 
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);

@@ -42,7 +42,7 @@ export const SquareBtn2 = styled.button`
   border: 1px solid black;
   width: 8rem;
   font-size: 1.2rem;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
   padding: 0.25em 1em;
   height: 3rem;
   font-weight: bold;
