@@ -14,7 +14,7 @@ const email = Joi.string()
 const name = Joi.string()
   .trim()
   .min(2)
-  .max(8)
+  .max(6)
   .regex(/^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,6}$/)
   .required();
 
