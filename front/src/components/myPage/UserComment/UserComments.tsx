@@ -31,6 +31,7 @@ const UserCommentCards = () => {
   const [comments, setComments] = useState<Commnet[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = page === totalPage;
+  const [isNothing, setIsNothing] = useState<boolean>(false);
 
   const apiGetShowCardData = async () => {
     try {
@@ -40,8 +41,10 @@ const UserCommentCards = () => {
       );
       setComments(res.data.userComments);
       setTotalPage(res.data.totalPage);
+      setIsNothing(false);
     } catch (err: any) {
       if (err.response.status === 404) {
+        setIsNothing(true);
         setComments([]);
       }
     }
@@ -59,12 +62,14 @@ const UserCommentCards = () => {
     try {
       const res = await Api.get(
         "users",
-        `comments?userId=${user.userId}&page=${page+1}&type=${pickedTopNav.commentAPi}`
+        `comments?userId=${user.userId}&page=${page + 1}&type=${
+          pickedTopNav.commentAPi
+        }`
       );
       setComments([...comments, ...res.data.userComments]);
       increasePage();
     } catch (err) {
-      alert("더보기 에러가 발생했습니다. 다시 시도해주세요")
+      alert("더보기 에러가 발생했습니다. 다시 시도해주세요");
       console.log("더보기 에러: ", err);
     }
   };
@@ -84,6 +89,11 @@ const UserCommentCards = () => {
           );
         })}
       </div>
+      {isNothing && (
+        <div className={Cmt.myPageCommentContainer}>
+          <h2>작성한 댓글이 없습니다.</h2>
+        </div>
+      )}
       <div className={Cmt.buttonContainer}>
         {!isLastPage && comments.length !== 0 && (
           <button className={Show.moreBtn} onClick={loadMoreComments}>
