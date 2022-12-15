@@ -14,7 +14,7 @@ from torchvision import transforms
 import torch.nn.functional as F
 from PIL import Image
 
-PUBLIC_PATH = os.environ.get("PUBLIC_PATH")
+# PUBLIC_PATH = os.environ.get("PUBLIC_PATH")
 
 
 app = FastAPI()
@@ -65,7 +65,7 @@ def get_prediction(req_img):
         label = torch.argmax(result, dim=-1).item()
         # print(label)
         df_meta_id_name = pd.read_csv(
-            './data/metadata/plantnet300K_species_id_2_name.csv')
+            './data/metadata/plantnet300K_kor_name.csv')
         name = df_meta_id_name.loc[label]["name"]
 
     return name, probability
@@ -80,7 +80,6 @@ async def predict(req_img: Data):
     name, probability = get_prediction(os.path.join(BASE_DIR, imgURL))
 
     return JSONResponse({"plantName": name, "predictionRate": probability})
-
 
 
 if __name__ == '__main__':

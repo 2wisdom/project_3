@@ -1,4 +1,4 @@
-# FastAPI 인공지능 서버
+# 인공지능 FastAPI 서버
 
 ## 요구사항
 
@@ -10,8 +10,8 @@
 
 - 설치해야 할 패키지 목록
 
+  - sudo apt-get install python3
   - pip install --upgrade pip
-  - pip3 install python==3.7.6
   - pip3 install fastapi
   - pip3 install "uvicorn[standard]"
   - pip3 install pydantic
@@ -19,22 +19,26 @@
   - pip3 install pillow
   - pip3 install torch torchvision torchaudio
 
-- 인공지능 모델
+</br>
 
-  - https://lab.plantnet.org/seafile/d/01ab6658dad6447c95ae/files/?p=%2Fresnet18_weights_best_acc.tar
-  - 위의 URL에서 식물 이미지 분류 AI 모델(약 90MB)을 다운로드 후 team12 > ai > model 폴더에 저장
+- 인공지능 모델 다운로드
+
+  - [PlantNet Pre-trained model Download](https://lab.plantnet.org/seafile/d/01ab6658dad6447c95ae/files/?p=%2Fresnet18_weights_best_acc.tar)
+  - 위의 URL에서 식물 이미지 분류 AI 모델(약 90MB)을 다운로드 후 team12 > ai > model 폴더에 저장 (FileZilla와 같은 파일 전송 소프트웨어 사용 추천)
+
+</br>
 
 - 참고
 
-  - python 버전 확인 ➡ python --version
-  - 설치된 패키지 목록 확인 ➡ pip list </br>
+  - python 버전 확인 ➡ python --version 또는 python3 --version
+  - 설치된 패키지 목록 확인 ➡ pip list
 
 </br>
 
 ## 서버 실행
 
-- `./run.sh`
-- `uvicorn main-server:app --reload`
+- 개발환경 `uvicorn main-server:app --reload`
+- 배포환경 `uvicorn main-server:app`
 
 |    내용     |                     기능                     |
 | :---------: | :------------------------------------------: |
@@ -42,6 +46,16 @@
 |     app     | main-server.py 파일안의 app = FastAPI() 객체 |
 |  --reload   | 변경된 코드 적용후 재시작, 개발환경에서 사용 |
 
+</br>
+
 ## 기술 스택
 
 - Python, Tensorflow, Pytorch, FastAPI
+
+</br>
+
+## 인공지능 데이터셋과 모델
+
+- Pl@ntNet-300K image dataset : https://zenodo.org/record/5645731#.Y5mEy3ZByUn
+
+- Pre-trained model : resnet18_weights_best_acc.tar
