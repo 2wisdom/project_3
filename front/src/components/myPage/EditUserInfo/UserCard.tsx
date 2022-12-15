@@ -3,7 +3,13 @@ import Stack from "@mui/material/Stack";
 import useUserStore from "@/store/Login";
 import * as M from "../../../styles/MyPage/MyPage.styled";
 import axios from "axios";
-import { SquareBtn, red, white, black } from "../../buttons/BasicBtn";
+import {
+  SquareBtn,
+  red,
+  white,
+  black,
+  SquareBtn2,
+} from "../../buttons/BasicBtn";
 import { ConfirmationNumber } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../../api/Api";
@@ -64,7 +70,7 @@ const UserCard = ({
   return (
     <M.UserContainer>
       <Stack alignItems="center">
-        <img
+        <M.UserImage
           height="180"
           //이미지상태만들기
           src={
@@ -73,9 +79,14 @@ const UserCard = ({
               : previewURL
           }
           alt="profileImg"
-          // border-radius="50%"
+          border-radius="50%"
         />
-        <Stack direction="row" alignItems="center" spacing={2}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+          spacing={2}
+        >
           <SquareBtn
             theme={white}
             type="button"
@@ -113,9 +124,9 @@ const UserCard = ({
           <M.Tag>이메일</M.Tag>
           <M.TagValue>{user.email}</M.TagValue>
         </M.ContentBox>
-        <SquareBtn type="button" theme={red} onClick={signOut}>
+        <SquareBtn2 type="button" theme={red} onClick={signOut}>
           회원탈퇴
-        </SquareBtn>
+        </SquareBtn2>
       </M.InputContainer>
     </M.UserContainer>
   );

@@ -44,7 +44,7 @@ const Market = () => {
   const [searchPage, setSearchPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = searchPage === totalPage;
-  console.log(marketCards)
+  console.log(marketCards);
   const apiGetShowCardData = async () => {
     try {
       const res = isShowAll
@@ -123,116 +123,104 @@ const Market = () => {
     }
   };
   return (
-    <>
-      <div className={MarketStyle.container}>
-        <div className={MarketStyle.Inner}>
-          <div className={MarketStyle.rightInner}>
-            <div className={MarketStyle.titleNavInner}>
-              <h2 className={MarketStyle.title}>식물마켓</h2>
-              <ul className={MarketStyle.navContainer}>
-                {categoryList.map((category) => {
-                  return (
-                    <li
-                      className={
-                        pickedCategory === category
-                          ? `${MarketStyle.navItem} ${MarketStyle.clickedNav}`
-                          : MarketStyle.navItem
-                      }
-                      value={category}
-                      key={category}
-                      onClick={(e) => {
-                        setPage(1);
-                        setIsSearch(false);
-                        setSearchPage(1);
-                        pickedCategory === category
-                          ? setPickedCategory(null)
-                          : setPickedCategory(category);
-                      }}
-                    >
-                      {category}
-                    </li>
-                  );
-                })}
-              </ul>
-              <div className={MarketStyle.search}>
-                {" "}
-                <Search
-                  searchInput={searchInput}
-                  setSearchInput={setSearchInput}
-                />
-              </div>
+    <div className={MarketStyle.container}>
+      {/* <div className={MarketStyle.inner}> */}
+      <div className={MarketStyle.titleSearchInner}>
+        <h2 className={MarketStyle.title}>식물마켓</h2>
+        <ul className={MarketStyle.navContainer}>
+          {categoryList.map((category) => {
+            return (
+              <li
+                className={
+                  pickedCategory === category
+                    ? `${MarketStyle.navItem} ${MarketStyle.clickedNav}`
+                    : MarketStyle.navItem
+                }
+                value={category}
+                key={category}
+                onClick={(e) => {
+                  setPage(1);
+                  setIsSearch(false);
+                  setSearchPage(1);
+                  pickedCategory === category
+                    ? setPickedCategory(null)
+                    : setPickedCategory(category);
+                }}
+              >
+                {category}
+              </li>
+            );
+          })}
+        </ul>
+
+        <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+      </div>
+
+      <div className={MarketStyle.cardInner}>
+        <div className={CardListStyle.cardList}>
+          <div className={CardListStyle.cardListInner}>
+            {isSearch
+              ? searchData.map((marketCard) => (
+                  <MarketCard
+                    key={marketCard._id}
+                    _id={marketCard._id}
+                    imageUrl={marketCard.imageUrl}
+                    title={marketCard.title}
+                    authorName={marketCard.author.name}
+                    authorImageUrl={marketCard.author.imageUrl}
+                    date={marketCard.createdAt}
+                    contents={marketCard.contents}
+                    price={marketCard.price}
+                    category={marketCard.category}
+                    isSoldOut={marketCard.isSoldOut}
+                  />
+                ))
+              : marketCards.map((marketCard) => (
+                  <MarketCard
+                    key={marketCard._id}
+                    _id={marketCard._id}
+                    imageUrl={marketCard.imageUrl}
+                    title={marketCard.title}
+                    authorName={marketCard.author.name}
+                    authorImageUrl={marketCard.author.imageUrl}
+                    date={marketCard.createdAt}
+                    contents={marketCard.contents}
+                    price={marketCard.price}
+                    category={marketCard.category}
+                    isSoldOut={marketCard.isSoldOut}
+                  />
+                ))}
+          </div>
+          <div className={MarketStyle.footer}>
+            <div className={MarketStyle.moreBtnInner}>
+              {isSearch ? (
+                isLastPage ? (
+                  <button
+                    className={MarketStyle.moreBtn}
+                    onClick={searchMoreBtnHandler}
+                  >
+                    더보기
+                  </button>
+                ) : null
+              ) : marketCards && hasNextPage ? (
+                <button className={MarketStyle.moreBtn} onClick={loadMoreCards}>
+                  더보기
+                </button>
+              ) : null}
             </div>
-            <div className={MarketStyle.cardInner}>
-              <div className={CardListStyle.cardList}>
-                <div className={CardListStyle.cardListInner}>
-                  {isSearch
-                    ? searchData.map((marketCard) => (
-                        <MarketCard
-                          key={marketCard._id}
-                          _id={marketCard._id}
-                          imageUrl={marketCard.imageUrl}
-                          title={marketCard.title}
-                          authorName={marketCard.author.name}
-                          authorImageUrl={marketCard.author.imageUrl}
-                          date={marketCard.createdAt}
-                          contents={marketCard.contents}
-                          price={marketCard.price}
-                          category={marketCard.category}
-                          isSoldOut={marketCard.isSoldOut}
-                        />
-                      ))
-                    : marketCards.map((marketCard) => (
-                        <MarketCard
-                          key={marketCard._id}
-                          _id={marketCard._id}
-                          imageUrl={marketCard.imageUrl}
-                          title={marketCard.title}
-                          authorName={marketCard.author.name}
-                          authorImageUrl={marketCard.author.imageUrl}
-                          date={marketCard.createdAt}
-                          contents={marketCard.contents}
-                          price={marketCard.price}
-                          category={marketCard.category}
-                          isSoldOut={marketCard.isSoldOut}
-                        />
-                      ))}
-                </div>
-                <div className={MarketStyle.footer}>
-                  <div className={MarketStyle.moreBtnInner}>
-                    {isSearch ? (
-                      isLastPage ? (
-                        <button
-                          className={MarketStyle.moreBtn}
-                          onClick={searchMoreBtnHandler}
-                        >
-                          더보기
-                        </button>
-                      ) : null
-                    ) : marketCards && hasNextPage ? (
-                      <button
-                        className={MarketStyle.moreBtn}
-                        onClick={loadMoreCards}
-                      >
-                        더보기
-                      </button>
-                    ) : null}
-                  </div>
-                  <div className={MarketStyle.writeBtnInner}>
-                    <EditIcon
-                      className={MarketStyle.writeBtnOutline}
-                      sx={{ fontSize: 30 }}
-                      onClick={() => {
-                        navigate("/createMarketCard");
-                      }}
-                    ></EditIcon>
-                  </div>
-                </div>
-              </div>
+            <div className={MarketStyle.writeBtnInner}>
+              <EditIcon
+                className={MarketStyle.writeBtnOutline}
+                sx={{ fontSize: 30 }}
+                onClick={() => {
+                  navigate("/createMarketCard");
+                }}
+              ></EditIcon>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

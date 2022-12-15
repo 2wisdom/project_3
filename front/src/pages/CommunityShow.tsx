@@ -112,68 +112,58 @@ const CommuityShow = () => {
   console.log("searchData", searchData);
   return (
     <div className={Show.container}>
-      <div className={Show.Inner}>
-        <div className={Show.buttonContainer}>
-          <div className={Show.buttonInner}>
+      <div className={Show.titleSearchInner}>
+        <h2 className={Show.title}>식물로 꾸민 방을 보여주세요</h2>
+        <div className={Show.itemInner}>
+          <p
+            className={Show.itemShow}
+            onClick={() => {
+              navigate("/communityAsk");
+            }}
+          >
+            질문하기
+          </p>
+          <p className={Show.itemAsk}>자랑하기</p>
+        </div>
+        <Search
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+        ></Search>
+      </div>
+      <div className={Show.cardInner}>
+        {isSearch ? (
+          <ShowCardList showCardData={searchData}></ShowCardList>
+        ) : (
+          <ShowCardList showCardData={showCardData}></ShowCardList>
+        )}
+      </div>
+      <div className={Show.footer}>
+        {isSearch ? (
+          isLastPage ? null : (
             <button
-              className={Show.grayBtn}
-              onClick={() => {
-                navigate("/communityAsk");
-              }}
+              type="button"
+              className={Show.moreBtn}
+              onClick={searchMoreBtnHandler}
             >
-              질문하기
+              더보기
             </button>
-            <button className={Show.yellowBtn}>자랑하기</button>
-          </div>
-        </div>
-        <div className={Show.rightInner}>
-          <div className={Show.titleSearchInner}>
-            <h2 className={Show.title}>내가 찍은 사진을 자랑해보세요</h2>
-            <Search
-              searchInput={searchInput}
-              setSearchInput={setSearchInput}
-            ></Search>
-          </div>
-          <div className={Show.cardInner}>
-            {isSearch ? (
-              <ShowCardList showCardData={searchData}></ShowCardList>
-            ) : (
-              <ShowCardList showCardData={showCardData}></ShowCardList>
-            )}
-          </div>
-          <div className={Show.footer}>
-            <div className={Show.moreBtnInner}>
-              {isSearch ? (
-                isLastPage ? (
-                  <button
-                    className={Show.moreBtn}
-                    onClick={searchMoreBtnHandler}
-                  >
-                    더보기
-                  </button>
-                ) : null
-              ) : showCardData && hasNextPage ? (
-                <button className={Show.moreBtn} onClick={moreBtnHandler}>
-                  더보기
-                </button>
-              ) : null}
-              {/* {showCardData && hasNextPage ? (
-                <button className={Show.moreBtn} onClick={moreBtnHandler}>
-                  더보기
-                </button>
-              ) : null} */}
-            </div>
-            <div className={Show.writeBtnInner}>
-              <EditIcon
-                className={Show.writeBtnOutline}
-                sx={{ fontSize: 30 }}
-                onClick={() => {
-                  navigate("/createShowCard");
-                }}
-              ></EditIcon>
-            </div>
-          </div>
-        </div>
+          )
+        ) : showCardData && hasNextPage ? (
+          <button
+            type="button"
+            className={Show.moreBtn}
+            onClick={moreBtnHandler}
+          >
+            더보기
+          </button>
+        ) : null}
+        <EditIcon
+          className={Show.writeBtnOutline}
+          sx={{ fontSize: 30 }}
+          onClick={() => {
+            navigate("/createShowCard");
+          }}
+        ></EditIcon>
       </div>
     </div>
   );

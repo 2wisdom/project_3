@@ -49,33 +49,18 @@ const ShowCardDetail = () => {
         });
     }
   }, []);
-  // useEffect(() => {
-  //   if (id) {
-  //     Api.get(`comments/${id}`, null)
-  //       .then((res) => {
-  //         console.log(`res.data-comments`, res);
-  //       })
-  //       .catch((err) => {
-  //         console.log("err-comments", err);
-  //       });
-  //   }
-  // }, []);
-
   return (
     <div className={Detail.container}>
       <div className={Detail.title}>{DetailData.title}</div>
       <div className={Detail.userInner}>
         <Avatar
-          alt="Remy Sharp"
-          src="/static/images/avatar/1.jpg"
+          alt="userImg"
+          src={`http://${window.location.hostname}:5000/${DetailData.userImg}`}
           sx={{ width: 24, height: 24 }}
         />
         <div className={Detail.userName}>{DetailData.userName}</div>
-        {/* <div className={Detail.line}></div> */}
         <div className={Detail.date}>{createDate[0]}</div>
       </div>
-
-      {/* <hr></hr> */}
 
       <img
         className={Detail.image}
@@ -95,7 +80,7 @@ const ShowCardDetail = () => {
       >
         목록
       </button>
-      <Comments authorName={DetailData.userName} id={id} postType={"Post"}/>
+      <Comments authorName={DetailData.userName} id={id} postType={"Post"} />
     </div>
   );
 };

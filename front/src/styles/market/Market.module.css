@@ -1,27 +1,20 @@
 .container {
-  margin: 0px;
-  padding: 0px;
+  padding-top: 5rem;
+  width: 50%;
+  margin: auto;
+  height: 80vh;
+}
+
+.inner {
   margin-top: 5rem;
-}
-.Inner {
-  display: flex;
-  width: 100%;
-  /* height: 60vh; */
-  height: 90vh;
-  margin-left: 25rem;
-  /* text-align : center;
-      align-items : center; */
-}
-.rightInner {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
+  width: 50%;
+  margin: auto;
   height: 80vh;
 }
 /* title & search */
 .titleSearchInner {
-  width: 100%;
-  height: 10vh;
+  /* width: 60%; */
+  /* height: 10vh; */
   display: flex;
   justify-content: space-between;
 }
@@ -29,11 +22,55 @@
 .title {
   font-family: "Jua", sans-serif;
   font-weight: 300;
-  font-size: 3rem;
-  padding-bottom: 8rem;
+  font-size: 2.5rem;
+  /* overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 200px; */
+  margin-right: 3rem;
+  padding: 0;
 }
-.search {
-  margin-bottom: 3rem;
+.itemInner {
+  display: flex;
+  /* margin: auto; */
+  padding-left: 2rem;
+  align-items: center;
+  gap: 16px;
+  padding-right: 9rem;
+  justify-content: center;
+  /* justify-items: center; */
+  /* padding-bottom: auto; */
+}
+.itemAsk {
+  padding: 0px;
+  cursor: pointer;
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  color: #0c884f;
+  text-decoration-color: #0c884f;
+}
+.itemAsk:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  color: #0c884f;
+  text-decoration-color: #0c884f;
+}
+.itemShow {
+  padding: 0px;
+  cursor: pointer;
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #919191;
+}
+.itemShow:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  color: #0c884f;
+  text-decoration-color: #0c884f;
 }
 /* card */
 .cardInner {
@@ -44,17 +81,21 @@
 /* moreBtn */
 .footer {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  bottom: 10px;
+  width: 910px;
+  /* margin: auto; */
   display: flex;
-  margin-top: 2rem;
+  /* grid: ". ."; */
+  justify-content: center;
+  /* gap: 5px; */
 }
-.moreBtnInner {
+/* .moreBtnInner {
   margin: auto;
-}
+} */
 
 .moreBtn {
+  grid-column: 1 / span 3;
+  margin: auto;
   background-color: #ffffff;
   border-radius: 28px;
   border: 2px solid #000000;
@@ -63,7 +104,8 @@
   font-size: 13px;
   padding: 12px 20px;
   text-decoration: none;
-  margin-left: 15rem;
+  /* margin-right: 4rem; */
+  /* margin-left: 15rem; */
   /* justify-content: center; */
 }
 .moreBtn:hover {
@@ -79,44 +121,56 @@
   /* width: 20%; */
   /* text-align: end; */
   /* align-items: flex-end; */
+  /* padding-left: 5rem; */
+  /* margin-left: auto; */
 }
 
 .writeBtnOutline {
+  margin-left: auto;
   cursor: pointer;
   border: 2px solid #000000;
   border-radius: 3rem;
   padding: 1rem;
-  margin-right: 3rem;
+  /* margin-right: 3rem; */
 }
 .writeBtnOutline:active {
   position: relative;
   top: 1px;
 }
-
-.titleNavInner {
+.writeBtnOutline:hover {
+  border: 2px solid #000000;
+  background-color: #000000;
+  color: #ffffff;
+}
+/* .titleNavInner {
   margin-left: auto;
   width: 100%;
   height: 10vh;
   display: flex;
-}
+} */
 
 .navContainer {
   display: flex;
-  padding: 2rem 5rem;
-  margin-right: 45rem;
+  align-items: center;
+  gap: 10px;
+  /* padding: 2rem 5rem; */
 }
 
 .navItem {
   font-family: "NanumGothic";
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 800;
   cursor: pointer;
-  margin: 0 2rem;
+  /* margin: 0 2rem; */
   color: #919191;
 }
 
 .navItem:hover {
   color: #0c884f;
+}
+ul {
+  margin: 0px;
+  padding: 0px;
 }
 
 .clickedNav {

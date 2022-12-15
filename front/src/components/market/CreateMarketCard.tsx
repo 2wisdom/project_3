@@ -4,7 +4,7 @@ import * as Api from "../../api/Api";
 import Create from "../../styles/showOffPage/CreateShowCard.module.css";
 import axios from "axios";
 import SplitButton from "../buttons/SplitBtn";
-
+import uploadImg from "../../../assets/findPlant/upload.png";
 interface MarketCardData {
   category: string;
   title: string;
@@ -20,22 +20,24 @@ const CreateMarketCard = () => {
     title: "",
     price: undefined,
     contents: "",
-    imageUrl: "",
+    imageUrl: uploadImg,
   });
   const [seletedCategoryIndex, setSeletedCategoryIndex] = useState(0);
-  const SUCCESS_STATUS = [200, 201]
+  const SUCCESS_STATUS = [200, 201];
 
   const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
 
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
-  const onChangeImage: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
+  const onChangeImage: React.ChangeEventHandler<HTMLInputElement> = async (
+    e
+  ) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", e.target.files![0]);
     try {
-      const res = await Api.post('images/image-upload', formData , true);
+      const res = await Api.post("images/image-upload", formData, true);
       const result = res.data.url;
       setMarketCardData((prev) => ({
         ...prev,

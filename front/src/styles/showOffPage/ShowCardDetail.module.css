@@ -62,8 +62,8 @@
 /* img */
 
 .image {
-  width: 80%;
-  height: 35rem;
+  width: 50%;
+  height: auto;
   border-radius: 4rem;
 }
 /* content */
@@ -154,7 +154,7 @@
   position: absolute;
   top: 30%;
   left: 50%;
-  transform: translate( -50%, -50%);
+  transform: translate(-50%, -50%);
   font-family: "NanumGothic";
   font-style: normal;
   font-weight: 800;

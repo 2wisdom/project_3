@@ -4,6 +4,8 @@ import Create from "../styles/showOffPage/CreateShowCard.module.css";
 import blankImg from "../../assets/community/blankImg.png";
 import * as Api from "../api/Api";
 import axios from "axios";
+import uploadImg from "../../assets/findPlant/upload.png";
+
 import { response } from "express";
 
 interface AskCardData {
@@ -22,7 +24,7 @@ const CreateAskCard = () => {
   const [title, setTitle] = useState("");
   const [askCardImage, setAskCardImage] = useState({
     imageFileUrl: "",
-    previewURL: blankImg,
+    previewURL: uploadImg,
   });
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");

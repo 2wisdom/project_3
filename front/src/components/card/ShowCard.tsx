@@ -39,9 +39,9 @@ const ShowCard = ({
   return (
     <div className={Card.inner}>
       <img
-        className={Card.Image}
+        className={Card.image}
         src={`${image}`}
-        style={{ width: 267, height: 200 }}
+        // style={{border-radius: 2}}
         onError={({ currentTarget }) => {
           currentTarget.onerror = null; // prevents looping
           currentTarget.src = imageError;
@@ -64,12 +64,12 @@ const ShowCard = ({
             onClick={() => navigate(`/showCardDetail/${postId}`)}
           />
 
-          <h5
+          <span
             className={Card.userName}
             onClick={() => navigate(`/showCardDetail/${postId}`)}
           >
             {userName}
-          </h5>
+          </span>
         </div>
         <div
           className={Card.data}
