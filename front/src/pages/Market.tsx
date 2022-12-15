@@ -7,6 +7,8 @@ import * as Api from "../api/Api";
 import MarketCard from "../components/market/MarketCard";
 import CardListStyle from "../styles/showOffPage/CardList.module.css";
 import useDebounce from "@/useDebounce";
+import useUserStore from "@/store/Login";
+
 interface Author {
   imageUrl: string;
   name: string;
@@ -30,13 +32,13 @@ interface ShowCard {
 
 const Market = () => {
   const navigate = useNavigate();
+  const {user} = useUserStore();
   const [page, setPage] = useState<number>(1);
   const [marketCards, setMarketCards] = useState<ShowCard[]>([]);
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
   const [pickedCategory, setPickedCategory] = useState<string | null>(null);
   const isShowAll = pickedCategory === null;
   const categoryList = ["구근/뿌리묘/모종", "다육식물", "씨앗", "기타"];
-
   const [searchInput, setSearchInput] = useState<string>("");
   const debounceValue = useDebounce(searchInput);
   const [searchData, setSearchData] = useState<ShowCard[]>([]);
@@ -44,7 +46,23 @@ const Market = () => {
   const [searchPage, setSearchPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = searchPage === totalPage;
-  console.log(marketCards);
+  
+  //로그인 필요 알림
+  const LoginToHavePermission = () => {
+        const isLogin = user.email !== "";
+        if (!isLogin) {
+          if (
+            confirm(
+              "로그인이 필요한 기능입니다 \n 로그인 페이지로 이동하시겠습니까?"
+            )
+          ) {
+            navigate("/login");
+          }else {
+            navigate(-1)
+          }
+        }
+      }
+
   const apiGetShowCardData = async () => {
     try {
       const res = isShowAll
@@ -214,9 +232,10 @@ const Market = () => {
                 sx={{ fontSize: 30 }}
                 onClick={() => {
                   navigate("/createMarketCard");
+                  LoginToHavePermission() 
                 }}
               ></EditIcon>
-            </div>
+            </div> 
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { RoundBtn, black, white } from "../buttons/BasicBtn";
 import Checkbox from "@mui/joy/Checkbox";
 import * as Api from "../../api/Api";
@@ -33,9 +34,11 @@ const CommentInput = ({
   setOpenCommentBox,
   postType,
 }: props) => {
+  const navigate = useNavigate();
   const [content, setContent] = useState("");
   const [isSecret, setIsSecret] = useState(false);
   const { user } = useUserStore();
+  const isLogin = user.email !== "";
 
   const resetInputBox = () => {
     setOpenCommentBox(false);
@@ -65,6 +68,20 @@ const CommentInput = ({
       console.log("댓글저장에러", err);
     }
   };
+
+  //로그인 필요 알림
+  const LoginToHavePermission = () => {
+    if (!isLogin) {
+      if (
+        confirm(
+          "로그인이 필요한 기능입니다.\n로그인 페이지로 이동하시겠습니까?"
+        )
+      ) {
+        navigate("/login");
+      }
+    }
+  };
+
   return (
     <div className={Cmt.nestedCommentInputBox}>
       <div>
@@ -79,8 +96,8 @@ const CommentInput = ({
         <input
           maxLength={599}
           className={Cmt.nestedCommentInput}
-          placeholder="답글 추가..."
-          onChange={(e) => setContent(e.target.value)}
+          placeholder={isLogin? "답글 추가...":"로그인 한 유저만 댓글을 남길 수 있습니다."}
+          onChange={(e) => {LoginToHavePermission(); setContent(e.target.value)}}
         ></input>
       </div>
       <div className={Cmt.nestedCmtBtnBox}>

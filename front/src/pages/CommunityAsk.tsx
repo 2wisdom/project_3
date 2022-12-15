@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import useDebounce from "@/useDebounce";
 import * as Api from "../api/Api";
+import useUserStore from "@/store/Login";
+
 interface AskCard {
   // map: any;
   author: {
@@ -31,9 +33,26 @@ interface AskCard {
 }
 const CommunityAsk = () => {
   const navigate = useNavigate();
+  const {user} = useUserStore();
   const [askCardData, setAskCardData] = useState<AskCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
+
+  //로그인 필요 알림
+  const LoginToHavePermission = () => {
+    const isLogin = user.email !== "";
+    if (!isLogin) {
+      if (
+        confirm(
+          "로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?"
+        )
+      ) {
+        navigate("/login");
+      }else {
+        navigate(-1)
+      }
+    }
+  }
 
   //검색
   const [searchInput, setSearchInput] = useState<string>("");
@@ -160,6 +179,7 @@ const CommunityAsk = () => {
           sx={{ fontSize: 30 }}
           onClick={() => {
             navigate("/createAskCard");
+            LoginToHavePermission()
           }}
         ></EditIcon>
         {/* </div> */}
