@@ -7,6 +7,7 @@ import * as showCardStore from "../store/CommunityShowCard";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import useDebounce from "@/useDebounce";
+import useUserStore from "@/store/Login";
 
 import * as Api from "../api/Api";
 interface ShowCard {
@@ -33,6 +34,7 @@ interface ShowCard {
 
 const CommuityShow = () => {
   const navigate = useNavigate();
+  const {user} = useUserStore();
   const [showCardData, setShowCardData] = useState<ShowCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
@@ -58,6 +60,22 @@ const CommuityShow = () => {
   useEffect(() => {
     apiGetShowCardData();
   }, []);
+
+  //로그인 필요 알림
+  const LoginToHavePermission = () => {
+    const isLogin = user.email !== "";
+    if (!isLogin) {
+      if (
+        confirm(
+          "로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?"
+        )
+      ) {
+        navigate("/login");
+      }else {
+        navigate(-1)
+      }
+    }
+  }
 
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -161,6 +179,7 @@ const CommuityShow = () => {
           sx={{ fontSize: 30 }}
           onClick={() => {
             navigate("/createShowCard");
+            LoginToHavePermission();
           }}
         ></EditIcon>
       </div>

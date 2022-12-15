@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Cmt from "../../styles/Comment.module.css";
 import Comment from "./Comment";
 import * as Api from "../../api/Api";
@@ -21,15 +22,17 @@ interface comment {
 
 interface Props {
   authorName: string;
-  id?: string
+  id?: string;
   postType: string;
 }
 
 const Comments = ({ authorName, id, postType }: Props) => {
+  const navigate = useNavigate();
   const { user } = useUserStore();
   const [content, setContent] = useState("");
   const [isSecret, setIsSecret] = useState(false);
   const [commentList, setCommentList] = useState<comment[]>([]);
+  const isLogin = user.email !== "";
 
   //처음 댓글 불러오기
   useEffect(() => {
@@ -78,22 +81,38 @@ const Comments = ({ authorName, id, postType }: Props) => {
     }
   };
 
+  //로그인 필요 알림
+  const LoginToHavePermission = () => {
+    if (!isLogin) {
+      if (
+        confirm(
+          "로그인이 필요한 기능입니다.\n로그인 페이지로 이동하시겠습니까?"
+        )
+      ) {
+        navigate("/login");
+      }
+    }
+  };
+
   return (
     <div className={Cmt.container}>
       <div className={Cmt.commentsContainer}>
         <div className={Cmt.inputBox}>
           <div>
             <label className={Cmt.secretBtn}>
-              <input type="checkbox" />
+              <input type="checkbox" onClick={() => {setIsSecret(!isSecret)}}/>
               비공개
             </label>
           </div>
           <div>
             <textarea
               className={Cmt.textArea}
-              placeholder="댓글을 입력하세요"
+              placeholder={isLogin? "댓글을 입력하세요":"로그인 한 유저만 댓글을 남길 수 있습니다."}
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={(e) => {
+                setContent(e.target.value);
+                LoginToHavePermission();
+              }}
             ></textarea>
           </div>
           <div className={Cmt.commentSubmitBtnContainer}>

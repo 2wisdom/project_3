@@ -27,7 +27,6 @@ const EditUserInfo = () => {
   });
 
   const [isEditingPassword, setIsEditingPassword] = useState<boolean>(false);
-  // const [isDeleteProfileImg, setIsDeleteProfileImg] = useState<boolean>(false);
   const [saveProfileImg, setSaveProfileImg] = useState<any>(null);
   //이걸로는 프사 초기화 안됨.
   const [img, setImg] = useState<string>(user.imageUrl);
@@ -35,7 +34,6 @@ const EditUserInfo = () => {
   const resetPage = () => {
     setImg(user.imageUrl);
     setIsEditingPassword(false);
-    // setIsDeleteProfileImg(false);
     setSaveProfileImg(null);
     setNewPassword({
       password: "",
@@ -52,12 +50,13 @@ const EditUserInfo = () => {
     if (confirm("기본이미지로 변경하시겠습니까?")) {
       try {
         const res = await Api.put(`users/defaultimage/${user.userId}`, {});
-        if (res.status === 200){
+        if (res.status === 200) {
           setUser(res.data);
           alert("기본이미지로 변경되었습니다.");
         }
       } catch (err: any) {
-        if (err?.respone?.data === "이미 기본 이미지입니다") {
+        console.log(err);
+        if (err.respone.data === "이미 기본 이미지입니다") {
           alert("이미 기본 이미지입니다");
         } else {
           alert("프로필사진 삭제 중 오류가 발생하였습니다. 재시도해주세요");
@@ -69,7 +68,6 @@ const EditUserInfo = () => {
   const userUpload: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
 
-    // if (newPassword.password !== "" || saveProfileImg !== null) {
     let formData = new FormData();
     formData.append("password", newPassword.password);
     formData.append("newPassword", newPassword.newPassword);
@@ -101,7 +99,6 @@ const EditUserInfo = () => {
       <UserInfo
         saveProfileImg={saveProfileImg}
         setSaveProfileImg={setSaveProfileImg}
-        // setIsDeleteProfileImg={setIsDeleteProfileImg}
         img={img}
         setImg={setImg}
         revertToDefaultImage={revertToDefaultImage}
