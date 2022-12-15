@@ -12,10 +12,9 @@ export const validatePassword = (password: string) => {
 };
 
 export const validateName = (name: string) => {
-  return name.match(/^(?=.[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/);
+  return name.match(/^(?=.[a-z0-9가-힣])[a-z0-9가-힣]{2,6}$/);
 };
 
 export const isInputStart = (target: string) => {
   return target.length >= 1;
 };
-

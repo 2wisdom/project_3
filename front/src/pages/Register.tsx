@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../api/Api";
 import * as R from "../styles/RegisterPage/Register.styled";
-import { validateEmail, validatePassword, validateName, isInputStart } from "../components/Validate";
+import {
+  validateEmail,
+  validatePassword,
+  validateName,
+  isInputStart,
+} from "../components/Validate";
 
 interface RegisterData {
   name: string;
@@ -116,7 +121,7 @@ const Register = () => {
         </R.ContentBox>
         {isInputStart(registerData.name) && !isNameValid && (
           <R.NotifyNotValid>
-            닉네임을 2글자 이상, 8글자 이하로 설정해주세요.
+            닉네임을 2글자 이상, 6글자 이하로 설정해주세요.
           </R.NotifyNotValid>
         )}
         {clickNameConfirm ? (

@@ -137,6 +137,7 @@ const CreateMarketCard = () => {
             원
           </div>
           <textarea
+            maxLength={599}
             className={Create.content}
             ref={contentRef}
             value={marketCardData.contents}

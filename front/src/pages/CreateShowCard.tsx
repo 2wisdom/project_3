@@ -140,6 +140,7 @@ const CreateShowCard = () => {
             ></input>
           </div>
           <textarea
+            maxLength={599}
             className={Create.content}
             ref={contentRef}
             value={content}
