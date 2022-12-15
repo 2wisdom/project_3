@@ -97,6 +97,8 @@ export const UserContainer = styled.div`
   align-items: left;
   flex-direction: row;
   border-bottom: 1px solid grey;
+  width: 74.5rem;
+  padding-bottom: 1rem;
 `;
 
 export const ImgContainer = styled.div`
