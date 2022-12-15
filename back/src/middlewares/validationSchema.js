@@ -53,6 +53,8 @@ const validationSchema = {
       .regex(/^(all|contents|title)$/)
       .required(),
     question: Joi.string()
+      .min(1)
+      .max(45)
       .regex(/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9]+$/)
       .required(),
     page: Joi.string()
