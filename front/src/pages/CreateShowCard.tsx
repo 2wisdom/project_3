@@ -19,13 +19,11 @@ const CreateShowCard = () => {
     imageUrl: "",
   });
   const formData = new FormData();
-  const [title, setTitle] = useState("");
   const [showCardImage, setShowCardImage] = useState({
     imageFileUrl: "",
     previewURL: uploadImg,
   });
   const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
@@ -33,7 +31,6 @@ const CreateShowCard = () => {
     e.preventDefault();
     const reader = new FileReader();
     let result = "";
-    // let res = {};
     if (!showCardImage.imageFileUrl) {
       reader.onload = async () => {
         if (reader.readyState === 2) {
@@ -42,9 +39,8 @@ const CreateShowCard = () => {
             try {
               let res = await Api.post("images/image-upload", formData, true);
               result = res.data.url;
-              console.log("result: ", result);
             } catch (err) {
-              console.log("imageErr", err);
+              alert("이미지 업로드 중 오류가 발생했습니다. 다시 시도해주세요");
             }
           }
           setShowCardImage({
@@ -75,17 +71,14 @@ const CreateShowCard = () => {
     e: any
   ) => {
     e.preventDefault();
-    console.log("ShowCardData", ShowCardData);
     try {
       const res = await Api.post("posts", ShowCardData);
       if (res.status === 200 || res.status === 201) {
-        console.log("res : ", res);
-        alert("게시물올리기 성공!");
+        alert("자랑하기 업로드 성공");
         navigate("/communityShowOff");
       }
     } catch (err) {
-      console.log("err : ", err);
-      alert("게시물 올리기 실패!");
+      alert("게시물 저장 중 오류가 발생했습니다. 다시 시도해주세요");
     }
   };
 

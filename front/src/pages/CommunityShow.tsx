@@ -52,7 +52,7 @@ const CommuityShow = () => {
         setPage(res.data.page);
       })
       .catch((err) => {
-        console.log("posts실패!", err);
+        alert("게시물이 없습니다! 첫번째 게시물을 올려주세요😆");
       });
   };
   useEffect(() => {
@@ -77,12 +77,12 @@ const CommuityShow = () => {
         .then((res) => {
           setSearchData(res.data.searchedPosts);
           setTotalPage(res.data.totalPage);
-          console.log("res.data.searchedPosts", res.data);
           setIsSearch(true);
           setSearchPage(searchPage + 1);
         })
         .catch((err) => {
           console.log("getSearchCards Err", err);
+          alert("검색결과가 없습니다.");
         });
     };
     if (debounceValue) {
@@ -109,7 +109,6 @@ const CommuityShow = () => {
       setSearchPage(1);
     }
   };
-  console.log("searchData", searchData);
   return (
     <div className={Show.container}>
       <div className={Show.titleSearchInner}>

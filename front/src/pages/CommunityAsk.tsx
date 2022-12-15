@@ -43,21 +43,24 @@ const CommunityAsk = () => {
   const [searchPage, setSearchPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = searchPage >= totalPage;
+
+  const [isNothing, setIsNothing] = useState<boolean>(false);
   const apiGetShowCardData = async () => {
     await Api.get("asks", null)
       .then((res) => {
+        console.log("res", res);
         setAskCardData(res.data.docs);
         setHasNextPage(res.data.hasNextPage);
         setPage(res.data.page);
       })
       .catch((err) => {
-        console.log("asks실패!", err);
+        alert("게시물이 없습니다! 첫번째 게시물을 올려주세요😆");
       });
   };
   useEffect(() => {
     apiGetShowCardData();
   }, []);
-  console.log("askCardData", askCardData);
+
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     Api.get(`asks?page=${page + 1}&limit=6`, null).then((res) => {
@@ -77,12 +80,11 @@ const CommunityAsk = () => {
         .then((res) => {
           setSearchData(res.data.searchedAsks);
           setTotalPage(res.data.totalPage);
-          console.log("res.data.searchedPosts-ask", res.data);
           setIsSearch(true);
           setSearchPage(searchPage + 1);
         })
         .catch((err) => {
-          console.log("getSearchCards Err", err);
+          alert("검색결과가 없습니다.");
         });
     };
     if (debounceValue) {
@@ -93,8 +95,7 @@ const CommunityAsk = () => {
       setTotalPage(1);
     }
   }, [debounceValue]);
-  console.log("totalPage", totalPage);
-  console.log("searchPage");
+
   const searchMoreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (
     e
   ) => {
@@ -114,7 +115,6 @@ const CommunityAsk = () => {
   };
   return (
     <div className={Show.container}>
-      {/* <div className={Show.inner}> */}
       <div className={Show.titleSearchInner}>
         <h2 className={Show.title}>궁금한 내용들을 물어보세요</h2>
         <div className={Show.itemInner}>
