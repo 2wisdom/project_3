@@ -26,14 +26,10 @@
 }
 .itemInner {
   display: flex;
-  /* margin: auto; */
   padding-left: 2rem;
   align-items: center;
   gap: 16px;
-  padding-right: 9rem;
   justify-content: center;
-  /* justify-items: center; */
-  /* padding-bottom: auto; */
 }
 .itemAsk {
   padding: 0px;

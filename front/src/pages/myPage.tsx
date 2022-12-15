@@ -16,7 +16,7 @@ const MyPage = () => {
   const [pickedNav, setPickedNav] = useState("개인정보수정");
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-  
+
   const navList = [
     { name: "개인정보수정", address: "" },
     { name: "작성한 글", address: "userPost" },
@@ -24,13 +24,13 @@ const MyPage = () => {
   ];
 
   const topNavList = [
-    { name: "질문하기", apiAddress: "asks", commentAPi: "Ask"},
+    { name: "질문하기", apiAddress: "asks", commentAPi: "Ask" },
     { name: "자랑하기", apiAddress: "posts", commentAPi: "Post" },
     { name: "식물마켓", apiAddress: "markets", commentAPi: "Market" },
   ];
   const para = window.location.pathname.split("/");
   const isInfoTap = para[2] === undefined;
-  console.log(pickedNav);
+
   return (
     <M.MainContent>
       <M.TitleContainer>
@@ -67,7 +67,11 @@ const MyPage = () => {
                 onClick={(e) => {
                   navigate(nav.address);
                   setPickedNav((e.target as HTMLButtonElement).value);
-                  setPickedTopNav({ name: "질문하기", apiAddress: "asks", commentAPi: "Ask"});
+                  setPickedTopNav({
+                    name: "질문하기",
+                    apiAddress: "asks",
+                    commentAPi: "Ask",
+                  });
                   resetPage();
                 }}
               >
