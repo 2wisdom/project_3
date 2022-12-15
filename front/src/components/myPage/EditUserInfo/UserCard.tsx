@@ -2,26 +2,26 @@ import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import Stack from "@mui/material/Stack";
 import useUserStore from "@/store/Login";
 import * as M from "../../../styles/MyPage/MyPage.styled";
-import axios from "axios";
 import { SquareBtn, red, white, black } from "../../buttons/BasicBtn";
-import { ConfirmationNumber } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../../api/Api";
 
 interface Props {
   saveProfileImg: React.Dispatch<any>;
   setSaveProfileImg: React.Dispatch<React.SetStateAction<any>>;
-  setIsDeleteProfileImg: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsDeleteProfileImg: React.Dispatch<React.SetStateAction<boolean>>;
   img: string;
   setImg: React.Dispatch<React.SetStateAction<string>>;
+  revertToDefaultImage: () => Promise<void>
 }
 
 const UserCard = ({
   saveProfileImg,
   setSaveProfileImg,
-  setIsDeleteProfileImg,
+  // setIsDeleteProfileImg,
   img,
   setImg,
+  revertToDefaultImage
 }: Props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
@@ -73,22 +73,22 @@ const UserCard = ({
               : previewURL
           }
           alt="profileImg"
-          // border-radius="50%"
         />
         <Stack direction="row" alignItems="center" spacing={2}>
           <SquareBtn
             theme={white}
             type="button"
             onClick={() => {
-              setIsDeleteProfileImg(true);
+              // setIsDeleteProfileImg(true);
               setSaveProfileImg(null);
               setImg(defaultImage);
               setPreviewURL("");
+              revertToDefaultImage()
             }}
           >
             삭제
           </SquareBtn>
-          <M.FileBtn theme={black} htmlFor="input-file" onClick={() => {}}>
+          <M.FileBtn theme={black} htmlFor="input-file">
             변경
           </M.FileBtn>
           <input
@@ -98,8 +98,9 @@ const UserCard = ({
             accept="image/jpg, image/png, image/jpeg"
             onChange={(e) => {
               setSaveProfileImg(e.target.files![0]);
-              setIsDeleteProfileImg(false);
+              // setIsDeleteProfileImg(false);
               changeProfileImgPreview(e.target.files![0]);
+              alert("적용을 누르면 변경사항이 저장됩니다.")
             }}
           />
         </Stack>
