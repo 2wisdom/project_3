@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const MainContent = styled.div`
-  display: block;
+  // display: block;
   width: 140rem;
   height: 90%;
   margin: 0 auto;

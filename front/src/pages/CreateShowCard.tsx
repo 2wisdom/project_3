@@ -40,18 +40,8 @@ const CreateShowCard = () => {
           formData.append("image", e.target.files[0] as any);
           if (formData) {
             try {
-              let res = axios({
-                method: "post",
-                url: "http://34.64.178.176:5000/images/image-upload",
-                data: formData,
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                  Authorization: `Bearer ${localStorage.getItem(
-                    "accessToken"
-                  )}`,
-                },
-              });
-              result = (await res).data.url;
+              let res = await Api.post("images/image-upload", formData, true);
+              result = res.data.url;
               console.log("result: ", result);
             } catch (err) {
               console.log("imageErr", err);

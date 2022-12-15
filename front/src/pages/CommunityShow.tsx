@@ -113,7 +113,7 @@ const CommuityShow = () => {
   return (
     <div className={Show.container}>
       <div className={Show.titleSearchInner}>
-        <h2 className={Show.title}>식물로 꾸민 방을 보여주세요</h2>
+        <h2 className={Show.title}>나만의 힐링스팟을 보여주세요</h2>
         <div className={Show.itemInner}>
           <p
             className={Show.itemShow}

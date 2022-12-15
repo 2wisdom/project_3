@@ -39,11 +39,7 @@ const FindPlant = () => {
     console.log("click");
     setIsFind(true);
     try {
-      console.log("lensImage: ", lensImage);
       formData.append("image", lensImage);
-      console.log("formdata -try 안에", formData.get("image"));
-      console.log(`확인확인:`, formData.get("image"));
-
       let res = await axios({
         method: "post",
         url: "http://34.64.178.176:5000/lens",
