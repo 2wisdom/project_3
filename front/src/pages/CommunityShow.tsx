@@ -61,7 +61,7 @@ const CommuityShow = () => {
 
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    Api.get(`posts?page=${page + 1}&limit=8`, null).then((res) => {
+    Api.get(`posts?page=${page + 1}&limit=6`, null).then((res) => {
       setShowCardData([...showCardData, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(res.data.page);

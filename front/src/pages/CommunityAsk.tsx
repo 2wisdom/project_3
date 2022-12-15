@@ -60,7 +60,7 @@ const CommunityAsk = () => {
   console.log("askCardData", askCardData);
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    Api.get(`asks?page=${page + 1}&limit=8`, null).then((res) => {
+    Api.get(`asks?page=${page + 1}&limit=6`, null).then((res) => {
       setAskCardData([...askCardData, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(res.data.page);
@@ -133,7 +133,6 @@ const CommunityAsk = () => {
           setSearchInput={setSearchInput}
         ></Search>
       </div>
-
       <div className={Show.cardInner}>
         {isSearch ? (
           <AskCardList askCardData={searchData}></AskCardList>
@@ -142,7 +141,6 @@ const CommunityAsk = () => {
         )}
       </div>
       <div className={Show.footer}>
-        {/* <div className={Show.moreBtnInner}> */}
         {isSearch ? (
           isLastPage ? null : (
             <button className={Show.moreBtn} onClick={searchMoreBtnHandler}>
@@ -154,7 +152,6 @@ const CommunityAsk = () => {
             더보기
           </button>
         ) : null}
-        {/* <div className={Show.writeBtnInner}> */}
         <EditIcon
           className={Show.writeBtnOutline}
           sx={{ fontSize: 30 }}
@@ -162,11 +159,8 @@ const CommunityAsk = () => {
             navigate("/createAskCard");
           }}
         ></EditIcon>
-        {/* </div> */}
       </div>
     </div>
-
-    // </div>
   );
 };
 

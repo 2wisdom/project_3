@@ -73,15 +73,9 @@
   position: fixed;
   bottom: 10px;
   width: 910px;
-  /* margin: auto; */
   display: flex;
-  /* grid: ". ."; */
   justify-content: center;
-  /* gap: 5px; */
 }
-/* .moreBtnInner {
-  margin: auto;
-} */
 
 .moreBtn {
   grid-column: 1 / span 3;
@@ -93,11 +87,8 @@
   color: #000000;
   font-size: 13px;
   padding: 12px 20px;
-  margin-left: 370px;
+  margin-left: 355px;
   text-decoration: none;
-  /* margin-right: 4rem; */
-  /* margin-left: 15rem; */
-  /* justify-content: center; */
 }
 .moreBtn:hover {
   background-color: #000000;
@@ -109,21 +100,14 @@
 }
 
 .writeBtnInner {
-  /* width: 20%; */
-  /* text-align: end; */
-  /* align-items: flex-end; */
-  /* padding-left: 5rem; */
-  /* margin-left: auto; */
 }
 
 .writeBtnOutline {
   margin-left: auto;
-
   cursor: pointer;
   border: 2px solid #000000;
   border-radius: 3rem;
   padding: 1rem;
-  /* margin-right: 3rem; */
 }
 .writeBtnOutline:active {
   position: relative;

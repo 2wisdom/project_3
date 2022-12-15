@@ -124,7 +124,6 @@ const Market = () => {
   };
   return (
     <div className={MarketStyle.container}>
-      {/* <div className={MarketStyle.inner}> */}
       <div className={MarketStyle.titleSearchInner}>
         <h2 className={MarketStyle.title}>식물마켓</h2>
         <ul className={MarketStyle.navContainer}>
@@ -160,7 +159,7 @@ const Market = () => {
         <div className={CardListStyle.cardList}>
           <div className={CardListStyle.cardListInner}>
             {isSearch
-              ? searchData.map((marketCard) => (
+              ? searchData?.map((marketCard) => (
                   <MarketCard
                     key={marketCard._id}
                     _id={marketCard._id}
@@ -192,31 +191,28 @@ const Market = () => {
                 ))}
           </div>
           <div className={MarketStyle.footer}>
-            <div className={MarketStyle.moreBtnInner}>
-              {isSearch ? (
-                isLastPage ? (
-                  <button
-                    className={MarketStyle.moreBtn}
-                    onClick={searchMoreBtnHandler}
-                  >
-                    더보기
-                  </button>
-                ) : null
-              ) : marketCards && hasNextPage ? (
-                <button className={MarketStyle.moreBtn} onClick={loadMoreCards}>
+            {/* <div className={MarketStyle.moreBtnInner}> */}
+            {isSearch ? (
+              isLastPage ? null : (
+                <button
+                  className={MarketStyle.moreBtn}
+                  onClick={searchMoreBtnHandler}
+                >
                   더보기
                 </button>
-              ) : null}
-            </div>
-            <div className={MarketStyle.writeBtnInner}>
-              <EditIcon
-                className={MarketStyle.writeBtnOutline}
-                sx={{ fontSize: 30 }}
-                onClick={() => {
-                  navigate("/createMarketCard");
-                }}
-              ></EditIcon>
-            </div>
+              )
+            ) : marketCards && hasNextPage ? (
+              <button className={MarketStyle.moreBtn} onClick={loadMoreCards}>
+                더보기
+              </button>
+            ) : null}
+            <EditIcon
+              className={MarketStyle.writeBtnOutline}
+              sx={{ fontSize: 30 }}
+              onClick={() => {
+                navigate("/createMarketCard");
+              }}
+            ></EditIcon>
           </div>
         </div>
       </div>
