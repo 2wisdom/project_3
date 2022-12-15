@@ -31,29 +31,37 @@ const CreateShowCard = () => {
     e.preventDefault();
     const reader = new FileReader();
     let result = "";
-    if (!showCardImage.imageFileUrl) {
-      reader.onload = async () => {
-        if (reader.readyState === 2) {
-          formData.append("image", e.target.files[0] as any);
-          if (formData) {
-            try {
-              let res = await Api.post("images/image-upload", formData, true);
-              result = res.data.url;
-            } catch (err) {
-              alert("이미지 업로드 중 오류가 발생했습니다. 다시 시도해주세요");
+    const correctForm = /(.*?)\.(jpg|jpeg|png)$/;
+    if (!e.target.files[0].name.match(correctForm)) {
+      alert("png, jpg, jpeg 확장자 파일만 업로드 가능합니다.");
+      return;
+    } else {
+      if (!showCardImage.imageFileUrl) {
+        reader.onload = async () => {
+          if (reader.readyState === 2) {
+            formData.append("image", e.target.files[0] as any);
+            if (formData) {
+              try {
+                let res = await Api.post("images/image-upload", formData, true);
+                result = res.data.url;
+              } catch (err) {
+                alert(
+                  "이미지 업로드 중 오류가 발생했습니다. 다시 시도해주세요"
+                );
+              }
             }
+            setShowCardImage({
+              imageFileUrl: result,
+              previewURL: reader.result,
+            });
+            setShowCardData((prev) => ({
+              ...prev,
+              imageUrl: result,
+            }));
           }
-          setShowCardImage({
-            imageFileUrl: result,
-            previewURL: reader.result,
-          });
-          setShowCardData((prev) => ({
-            ...prev,
-            imageUrl: result,
-          }));
-        }
-      };
-      reader.readAsDataURL(e.target.files[0]);
+        };
+        reader.readAsDataURL(e.target.files[0]);
+      }
     }
   };
   const handleSetValue = () => {
