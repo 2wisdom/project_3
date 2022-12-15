@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import LoginBtn from "./buttons/LoginBtn";
 import Nav from "../styles/Nav.module.css";
@@ -8,8 +8,8 @@ import { FaUserCircle } from "react-icons/fa";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
+  const user = useUserStore((state) => state.user);
   const isLogin = user.email != "";
   const logout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
