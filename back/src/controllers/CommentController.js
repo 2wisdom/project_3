@@ -14,7 +14,7 @@ const commentController = {
     ]);
     try {
       logger.info("댓글 조회");
-      return res.json(comment);
+      return res.json({ comments: comment });
     } catch (err) {
       next(err);
     }
