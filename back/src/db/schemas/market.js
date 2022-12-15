@@ -33,7 +33,7 @@ const MarketSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    // 구근/뿌리묘/모종, 모종(산내들농장), 씨앗
+    // 구근/뿌리묘/모종, 다육식물, 씨앗, 기타
     category: {
       type: String,
       required: true,
