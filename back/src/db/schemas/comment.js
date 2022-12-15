@@ -17,6 +17,7 @@ const CommentSchema = new mongoose.Schema(
     // 댓글 내용
     content: {
       type: String,
+      maxLength: 80,
       required: true,
     },
     // 비밀댓글

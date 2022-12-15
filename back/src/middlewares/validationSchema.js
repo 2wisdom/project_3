@@ -14,8 +14,8 @@ const email = Joi.string()
 const name = Joi.string()
   .trim()
   .min(2)
-  .max(8)
-  .regex(/^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,8}$/)
+  .max(6)
+  .regex(/^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,6}$/)
   .required();
 
 // 문자. 정규식(최소 8자, 최대 20자, 하나 이상의 문자와 하나의 숫자)
