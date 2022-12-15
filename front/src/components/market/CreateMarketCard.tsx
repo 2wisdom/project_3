@@ -15,6 +15,7 @@ interface MarketCardData {
 
 const CreateMarketCard = () => {
   const navigate = useNavigate();
+  const formData = new FormData();
   const [marketCardData, setMarketCardData] = useState<MarketCardData>({
     category: "구근/뿌리묘/모종",
     title: "",
@@ -34,18 +35,23 @@ const CreateMarketCard = () => {
     e
   ) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", e.target.files![0]);
-    try {
-      const res = await Api.post("images/image-upload", formData, true);
-      const result = res.data.url;
-      setMarketCardData((prev) => ({
-        ...prev,
-        imageUrl: result,
-      }));
-    } catch (err) {
-      console.log("imageErr", err);
-      alert("이미지 업로드 중 오류가 발생했습니다. 다시 시도해주세요");
+    const correctForm = /(.*?)\.(jpg|jpeg|png)$/;
+    if (e.target.files != null && !e.target.files[0].name.match(correctForm)) {
+      alert("png, jpg, jpeg 확장자 파일만 업로드 가능합니다.");
+      return;
+    } else {
+      formData.append("image", e.target.files![0]);
+      try {
+        const res = await Api.post("images/image-upload", formData, true);
+        const result = res.data.url;
+        setMarketCardData((prev) => ({
+          ...prev,
+          imageUrl: result,
+        }));
+      } catch (err) {
+        console.log("imageErr", err);
+        alert("이미지 업로드 중 오류가 발생했습니다. 다시 시도해주세요");
+      }
     }
   };
 
