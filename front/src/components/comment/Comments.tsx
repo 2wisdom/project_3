@@ -100,7 +100,7 @@ const Comments = ({ authorName, id, postType }: Props) => {
         <div className={Cmt.inputBox}>
           <div>
             <label className={Cmt.secretBtn}>
-              <input type="checkbox" onClick={() => {setIsSecret(!isSecret)}}/>
+              <input type="checkbox" checked={isSecret} onClick={() => {setIsSecret(!isSecret)}}/>
               비공개
             </label>
           </div>
