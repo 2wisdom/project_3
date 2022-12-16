@@ -18,19 +18,33 @@
 
 ## 사용 방법
 
+### frontend 서버 실행
+
 ```
+team12 폴더에서
+
 cd front
+npm install yarn
 yarn
 yarn dev
 ```
 
+### backend 서버 실행
+
 ```
+team12 폴더에서
+
 cd back
+npm install yarn
 yarn
 yarn start
 ```
 
+### ai 서버 실행
+
 ```
+team12 폴더에서
+
 cd ai
 pip install --upgrade pip
 pip3 install python==3.7.6
