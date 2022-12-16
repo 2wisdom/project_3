@@ -98,12 +98,6 @@ axios.interceptors.response.use(
         }
       }
     }
-    if (
-      error.response?.status === 400 &&
-      error.response.data == "로그인한 유저만 사용할 수 있는 서비스입니다."
-    ) {
-      alert("로그인한 유저만 사용할 수 있는 서비스입니다.");
-    }
     return Promise.reject(error);
   }
 );
