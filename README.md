@@ -71,7 +71,7 @@ uvicorn main-server:app --reload
 - 김성우: https://github.com/working-zima
 - 박은정
 - 이홍준
-- 조하은
+- 조하은: https://github.com/HaEunCho248
 
 <br><br>
 
