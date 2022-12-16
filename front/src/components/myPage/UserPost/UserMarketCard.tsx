@@ -7,6 +7,7 @@ import { SquareBtn, white, black } from "../../buttons/BasicBtn";
 import * as Api from "../../../api/Api";
 import { Props } from "./UserPostCards";
 import { TopNavStore, pageStore } from "@/store/MyPage";
+import imageError from "../../../../assets/error/imageError.jpg";
 
 const UserPostCard = ({
   _id,
@@ -19,7 +20,8 @@ const UserPostCard = ({
   setShowCards,
   price,
   category,
-  setIsNothing
+  setIsNothing,
+  isSoldOut
 }: Props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
@@ -61,12 +63,21 @@ const UserPostCard = ({
   return (
     <>
       <div className={Card.inner}>
+      <div className={Card.imageWrap}>
         <img
-          className={Card.Image}
+        className={
+          isSoldOut ? `${Card.Image} ${Card.soldOutImage}` : Card.Image
+        }
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = imageError;
+        }}
           src={`${imageUrl}`}
           style={{ width: 267, height: 200 }}
           onClick={() => navigate(`/marketCardDetail/${_id}`)}
         />
+        {isSoldOut && <p className={Card.soldOutText}>판매완료</p>}
+        </div>
         <h3
           className={Card.title}
           onClick={() => navigate(`/marketCardDetail/${_id}`)}

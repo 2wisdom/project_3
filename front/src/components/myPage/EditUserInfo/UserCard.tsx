@@ -32,6 +32,7 @@ const UserCard = ({
   const defaultImage = "public/images/leavesGetMoreYards.png";
   const [previewURL, setPreviewURL] = useState<string>("");
   const megabyte = 5242880
+  const {setUser} = useUserStore();
 
   // 프로필 이미지 미리보기
   const changeProfileImgPreview = async (previewFile: any) => {
@@ -52,9 +53,17 @@ const UserCard = ({
   const signOut = async () => {
     if (confirm("잎게뭐야를 정말 탈퇴하시겠습니까?")) {
       try {
-        const res = await Api.delete("users", `${user.userId}`);
+        await Api.delete("users", `${user.userId}`);
         alert("정상적으로 회원탈퇴 처리되었습니다.");
         localStorage.clear();
+        setUser({
+          email: "",
+          name: "",
+          userId: "",
+          imageUrl: "",
+          accessToken: "",
+        });
+        navigate('/');
       } catch (err) {
         console.log("회원탈퇴에러", err);
         alert("회원탈퇴중 오류가 발생했습니다. 다시 시도해주세요.");
