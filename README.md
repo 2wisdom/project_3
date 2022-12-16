@@ -39,14 +39,8 @@ yarn start
 ```
 cd ai
 pip install --upgrade pip
-pip3 install python==3.7.6
-pip3 install fastapi
-pip3 install "uvicorn[standard]"
-pip3 install pydantic
-pip3 install pandas
-pip3 install pillow
-pip3 install torch torchvision torchaudio
-uvicorn main-server:app --reload
+pip install -r requirements.txt
+./run.sh
 ```
 
 <br>
@@ -66,7 +60,7 @@ uvicorn main-server:app --reload
 - 이지혜: https://github.com/2wisdom
 - 김성우: https://github.com/working-zima
 - 박은정
-- 이홍준
+- 이홍준: https://github.com/leoeugene
 - 조하은
 
 <br>
