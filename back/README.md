@@ -7,6 +7,8 @@
 1. back 폴더 아래 .env 파일 생성
 2. .env 파일에서 아래의 환경변수 설정
 
+<br>
+
 - 배포시 'production', 개발시 'dev'
 
 ```
@@ -19,7 +21,8 @@ NODE_ENV='production'
 SERVER_PORT=5000
 ```
 
-- 몽고디비 Atlas 서버 예시
+- 몽고디비 Atlas 서버 예시  
+  (name과 password를 본인의 것으로 변경하여 사용)
 
 ```
 MONGODB_URL='mongodb+srv://<name>:<password>@cluster0.8akjhnw.mongodb.net/?retryWrites=true&w=majority'
@@ -31,25 +34,26 @@ MONGODB_URL='mongodb+srv://<name>:<password>@cluster0.8akjhnw.mongodb.net/?retry
 JWT_SECRET_KEY="JWT VERIFY SIGNATURE"
 ```
 
-- 암호화 레벨 예시
+- 암호화 레벨 예시 (높을 수록 높은 암호화)
 
 ```
-SALT_ROUND=숫자
+SALT_ROUND=12
 ```
 
-- 엑세스 토큰 유효기간 예시
+- 엑세스 토큰 유효기간 예시 ('30m'은 30분 후 만료를 의미)
 
 ```
 ACCESS_EXPIRES_IN='30m'
 ```
 
-- 리프레쉬 토큰 유효기간 예시
+- 리프레쉬 토큰 유효기간 예시 ('14d'는 14일 후 만료를 의미)
 
 ```
 REFRESH_EXPIRES_IN='14d'
 ```
 
-- 유저 기본 이미지 이름
+- 유저 기본 이미지 이름  
+  (이미지 변경을 원할시 team12/back/public/images 폴더 내의 leavesGetMoreYards.png 를 변경)
 
 ```
 DEFAULT_IMAGE_NAME="leavesGetMoreYards.png"
