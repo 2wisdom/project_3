@@ -18,7 +18,7 @@ const writeLog = (type, merchantId, req, message) => {
     : logger.error(
         `
         [merchantId: ${merchantId}] 
-        [client IP: ${req.clientIp}] 
+        [client IP: ${req}] 
         [method: ${req.method}] 
         [API url: ${decodeURIComponent(req.originalUrl)}] 
         [message: ${message}] 
