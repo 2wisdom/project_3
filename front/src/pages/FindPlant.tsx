@@ -10,6 +10,7 @@ const FindPlant = () => {
   const [plantImage, setPlantImage] = useState<File | null>(null);
   const [plantName, setPlantName] = useState<String>("");
   const [predictionRate, setPredictionRate] = useState<String>("");
+  const [isSearchComplete, setIsSearchComplete] = useState<boolean>(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const handleClick = () => {
     fileRef?.current?.click();
@@ -17,12 +18,12 @@ const FindPlant = () => {
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setLensImage(e.target.files[0]);
-
+    
     setPlantImage(e.target.files[0]);
     console.log("e.target.files[0]", e.target.files[0]);
     console.log(`확인확인확인확인:`, formData.get("image"));
   };
-
+  
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
@@ -42,11 +43,20 @@ const FindPlant = () => {
       setIsFind(true);
       console.log("res.data.plantName", res.data.plantName);
       console.log("res.data.predictionRate", res.data.predictionRate);
+      setIsSearchComplete(true)
     } catch (err) {
       console.log("imageErr", err);
     }
   };
-  console.log("formdata", formData.get("image"));
+  
+  const resetPage = () => {
+    setPlantImage(null);
+    setIsFind(false);
+    setPlantName("");
+    setPredictionRate("");
+    setIsSearchComplete(false);
+  }
+
   return (
     <div className={Find.container}>
       <div className={Find.Inner}>
@@ -74,9 +84,23 @@ const FindPlant = () => {
           ></input>
         </div>
 
-        <button type="submit" className={Find.checkBtn} onClick={handleSubmit}>
-          식물찾기
-        </button>
+        {!isSearchComplete ? (
+          <button
+            type="submit"
+            className={Find.checkBtn}
+            onClick={handleSubmit}
+          >
+            식물찾기
+          </button>
+        ) : (
+          <button
+            type="button"
+            className={Find.checkBtn}
+            onClick={resetPage}
+          >
+            다른 식물 찾기
+          </button>
+        )}
         <div className={Find.resultInner}>
           {isFind ? (
             <p className={Find.result}>
