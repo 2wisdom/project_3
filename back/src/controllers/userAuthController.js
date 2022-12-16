@@ -327,6 +327,7 @@ const userAuthController = {
   // 유저 정보 삭제
   deleteUser: async (req, res, next) => {
     const { userId } = req.params;
+    console.log(`컨트롤러 확인:`, req.params);
     try {
       const deletedUser = await wrapper(userAuthService.deleteUserInfo, userId);
 

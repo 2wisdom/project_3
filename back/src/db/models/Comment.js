@@ -2,7 +2,6 @@ const CommentModel = require("../schemas/comment");
 const PostModel = require("../schemas/post");
 const MarketModel = require("../schemas/market");
 const AskModel = require("../schemas/ask");
-const CommentModel = require("../schemas/comment");
 const logger = require("../../config/logger");
 
 // // 고유 아이디 키 이름인 _id를 commentId로 교체
@@ -45,11 +44,12 @@ const Comment = {
     }
   },
 
-  deleteByAuthor: async (userId) => {
+  deleteByAuthor: async (writer) => {
     try {
       const deletedUserInfo = await CommentModel.deleteMany({
-        writer: userId,
+        writer,
       });
+
       return deletedUserInfo;
     } catch (error) {
       return error;
