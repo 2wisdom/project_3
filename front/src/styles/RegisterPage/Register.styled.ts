@@ -35,17 +35,32 @@ export const ContentBox = styled.div`
   align-items: center;
   height: 7rem;
   justify-content: center;
+  /* width: 15rem; */
+  padding: 0 10rem 0 10rem;
+`;
+
+export const CompleteBox = styled.div`
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  align-items: center;
+  height: 7rem;
+  justify-content: center;
   width: 15rem;
   padding: 0 10rem 0 15rem;
 `;
 
 export const PasswordContentBox = styled(ContentBox)`
-  padding-right: 12.5rem;
+  padding-right: 19.5rem;
+`;
+
+export const NewPasswordContentBox = styled(ContentBox)`
+  padding: 0;
 `;
 
 export const Tag = styled.div`
   left: 423px;
-  width: 12rem;
+  width: 15rem;
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 1.5rem;
@@ -76,7 +91,7 @@ export const ConfirmBtn = styled.button`
   height: 4.5rem;
   color: #3278e4;
   position: relative;
-  font-size: 1.3em;
+  font-size: 1em;
   font-weight: bold;
   background-color: #ffffff;
   decoration: none;

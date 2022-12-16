@@ -4,7 +4,7 @@ import PasswordEdit from "./PasswordEdit";
 import PasswordCard from "./PasswordCard";
 import useUserStore from "@/store/Login";
 import { RoundBtn, white, violet } from "../../buttons/BasicBtn";
-import { ContentBox } from "@/styles/RegisterPage/Register.styled";
+import { CompleteBox } from "@/styles/RegisterPage/Register.styled";
 import * as Api from "../../../api/Api";
 
 interface Password {
@@ -111,14 +111,14 @@ const EditUserInfo = () => {
           setNewPassword={setNewPassword}
         />
       )}
-      <ContentBox>
+      <CompleteBox>
         <RoundBtn theme={white} type="button" onClick={() => resetPage()}>
           취소
         </RoundBtn>
         <RoundBtn theme={violet} type="submit" onClick={userUpload}>
           적용
         </RoundBtn>
-      </ContentBox>
+      </CompleteBox>
     </>
   );
 };

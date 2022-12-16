@@ -12,7 +12,7 @@ const PasswordEdit = ({ newPassword, setNewPassword }: IProps) => {
 
   return (
     <M.PasswordContainer2>
-      <R.PasswordContentBox>
+      <R.NewPasswordContentBox>
         <R.Tag>기존 비밀번호</R.Tag>
         <R.Input
           id="password"
@@ -23,8 +23,8 @@ const PasswordEdit = ({ newPassword, setNewPassword }: IProps) => {
             setNewPassword({ ...newPassword, password: e.target.value })
           }
         />
-      </R.PasswordContentBox>
-      <R.PasswordContentBox>
+      </R.NewPasswordContentBox>
+      <R.NewPasswordContentBox>
         <R.Tag>새로운 비밀번호</R.Tag>
         <R.Input
           id="newPassword"
@@ -35,9 +35,9 @@ const PasswordEdit = ({ newPassword, setNewPassword }: IProps) => {
             setNewPassword({ ...newPassword, newPassword: e.target.value })
           }
         />
-      </R.PasswordContentBox>
+      </R.NewPasswordContentBox>
 
-      <R.PasswordContentBox>
+      <R.NewPasswordContentBox>
         <R.Tag>비밀번호 확인</R.Tag>
         <R.Input
           id="passwordConfirm"
@@ -45,7 +45,7 @@ const PasswordEdit = ({ newPassword, setNewPassword }: IProps) => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-      </R.PasswordContentBox>
+      </R.NewPasswordContentBox>
       {isInputStart(newPassword.newPassword!) && !isPasswordValid && (
         <R.NotifyNotValid>
           비밀번호는 8~20자, 영문+숫자를 조합해주세요.
