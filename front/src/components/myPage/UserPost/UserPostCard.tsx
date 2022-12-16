@@ -5,7 +5,6 @@ import useUserStore from "../../../store/Login";
 import Stack from "@mui/material/Stack";
 import { SquareBtn, white, black } from "../../buttons/BasicBtn";
 import * as Api from "../../../api/Api";
-// import { props } from "./UserPostCards";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 
 interface ShowCard {
@@ -31,6 +30,7 @@ interface Props {
   contents: string;
   showCards: ShowCard[];
   setShowCards: React.Dispatch<React.SetStateAction<ShowCard[]>>;
+  setIsNothing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserPostCard = ({
@@ -42,6 +42,7 @@ const UserPostCard = ({
   contents,
   showCards,
   setShowCards,
+  setIsNothing,
 }: Props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
@@ -71,8 +72,11 @@ const UserPostCard = ({
                   ? setShowCards([...showCards, ...res.data.userAsks])
                   : setShowCards([...showCards, ...res.data.userPosts]);
               }
-            } catch (err) {
-              console.log("더보기 에러: ", err);
+            } catch (err: any) {
+              if (err.response.status === 404) {
+                setShowCards([]);
+                setIsNothing(true);
+              }
             }
           }
         }

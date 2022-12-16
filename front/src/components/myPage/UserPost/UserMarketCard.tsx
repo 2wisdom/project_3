@@ -19,6 +19,7 @@ const UserPostCard = ({
   setShowCards,
   price,
   category,
+  setIsNothing
 }: Props) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
@@ -43,8 +44,11 @@ const UserPostCard = ({
               } else {
                 setShowCards([...showCards, ...res.data.userMarkets]);
               }
-            } catch (err) {
-              console.log("더보기 에러: ", err);
+            } catch (err: any) {
+              if (err.response.status === 404) {
+                setShowCards([]);
+                setIsNothing(true);
+              }
             }
           }
         }

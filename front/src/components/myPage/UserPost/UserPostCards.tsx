@@ -35,6 +35,7 @@ export interface Props {
   showCards: ShowCard[];
   setShowCards: React.Dispatch<React.SetStateAction<ShowCard[]>>;
   isSoldOut: boolean;
+  setIsNothing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserPostCards = () => {
@@ -112,6 +113,7 @@ const UserPostCards = () => {
                     contents={showcard.contents}
                     showCards={showCards}
                     setShowCards={setShowCards}
+                    setIsNothing={setIsNothing}
                   />
                 ) : (
                   <UserMarketCard
@@ -128,6 +130,7 @@ const UserPostCards = () => {
                     price={showcard.price}
                     category={showcard.category}
                     isSoldOut={showcard.isSoldOut}
+                    setIsNothing={setIsNothing}
                   />
                 );
               })}
