@@ -8,8 +8,8 @@ import { FaUserCircle } from "react-icons/fa";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const setUser = useUserStore((state) => state.setUser);
-  const user = useUserStore((state) => state.user);
+  const {setUser} = useUserStore();
+  const {user} = useUserStore();
   const isLogin = user.email != "";
   const logout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
