@@ -2,7 +2,8 @@
 
 ## 환경 변수 설정
 
----
+1. back 폴더 아래 .env 파일 생성
+2. .env 파일에서 아래의 환경변수 설정
 
 - 배포시 'production', 개발시 'dev'
 
@@ -74,8 +75,6 @@ AI_SERVER_PORT=8000
 
 ## MongoDB
 
----
-
 ### Atlas 서버 구축
 
 1. MongoDB Atlas가입
@@ -92,8 +91,6 @@ https://docs.mongodb.com/manual/tutorial/getting-started/
 <br><br>
 
 ## Express
-
----
 
 ### 서버 실행
 
@@ -118,8 +115,6 @@ yarn start
 <br><br>
 
 ## 파일구조
-
----
 
 📦back  
 ┣ 📂logs  
