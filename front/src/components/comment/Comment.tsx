@@ -5,7 +5,8 @@ import useUserStore from "@/store/Login";
 import NestedComment from "./NestedComment";
 import * as Api from "../../api/Api";
 import CommentInput from "./CommentInput";
-import { SquareBtn, black, white } from "../buttons/BasicBtn";
+import { SquareBtn, black } from "../buttons/BasicBtn";
+import { FaLock } from "react-icons/fa";
 
 interface Writer {
   name: string;
@@ -123,6 +124,7 @@ const Comment = ({
               {date[0]} {time}
             </h5>
           )}
+          <div>{isSecret && <FaLock className={Cmt.secretIcon}/>}</div>
           <button
             className={Cmt.btn}
             onClick={() => setOpenCommentBox(!openCommentBox)}
