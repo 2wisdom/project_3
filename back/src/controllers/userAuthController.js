@@ -8,6 +8,7 @@ const { writeLog } = require("../middlewares/writeLog");
 const Ask = require("../db/models/Ask");
 const Post = require("../db/models/Post");
 const Market = require("../db/models/Market");
+const { Comment } = require("../db/models/Comment");
 
 const userAuthController = {
   //회원가입
@@ -333,6 +334,7 @@ const userAuthController = {
       const deletedAsk = await wrapper(Market.deleteByAuthor, userId);
       const deletedMarket = await wrapper(Post.deleteByAuthor, userId);
       const deletedPost = await wrapper(Ask.deleteByAuthor, userId);
+      const deletedComment = await wrapper(Comment.deleteByAuthor, userId);
 
       if (!deletedUser.errorMessage && deletedUser.imageUrl) {
         await wrapper(deleteUserImage, deletedUser.imageUrl);
