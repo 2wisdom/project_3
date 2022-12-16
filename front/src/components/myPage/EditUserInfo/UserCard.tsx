@@ -15,7 +15,6 @@ import * as Api from "../../../api/Api";
 interface Props {
   saveProfileImg: React.Dispatch<any>;
   setSaveProfileImg: React.Dispatch<React.SetStateAction<any>>;
-  // setIsDeleteProfileImg: React.Dispatch<React.SetStateAction<boolean>>;
   img: string;
   setImg: React.Dispatch<React.SetStateAction<string>>;
   revertToDefaultImage: () => Promise<void>
@@ -24,7 +23,6 @@ interface Props {
 const UserCard = ({
   saveProfileImg,
   setSaveProfileImg,
-  // setIsDeleteProfileImg,
   img,
   setImg,
   revertToDefaultImage
@@ -33,17 +31,14 @@ const UserCard = ({
   const user = useUserStore((state) => state.user);
   const defaultImage = "public/images/leavesGetMoreYards.png";
   const [previewURL, setPreviewURL] = useState<string>("");
+  const megabyte = 5242880
 
   // 프로필 이미지 미리보기
   const changeProfileImgPreview = async (previewFile: any) => {
-    if (previewFile.lastModifiedDate.size > 5242880) {
+    if (previewFile.lastModifiedDate.size > megabyte) {
       alert("5mb 이하 이미지만 프로필 사진으로 설정 가능합니다.");
       return;
     }
-    // else if ( previewFile.lastModifiedDate.type not in ){
-    // alert("이미지 형식은 png, jpg, jpeg만 가능합니다.");
-    //return;
-    // }
 
     const reader = new FileReader();
     reader.onload = async () => {
