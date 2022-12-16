@@ -16,19 +16,31 @@ const lensController = {
       }
       data = { imageUrl: imageUrl };
 
-      const result = await axios.post(serverUrl, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (result) {
-        console.log("result.data", result.data);
+      let predictResult = null;
+
+      const result = await axios
+        .post(serverUrl, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          predictResult = res.data;
+        });
+
+      // if (result) {
+      //   console.log("result.data", result.data);
+      //   await wrapper(deleteUserImage, imageUrl);
+      // }
+
+      if (predictResult) {
+        console.log("result.data", predictResult);
         await wrapper(deleteUserImage, imageUrl);
       }
 
       writeLog("info", null, req, "이미지 예측 성공");
-
-      res.status(200).json(result.data);
+      res.status(200).json(predictResult);
+      // res.status(200).json(result.data);
     } catch (error) {
       next(error);
     }
