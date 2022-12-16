@@ -18,12 +18,12 @@ const FindPlant = () => {
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setLensImage(e.target.files[0]);
-    
+
     setPlantImage(e.target.files[0]);
     console.log("e.target.files[0]", e.target.files[0]);
     console.log(`확인확인확인확인:`, formData.get("image"));
   };
-  
+
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
@@ -43,20 +43,12 @@ const FindPlant = () => {
       setIsFind(true);
       console.log("res.data.plantName", res.data.plantName);
       console.log("res.data.predictionRate", res.data.predictionRate);
-      setIsSearchComplete(true)
+      setIsSearchComplete(true);
     } catch (err) {
       console.log("imageErr", err);
     }
   };
   
-  const resetPage = () => {
-    setPlantImage(null);
-    setIsFind(false);
-    setPlantName("");
-    setPredictionRate("");
-    setIsSearchComplete(false);
-  }
-
   return (
     <div className={Find.container}>
       <div className={Find.Inner}>
@@ -94,9 +86,9 @@ const FindPlant = () => {
           </button>
         ) : (
           <button
-            type="button"
+            type="submit"
             className={Find.checkBtn}
-            onClick={resetPage}
+            onClick={() => window.location.replace("/findplant")}
           >
             다른 식물 찾기
           </button>
