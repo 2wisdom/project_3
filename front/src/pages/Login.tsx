@@ -18,12 +18,8 @@ const Login = () => {
   });
   // 로그인실패 알려줌
   const [loginFailed, setLoginFailed] = useState(false);
-  // console.log(loginData);
 
   const setUser = useUserStore((state) => state.setUser);
-  // const setIsLogin = useUserStore((state) => state.isLogin);
-  // const currentUser = useUserStore((state) => state.user);
-  // console.log("currentUser: ", currentUser);
 
   const isEmailValid = validateEmail(loginData.email);
   const isPasswordValid = validatePassword(loginData.password);

@@ -47,7 +47,7 @@ const CommuityShow = () => {
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = searchPage >= totalPage;
   const apiGetShowCardData = async () => {
-    await Api.get("posts", null)
+    await Api.get("posts")
       .then((res) => {
         setShowCardData(res.data.docs);
         setHasNextPage(res.data.hasNextPage);
@@ -77,7 +77,7 @@ const CommuityShow = () => {
 
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    Api.get(`posts?page=${page + 1}&limit=6`, null).then((res) => {
+    Api.get(`posts?page=${page + 1}&limit=6`).then((res) => {
       setShowCardData([...showCardData, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(res.data.page);
@@ -87,8 +87,7 @@ const CommuityShow = () => {
   useEffect(() => {
     const getSearchCards = async () => {
       return await Api.get(
-        `search/posts?option=all&question=${debounceValue}&page=${searchPage}`,
-        null
+        `search/posts?option=all&question=${debounceValue}&page=${searchPage}`
       )
         .then((res) => {
           setSearchData(res.data.searchedPosts);
@@ -114,8 +113,7 @@ const CommuityShow = () => {
   ) => {
     e.preventDefault();
     Api.get(
-      `search/posts?option=all&question=${debounceValue}&page=${searchPage}`,
-      null
+      `search/posts?option=all&question=${debounceValue}&page=${searchPage}`
     ).then((res) => {
       setSearchData([...searchData, ...res.data.searchedPosts]);
       setSearchPage(searchPage + 1);

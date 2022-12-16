@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Search from "../components/search/Search";
 import Show from "../styles/showOffPage/ShowPage.module.css";
 import AskCardList from "../components/communityAsk/AskCardList";
-import * as showCardStore from "../store/CommunityShowCard";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import useDebounce from "@/useDebounce";
@@ -63,7 +62,7 @@ const CommunityAsk = () => {
 
   const [isNothing, setIsNothing] = useState<boolean>(false);
   const apiGetShowCardData = async () => {
-    await Api.get("asks", null)
+    await Api.get("asks")
       .then((res) => {
         console.log("res", res);
         setAskCardData(res.data.docs);
@@ -80,7 +79,7 @@ const CommunityAsk = () => {
 
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    Api.get(`asks?page=${page + 1}&limit=6`, null).then((res) => {
+    Api.get(`asks?page=${page + 1}&limit=6`).then((res) => {
       setAskCardData([...askCardData, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(res.data.page);
@@ -91,8 +90,7 @@ const CommunityAsk = () => {
   useEffect(() => {
     const getSearchCards = async () => {
       return await Api.get(
-        `search/asks?option=all&question=${debounceValue}&page=${searchPage}`,
-        null
+        `search/asks?option=all&question=${debounceValue}&page=${searchPage}`
       )
         .then((res) => {
           setSearchData(res.data.searchedAsks);
@@ -118,8 +116,7 @@ const CommunityAsk = () => {
   ) => {
     e.preventDefault();
     Api.get(
-      `search/asks?option=all&question=${debounceValue}&page=${searchPage}`,
-      null
+      `search/asks?option=all&question=${debounceValue}&page=${searchPage}`
     ).then((res) => {
       setSearchData([...askCardData, ...res.data.searchedAsks]);
       setSearchPage(searchPage + 1);

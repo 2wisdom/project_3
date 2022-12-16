@@ -120,6 +120,7 @@ const userAuthController = {
 
   // 유저 정보 조회
   getUser: async (req, res, next) => {
+    console.log(`확인:`, req);
     const user_Id = req.currentUserId;
     try {
       // 서비스 파일에서 getUserInfo 함수 실행

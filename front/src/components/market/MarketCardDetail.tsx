@@ -1,13 +1,11 @@
-import React, { SetStateAction, Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Detail from "../../styles/showOffPage/ShowCardDetail.module.css";
 import * as Api from "../../api/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import imageError from "../../../assets/error/imageError.jpg";
 import SplitBtn from "../buttons/SplitBtn";
-import UserCard from "../myPage/EditUserInfo/UserCard";
 import useUserStore from "@/store/Login";
-import { Preview } from "@mui/icons-material";
 import Comments from "../../components/comment/Comments";
 
 

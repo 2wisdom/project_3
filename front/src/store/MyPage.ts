@@ -18,18 +18,6 @@ export const TopNavStore = create<TopNavState>((set) => ({
   },
 }));
 
-// interface navState {
-//   pickedNav: string;
-//   setPickedNav: (pickedNav: string) => void;
-// }
-
-// export const NavStore = create<navState>((set) => ({
-//   pickedNav: "개인정보수정",
-//   setPickedNav: (newPickedNav) => {
-//     set((state) => ({ pickedNav: newPickedNav }));
-//   },
-// }));
-
 interface Page {
   page: number;
   increasePage: () => void;

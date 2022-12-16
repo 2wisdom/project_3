@@ -20,7 +20,7 @@ userAuthRouter.post(
 );
 
 // 유저 정보 조회
-userAuthRouter.get("/", userAuthController.getUser);
+userAuthRouter.get("/", loginRequired, userAuthController.getUser);
 
 // 유저 자랑하기 작성글 조회
 userAuthRouter.get("/posts?:userId?:page", userAuthController.getUserPosts);

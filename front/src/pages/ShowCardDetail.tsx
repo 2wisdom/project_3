@@ -1,11 +1,9 @@
-import React, { SetStateAction, Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Detail from "../styles/showOffPage/ShowCardDetail.module.css";
 import * as Api from "../api/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
 import imageError from "../../assets/error/imageError.jpg";
-import { CheckBox } from "@mui/icons-material";
 import Comments from "../components/comment/Comments";
 
 interface DetailData {
@@ -20,8 +18,6 @@ interface DetailData {
 const ShowCardDetail = () => {
   const navigate = useNavigate();
   let { id } = useParams();
-  // let realId = parseInt(id as string);
-  // console.log("realId", realId);
   const [DetailData, setDetailData] = useState<DetailData>({
     title: "",
     userImg: "",
@@ -33,7 +29,7 @@ const ShowCardDetail = () => {
   const createDate = DetailData.date.split("T");
   useEffect(() => {
     if (id) {
-      Api.get(`posts/${id}`, null)
+      Api.get(`posts/${id}`)
         .then((res) => {
           setDetailData({
             title: res.data?.title,

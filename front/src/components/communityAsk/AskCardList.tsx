@@ -1,13 +1,6 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
 import AskCard from "../card/AskCard";
 import CardListStyle from "../../styles/showOffPage/CardList.module.css";
-// import * as showCardList from "../../store/CommunityShowCard";
-// import * as showCardStore from "../../store/CommunityShowCard";
-import Avatar from "@mui/material/Avatar";
-import Card from "../../styles/showOffPage/ShowCard.module.css";
-import imageSample from "../../../../back/public/images/leavesGetMoreYards.png";
-import AskCardDetail from "@/pages/AskCardDetail";
+
 interface AskCard {
   // map: any;
   author: {
@@ -30,13 +23,11 @@ interface AskCard {
   totalPage: string;
 }
 const AskCardList = ({ askCardData }: { askCardData: AskCard[] }) => {
-  // console.log("askCardData-askCardList", askCardData);
   return (
     <div className={CardListStyle.cardList}>
       <div className={CardListStyle.cardListInner}>
-        {/* showCardData?.slice(0, visible).map((item: showCard) */}
         {askCardData &&
-          askCardData?.map((item: askCard) => {
+          askCardData?.map((item: AskCard) => {
             return (
               <AskCard
                 askId={item._id}

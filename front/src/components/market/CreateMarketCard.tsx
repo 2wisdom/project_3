@@ -2,7 +2,6 @@ import React, { RefObject, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../api/Api";
 import Create from "../../styles/showOffPage/CreateShowCard.module.css";
-import axios from "axios";
 import SplitButton from "../buttons/SplitBtn";
 import uploadImg from "../../../assets/findPlant/upload.png";
 interface MarketCardData {

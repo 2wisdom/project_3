@@ -43,18 +43,12 @@ yarn start
 ### ai 서버 실행
 
 ```
-team12 폴더에서
+team12 폴더에서(ai 폴더 readme 먼저 확인후 설치)
 
 cd ai
 pip install --upgrade pip
-pip3 install python==3.7.6
-pip3 install fastapi
-pip3 install "uvicorn[standard]"
-pip3 install pydantic
-pip3 install pandas
-pip3 install pillow
-pip3 install torch torchvision torchaudio
-uvicorn main-server:app --reload
+pip install -r requirements.txt
+./run.sh
 ```
 
 <br><br>
@@ -70,8 +64,8 @@ uvicorn main-server:app --reload
 - 이지혜: https://github.com/2wisdom
 - 김성우: https://github.com/working-zima
 - 박은정
-- 이홍준
-- 조하은
+- 이홍준: https://github.com/leoeugene
+- 조하은: https://github.com/HaEunCho248
 
 <br><br>
 

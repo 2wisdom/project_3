@@ -3,6 +3,7 @@ import useUserStore from "@/store/Login";
 import Avatar from "@mui/material/Avatar";
 import { SquareBtn, black, white } from "../buttons/BasicBtn";
 import * as Api from "../../api/Api";
+import { FaLock } from "react-icons/fa";
 
 interface Writer {
   name: string;
@@ -86,6 +87,7 @@ const NestedComment = ({
             {date[0]} {time}
           </h5>
         )}
+        <div>{isSecret && <FaLock className={Cmt.secretIcon} />}</div>
       </div>
       <div className={Cmt.Cmt}>
         <div>{canSeeComment ? content : "비밀댓글입니다."}</div>

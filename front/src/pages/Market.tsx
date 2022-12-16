@@ -88,8 +88,8 @@ const Market = () => {
 
     try {
       const res = isShowAll
-        ? await Api.get(`markets?page=${page}&limit=6`, null)
-        : await Api.get(`markets?page=1&limit=6&category=${pickedCategory}`);
+        ? await Api.get(`markets?page=${page}&limit=6`)
+        : await Api.get(`markets?page=${page}&limit=6&category=${pickedCategory}`);
 
       setMarketCards([...marketCards, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
@@ -103,8 +103,7 @@ const Market = () => {
   useEffect(() => {
     const getSearchCards = async () => {
       return await Api.get(
-        `search/markets?option=all&question=${debounceValue}&page=${searchPage}`,
-        null
+        `search/markets?option=all&question=${debounceValue}&page=${searchPage}`
       )
         .then((res) => {
           setSearchData(res.data.searchedMarkets);
@@ -129,8 +128,7 @@ const Market = () => {
   ) => {
     e.preventDefault();
     Api.get(
-      `search/markets?option=all&question=${debounceValue}&page=${searchPage}`,
-      null
+      `search/markets?option=all&question=${debounceValue}&page=${searchPage}`
     ).then((res) => {
       setSearchData([...searchData, ...res.data.searchedMarkets]);
       setSearchPage(searchPage + 1);
@@ -209,7 +207,6 @@ const Market = () => {
                 ))}
           </div>
           <div className={MarketStyle.footer}>
-            {/* <div className={MarketStyle.moreBtnInner}> */}
             {isSearch ? (
               isLastPage ? null : (
                 <button

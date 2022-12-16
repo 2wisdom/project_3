@@ -1,17 +1,10 @@
-import React, { RefObject, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useRef, useState } from "react";
 import Find from "../styles/findPlant/FindPlant.module.css";
 import uploadImg from "../../assets/findPlant/upload.png";
-import * as Api from "../api/Api";
 import axios from "axios";
-interface FindPlantData {
-  imageFile: string;
-  previewURL: string;
-}
 
 const FindPlant = () => {
   const [lensImage, setLensImage] = useState<File | any>(null);
-  const navigate = useNavigate();
   const formData = new FormData();
   const [isFind, setIsFind] = useState<boolean>(false);
   const [plantImage, setPlantImage] = useState<File | null>(null);
@@ -57,8 +50,6 @@ const FindPlant = () => {
     }
   };
   console.log("formdata", formData.get("image"));
-  // http://localhost:5000/images/image-upload
-  // http://localhost:5000/lens
   return (
     <div className={Find.container}>
       <div className={Find.Inner}>

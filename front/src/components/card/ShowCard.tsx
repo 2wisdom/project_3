@@ -1,23 +1,9 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
-import * as CommunityCardInterface from "../../store/CommunityShowCard";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
-// import imageSample from "../../../assets/infoPage/main.png";
-// import imageSample from "../../../assets/infoPage/main.png";
-import imageSample from "../../../assets/infoPage/main.png";
 import Avatar from "@mui/material/Avatar";
-import * as showCardStore from "../../store/CommunityShowCard";
-import { height } from "@mui/system";
-import { split } from "../../store/CommunityShowCard";
 import imageError from "../../../assets/error/imageError.jpg";
 import { useNavigate } from "react-router-dom";
-import ShowCardDetail from "@/pages/ShowCardDetail";
 
-// export interface DetailOpenProps {
-//   postId: string;
-//   isDetailOpen: boolean;
-//   setIsDetailOpen: Dispatch<SetStateAction<boolean>>;
-// }
+
 const ShowCard = ({
   postId,
   image,
@@ -41,7 +27,6 @@ const ShowCard = ({
       <img
         className={Card.image}
         src={`${image}`}
-        // style={{border-radius: 2}}
         onError={({ currentTarget }) => {
           currentTarget.onerror = null; // prevents looping
           currentTarget.src = imageError;
@@ -56,7 +41,6 @@ const ShowCard = ({
       </h3>
       <div className={Card.footer}>
         <div className={Card.userInner}>
-          {/* <img className={Card.userImage}></img> */}
           <Avatar
             alt="Remy Sharp"
             src={`http://${window.location.hostname}:5000/${userImage}`}

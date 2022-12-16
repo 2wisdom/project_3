@@ -64,9 +64,3 @@ export const RoundBtn = styled.button`
   cursor: pointer;
   border-radius: 20px;
 `;
-
-// ${(props)=>{
-//   return css`
-//   color: {props.color};
-//   background: ${(props) => props.background};
-//   `}}

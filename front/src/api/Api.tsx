@@ -1,13 +1,9 @@
 import axios, { AxiosError } from "axios";
-// import { useNavigate } from "react-router-dom";
 
-// const navigate = useNavigate();
 const backendPortNumber = "5000";
-// 34.64.178.176
-//localhost
 const serverUrl = "http://34.64.178.176:" + backendPortNumber + "/";
 
-async function get(endpoint: string, params?: string | null) {
+async function get(endpoint: string, params?: string) {
   console.log(`GET 요청 ${serverUrl + endpoint}`);
   return axios.get(
     params ? serverUrl + endpoint + "/" + params : serverUrl + endpoint,
@@ -86,12 +82,13 @@ axios.interceptors.response.use(
           if (res.status === 201) {
             const accessToken = res.data.accessToken;
             localStorage.setItem("accessToken", accessToken);
-            //새토큰으로 헤더 교체, null값이 아님을 알림: !
+            //새토큰으로 헤더 교체
             originalConfig!.headers!.Authorization = `Bearer ${accessToken}`;
             return axios(originalConfig!);
           }
         } catch (err: any) {
-          console.log("axios interceptop err", err);
+          alert("토큰에 문제가 있습니다. 다시 로그인해주세요.");
+          localStorage.clear();
         }
         if (error?.response?.data == "refresh token이 만료 되었습니다.") {
           console.log("리프레쉬토큰 만료", error);
@@ -101,14 +98,7 @@ axios.interceptors.response.use(
         }
       }
     }
-    // if (
-    //   error.response?.status === 400 &&
-    //   error.response.data == "로그인한 유저만 사용할 수 있는 서비스입니다."
-    // ) {
-    //   alert("로그인한 유저만 사용할 수 있는 서비스입니다.");
-    // }
     return Promise.reject(error);
   }
 );
 
-// https://github.com/axios/axios/issues/5143 문제해결
