@@ -11,7 +11,6 @@ const FindPlant = () => {
   const [plantName, setPlantName] = useState<String>("");
   const [predictionRate, setPredictionRate] = useState<String>("");
   const fileRef = useRef<HTMLInputElement>(null);
-
   const handleClick = () => {
     fileRef?.current?.click();
   };
@@ -28,9 +27,6 @@ const FindPlant = () => {
     e
   ) => {
     e.preventDefault();
-
-    console.log("click");
-    setIsFind(true);
     try {
       formData.append("image", lensImage);
       let res = await axios({
@@ -43,6 +39,7 @@ const FindPlant = () => {
       });
       setPlantName(res.data.plantName);
       setPredictionRate(res.data.predictionRate);
+      setIsFind(true);
       console.log("res.data.plantName", res.data.plantName);
       console.log("res.data.predictionRate", res.data.predictionRate);
     } catch (err) {

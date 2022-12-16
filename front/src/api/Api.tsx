@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 
 const backendPortNumber = "5000";
 // 34.64.178.176
-const serverUrl = "http://34.64.178.176:" + backendPortNumber + "/";
+const serverUrl = "http://localhost:" + backendPortNumber + "/";
 
 async function get(endpoint: string, params?: string) {
   console.log(`GET 요청 ${serverUrl + endpoint}`);
