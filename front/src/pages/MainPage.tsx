@@ -13,7 +13,6 @@ const MainPage = () => {
 
   return (
     <>
-      {/* <NavBar/>  */}
 
       <ScrollContainer snap="mandatory">
         <ScrollPage page={0}>
