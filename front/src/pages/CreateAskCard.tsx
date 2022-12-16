@@ -33,8 +33,8 @@ const CreateAskCard = () => {
     let result = "";
     const correctForm = /(.*?)\.(jpg|jpeg|png)$/;
     if (!e.target.files[0].name.match(correctForm)) {
-      alert("png, jpg, jpeg 확장자 파일만 업로드 가능합니다.");
-      return;
+      alert("소문자로 된  png, jpg, jpeg 확장자 파일만 업로드 가능합니다.");
+      // return;
     } else {
       if (!askCardImage.imageFileUrl) {
         reader.onload = async () => {
