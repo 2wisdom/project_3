@@ -52,6 +52,7 @@ const commentController = {
         });
       }
 
+      await CommentModel.Comment.deleteAllByWritingId(commentId);
       await Comment.findByIdAndDelete(commentId);
 
       logger.info("댓글 삭제");
