@@ -29,7 +29,7 @@ const MarketEditCard = () => {
     category,
   });
   console.log(ShowCardData)
-  const categoryList = ["구근/뿌리묘/모종", "모종(산내들농장)", "씨앗", "기타"];
+  const categoryList = ["구근/뿌리묘/모종", "다육식물", "씨앗", "기타"];
   const findCategoryIndex = categoryList.indexOf(category);
   const [seletedCategoryIndex, setSeletedCategoryIndex] =
     useState(findCategoryIndex);

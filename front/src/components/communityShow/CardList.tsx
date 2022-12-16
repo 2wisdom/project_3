@@ -1,13 +1,6 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
 import ShowCard from "../card/ShowCard";
 import CardListStyle from "../../styles/showOffPage/CardList.module.css";
-// import * as showCardList from "../../store/CommunityShowCard";
-// import * as showCardStore from "../../store/CommunityShowCard";
-import Avatar from "@mui/material/Avatar";
-import Card from "../../styles/showOffPage/ShowCard.module.css";
-import imageSample from "../../../../back/public/images/leavesGetMoreYards.png";
-import ShowCardDetail from "@/pages/ShowCardDetail";
+
 interface ShowCard {
   // map: any;
   author: {
@@ -28,11 +21,9 @@ interface ShowCard {
   updatedAt?: string;
 }
 const CardList = ({ showCardData }: { showCardData: ShowCard[] }) => {
-  // console.log("showCardData-cardList", showCardData);
   return (
     <div className={CardListStyle.cardList}>
       <div className={CardListStyle.cardListInner}>
-        {/* showCardData?.slice(0, visible).map((item: showCard) */}
 
         {showCardData &&
           showCardData?.map((item: ShowCard) => {

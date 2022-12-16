@@ -5,7 +5,7 @@ const backendPortNumber = "5000";
 //localhost
 const serverUrl = "http://localhost:" + backendPortNumber + "/";
 
-async function get(endpoint: string, params?: string | null) {
+async function get(endpoint: string, params?: string) {
   console.log(`GET 요청 ${serverUrl + endpoint}`);
   return axios.get(
     params ? serverUrl + endpoint + "/" + params : serverUrl + endpoint,

@@ -26,7 +26,7 @@ const App = () => {
 
   const getUser = async () => {
     try {
-      const res = await Api.get("users", null);
+      const res = await Api.get("users");
       if (res.status === 200) {
         setUser(res.data);
       }
@@ -73,7 +73,6 @@ const App = () => {
             path="/showCardDetail/:id"
             element={<ShowCardDetail />}
           ></Route>
-          {/* <Route path="/editCard/:id" element={<UserCommunityEditCard />}></Route> */}
 
           <Route path="/*" element={<NotFound />} />
         </Routes>

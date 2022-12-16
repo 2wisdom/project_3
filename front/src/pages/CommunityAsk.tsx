@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Search from "../components/search/Search";
 import Show from "../styles/showOffPage/ShowPage.module.css";
 import AskCardList from "../components/communityAsk/AskCardList";
-import * as showCardStore from "../store/CommunityShowCard";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import useDebounce from "@/useDebounce";
@@ -33,7 +32,7 @@ interface AskCard {
 }
 const CommunityAsk = () => {
   const navigate = useNavigate();
-  const {user} = useUserStore();
+  const { user } = useUserStore();
   const [askCardData, setAskCardData] = useState<AskCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
@@ -43,16 +42,14 @@ const CommunityAsk = () => {
     const isLogin = user.email !== "";
     if (!isLogin) {
       if (
-        confirm(
-          "로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?"
-        )
+        confirm("로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?")
       ) {
         navigate("/login");
-      }else {
-        navigate(-1)
+      } else {
+        navigate(-1);
       }
     }
-  }
+  };
 
   //검색
   const [searchInput, setSearchInput] = useState<string>("");
@@ -65,7 +62,7 @@ const CommunityAsk = () => {
 
   const [isNothing, setIsNothing] = useState<boolean>(false);
   const apiGetShowCardData = async () => {
-    await Api.get("asks", null)
+    await Api.get("asks")
       .then((res) => {
         console.log("res", res);
         setAskCardData(res.data.docs);
@@ -82,7 +79,7 @@ const CommunityAsk = () => {
 
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    Api.get(`asks?page=${page + 1}&limit=6`, null).then((res) => {
+    Api.get(`asks?page=${page + 1}&limit=6`).then((res) => {
       setAskCardData([...askCardData, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(res.data.page);
@@ -93,8 +90,7 @@ const CommunityAsk = () => {
   useEffect(() => {
     const getSearchCards = async () => {
       return await Api.get(
-        `search/asks?option=all&question=${debounceValue}&page=${searchPage}`,
-        null
+        `search/asks?option=all&question=${debounceValue}&page=${searchPage}`
       )
         .then((res) => {
           setSearchData(res.data.searchedAsks);
@@ -120,8 +116,7 @@ const CommunityAsk = () => {
   ) => {
     e.preventDefault();
     Api.get(
-      `search/asks?option=all&question=${debounceValue}&page=${searchPage}`,
-      null
+      `search/asks?option=all&question=${debounceValue}&page=${searchPage}`
     ).then((res) => {
       setSearchData([...askCardData, ...res.data.searchedAsks]);
       setSearchPage(searchPage + 1);
@@ -176,7 +171,7 @@ const CommunityAsk = () => {
           sx={{ fontSize: 30 }}
           onClick={() => {
             navigate("/createAskCard");
-            LoginToHavePermission()
+            LoginToHavePermission();
           }}
         ></EditIcon>
       </div>

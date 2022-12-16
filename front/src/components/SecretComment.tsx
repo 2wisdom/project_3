@@ -18,7 +18,6 @@ const Comment = ({createdAt}:Props) => {
           <h5>
             {date[0]} {time}
           </h5>
-          {/* <button className={Cmt.btn}> 답글등록 </button> */}
         </div>
       </div>
     </div>

@@ -1,14 +1,5 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
-import * as CommunityCardInterface from "../../store/CommunityShowCard";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
-// import imageSample from "../../../assets/infoPage/main.png";
-// import imageSample from "../../../assets/infoPage/main.png";
-import imageSample from "../../../assets/infoPage/main.png";
 import Avatar from "@mui/material/Avatar";
-import * as showCardStore from "../../store/CommunityShowCard";
-import { height } from "@mui/system";
-import { split } from "../../store/CommunityShowCard";
 import imageError from "../../../assets/error/imageError.jpg";
 import { useNavigate } from "react-router-dom";
 
@@ -50,7 +41,6 @@ const AskCard = ({
       </h3>
       <div className={Card.footer}>
         <div className={Card.userInner}>
-          {/* <img className={Card.userImage}></img> */}
           <Avatar
             src={`http://${window.location.hostname}:5000/${userImage}`}
             sx={{ width: 24, height: 24 }}

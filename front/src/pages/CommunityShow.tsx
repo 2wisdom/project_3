@@ -34,7 +34,7 @@ interface ShowCard {
 
 const CommuityShow = () => {
   const navigate = useNavigate();
-  const {user} = useUserStore();
+  const { user } = useUserStore();
   const [showCardData, setShowCardData] = useState<ShowCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
@@ -47,7 +47,7 @@ const CommuityShow = () => {
   const [totalPage, setTotalPage] = useState<number>(1);
   const isLastPage = searchPage >= totalPage;
   const apiGetShowCardData = async () => {
-    await Api.get("posts", null)
+    await Api.get("posts")
       .then((res) => {
         setShowCardData(res.data.docs);
         setHasNextPage(res.data.hasNextPage);
@@ -66,20 +66,18 @@ const CommuityShow = () => {
     const isLogin = user.email !== "";
     if (!isLogin) {
       if (
-        confirm(
-          "로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?"
-        )
+        confirm("로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?")
       ) {
         navigate("/login");
-      }else {
-        navigate(-1)
+      } else {
+        navigate(-1);
       }
     }
-  }
+  };
 
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    Api.get(`posts?page=${page + 1}&limit=6`, null).then((res) => {
+    Api.get(`posts?page=${page + 1}&limit=6`).then((res) => {
       setShowCardData([...showCardData, ...res.data.docs]);
       setHasNextPage(res.data.hasNextPage);
       setPage(res.data.page);
@@ -89,8 +87,7 @@ const CommuityShow = () => {
   useEffect(() => {
     const getSearchCards = async () => {
       return await Api.get(
-        `search/posts?option=all&question=${debounceValue}&page=${searchPage}`,
-        null
+        `search/posts?option=all&question=${debounceValue}&page=${searchPage}`
       )
         .then((res) => {
           setSearchData(res.data.searchedPosts);
@@ -116,8 +113,7 @@ const CommuityShow = () => {
   ) => {
     e.preventDefault();
     Api.get(
-      `search/posts?option=all&question=${debounceValue}&page=${searchPage}`,
-      null
+      `search/posts?option=all&question=${debounceValue}&page=${searchPage}`
     ).then((res) => {
       setSearchData([...searchData, ...res.data.searchedPosts]);
       setSearchPage(searchPage + 1);

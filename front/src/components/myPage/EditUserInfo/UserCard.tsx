@@ -86,7 +86,6 @@ const UserCard = ({
             theme={white}
             type="button"
             onClick={() => {
-              // setIsDeleteProfileImg(true);
               setSaveProfileImg(null);
               setImg(defaultImage);
               setPreviewURL("");
@@ -105,7 +104,6 @@ const UserCard = ({
             accept="image/jpg, image/png, image/jpeg"
             onChange={(e) => {
               setSaveProfileImg(e.target.files![0]);
-              // setIsDeleteProfileImg(false);
               changeProfileImgPreview(e.target.files![0]);
               alert("적용을 누르면 변경사항이 저장됩니다.")
             }}

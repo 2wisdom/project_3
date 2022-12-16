@@ -1,11 +1,9 @@
-import React, { SetStateAction, Dispatch, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import Detail from "../styles/showOffPage/ShowCardDetail.module.css";
 import * as Api from "../api/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
 import imageError from "../../assets/error/imageError.jpg";
-import { CheckBox } from "@mui/icons-material";
 import Comments from "../components/comment/Comments";
 
 interface DetailData {
@@ -31,7 +29,7 @@ const AskCardDetail = () => {
   const createDate = DetailData.date.split("T");
   useEffect(() => {
     if (id) {
-      Api.get(`asks/${id}`, null)
+      Api.get(`asks/${id}`)
         .then((res) => {
           setDetailData({
             title: res.data?.title,
@@ -49,7 +47,7 @@ const AskCardDetail = () => {
   }, []);
   useEffect(() => {
     if (id) {
-      Api.get(`comments/${id}`, null)
+      Api.get(`comments/${id}`)
         .then((res) => {
           console.log(`res.data-comments`, res);
         })

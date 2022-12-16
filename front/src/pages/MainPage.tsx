@@ -1,39 +1,15 @@
-import React, { useState } from "react";
 import Info1 from "../styles/infoPage/InfoPage.module.css";
-import NavBar from "@/components/NavBar";
 import { useNavigate } from "react-router-dom";
-// import Fade from 'react-reveal/Fade';
-import Reveal from "react-reveal/Reveal";
-// import Info from './InfoPageMain';
 import {
   Animator,
   ScrollContainer,
   ScrollPage,
   batch,
   Fade,
-  FadeIn,
-  FadeOut,
-  Move,
-  MoveIn,
-  MoveOut,
-  Sticky,
-  StickyIn,
-  StickyOut,
-  Zoom,
-  ZoomIn,
-  ZoomOut,
 } from "react-scroll-motion";
-import { Animation } from "react-scroll-motion";
+
 const MainPage = () => {
   const navigate = useNavigate();
-  const [text, setText] = useState(null);
-  const hello = !!text;
-  const hell2 = !text;
-  const hello3 = text;
-
-  // console.log('!!text',hello);
-  // console.log('!text',hell2);
-  // console.log('text',hello3);
 
   return (
     <>
@@ -44,10 +20,7 @@ const MainPage = () => {
           <Animator animation={batch(Fade())}>
             <div className={Info1.container}>
               <div className={Info1.Inner}>
-                <div className={Info1.title}>
-                  {/* <p className={Info1.description}>내 손안의 식물도감</p>
-                        <p className={Info1.logoTitle}>잎게뭐야</p> */}
-                </div>
+                <div className={Info1.title}></div>
               </div>
             </div>
           </Animator>
@@ -144,10 +117,6 @@ const MainPage = () => {
           </Animator>
         </ScrollPage>
       </ScrollContainer>
-
-      {/* <Fade left>
-            <div className={Info1.mainImage}></div>
-        </Fade> */}
     </>
   );
 };

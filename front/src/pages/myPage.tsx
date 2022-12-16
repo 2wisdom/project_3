@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction, useEffect } from "react";
+import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import EditUserInfo from "../components/myPage/EditUserInfo/EditUserInfo";
 import UserPostCards from "../components/myPage/UserPost/UserPostCards";
@@ -6,12 +6,10 @@ import UserCommentCards from "../components/myPage/UserComment/UserComments";
 import useUserStore from "@/store/Login";
 import { TopNavStore, pageStore } from "@/store/MyPage";
 import * as M from "../styles/MyPage/MyPage.styled";
-// import { Api } from "@mui/icons-material";
 
 const MyPage = () => {
   const navigate = useNavigate();
   const { pickedTopNav, setPickedTopNav } = TopNavStore();
-  // const { pickedNav, setPickedNav } = NavStore();
   const { resetPage } = pageStore();
   const [pickedNav, setPickedNav] = useState("개인정보수정");
   const user = useUserStore((state) => state.user);
