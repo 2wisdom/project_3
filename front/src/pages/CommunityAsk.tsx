@@ -33,7 +33,7 @@ interface AskCard {
 }
 const CommunityAsk = () => {
   const navigate = useNavigate();
-  const {user} = useUserStore();
+  const { user } = useUserStore();
   const [askCardData, setAskCardData] = useState<AskCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
@@ -43,16 +43,14 @@ const CommunityAsk = () => {
     const isLogin = user.email !== "";
     if (!isLogin) {
       if (
-        confirm(
-          "로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?"
-        )
+        confirm("로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?")
       ) {
         navigate("/login");
-      }else {
-        navigate(-1)
+      } else {
+        navigate(-1);
       }
     }
-  }
+  };
 
   //검색
   const [searchInput, setSearchInput] = useState<string>("");
@@ -135,7 +133,7 @@ const CommunityAsk = () => {
   return (
     <div className={Show.container}>
       <div className={Show.titleSearchInner}>
-        <h2 className={Show.title}>궁금한 내용들을 물어보세요</h2>
+        <h2 className={Show.title}>식물에 대해 궁금한게 있다면?</h2>
         <div className={Show.itemInner}>
           <p className={Show.itemAsk}>질문하기</p>
           <p
@@ -176,7 +174,7 @@ const CommunityAsk = () => {
           sx={{ fontSize: 30 }}
           onClick={() => {
             navigate("/createAskCard");
-            LoginToHavePermission()
+            LoginToHavePermission();
           }}
         ></EditIcon>
       </div>

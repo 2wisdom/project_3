@@ -34,7 +34,7 @@ interface ShowCard {
 
 const CommuityShow = () => {
   const navigate = useNavigate();
-  const {user} = useUserStore();
+  const { user } = useUserStore();
   const [showCardData, setShowCardData] = useState<ShowCard[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
@@ -66,16 +66,14 @@ const CommuityShow = () => {
     const isLogin = user.email !== "";
     if (!isLogin) {
       if (
-        confirm(
-          "로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?"
-        )
+        confirm("로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?")
       ) {
         navigate("/login");
-      }else {
-        navigate(-1)
+      } else {
+        navigate(-1);
       }
     }
-  }
+  };
 
   const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -130,7 +128,7 @@ const CommuityShow = () => {
   return (
     <div className={Show.container}>
       <div className={Show.titleSearchInner}>
-        <h2 className={Show.title}>나만의 힐링스팟을 보여주세요</h2>
+        <h2 className={Show.title}>내가 찍은 사진을 자랑하고 싶다면?</h2>
         <div className={Show.itemInner}>
           <p
             className={Show.itemShow}
