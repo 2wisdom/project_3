@@ -34,6 +34,7 @@ const tokenController = {
 
       const refreshToken = tokenInfo.refreshToken;
       const refreshTokenInfo = jwt.verify(refreshToken, secretKey);
+
       const refreshTokenUserId = refreshTokenInfo.userId;
 
       // 엑세스 토큰 재발급
@@ -50,7 +51,7 @@ const tokenController = {
 
         const newAccessToken = { accessToken: accessToken };
 
-        writeLog("info", userId, req, "토큰 재발급 성공");
+        writeLog("info", refreshTokenUserId, req, "토큰 재발급 성공");
         res.status(201).send(newAccessToken);
         return newAccessToken;
       }
