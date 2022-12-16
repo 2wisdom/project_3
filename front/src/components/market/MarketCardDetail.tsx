@@ -122,7 +122,7 @@ const MarketCardDetail = () => {
             currentTarget.src = imageError;
           }}
         />
-        {detailData.isSoldOut && <p className={Detail.soldOutText}>품 절</p>}
+        {detailData.isSoldOut && <p className={Detail.soldOutText}>판매완료</p>}
       </div>
       <p className={Detail.contents}>{detailData.contents}</p>
       <button

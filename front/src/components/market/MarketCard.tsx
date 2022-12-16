@@ -46,7 +46,7 @@ const MarketCard = ({
             style={{ width: 267, height: 200 }}
             onClick={() => navigate(`/marketCardDetail/${_id}`)}
           />
-          {isSoldOut && <p className={Card.soldOutText}>품 절</p>}
+          {isSoldOut && <p className={Card.soldOutText}>판매완료</p>}
         </div>
         <h3
           className={Card.title}
