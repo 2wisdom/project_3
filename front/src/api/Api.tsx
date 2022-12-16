@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 
 const backendPortNumber = "5000";
+// 34.64.178.176
 const serverUrl = "http://34.64.178.176:" + backendPortNumber + "/";
 
 async function get(endpoint: string, params?: string) {
@@ -101,4 +102,3 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-

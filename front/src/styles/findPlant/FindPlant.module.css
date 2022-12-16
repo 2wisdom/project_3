@@ -33,8 +33,10 @@
 
 /* img */
 .Img {
-  width: 40%;
-  height: auto;
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
   border-radius: 4rem;
 }
 /* content */

@@ -72,7 +72,7 @@
 .footer {
   position: fixed;
   bottom: 10px;
-  width: 910px;
+  width: 966px;
   display: flex;
   justify-content: center;
 }
@@ -87,7 +87,7 @@
   color: #000000;
   font-size: 13px;
   padding: 12px 20px;
-  margin-left: 355px;
+  margin-left: 404px;
   text-decoration: none;
 }
 .moreBtn:hover {
