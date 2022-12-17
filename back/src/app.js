@@ -51,8 +51,8 @@ app.use("/token", tokenRouter);
 app.use("/search", searchRouter);
 app.use("/lens", lensRouter);
 
-app.get("/", (req, res) => {
-  res.send("페이지에 접속 하셨습니다.");
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "..", "front/dist/index.html"));
 });
 
 // 오류 처리 미들웨어 정의

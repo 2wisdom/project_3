@@ -44,6 +44,18 @@ const Comment = {
     }
   },
 
+  deleteByAuthor: async (writer) => {
+    try {
+      const deletedUserInfo = await CommentModel.deleteMany({
+        writer,
+      });
+
+      return deletedUserInfo;
+    } catch (error) {
+      return error;
+    }
+  },
+
   deleteAllByWritingId: (writingId) => {
     try {
       return CommentModel.deleteMany({
