@@ -1,55 +1,68 @@
-import React from "react";
-import { useState } from "react";
-import * as CommunityCardInterface from "../../store/CommunityShowCard";
 import Card from "../../styles/showOffPage/ShowCard.module.css";
-// import imageSample from "../../../assets/infoPage/main.png";
-// import imageSample from "../../../assets/infoPage/main.png";
-import imageSample from "../../../assets/infoPage/main.png";
 import Avatar from "@mui/material/Avatar";
-import * as showCardStore from "../../store/CommunityShowCard";
-import { height } from "@mui/system";
-import { split } from "../../store/CommunityShowCard";
+import imageError from "../../../assets/error/imageError.jpg";
+import { useNavigate } from "react-router-dom";
+
+
 const ShowCard = ({
-  key,
+  postId,
   image,
   title,
   userImage,
   userName,
   date,
 }: {
-  key: string;
+  postId: string;
   image: string;
   title: string;
   userImage: string;
   userName: string;
   date: string;
 }) => {
-  const createDate = date.split("T");
-  console.log("image", image);
+  const navigate = useNavigate();
+  const createDate = date?.split("T");
+  console.log("userImage", userImage);
   return (
-    <>
-      <div className={Card.inner}>
-        <img
-          className={Card.Image}
-          src={`${image}`}
-          style={{ width: 267, height: 200 }}
-        />
-        <h3 className={Card.title}>{title}</h3>
-        <div className={Card.footer}>
-          <div className={Card.userInner}>
-            {/* <img className={Card.userImage}></img> */}
-            <Avatar
-              alt="Remy Sharp"
-              src={userImage}
-              sx={{ width: 24, height: 24 }}
-            />
+    <div className={Card.inner}>
+      <img
+        className={Card.image}
+        src={`${image}`}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = imageError;
+        }}
+        onClick={() => navigate(`/showCardDetail/${postId}`)}
+      />
+      <h3
+        className={Card.title}
+        onClick={() => navigate(`/showCardDetail/${postId}`)}
+      >
+        {title}
+      </h3>
+      <div className={Card.footer}>
+        <div className={Card.userInner}>
+          <Avatar
+            alt="Remy Sharp"
+            src={`http://${window.location.hostname}:5000/${userImage}`}
+            sx={{ width: 24, height: 24 }}
+            onClick={() => navigate(`/showCardDetail/${postId}`)}
+          />
 
-            <h5 className={Card.userName}>{userName}</h5>
-          </div>
-          <div className={Card.data}>{createDate[0]}</div>
+          <span
+            className={Card.userName}
+            onClick={() => navigate(`/showCardDetail/${postId}`)}
+          >
+            {userName}
+          </span>
+        </div>
+        <div
+          className={Card.data}
+          onClick={() => navigate(`/showCardDetail/${postId}`)}
+        >
+          {createDate[0]}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,21 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import LoginBtn from "./buttons/LoginBtn";
 import Nav from "../styles/Nav.module.css";
 import useUserStore from "../store/Login";
 import * as Api from "../api/Api";
+import { FaUserCircle } from "react-icons/fa";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const user = useUserStore((state) => state.user);
-  console.log("user: ", user);
-  const setUser = useUserStore((state) => state.setUser);
+  const {setUser} = useUserStore();
+  const {user} = useUserStore();
   const isLogin = user.email != "";
-  // console.log("isLogin: ", isLogin);
   const logout: React.MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
     try {
-      const res = await Api.delete("token", null);
+      const res = await Api.delete("token");
       if (res.status === 200) {
         alert("로그아웃 되었습니다.");
         localStorage.clear();
@@ -26,6 +25,7 @@ const NavBar = () => {
           imageUrl: "",
           accessToken: "",
         });
+        navigate("/");
       }
     } catch (err) {
       console.log("로그아웃에 실패하였습니다.", err);
@@ -54,16 +54,26 @@ const NavBar = () => {
             >
               잎게뭐야 소개
             </li>
-            <li className={Nav.navItem}>식물 찾기</li>
             <li
               className={Nav.navItem}
               onClick={() => {
-                navigate("/communityShowOff");
+                navigate("/findPlant");
+              }}
+            >
+              식물 찾기
+            </li>
+            <li
+              className={Nav.navItem}
+              onClick={() => {
+                navigate("/communityAsk");
               }}
             >
               커뮤니티
             </li>
-            <li className={Nav.navItem}>식물마켓</li>
+            <li className={Nav.navItem}
+            onClick={() => {
+              navigate("/market");
+            }}>식물마켓</li>
           </ul>
           <div
             className={Nav.loginBtn}
@@ -71,6 +81,15 @@ const NavBar = () => {
           >
             <LoginBtn isLogin={isLogin}></LoginBtn>
           </div>
+          {isLogin && (
+            <div className={Nav.userIconBox}>
+              <FaUserCircle
+                size="3.5rem"
+                color="#3278E4"
+                onClick={() => navigate("/myPage")}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>

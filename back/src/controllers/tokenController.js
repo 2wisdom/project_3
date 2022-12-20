@@ -4,6 +4,8 @@ const jwt_decode = require("jwt-decode");
 
 const { tokenService } = require("../services/tokenService");
 const { Token } = require("../db/models/Token");
+const { wrapper } = require("../middlewares/errorHandlingWrapper");
+const { writeLog } = require("../middlewares/writeLog");
 
 const tokenController = {
   // 엑세스 토큰 재발급
@@ -28,10 +30,11 @@ const tokenController = {
 
       const accessTokenUserId = decodedAccessToken.userId;
 
-      const tokenInfo = await Token.findByUserId(accessTokenUserId);
+      const tokenInfo = await wrapper(Token.findByUserId, accessTokenUserId);
 
       const refreshToken = tokenInfo.refreshToken;
       const refreshTokenInfo = jwt.verify(refreshToken, secretKey);
+
       const refreshTokenUserId = refreshTokenInfo.userId;
 
       // 엑세스 토큰 재발급
@@ -47,6 +50,8 @@ const tokenController = {
         );
 
         const newAccessToken = { accessToken: accessToken };
+
+        writeLog("info", refreshTokenUserId, req, "토큰 재발급 성공");
         res.status(201).send(newAccessToken);
         return newAccessToken;
       }
@@ -79,10 +84,12 @@ const tokenController = {
     try {
       const decodedAccessToken = jwt_decode(userAccessToken, secretKey);
       const accessTokenUserId = decodedAccessToken.userId;
-      const deletedToken = await tokenService.deleteTokenInfo(
+      const deletedToken = await wrapper(
+        tokenService.deleteTokenInfo,
         accessTokenUserId
       );
 
+      writeLog("info", accessTokenUserId, req, "토큰 삭제 성공");
       res.status(200).json(deletedToken);
     } catch (error) {
       next(error);

@@ -1,25 +1,33 @@
 const express = require("express");
-const Comment = require("../db/schemas/commnet");
+const Comment = require("../db/schemas/comment");
 const commentRouter = express.Router();
 const { loginRequired } = require("../middlewares/login_required");
 const { commentController } = require("../controllers/CommentController");
 
 /**
  * 댓글 조회
- * GET /comments
+ * GET /comments/:writingId
  */
-commentRouter.get("/", [loginRequired], commentController.getComments);
+commentRouter.get("/:writingId", commentController.getComments);
 
 /**
  * 댓글 생성
- * POST /comments
+ * POST /comments/:writingId
  */
-commentRouter.post("/", [loginRequired], commentController.createComment);
+commentRouter.post(
+  "/:writingId",
+  [loginRequired],
+  commentController.createComment
+);
 
 /**
  * 댓글 삭제
- * DELETE /comments
+ * DELETE /comments/:commentId
  */
-commentRouter.delete("/", [loginRequired], commentController.deleteComment);
+commentRouter.delete(
+  "/:commentId",
+  [loginRequired],
+  commentController.deleteComment
+);
 
 module.exports = commentRouter;

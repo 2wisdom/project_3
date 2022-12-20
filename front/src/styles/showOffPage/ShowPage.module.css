@@ -1,77 +1,18 @@
 .container {
-  margin: 0px;
-  padding: 0px;
-  margin-top: 5rem;
-}
-.Inner {
-  display: flex;
-  width: 98%;
-  /* height: 60vh; */
-  height: 90vh;
+  padding-top: 5rem;
+  width: 50%;
   margin: auto;
-  /* text-align : center;
-    align-items : center; */
-}
-/* button */
-.buttonContainer {
-  display: flex;
-  flex-direction: column;
-  width: 6%;
   height: 80vh;
-  margin-right: 4rem;
+}
 
-  /* background-color: aqua; */
-}
-.buttonInner {
-  margin-top: 8rem;
-}
-.grayBtn {
-  cursor: pointer;
-  width: 150px;
-  height: 50px;
-  /* font-family: 'Jua', sans-serif; */
-  font-family: "Nanum Gothic", sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  border: none;
-  border-radius: 1rem;
-  color: #ffffff;
-  background-color: #bdbdbd;
-  /* margin-right: 4rem; */
-  margin-top: 2rem;
-}
-.yellowBtn {
-  cursor: pointer;
-  width: 150px;
-  height: 50px;
-  /* font-family: 'Jua', sans-serif; */
-  font-family: "Nanum Gothic", sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  border: none;
-  border-radius: 1rem;
-  color: #000000;
-  background-color: #ffda7b;
-  /* margin-right: 4rem; */
-  margin-top: 2rem;
-}
-.yellowBtn:hover {
-  background-color: #ffda7b;
-  color: #000000;
-}
-.rightInner {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
+.inner {
+  margin-top: 5rem;
+  width: 50%;
+  margin: auto;
   height: 80vh;
 }
 /* title & search */
 .titleSearchInner {
-  margin-left: auto;
-  width: 100%;
-  height: 10vh;
-  /* margin: auto; */
-  /* background-color: aliceblue; */
   display: flex;
   justify-content: space-between;
 }
@@ -79,32 +20,66 @@
 .title {
   font-family: "Jua", sans-serif;
   font-weight: 300;
-  font-size: 3rem;
-  padding-bottom: 8rem;
-  padding-left: 4rem;
-}
+  font-size: 2.5rem;
 
+  padding: 0;
+}
+.itemInner {
+  display: flex;
+  padding-left: 2rem;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+}
+.itemAsk {
+  padding: 0px;
+  cursor: pointer;
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  color: #0c884f;
+  text-decoration-color: #0c884f;
+}
+.itemAsk:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  color: #0c884f;
+  text-decoration-color: #0c884f;
+}
+.itemShow {
+  padding: 0px;
+  cursor: pointer;
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #919191;
+}
+.itemShow:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  color: #0c884f;
+  text-decoration-color: #0c884f;
+}
 /* card */
 .cardInner {
   margin-left: auto;
   width: 100%;
   height: 70vh;
-  /* background-color: blue; */
 }
 /* moreBtn */
 .footer {
-  width: 100%;
+  position: fixed;
+  bottom: 10px;
+  width: 966px;
   display: flex;
-  /* justify-content: center; */
-  margin-top: 2rem;
-}
-.moreBtnInner {
-  /* width: 80%; */
-  /* margin-right: 10rem; */
-  margin: auto;
+  justify-content: center;
 }
 
 .moreBtn {
+  grid-column: 1 / span 3;
+  margin: auto;
   background-color: #ffffff;
   border-radius: 28px;
   border: 2px solid #000000;
@@ -112,9 +87,8 @@
   color: #000000;
   font-size: 13px;
   padding: 12px 20px;
+  margin-left: 404px;
   text-decoration: none;
-  margin-left: 6rem;
-  /* justify-content: center; */
 }
 .moreBtn:hover {
   background-color: #000000;
@@ -126,19 +100,52 @@
 }
 
 .writeBtnInner {
-  /* width: 20%; */
-  /* text-align: end; */
-  /* align-items: flex-end; */
 }
 
 .writeBtnOutline {
+  margin-left: auto;
   cursor: pointer;
   border: 2px solid #000000;
   border-radius: 3rem;
   padding: 1rem;
-  /* justify-content: end; */
 }
 .writeBtnOutline:active {
   position: relative;
   top: 1px;
+}
+.writeBtnOutline:hover {
+  border: 2px solid #000000;
+  background-color: #000000;
+  color: #ffffff;
+}
+.titleNavInner {
+  margin-left: auto;
+  width: 100%;
+  height: 10vh;
+  display: flex;
+}
+
+.navContainer {
+  display: flex;
+  padding: 2rem 5rem;
+}
+
+.navItem {
+  font-family: "NanumGothic";
+  font-size: 1.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  margin: 0 2rem;
+  color: #919191;
+}
+
+.navItem:hover {
+  color: #0c884f;
+}
+
+.clickedNav {
+  color: #0c884f;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  text-decoration-color: #0c884f;
 }

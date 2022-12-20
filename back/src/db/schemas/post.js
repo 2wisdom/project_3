@@ -11,10 +11,12 @@ const PostSchema = new mongoose.Schema(
     },
     title: {
       type: String,
+      maxLength: 20,
       required: true,
     },
     contents: {
       type: String,
+      maxLength: 600,
       required: true,
     },
     author: {

@@ -1,30 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import * as SearchStyle from "../../styles/search/SearchStyle";
 import SearchIcon from "@mui/icons-material/Search";
-import * as showCardStore from "../../store/CommunityShowCard";
-import { ListItem } from "@mui/material";
-import { SettingsSystemDaydreamTwoTone } from "@mui/icons-material";
 
 const Search = ({
-  showCardData,
+  setSearchInput,
+  searchInput,
 }: {
-  showCardData: showCardStore.showCardList;
+  setSearchInput: Dispatch<SetStateAction<string>>;
+  searchInput: string;
 }) => {
-  const [searchInput, setSearchInput]: [string, (search: string) => void] =
-    useState("");
-
-  const handleOnChange: React.ChangeEventHandler<HTMLInputElement> = (e: {
-    target: { value: string };
-  }) => {
+  const handleOnChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setSearchInput(e.target.value);
   };
-  useEffect(() => {
-    const result =
-      showCardData &&
-      showCardData.docs?.filter((item: showCardStore.showCardTest) =>
-        item.title.toLowerCase().includes(searchInput.toLowerCase())
-      );
-  }, [searchInput]);
+
   return (
     <>
       <SearchStyle.Container>
@@ -33,6 +21,7 @@ const Search = ({
           type="text"
           value={searchInput}
           onChange={handleOnChange}
+          // onKeyPress={handleKeyPress}
           placeholder="검색어를 입력하세요"
         ></SearchStyle.Input>
         <SearchStyle.Iconlocation>

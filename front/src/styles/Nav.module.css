@@ -1,57 +1,76 @@
 /* jua */
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,300;1,700;1,800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,300;1,700;1,800&display=swap");
 /* Nanum Gothic */
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,300;1,700;1,800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,300;1,700;1,800&display=swap");
 /* common */
-html { font-size: 62.5%; }
+html {
+  font-size: 62.5%;
+}
 /* Hide scroll bar */
+body {
+  -ms-overflow-style: none;
+}
 
+::-webkit-scrollbar {
+  display: none;
+}
 .nav {
-    margin: 0;
-    padding: 0;
-    position:sticky;
-    top:0;
-    z-index: 1;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #ffffff;
 }
 ul {
-    list-style:none;
+  list-style: none;
 }
 .navContainer {
-    margin-left: 3rem;
-    margin-right: 3rem;
-    display: flex;
+  display: flex;
+  align-items: center;
 }
 
 /* logo styles */
 .logo {
-
 }
-.logoTitle{
-    color:#000000;
-    font-weight: 700;
-    font-size: 2.2rem;
-    font-family: 'Nansum Gothic', sans-serif;
-    cursor: pointer;
+.logoTitle {
+  color: #000000;
+  font-weight: 700;
+  font-size: 2.2rem;
+  font-family: "Nansum Gothic", sans-serif;
+  cursor: pointer;
 }
 
 /* navItem */
 .navItemInner {
-    display: flex;
-    margin: auto;    
-} 
-.navItem {
-    font-family: 'Jua', sans-serif;
-    font-size: 1.8rem;
-    margin-right: 4rem;
-    cursor: pointer;
-    
+  display: flex;
+  align-items: center;
+  padding-left: 0px;
 
+  padding-left: 20rem;
+  padding-right: 20rem;
+  align-content: space-between;
+
+  gap: 33px;
+}
+.navItem {
+  font-family: "Jua", sans-serif;
+  font-size: 1.8rem;
+  cursor: pointer;
 }
 
-.navItem:hover{
-    color: #3278E4;
+.navItem:hover {
+  color: #3278e4;
 }
 .loginBtn {
-    padding-top: 1rem;
-    
+  padding-top: 1rem;
+}
+
+.userIconBox {
+  margin-top: 1.5rem;
+  margin-left: 3rem;
+  cursor: pointer;
 }

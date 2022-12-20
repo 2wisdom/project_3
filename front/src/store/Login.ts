@@ -13,6 +13,7 @@ type StateProps = {
     setUser: (user: User) => void;
 }
 
+
 const useUserStore = create<StateProps>((set) => ({
     user: {
         email: "",

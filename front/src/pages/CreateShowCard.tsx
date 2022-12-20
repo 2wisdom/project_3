@@ -1,11 +1,8 @@
-import React, { RefObject, useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Create from "../styles/showOffPage/CreateShowCard.module.css";
-import blankImg from "../../assets/community/blankImg.png";
-import ShowCard from "@/components/card/ShowCard";
 import * as Api from "../api/Api";
-import axios from "axios";
-import { response } from "express";
+import uploadImg from "../../assets/findPlant/upload.png";
 
 interface ShowCardData {
   title: string;
@@ -20,13 +17,11 @@ const CreateShowCard = () => {
     imageUrl: "",
   });
   const formData = new FormData();
-  const [title, setTitle] = useState("");
   const [showCardImage, setShowCardImage] = useState({
     imageFileUrl: "",
-    previewURL: blankImg,
+    previewURL: uploadImg,
   });
   const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
@@ -34,49 +29,41 @@ const CreateShowCard = () => {
     e.preventDefault();
     const reader = new FileReader();
     let result = "";
-    // let res = {};
-    if (!showCardImage.imageFileUrl) {
-      reader.onload = async () => {
-        if (reader.readyState === 2) {
-          // console.log("e.target.files[0].name", e.target.files[0]);
-          formData.append("image", e.target.files[0] as any);
-          // const text = formData.get("image") as string;
-          // console.log("imageText", text);
-          // console.log("image", text);
-          if (formData) {
-            try {
-              let res = axios({
-                method: "post",
-                url: "http://localhost:5000/images/image-upload",
-                data: formData,
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                  Authorization: `Bearer ${localStorage.getItem(
-                    "accessToken"
-                  )}`,
-                },
-              });
-              result = (await res).data.url;
-              console.log("result: ", result);
-            } catch (err) {
-              console.log("imageErr", err);
+    const correctForm = /(.*?)\.(jpg|jpeg|png)$/;
+    if (!e.target.files[0].name.match(correctForm)) {
+      alert("소문자로 된  png, jpg, jpeg 확장자 파일만 업로드 가능합니다.");
+      return;
+    } else {
+      if (!showCardImage.imageFileUrl) {
+        reader.onload = async () => {
+          if (reader.readyState === 2) {
+            formData.append("image", e.target.files[0] as any);
+            if (formData) {
+              try {
+                let res = await Api.post("images/image-upload", formData, true);
+                result = res.data.url;
+              } catch (err) {
+                alert(
+                  "이미지 업로드 중 오류가 발생했습니다. 다시 시도해주세요"
+                );
+              }
             }
+            setShowCardImage({
+              imageFileUrl: result,
+              previewURL: reader.result,
+            });
+            setShowCardData((prev) => ({
+              ...prev,
+              imageUrl: result,
+            }));
           }
-          setShowCardImage({
-            imageFileUrl: result,
-            previewURL: reader.result,
-          });
-          setShowCardData((prev) => ({
-            ...prev,
-            imageUrl: result,
-          }));
-        }
-      };
-      reader.readAsDataURL(e.target.files[0]);
+        };
+        reader.readAsDataURL(e.target.files[0]);
+      }
     }
   };
   const handleSetValue = () => {
-    if (contentRef.current != null) {
+    if (contentRef.current !== null) {
       const text = contentRef.current.value;
       setContent(text);
       setShowCardData((prev) => ({
@@ -85,28 +72,19 @@ const CreateShowCard = () => {
       }));
     }
   };
-  // console.log("image", showCardImage.imageFileName);
-  // console.log(" image_file.File", showCardImage.image_file.name);
-  // console.log("preview_URL", showCardImage.preview_URL);
-
-  // formData.append("title", title);
-  // formData.append("contents", content);
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e: any
   ) => {
     e.preventDefault();
-    console.log("ShowCardData", ShowCardData);
     try {
       const res = await Api.post("posts", ShowCardData);
       if (res.status === 200 || res.status === 201) {
-        console.log("res : ", res);
-        alert("게시물올리기 성공!");
+        alert("자랑하기 업로드 성공");
         navigate("/communityShowOff");
       }
     } catch (err) {
-      console.log("err : ", err);
-      alert("게시물 올리기 실패!");
+      alert("게시물 저장 중 오류가 발생했습니다. 다시 시도해주세요");
     }
   };
 
@@ -134,7 +112,7 @@ const CreateShowCard = () => {
                 className={Create.Img}
                 src={showCardImage.previewURL}
                 onClick={() => {
-                  if (fileInput.current != null) {
+                  if (fileInput.current !== null) {
                     fileInput.current.click();
                   }
                 }}
@@ -151,6 +129,7 @@ const CreateShowCard = () => {
             ></input>
           </div>
           <textarea
+            maxLength={599}
             className={Create.content}
             ref={contentRef}
             value={content}

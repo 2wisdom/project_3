@@ -1,4 +1,7 @@
 const PostModel = require("../schemas/post");
+const { Comment } = require("./Comment");
+const { db } = require("../../db");
+const { default: mongoose } = require("mongoose");
 
 const Post = {
   /**
@@ -41,10 +44,6 @@ const Post = {
    * 포스트를 수정한다
    */
   update: (post) => {
-    // if (!post._id) {
-    //   throw Error(JSON.stringify({ message: "post._id is required" }, null, 2));
-    // }
-
     return PostModel.findByIdAndUpdate(
       post._id,
       {
@@ -57,33 +56,78 @@ const Post = {
   /**
    * 포스트를 삭제한다
    */
-  delete: (id) => {
+  delete: async (id) => {
     if (!id) {
       throw new Error({ message: "id is required" });
     }
-
+    await Comment.deleteAllByWritingId(id);
     return PostModel.findByIdAndDelete(id);
   },
 
-  /** userId와 일치하는 게시글 데이터를 조회 */
+  // userId와 일치하는 게시글 데이터를 조회
   findUserAllPosts: async (userId, page) => {
-    const allUserPosts = await PostModel.find({ author: userId })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
-      .lean();
+    try {
+      const allUserPosts = await PostModel.find({ author: userId })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .lean();
 
-    return allUserPosts;
+      return allUserPosts;
+    } catch (error) {
+      return error;
+    }
   },
 
-  /** 검색 단어와 일치하는 게시물을 조회 */
+  // userId와 일치하는 게시글 데이터 개수 조회
+  findUserAllPostsCount: async (userId) => {
+    try {
+      const allUserPostsCount = await PostModel.countDocuments({
+        author: userId,
+      }).lean();
+
+      return allUserPostsCount;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  // 검색 단어와 일치하는 게시물을 조회
   getPostsByQuestion: async (options, page) => {
-    const Posts = await PostModel.find({ $or: options })
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * 8)
-      .limit(8)
-      .lean();
-    return Posts;
+    console.log(options, page);
+    try {
+      const Posts = await PostModel.find({ $or: options })
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * process.env.PAGE_LIMIT_COUNT)
+        .limit(process.env.PAGE_LIMIT_COUNT)
+        .populate({ path: "author", select: ["_id", "name", "imageUrl"] })
+        .lean();
+      return Posts;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getPostsByQuestionCount: async (options) => {
+    try {
+      const PostsCount = await PostModel.countDocuments({
+        $or: options,
+      }).lean();
+      return PostsCount;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  deleteByAuthor: async (userId) => {
+    try {
+      const deletedUserInfo = await PostModel.deleteMany({
+        author: userId,
+      });
+      return deletedUserInfo;
+    } catch (error) {
+      return error;
+    }
   },
 };
 

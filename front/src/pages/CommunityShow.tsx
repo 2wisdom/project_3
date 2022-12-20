@@ -6,99 +6,180 @@ import ShowCardList from "../components/communityShow/CardList";
 import * as showCardStore from "../store/CommunityShowCard";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
+import useDebounce from "@/useDebounce";
+import useUserStore from "@/store/Login";
+
 import * as Api from "../api/Api";
+interface ShowCard {
+  // map: any;
+  author: {
+    _id: string;
+    email: string;
+    imageUrl: string;
+    name: string;
+    password: string;
+    updatedAt?: string;
+    createdAt?: string;
+  };
+
+  _id: string;
+  imageUrl: string;
+  title: string;
+  contents: string;
+  createdAt: string;
+  updatedAt?: string;
+  errorMessage: string;
+  totalPage: string;
+}
+
 const CommuityShow = () => {
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(8);
-  // const [challengeData, setChallengeData] = useState([]);
-  // const [originalData, setOriginalData] = useState([]);
+  const { user } = useUserStore();
+  const [showCardData, setShowCardData] = useState<ShowCard[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(true);
 
-  const showCardData = showCardStore.showCardStore(
-    (state: any) => state.showCards
-  );
-  const apiGetShowCardData = showCardStore.showCardStore(
-    (state: any) => state.apiGetShowCards
-  );
-
+  const [searchInput, setSearchInput] = useState<string>("");
+  const debounceValue = useDebounce(searchInput);
+  const [searchData, setSearchData] = useState<ShowCard[]>([]);
+  const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [searchPage, setSearchPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const isLastPage = searchPage >= totalPage;
+  const apiGetShowCardData = async () => {
+    await Api.get("posts")
+      .then((res) => {
+        setShowCardData(res.data.docs);
+        setHasNextPage(res.data.hasNextPage);
+        setPage(res.data.page);
+      })
+      .catch((err) => {
+        alert("게시물이 없습니다! 첫번째 게시물을 올려주세요😆");
+      });
+  };
   useEffect(() => {
     apiGetShowCardData();
   }, []);
-  const onClickHandelr = () => {
-    navigate("/createShowCard");
+
+  //로그인 필요 알림
+  const LoginToHavePermission = () => {
+    const isLogin = user.email !== "";
+    if (!isLogin) {
+      if (
+        confirm("로그인이 필요한 기능입니다\n로그인 페이지로 이동하시겠습니까?")
+      ) {
+        navigate("/login");
+      } else {
+        navigate(-1);
+      }
+    }
   };
 
-  // console.log("apiGetShowCardData", apiGetShowCardData);
-  // console.log("showCardData", showCardData);
-  // console.log(
-  //   "showCardData.docs && showCardData.docs[0]",
-  //   showCardData.docs && showCardData.docs[0]
-  // );
-  // console.log("showCardData.docs._id", showCardData.docs._id);
+  const moreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    Api.get(`posts?page=${page + 1}&limit=6`).then((res) => {
+      setShowCardData([...showCardData, ...res.data.docs]);
+      setHasNextPage(res.data.hasNextPage);
+      setPage(res.data.page);
+    });
+  };
+  //검색구현함수
+  useEffect(() => {
+    const getSearchCards = async () => {
+      return await Api.get(
+        `search/posts?option=all&question=${debounceValue}&page=${searchPage}`
+      )
+        .then((res) => {
+          setSearchData(res.data.searchedPosts);
+          setTotalPage(res.data.totalPage);
+          setIsSearch(true);
+          setSearchPage(searchPage + 1);
+        })
+        .catch((err) => {
+          console.log("getSearchCards Err", err);
+          alert("검색결과가 없습니다.");
+        });
+    };
+    if (debounceValue) {
+      getSearchCards();
+    } else if (!debounceValue) {
+      setIsSearch(false);
+      setSearchPage(1);
+    }
+  }, [debounceValue]);
 
-  // console.log("showCardsType", typeof showCards);
-  // const setShowCard = showCardStore((state) => state.setShowCard);
-  // // const ShowCard = showCardStore((state) => state.showCard);
-  // const ShowCard = showCardStore();
-  // useEffect(() => {
-  //   Api.get("posts").then((res) => {
-  //     setShowCard(res.data);
-  //     // console.log("res", res.data.docs[0]._id);
-  //   });
-  // }, []);
-  // console.log("showCard", ShowCard.showCard);
-  // console.log("CardData", showCardData);
-  // Api.get("posts?page=2&limit=10").then((res) => {
-  //   console.log("posts?page=1&limit=10", res);
-  // });
-  // Api.get("posts/2").then((res) => {
-  //   console.log("posts/:2", res);
-  // });
-  // {
-  //   showCards &&
-  //     showCards.docs?.map((item: any) => (
-  //       <div key={item._id}>value: {item}</div>
-  //     ));
-  // }
+  const searchMoreBtnHandler: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ) => {
+    e.preventDefault();
+    Api.get(
+      `search/posts?option=all&question=${debounceValue}&page=${searchPage}`
+    ).then((res) => {
+      setSearchData([...searchData, ...res.data.searchedPosts]);
+      setSearchPage(searchPage + 1);
+    });
+    if (!debounceValue) {
+      setIsSearch(false);
+      setSearchPage(1);
+    }
+  };
   return (
-    <>
-      <div className={Show.container}>
-        <div className={Show.Inner}>
-          <div className={Show.buttonContainer}>
-            <div className={Show.buttonInner}>
-              <button className={Show.grayBtn}>질문하기</button>
-              <button className={Show.yellowBtn}>자랑하기</button>
-            </div>
-          </div>
-          <div className={Show.rightInner}>
-            <div className={Show.titleSearchInner}>
-              <h2 className={Show.title}>내가 찍은 사진을 자랑해보세요</h2>
-              <Search showCardData={showCardData}></Search>
-            </div>
-            <div className={Show.cardInner}>
-              {showCardData && (
-                <ShowCardList showCardData={showCardData}></ShowCardList>
-              )}
-            </div>
-            <div className={Show.footer}>
-              <div className={Show.moreBtnInner}>
-                {showCardData.docs && visible < showCardData.docs.length ? (
-                  <button className={Show.moreBtn}> 더보기 </button>
-                ) : null}
-              </div>
-              <div className={Show.writeBtnInner}>
-                <EditIcon
-                  className={Show.writeBtnOutline}
-                  sx={{ fontSize: 30 }}
-                  onClick={() => {
-                    navigate("/createShowCard");
-                  }}
-                ></EditIcon>
-              </div>
-            </div>
-          </div>
+    <div className={Show.container}>
+      <div className={Show.titleSearchInner}>
+        <h2 className={Show.title}>내가 찍은 사진을 자랑하고 싶다면?</h2>
+        <div className={Show.itemInner}>
+          <p
+            className={Show.itemShow}
+            onClick={() => {
+              navigate("/communityAsk");
+            }}
+          >
+            질문하기
+          </p>
+          <p className={Show.itemAsk}>자랑하기</p>
         </div>
+        <Search
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+        ></Search>
       </div>
-    </>
+      <div className={Show.cardInner}>
+        {isSearch ? (
+          <ShowCardList showCardData={searchData}></ShowCardList>
+        ) : (
+          <ShowCardList showCardData={showCardData}></ShowCardList>
+        )}
+      </div>
+      <div className={Show.footer}>
+        {isSearch ? (
+          isLastPage ? null : (
+            <button
+              type="button"
+              className={Show.moreBtn}
+              onClick={searchMoreBtnHandler}
+            >
+              더보기
+            </button>
+          )
+        ) : showCardData && hasNextPage ? (
+          <button
+            type="button"
+            className={Show.moreBtn}
+            onClick={moreBtnHandler}
+          >
+            더보기
+          </button>
+        ) : null}
+        <EditIcon
+          className={Show.writeBtnOutline}
+          sx={{ fontSize: 30 }}
+          onClick={() => {
+            navigate("/createShowCard");
+            LoginToHavePermission();
+          }}
+        ></EditIcon>
+      </div>
+    </div>
   );
 };
 

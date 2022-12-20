@@ -1,7 +1,7 @@
 const express = require("express");
 const Post = require("../db/models/Post");
 const { loginRequired } = require("../middlewares/login_required");
-const { postController } = require("../controllers/postController");
+const { postController } = require("../controllers/PostController");
 const postRouter = express.Router();
 const path = require("path");
 const { Router } = require("express");
@@ -32,7 +32,7 @@ postRouter.put("/:postId", [loginRequired], postController.updatePost);
 
 /**
  * 게시글 삭제
- * DELETE /posts/:postIda
+ * DELETE /posts/:postId
  */
 postRouter.delete("/:postId", [loginRequired], postController.deletePost);
 

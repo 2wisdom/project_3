@@ -1,0 +1,159 @@
+.container {
+  padding-top: 5rem;
+  width: 50%;
+  margin: auto;
+  height: 80vh;
+}
+
+.inner {
+  margin-top: 5rem;
+  width: 50%;
+  margin: auto;
+  height: 80vh;
+}
+/* title & search */
+.titleSearchInner {
+  /* width: 60%; */
+  /* height: 10vh; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: "Jua", sans-serif;
+  font-weight: 300;
+  font-size: 2.5rem;
+  /* overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 200px; */
+  margin-right: 3rem;
+  padding: 0;
+}
+.itemInner {
+  display: flex;
+  /* margin: auto; */
+  padding-left: 2rem;
+  align-items: center;
+  gap: 16px;
+  padding-right: 9rem;
+  justify-content: center;
+  /* justify-items: center; */
+  /* padding-bottom: auto; */
+}
+.itemAsk {
+  padding: 0px;
+  cursor: pointer;
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  color: #0c884f;
+  text-decoration-color: #0c884f;
+}
+.itemAsk:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  color: #0c884f;
+  text-decoration-color: #0c884f;
+}
+.itemShow {
+  padding: 0px;
+  cursor: pointer;
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #919191;
+}
+.itemShow:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  color: #0c884f;
+  text-decoration-color: #0c884f;
+}
+/* card */
+.cardInner {
+  margin-left: auto;
+  width: 100%;
+  height: 70vh;
+}
+/* moreBtn */
+.footer {
+  position: fixed;
+  bottom: 10px;
+  width: 966px;
+  display: flex;
+  justify-content: center;
+}
+
+.moreBtn {
+  grid-column: 1 / span 3;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 28px;
+  border: 2px solid #000000;
+  cursor: pointer;
+  color: #000000;
+  font-size: 13px;
+  padding: 12px 20px;
+  margin-left: 404px;
+  text-decoration: none;
+}
+.moreBtn:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+.moreBtn:active {
+  position: relative;
+  top: 1px;
+}
+
+.writeBtnInner {
+}
+
+.writeBtnOutline {
+  margin-left: auto;
+  cursor: pointer;
+  border: 2px solid #000000;
+  border-radius: 3rem;
+  padding: 1rem;
+}
+.writeBtnOutline:active {
+  position: relative;
+  top: 1px;
+}
+.writeBtnOutline:hover {
+  border: 2px solid #000000;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navItem {
+  font-family: "NanumGothic";
+  font-size: 1.7rem;
+  font-weight: 800;
+  cursor: pointer;
+  color: #919191;
+}
+
+.navItem:hover {
+  color: #0c884f;
+}
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+.clickedNav {
+  color: #0c884f;
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+  text-decoration-color: #0c884f;
+}

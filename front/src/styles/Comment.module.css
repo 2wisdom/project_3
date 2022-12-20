@@ -1,0 +1,189 @@
+.container {
+  margin: 0px;
+  padding: 0px;
+  margin-top: 5rem;
+}
+
+.commentsContainer {
+  width: 100%;
+  margin: auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBox {
+  height: 20rem;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.inputBoxInner {
+  display: block;
+  width: 100%;
+}
+
+.CommentBox {
+  width: 100%;
+  font-family: "NanumGothic";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2rem;
+  color: #919191;
+  margin: 2rem 0;
+  display: block;
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 2rem;
+}
+
+.textArea {
+  height: 10rem;
+  width: 100%;
+  border: 2px solid #f5f5f5;
+  border-radius: 20px;
+  margin: 1rem 0;
+  font-size: 2rem;
+  resize: none;
+}
+
+.commentSubmitBtnContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.commentSubmitBtn {
+  width: 8rem;
+  height: 3rem;
+  background: #000000;
+  border-radius: 20px;
+  color: white;
+  font-family: "NanumGothic";
+  font-weight: 700;
+}
+
+.userInner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.userName {
+  margin-left: 2rem;
+}
+
+.btn {
+  background-color: white;
+  border: none;
+  width: 15rem;
+  cursor: pointer;
+}
+
+.nastedCommentBox {
+  margin-left: 5rem;
+  height: 10rem;
+  padding-top: 3rem;
+}
+
+.nestedCommentInputBox {
+  margin-left: 5rem;
+  padding-top: 2rem;
+  width: 100%;
+  color: black;
+  height: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.toggleBtn {
+  background: #eaebfc;
+  border-radius: 20px;
+  border: none;
+  height: 3rem;
+  cursor: pointer;
+  color: #6f77fd;
+}
+
+.nestedCmtBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.nestedCommentInput {
+  margin-left: 2rem;
+  border: none;
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+
+.nestedCmtBtnBox {
+  align-items: flex-end;
+}
+
+.secretBtn {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.Cmt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 4;
+}
+
+.Cmt:first-child {
+  line-height: 4rem;
+}
+
+.CmtBtn:first-child {
+  margin-right: 2rem;
+}
+
+/* 마이페이지 코멘트 */
+.myPageContainer {
+  width: 90%;
+  height: 80vh;
+  align-items: center;
+  width: 100rem;
+}
+
+.buttonContainer {
+  text-align: center;
+}
+
+.myPageCommentContainer {
+  display: flex;
+  margin: 5rem;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 2rem;
+  width: 100rem;
+}
+
+.nameBox {
+  display: flex;
+  flex-direction: row;
+  line-height: 2rem;
+  text-align: center;
+  margin: 3rem auto;
+}
+
+.commentContainer {
+  height: 10rem;
+  margin: 3rem 0;
+  border-bottom: solid #d9d9d9 1px;
+}
+
+.commentNothing {
+  margin-left: 5rem;
+  width: 30rem;
+}
+
+.secretIcon {
+  margin: 1rem;
+}

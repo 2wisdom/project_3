@@ -1,0 +1,372 @@
+{
+  "6033c318d5678da896eae5ae54ac60f71e5286bf": {
+    "species_id": "1391810",
+    "obs_id": "1008601284",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Heribert Zimmermann",
+    "license": "cc-by-sa",
+    "split": "val"
+  },
+  "66d6455735fbdc582629dfc58940d9f409c7a9b3": {
+    "species_id": "1363021",
+    "obs_id": "1005119570",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Jimenez Melissa",
+    "license": "cc-by-sa",
+    "split": "val"
+  },
+  "1a5c3ffe9142f29df7fb56fc519764a457e8d01d": {
+    "species_id": "1398567",
+    "obs_id": "1004431075",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Lisa",
+    "license": "cc-by-sa",
+    "split": "val"
+  },
+  "e86c71b84e97af16307801a1b986269fb4243fc1": {
+    "species_id": "1362954",
+    "obs_id": "1008006449",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Pasqualotto Rossella",
+    "license": "cc-by-sa",
+    "split": "val"
+  },
+  "8f954427dfbf8853bf8d655fa9bdda2801ebc025": {
+    "species_id": "1359498",
+    "obs_id": "1006017920",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Elizabeth Roy",
+    "license": "cc-by-sa",
+    "split": "test"
+  },
+  "8d5066818d2fc73b454188e0a382493736f8c3a5": {
+    "species_id": "1369887",
+    "obs_id": "1003646972",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Sarah",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "ce869924df8466cc351667f492d823cad5c5f366": {
+    "species_id": "1392361",
+    "obs_id": "1007723975",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Lindroos Kristian",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "5e4e9254e791d5f6f3975ccd4e4b01fcbd439b86": {
+    "species_id": "1393965",
+    "obs_id": "1005731916",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "F. Carsten",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "ad3474b4038f9aa31ec1c559fdeef3440a050bc1": {
+    "species_id": "1355978",
+    "obs_id": "1003686547",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "maxime raynal",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "31d75b075e18d6f40c866cf82d07a90e2ae65b76": {
+    "species_id": "1438352",
+    "obs_id": "1003593991",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "taylor taylor",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "da5c924723ae5c65dfb71f2c90d755df026a6e32": {
+    "species_id": "1358095",
+    "obs_id": "1008011914",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Arthur Provost",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "1fc1b971e3ce06282cafde5aa118b996506eb56b": {
+    "species_id": "1396824",
+    "obs_id": "1006434405",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Sam",
+    "license": "cc-by-sa",
+    "split": "val"
+  },
+  "34e03062fc1afcaa5519bc66c4cc589af208d020": {
+    "species_id": "1408961",
+    "obs_id": "1003871243",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Fabrizio L.",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "4c4159c3de20a80182506bab207cd605f8d2f5ad": {
+    "species_id": "1361656",
+    "obs_id": "1007142801",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Imma Llarden",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "3f500fdf2f12afb2f9e1a6cb0995654eeba2ec06": {
+    "species_id": "1396842",
+    "obs_id": "1004360062",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Matthieu Fleuet",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "c1d2448cc541f77b15ca9d9126749450bf74a173": {
+    "species_id": "1529081",
+    "obs_id": "1008660947",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Vargas Gustavo",
+    "license": "cc-by-sa",
+    "split": "val"
+  },
+  "33e22a9f360ffdd7044e6da34630a4237f7d4145": {
+    "species_id": "1408961",
+    "obs_id": "1007531390",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "JuaNk!",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "748e5d6732f6b9f0eef8331a6afc507f993afd73": {
+    "species_id": "1408961",
+    "obs_id": "1004215207",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Eileen",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "a1da828ee35288e17254e75c1ec1ccb48564bd93": {
+    "species_id": "1369960",
+    "obs_id": "1005408881",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Mdmalej",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "7f0fe219a7eceb04ffe08530ae543914cd34eb93": {
+    "species_id": "1359517",
+    "obs_id": "1003019730",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "82053d63adcd4e161a7eb9b605379ced/44799601-2f7b-48af-9006-fc0e1392fecd.jpg",
+    "author": "Lize Allonsius",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "879cee36178ae6318d2a7de8b928339bbaf8f1bb": {
+    "species_id": "1396824",
+    "obs_id": "1004294481",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Christophe Parmentier",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "2714b007200abd6f1fc2b45eda85a9814cb990f2": {
+    "species_id": "1385937",
+    "obs_id": "1007658542",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "\u041b\u0438\u043b\u0438\u044f",
+    "license": "cc-by-sa",
+    "split": "val"
+  },
+  "f1091e36456774a2602ee56fe50c19bd61b42e51": {
+    "species_id": "1396824",
+    "obs_id": "1006333652",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Fred FITTON",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "d07d41c5fc3d6110c0c6463a4f6f1f4b317867d3": {
+    "species_id": "1357677",
+    "obs_id": "1005017429",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Velling Hanna",
+    "license": "cc-by-sa",
+    "split": "test"
+  },
+  "2c5c8ddfbf7553ad341bc58496c5352ddf5174c9": {
+    "species_id": "1369887",
+    "obs_id": "1006389943",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "mmeco",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "c4cb5e58ac85aa3fb289fa63d455bc734fd9efe7": {
+    "species_id": "1385937",
+    "obs_id": "1006447504",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "neko rukia",
+    "license": "cc-by-sa",
+    "split": "test"
+  },
+  "0440d5ae9e0f097bdc0c5175a60b23b958c24787": {
+    "species_id": "1355978",
+    "obs_id": "1007041557",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "emilien \u00c9lisabeth",
+    "license": "cc-by-sa",
+    "split": "val"
+  },
+  "b544c42d60ec13292775a205a7d1d979be7df5d6": {
+    "species_id": "1397268",
+    "obs_id": "1007499982",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Pierre goupil",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "31e381a3dd4dba1aa3aacfc6f0d17139ab83ebae": {
+    "species_id": "1362954",
+    "obs_id": "1006435705",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Obeid Gharib",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "dc6e6037ff2bafdb844fe3655c9ff532d58bc551": {
+    "species_id": "1359517",
+    "obs_id": "1006153915",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Laurence Chabalier",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "2ad9dc4a56edef13320e9288ef0f2144f173cbfa": {
+    "species_id": "1396824",
+    "obs_id": "1003930986",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Becker Mandy",
+    "license": "cc-by-sa",
+    "split": "val"
+  },
+  "0d390c47ff5fc2b2b3351276d67e0f3c952f8c9d": {
+    "species_id": "1359517",
+    "obs_id": "1008580183",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Nata Ka",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "adc6b3aaca3332f0b1715851ae8e0b41494c38c1": {
+    "species_id": "1361656",
+    "obs_id": "1004235964",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Xavier Guillo",
+    "license": "cc-by-sa",
+    "split": "test"
+  },
+  "525630dae1c20ecdb1b368475287200a040a9e25": {
+    "species_id": "1359488",
+    "obs_id": "1005836705",
+    "organ": "flower",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Abbie Raymond",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "8914ff3c93a6e9195a37b0a20655973d17330c41": {
+    "species_id": "1529124",
+    "obs_id": "1007530393",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "Darkypatri",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "23daff228aa4e5e07f6a2fcb099ce567544a5315": {
+    "species_id": "1369960",
+    "obs_id": "1005226286",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "",
+    "author": "dipak vaishnav",
+    "license": "cc-by-sa",
+    "split": "train"
+  },
+  "7f499a72ffc9a68ff8849f931b3f93300da7f15f": {
+    "species_id": "1359517",
+    "obs_id": "1003453467",
+    "organ": "leaf",
+    "is_shareable": true,
+    "v1_id": "26688d6b2132865729546f15f34a72f3/38e4e424-4a85-4e4b-8b5e-6a20ac549775.jpg",
+    "author": "Octavian Chiriac",
+    "license": "cc-by-sa",
+    "split": "val"
+  }
+}
